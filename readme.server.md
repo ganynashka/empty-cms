@@ -60,13 +60,13 @@ or
 
 ### DB replication
 
-> $ mongod --config ./mongodb-1.config  
+> $ mongod --config ./mongodb-1.config // primary  
 > about to fork child process, waiting until server is ready for connections.  
 > forked process: 22066  
-> child process started successfully, parent exiting  
-> $ mongod --config ./mongodb-2.config  
-> $ mongod --config ./mongodb-3.config  
-> $ mongod --config ./mongodb-4.config  
+> child process started successfully, parent exiting    
+> $ mongod --config ./mongodb-2.config  // arbiter  
+> $ mongod --config ./mongodb-3.config  // slave  
+> $ mongod --config ./mongodb-4.config  // slave  
 
 
 > $ mongo --port 27001  

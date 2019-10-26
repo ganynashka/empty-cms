@@ -9,9 +9,25 @@ declare module 'mongodb' {
         ops: Array<MongoCollectionActionOperationType>,
     };
 
+    declare type MongoCollectionCursorStreamOptionType<ItemType> = {
+        transform?: (item: ItemType) => mixed,
+    };
+
+    declare export class MongoCollectionCursor<ItemType> {
+        stream: (option: MongoCollectionCursorStreamOptionType<ItemType>) => WritableStream,
+    }
+
+    declare type MongoCollectionFindOption = {
+        +limit?: number,
+        +skip?: number,
+        +timeout?: boolean,
+        +maxTimeMS?: number,
+    };
+
     declare export class MongoCollection<ItemType> {
         insertMany: (itemList: Array<ItemType>) => Promise<MongoCollectionActionResultType>,
         insertOne: (item: ItemType) => Promise<MongoCollectionActionResultType>,
+        find: (item: $Shape<ItemType>, options?: MongoCollectionFindOption) => MongoCollectionCursor<ItemType>,
         findOne: (item: $Shape<ItemType>) => Promise<ItemType | null>,
     }
 
