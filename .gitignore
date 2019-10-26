@@ -1,0 +1,29 @@
+#IDE
+/.idea
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# npm
+node_modules
+package-lock.json
+
+# dist
+/dist
+
+# flow css
+*.css.flow
+*.scss.flow
+
+# report
+/flow-coverage
+
+# data base
+/db
+
+# other
+.DS_Store
+__delete_and_no_commit__
+
