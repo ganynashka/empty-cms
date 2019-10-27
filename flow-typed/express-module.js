@@ -11,6 +11,7 @@ declare module 'cors' {
 declare module 'body-parser' {
     declare type BodyParser = {
         urlencoded: (setting: {extended: boolean}) => () => string,
+        json: () => () => string,
     };
 
     declare export default BodyParser;

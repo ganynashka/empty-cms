@@ -7,5 +7,6 @@ export const dataBaseConst = {
     name: 'main-db',
     collection: {
         user: 'user',
+        document: 'document',
     },
 };

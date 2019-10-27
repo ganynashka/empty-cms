@@ -9,7 +9,22 @@ export type MongoUserType = {|
     +login: string,
     +password: string,
     +register: {|
-        date: number,
+        +date: number,
     |},
-    rating: number,
+    +rating: number,
+|};
+
+export type MongoDocumentTypeType = 'article' | 'container';
+
+export type MongoDocumentType = {|
+    +_id?: mixed,
+    +slug: string,
+    +type: MongoDocumentTypeType,
+    +title: string,
+    +content: string,
+    +createdDate: number,
+    +updatedDate: number,
+    +subDocumentList: Array<string>, // list of slug
+    +tagList: Array<string>,
+    +rating: number,
 |};

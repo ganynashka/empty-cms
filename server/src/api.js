@@ -33,6 +33,21 @@ export function addApiIntoApplication(app: $Application) {
             .pipe(response.type('json'));
     });
 
+    app.post('/api/create-document', async (request: $Request, response: $Response) => {
+        console.log('---> /api/create-document');
+
+        // const {login, password} = typeConverter<{login: string, password: string}>(request.body);
+
+        console.log('---------------');
+        console.log(request.body);
+        console.log(request.body.slug);
+        console.log(request.body.tagList);
+        console.log(request.body.tagList && request.body.tagList[0]);
+        console.log('---------------');
+
+        response.json({created: true});
+    });
+
     app.post('/api/register', async (request: $Request, response: $Response) => {
         console.log('---> /api/register');
 
