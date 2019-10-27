@@ -8,7 +8,7 @@ import {typeConverter} from '../../www/js/lib/type';
 import {getSession} from './util/session';
 
 import {getCollection} from './db/util';
-import type {MongoUserType} from './db/type';
+import type {MongoDocumentType, MongoUserType} from './db/type';
 import {dataBaseConst} from './db/const';
 import {getTime} from './util/time';
 
@@ -36,14 +36,25 @@ export function addApiIntoApplication(app: $Application) {
     app.post('/api/create-document', async (request: $Request, response: $Response) => {
         console.log('---> /api/create-document');
 
-        // const {login, password} = typeConverter<{login: string, password: string}>(request.body);
+        const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(request.body);
 
-        console.log('---------------');
-        console.log(request.body);
-        console.log(request.body.slug);
-        console.log(request.body.tagList);
-        console.log(request.body.tagList && request.body.tagList[0]);
-        console.log('---------------');
+        const documentCollection = await getCollection<MongoDocumentType>(
+            dataBaseConst.name,
+            dataBaseConst.collection.document
+        );
+
+        console.log('---- mongoDocument ----');
+        console.log(mongoDocument);
+
+        const date = getTime();
+
+        const newDocument: MongoDocumentType = {
+            ...mongoDocument,
+            createdDate: date,
+            updatedDate: date,
+        };
+
+        await documentCollection.insertOne(newDocument);
 
         response.json({created: true});
     });
