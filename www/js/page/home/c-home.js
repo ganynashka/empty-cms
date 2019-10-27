@@ -51,7 +51,7 @@ export class Home extends Component<PropsType, StateType> {
                     <Link to={routeItemMap.userList.path}>Users</Link>
                 </nav>
 
-{/*
+                {/*
                 <button onClick={view.handleMouseOver} onKeyPress={view.handleMouseOver} type="button">
                     | the button |
                 </button>

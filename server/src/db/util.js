@@ -5,8 +5,10 @@ import {MongoClient} from 'mongodb';
 
 import type {NullableType} from '../../../www/js/lib/type';
 import {hasProperty} from '../../../www/js/lib/is';
+import {getTime} from '../util/time';
 
 import {dataBaseConst} from './const';
+import type {MongoUserType} from './type';
 
 const getDataBaseCache: {[key: string]: Promise<MongoDataBase>} = {};
 
@@ -46,3 +48,16 @@ export async function getCollection<ItemType>(
 
     return dataBase.collection<ItemType>(collectionName);
 }
+
+/*
+// change user type
+async function updateUserType() {
+    const userCollection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
+
+    userCollection.updateMany({}, {$set: {register: {date: getTime()}}}, {}, function () {
+        console.log(arguments);
+    });
+}
+
+updateUserType();
+*/

@@ -29,6 +29,7 @@ declare module 'mongodb' {
         insertOne: (item: ItemType) => Promise<MongoCollectionActionResultType>,
         find: (item: $Shape<ItemType>, options?: MongoCollectionFindOption) => MongoCollectionCursor<ItemType>,
         findOne: (item: $Shape<ItemType>) => Promise<ItemType | null>,
+        updateMany: (filter: $Shape<ItemType>, update: {}, options: {}, callBack: () => mixed) => mixed,
     }
 
     declare export class MongoDataBase {

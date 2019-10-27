@@ -20,21 +20,21 @@ export class UserList extends Component<PropsType, StateType> {
         };
     }
 
-    async fetchAllUsers() {
-        const userList = await getUserList();
-
-        this.setState({userList});
-    }
-
     componentDidMount() {
         (async () => {
             await this.fetchAllUsers();
         })();
     }
 
+    async fetchAllUsers() {
+        const userList = await getUserList();
+
+        this.setState({userList});
+    }
+
     render(): Node {
         const {state, props} = this;
 
-        return <div>{JSON.stringify(state)}</div>;
+        return <div>{JSON.stringify(state.userList)}</div>;
     }
 }
