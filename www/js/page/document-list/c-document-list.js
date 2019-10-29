@@ -20,10 +20,8 @@ export class DocumentList extends Component<PropsType, StateType> {
         };
     }
 
-    componentDidMount() {
-        (async () => {
-            await this.fetchAllDocuments();
-        })();
+    async componentDidMount() {
+        await this.fetchAllDocuments();
     }
 
     async fetchAllDocuments() {

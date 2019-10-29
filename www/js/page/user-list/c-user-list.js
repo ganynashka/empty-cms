@@ -20,10 +20,8 @@ export class UserList extends Component<PropsType, StateType> {
         };
     }
 
-    componentDidMount() {
-        (async () => {
-            await this.fetchAllUsers();
-        })();
+    async componentDidMount() {
+        await this.fetchAllUsers();
     }
 
     async fetchAllUsers() {

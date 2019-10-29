@@ -9,6 +9,7 @@ import {ScreenProvider} from '../screen/c-screen-context';
 import {MainWrapper} from '../main-wrapper/c-main-wrapper';
 import type {InitialDataType} from '../../../../server/src/c-initial-data-context';
 import {defaultInitialData, InitialDataProvider} from '../../../../server/src/c-initial-data-context';
+import {Header} from '../header/c-header';
 
 import {routeItemMap} from './routes';
 import {redderEmptyRoute, redderLink, redderRoute} from './render-route-helper';
@@ -22,6 +23,7 @@ export function InnerApp(props: {|+initialData: InitialDataType|}): Node {
     return (
         <InitialDataProvider value={initialData}>
             {renderWrapperList(wrapperList, [
+                <Route component={Header} key="header"/>,
                 Object.keys(routeItemMap).map((key: string): Node => redderRoute(routeItemMap[key])),
                 <Switch key="switch">
                     {Object.keys(routeItemMap).map((key: string): Node => redderEmptyRoute(routeItemMap[key]))}

@@ -2,20 +2,20 @@
 
 /* eslint consistent-this: ["error", "view"] */
 
-import type {Node} from 'react';
-import React, {Component} from 'react';
+import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
-import type {InitialDataType} from '../../../../server/src/c-initial-data-context';
-import {InitialDataConsumer} from '../../../../server/src/c-initial-data-context';
-import {LoadComponent} from '../../lib/c-load-component';
-import {Locale} from '../../component/locale/c-locale';
-import {NeedEndPoint} from '../../component/need-end-point/c-need-end-point';
+// import type {InitialDataType} from '../../../../server/src/c-initial-data-context';
+// import {InitialDataConsumer} from '../../../../server/src/c-initial-data-context';
+// import {LoadComponent} from '../../lib/c-load-component';
+// import {Locale} from '../../component/locale/c-locale';
+// import {NeedEndPoint} from '../../component/need-end-point/c-need-end-point';
 
-import {routeItemMap} from '../../component/app/routes';
+// import {routeItemMap} from '../../component/app/routes';
 
 import homeStyle from './home.style.scss';
-import pathToImage from './image/java-script-logo.png';
+// import {Header} from "../../component/header/c-header";
+// import pathToImage from './image/java-script-logo.png';
 
 type PropsType = {};
 type StateType = null;
@@ -47,12 +47,6 @@ export class Home extends Component<PropsType, StateType> {
 
         return (
             <div className={homeStyle.home__wrapper}>
-                <nav>
-                    <Link to={routeItemMap.userList.path}>Users</Link>
-                    <br/>
-                    <Link to={routeItemMap.documentList.path}>Documents</Link>
-                </nav>
-
                 {/*
                 <button onClick={view.handleMouseOver} onKeyPress={view.handleMouseOver} type="button">
                     | the button |
