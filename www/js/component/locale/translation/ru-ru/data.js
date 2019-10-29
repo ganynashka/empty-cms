@@ -13,6 +13,10 @@ export const ruRu: LangDataType = {
     LOGIN_POPUP__BUTTON_JOIN_NOW: 'Регистрация',
     LOGIN_POPUP__LINK_LOST_PASSWORD: 'Забыли пароль?',
 
+    POPUP__CONFIRM__HEADER__CONFIRMATION: '[ru-RU] Confirmation...',
+    POPUP__CONFIRM__BUTTON__CANCEL: '[ru-RU] Cancel',
+    POPUP__CONFIRM__BUTTON__OK: '[ru-RU] OK',
+
     // spec symbols
     SPACE: ' ',
     /* eslint-enable id-match, id-length */

@@ -1,0 +1,33 @@
+// @flow
+
+import type {InputValueType} from '../type';
+import {isBoolean, isNull, isNumber, isString} from '../../../../lib/is';
+
+export function noValidate(name: string, value: InputValueType, formData: {}): Array<Error> {
+    return [];
+}
+
+// eslint-disable-next-line complexity
+export function getIsRequired(name: string, value: InputValueType, formData: {}): Array<Error> {
+    const errorMessage = 'Required field!';
+    const requiredErrorList = [new Error(errorMessage)];
+
+    if (isString(value)) {
+        return value === '' ? requiredErrorList : [];
+    }
+
+    if (isNumber(value)) {
+        return value <= 0 || Number.isNaN(value) ? requiredErrorList : [];
+    }
+
+    if (isBoolean(value)) {
+        return value === false ? requiredErrorList : [];
+    }
+
+    if (isNull(value)) {
+        return requiredErrorList;
+    }
+
+    console.log(value);
+    throw new Error('Type has no validation! Add validation here!');
+}

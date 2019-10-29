@@ -1,0 +1,33 @@
+$close-button-size: 42px;
+
+.popup_header_close_button {
+    border-radius: 50%;
+    display: block;
+    height: $close-button-size;
+    position: absolute;
+    right: 17px;
+    top: 9px;
+    width: $close-button-size;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+.popup_header_close_button__cross_line_1,
+.popup_header_close_button__cross_line_2 {
+    background-color: #fff;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    width: 20px;
+}
+
+.popup_header_close_button__cross_line_1 {
+    transform: translate(-50%, -50%) rotateZ(45deg);
+}
+
+.popup_header_close_button__cross_line_2 {
+    transform: translate(-50%, -50%) rotateZ(-45deg);
+}

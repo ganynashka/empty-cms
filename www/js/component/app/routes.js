@@ -10,6 +10,7 @@ import {Contact} from '../../page/contact/c-contact';
 import {Register} from '../../page/register/c-register';
 import {UserList} from '../../page/user-list/c-user-list';
 import {DocumentList} from '../../page/document-list/c-document-list';
+import {DocumentCreate} from '../../page/document-list/c-document-create';
 
 import type {RedirectItemType, RouteItemType} from './render-route-helper';
 
@@ -27,6 +28,11 @@ export const routeItemMap: {[key: string]: RouteItemType | RedirectItemType} = {
     documentList: {
         path: '/document-list',
         component: DocumentList,
+        type: 'route',
+    },
+    documentCreate: {
+        path: '/document-create',
+        component: DocumentCreate,
         type: 'route',
     },
     login: {

@@ -13,6 +13,10 @@ export const zhCn: LangDataType = {
     LOGIN_POPUP__BUTTON_JOIN_NOW: '立即注册',
     LOGIN_POPUP__LINK_LOST_PASSWORD: '丢失密码？',
 
+    POPUP__CONFIRM__HEADER__CONFIRMATION: '[ZH-CN] Confirmation...',
+    POPUP__CONFIRM__BUTTON__CANCEL: '[ZH-CN] Cancel',
+    POPUP__CONFIRM__BUTTON__OK: '[ZH-CN] OK',
+
     // spec symbols
     SPACE: ' ',
     /* eslint-enable id-match, id-length */

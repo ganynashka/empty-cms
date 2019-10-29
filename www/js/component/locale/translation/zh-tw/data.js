@@ -13,6 +13,10 @@ export const zhTw: LangDataType = {
     LOGIN_POPUP__BUTTON_JOIN_NOW: '立即註冊',
     LOGIN_POPUP__LINK_LOST_PASSWORD: '遺失密碼？',
 
+    POPUP__CONFIRM__HEADER__CONFIRMATION: '[ZH-TW] Confirmation...',
+    POPUP__CONFIRM__BUTTON__CANCEL: '[ZH-TW] Cancel',
+    POPUP__CONFIRM__BUTTON__OK: '[ZH-TW] OK',
+
     // spec symbols
     SPACE: ' ',
     /* eslint-enable id-match, id-length */

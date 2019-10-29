@@ -1,0 +1,9 @@
+@import './../popup.style';
+
+%popup-content,
+.popup_content {
+    background-color: #fff;
+    display: block;
+    min-height: 5px;
+    padding: $popup-side-padding;
+}

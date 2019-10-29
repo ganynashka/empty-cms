@@ -1,0 +1,50 @@
+@import './../field.style';
+@import './../../../../../../css/var';
+
+$progress-bar-line-height: 16px;
+
+.progress_bar__input {
+    @extend %form--input;
+
+    border-color: transparent;
+    border-left-width: 0;
+    border-right-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 6px;
+}
+
+.progress_bar__line_wrapper {
+    background-color: #fff;
+    border-radius: $progress-bar-line-height / 2;
+    display: block;
+    height: $progress-bar-line-height;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress_bar__line,
+.progress_bar__line_background {
+    background-color: $form-main-background-color;
+    border-radius: $progress-bar-line-height / 2;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.progress_bar__line {
+    transition: ease-out width 300ms;
+    width: 0;
+    z-index: 1;
+}
+
+.progress_bar__line_error {
+    background-color: $form-main-error-color;
+}
+
+.progress_bar__line_background {
+    opacity: 0.2;
+    z-index: 0;
+}

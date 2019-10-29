@@ -11,6 +11,10 @@ export type LangDataType = {|
     +LOGIN_POPUP__BUTTON_JOIN_NOW: string,
     +LOGIN_POPUP__LINK_LOST_PASSWORD: string,
 
+    +POPUP__CONFIRM__HEADER__CONFIRMATION: string,
+    +POPUP__CONFIRM__BUTTON__CANCEL: string,
+    +POPUP__CONFIRM__BUTTON__OK: string,
+
     // spec symbols
     +SPACE: ' ',
     /* eslint-enable id-match */

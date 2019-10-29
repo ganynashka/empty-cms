@@ -13,6 +13,10 @@ export const enUs: LangDataType = {
     LOGIN_POPUP__BUTTON_JOIN_NOW: 'Join now',
     LOGIN_POPUP__LINK_LOST_PASSWORD: 'Lost Password?',
 
+    POPUP__CONFIRM__HEADER__CONFIRMATION: 'Confirmation...',
+    POPUP__CONFIRM__BUTTON__CANCEL: 'Cancel',
+    POPUP__CONFIRM__BUTTON__OK: 'OK',
+
     // spec symbols
     SPACE: ' ',
     /* eslint-enable id-match, id-length */

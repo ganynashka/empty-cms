@@ -1,0 +1,20 @@
+@import './../../../../../css/var';
+@import './../../../../../css/service';
+@import './../popup.style';
+@import './../popup-header-close-button/popup-header-close-button.style';
+
+.popup_header {
+    background-color: $form-main-background-color;
+    display: block;
+    padding: 19px ($popup-side-padding + $close-button-size) 19px $popup-side-padding;
+    position: relative;
+}
+
+.popup_header_content {
+    @extend %ellipsis;
+
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}

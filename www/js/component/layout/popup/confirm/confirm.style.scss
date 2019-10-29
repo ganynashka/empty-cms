@@ -1,0 +1,14 @@
+@import './../popup-content/popup-content.style';
+@import './../popup.style';
+
+.confirm__button_list_wrapper {
+    @extend %popup-content;
+
+    display: flex;
+    padding-top: 0;
+}
+
+.confirm__button {
+    margin-left: $popup-buttons-spacing;
+    min-width: 90px;
+}
