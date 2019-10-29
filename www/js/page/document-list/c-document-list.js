@@ -2,16 +2,16 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {MongoUserType} from '../../../../server/src/db/type';
+import type {MongoDocumentType} from '../../../../server/src/db/type';
 
-import {getUserList} from './user-list-api';
+import {getDocumentList} from './document-list-api';
 
 type StateType = {
-    +list: Array<MongoUserType>,
+    +list: Array<MongoDocumentType>,
 };
 type PropsType = {};
 
-export class UserList extends Component<PropsType, StateType> {
+export class DocumentList extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
@@ -22,12 +22,12 @@ export class UserList extends Component<PropsType, StateType> {
 
     componentDidMount() {
         (async () => {
-            await this.fetchAllUsers();
+            await this.fetchAllDocuments();
         })();
     }
 
-    async fetchAllUsers() {
-        const list = await getUserList();
+    async fetchAllDocuments() {
+        const list = await getDocumentList();
 
         this.setState({list});
     }

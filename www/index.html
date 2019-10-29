@@ -9,6 +9,9 @@
 
     <script>
         function registerServiceWorker() {
+            console.warn('---> registerServiceWorker - NOT ENABLED');
+
+            return;
             // регистрирует скрипт sw в поддерживаемых браузерах
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(() => {

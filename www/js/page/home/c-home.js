@@ -49,6 +49,8 @@ export class Home extends Component<PropsType, StateType> {
             <div className={homeStyle.home__wrapper}>
                 <nav>
                     <Link to={routeItemMap.userList.path}>Users</Link>
+                    <br/>
+                    <Link to={routeItemMap.documentList.path}>Documents</Link>
                 </nav>
 
                 {/*

@@ -21,44 +21,20 @@ export function addApiIntoApplication(app: $Application) {
         response.json(apiData);
     });
 
+    // user - get list
     app.get('/api/get-user-list', async (request: $Request, response: $Response) => {
         console.log('---> /api/get-user-list');
 
-        const userCollection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
+        const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 
         // TODO: try to remove "await", because work without it
-        (await userCollection)
+        (await collection)
             .find({})
             .stream(streamOptionsArray)
             .pipe(response.type('json'));
     });
 
-    app.post('/api/create-document', async (request: $Request, response: $Response) => {
-        console.log('---> /api/create-document');
-
-        const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(request.body);
-
-        const documentCollection = await getCollection<MongoDocumentType>(
-            dataBaseConst.name,
-            dataBaseConst.collection.document
-        );
-
-        console.log('---- mongoDocument ----');
-        console.log(mongoDocument);
-
-        const date = getTime();
-
-        const newDocument: MongoDocumentType = {
-            ...mongoDocument,
-            createdDate: date,
-            updatedDate: date,
-        };
-
-        await documentCollection.insertOne(newDocument);
-
-        response.json({created: true});
-    });
-
+    // user - get create/register
     app.post('/api/register', async (request: $Request, response: $Response) => {
         console.log('---> /api/register');
 
@@ -84,6 +60,7 @@ export function addApiIntoApplication(app: $Application) {
         response.json({register: true});
     });
 
+    // user - get login
     app.post('/api/login', async (request: $Request, response: $Response) => {
         console.log('---> /api/login');
 
@@ -106,5 +83,48 @@ export function addApiIntoApplication(app: $Application) {
         console.log(user);
 
         response.json({login: true});
+    });
+
+    // document - get list
+    app.get('/api/get-document-list', async (request: $Request, response: $Response) => {
+        console.log('---> /api/get-document-list');
+
+        const collection = await getCollection<MongoDocumentType>(
+            dataBaseConst.name,
+            dataBaseConst.collection.document
+        );
+
+        // TODO: try to remove "await", because work without it
+        (await collection)
+            .find({})
+            .stream(streamOptionsArray)
+            .pipe(response.type('json'));
+    });
+
+    // document - create
+    app.post('/api/create-document', async (request: $Request, response: $Response) => {
+        console.log('---> /api/create-document');
+
+        const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(request.body);
+
+        const documentCollection = await getCollection<MongoDocumentType>(
+            dataBaseConst.name,
+            dataBaseConst.collection.document
+        );
+
+        console.log('---- mongoDocument ----');
+        console.log(mongoDocument);
+
+        const date = getTime();
+
+        const newDocument: MongoDocumentType = {
+            ...mongoDocument,
+            createdDate: date,
+            updatedDate: date,
+        };
+
+        await documentCollection.insertOne(newDocument);
+
+        response.json({created: true});
     });
 }
