@@ -5,7 +5,7 @@
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
-import {hasProperty} from '../../../lib/is';
+import {hasProperty, isFunction} from '../../../lib/is';
 
 import type {
     FieldDataType,
@@ -18,6 +18,7 @@ import type {
 type PropsType = {|
     +config: FormGeneratorConfigType,
     +onSubmit: (formData: {}) => mixed,
+    +onError: (errorList: Array<Error>) => mixed,
     +footer: Node,
 |};
 
@@ -173,19 +174,22 @@ export class FormGenerator extends Component<PropsType, StateType> {
 
         const view = this;
         const {props, state} = view;
+        const {onError, onSubmit} = props;
+        const {formData} = state;
 
         const errorList = view.validateFieldSetList();
 
-        if (errorList.length > 0) {
-            console.log('Form has the Errors!');
-            console.log(errorList);
+        if (errorList.length === 0) {
+            onSubmit(formData);
             return;
         }
 
-        const {onSubmit} = props;
-        const {formData} = state;
+        console.log('Form has the Errors!');
+        console.log(errorList);
 
-        onSubmit(formData);
+        if (isFunction(onError)) {
+            onError(errorList);
+        }
     };
 
     render(): Node {

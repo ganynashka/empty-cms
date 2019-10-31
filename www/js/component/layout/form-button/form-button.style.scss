@@ -1,18 +1,18 @@
-@import './../../../../css/var';
+$form-generator-primary-color: #0c72ed;
+$form-generator-secondary-color: #fff;
 
 %form-button,
 .form_button {
-    background-color: $form-main-text-color;
-    border: 2px solid $form-main-background-color;
+    background-color: $form-generator-secondary-color;
+    border: 2px solid $form-generator-primary-color;
     border-radius: 19px;
     box-sizing: border-box;
-    color: $form-main-background-color;
+    color: $form-generator-primary-color;
     display: block;
-    font-family: $main-font-family;
+    font-family: inherit;
     font-size: 14px;
     height: 38px;
     padding: 0 14px 2px;
-    //font-weight: bold;
     text-align: center;
     transition: background-color linear 200ms, color linear 200ms, box-shadow linear 100ms;
 }
@@ -21,15 +21,15 @@
 .form_button__default {
     @extend %form-button;
 
-    background-color: $form-main-background-color;
-    color: $form-main-text-color;
+    background-color: $form-generator-primary-color;
+    color: $form-generator-secondary-color;
 }
 
 .form_button:focus,
 .form_button:hover,
 .form_button__default:focus,
 .form_button__default:hover {
-    background-color: $form-main-background-color;
+    background-color: $form-generator-primary-color;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
-    color: $form-main-text-color;
+    color: $form-generator-secondary-color;
 }
