@@ -1,5 +1,7 @@
 // @flow
 
+/* global alert */
+
 import React, {Component, type Node} from 'react';
 
 import {FormGenerator} from '../../component/layout/form-generator/form-generator';
@@ -15,6 +17,8 @@ import {stringToArray} from '../../component/layout/form-generator/field/input-t
 import {typeConverter} from '../../lib/type';
 import {InputSelect} from '../../component/layout/form-generator/field/input-select/c-input-select';
 import {InputTextArea} from '../../component/layout/form-generator/field/input-text-area/c-input-text-area';
+
+import {createDocument} from './document-list-api';
 
 type PropsType = {};
 type StateType = null;
@@ -134,7 +138,7 @@ const formConfig: FormGeneratorConfigType = {
 };
 
 export class DocumentCreate extends Component<PropsType, StateType> {
-    handleFormSubmit = (formData: {}) => {
+    handleFormSubmit = async (formData: {}) => {
         const documentData: FormDataMongoDocumentType = typeConverter<FormDataMongoDocumentType>(formData);
 
         const endDocumentData: MongoDocumentType = {
@@ -149,7 +153,14 @@ export class DocumentCreate extends Component<PropsType, StateType> {
             subDocumentList: stringToArray(documentData.subDocumentList, ','),
         };
 
-        console.log(endDocumentData);
+        const createDocumentResult = await createDocument(endDocumentData);
+
+        if (createDocumentResult === null) {
+            alert('success');
+            return;
+        }
+
+        alert('error');
     };
 
     renderFormFooter(): Node {

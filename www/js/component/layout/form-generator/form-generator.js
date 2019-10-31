@@ -7,6 +7,8 @@ import React, {Component} from 'react';
 
 import {hasProperty, isFunction} from '../../../lib/is';
 
+import fieldStyle from './field/field.style.scss';
+
 import type {
     FieldDataType,
     FieldSetDataType,
@@ -199,7 +201,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
         const {fieldSetList} = config;
 
         return (
-            <form action="#" method="post" onSubmit={view.handleFormSubmit}>
+            <form action="#" className={fieldStyle.form__generator} method="post" onSubmit={view.handleFormSubmit}>
                 {view.renderFieldSetList(fieldSetList)}
                 {footer}
             </form>

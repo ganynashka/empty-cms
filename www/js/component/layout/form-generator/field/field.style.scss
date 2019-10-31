@@ -7,6 +7,14 @@ $form-generator-input-border-width: 2px;
 $form-generator-input-font-size: 17px;
 $form-generator-input-side-padding: 7px;
 
+.form__generator {
+    display: block;
+
+    .form__input__invalid {
+        border-color: $form-generator-input-border-color-invalid;
+    }
+}
+
 %form--label-wrapper,
 .form__label_wrapper {
     box-sizing: border-box;
@@ -25,10 +33,6 @@ $form-generator-input-side-padding: 7px;
     height: $form-generator-input-height;
     padding: 0 $form-generator-input-side-padding;
     width: 100%;
-}
-
-.form__input__invalid {
-    border-color: $form-generator-input-border-color-invalid;
 }
 
 .form__label_description {
