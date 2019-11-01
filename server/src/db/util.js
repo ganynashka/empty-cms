@@ -21,6 +21,12 @@ export async function getDataBase(name: string): Promise<MongoDataBase> {
     getDataBaseCache[name] = new Promise<MongoDataBase>((resolve: MongoDataBase => mixed) => {
         MongoClient.connect(
             dataBaseConst.url,
+            {
+                useUnifiedTopology: true,
+                useNewUrlParser: true,
+                useCreateIndex: true,
+                useFindAndModify: false,
+            },
             (clientError: NullableType<Error>, client: NullableType<MongoClient>) => {
                 if (clientError instanceof Error) {
                     throw new TypeError('Can not connect to mongo server');

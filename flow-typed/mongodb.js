@@ -33,15 +33,26 @@ declare module 'mongodb' {
         find: (item: $Shape<ItemType>, options?: MongoCollectionFindOption) => MongoCollectionCursor<ItemType>,
         findOne: (item: $Shape<ItemType>) => Promise<ItemType | null>,
         updateMany: (filter: $Shape<ItemType>, update: {}, options: {}, callBack: () => mixed) => mixed,
-        count: () => Promise<number>,
+        countDocuments: () => Promise<number>,
     }
 
     declare export class MongoDataBase {
         collection: <ItemType>(collectionName: string) => MongoCollection<ItemType>,
     }
 
+    declare type MongoClientOptionType = {
+        useUnifiedTopology?: boolean,
+        useNewUrlParser?: boolean,
+        useCreateIndex?: boolean,
+        useFindAndModify?: boolean,
+    };
+
     declare export class MongoClient {
-        static connect: (url: string, callBack: MongoClientConnectCallBackType) => mixed,
+        static connect: (
+            url: string,
+            option?: MongoClientOptionType,
+            callBack: MongoClientConnectCallBackType,
+        ) => mixed,
         db: (dataBaseName: string) => MongoDataBase,
         close: (closeCallBack: (Error | null) => mixed) => mixed,
     }

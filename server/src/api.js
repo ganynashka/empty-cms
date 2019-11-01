@@ -48,7 +48,7 @@ export function addApiIntoApplication(app: $Application) {
 
         const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 
-        const count = await collection.count();
+        const count = await collection.countDocuments();
 
         response.send(String(count));
     });
