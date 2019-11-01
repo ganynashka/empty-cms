@@ -1,6 +1,5 @@
 // @flow
 
-import type {LangDataType} from './translation/type';
 import {enUs} from './translation/en-us/data';
 import {ruRu} from './translation/ru-ru/data';
 import {zhCn} from './translation/zh-cn/data';
@@ -8,18 +7,18 @@ import {zhTw} from './translation/zh-tw/data';
 
 export type LocaleNameType = 'en-US' | 'ru-RU' | 'zh-CN' | 'zh-TW';
 
-export const localeNameReference: {+[key: string]: LocaleNameType} = {
+export const localeNameReference = {
     enUs: 'en-US',
     ruRu: 'ru-RU',
     zhCn: 'zh-CN',
     zhTw: 'zh-TW',
 };
 
-export const allLocalesData: {+[key: LocaleNameType]: LangDataType} = {
-    [localeNameReference.enUs]: enUs,
-    [localeNameReference.ruRu]: ruRu,
-    [localeNameReference.zhCn]: zhCn,
-    [localeNameReference.zhTw]: zhTw,
+export const allLocalesData = {
+    'en-US': enUs,
+    'ru-RU': ruRu,
+    'zh-CN': zhCn,
+    'zh-TW': zhTw,
 };
 
 export const localeNameList: Array<LocaleNameType> = Object.keys(allLocalesData);
