@@ -15,6 +15,9 @@ declare module 'mongodb' {
 
     declare export class MongoCollectionCursor<ItemType> {
         stream: (option: MongoCollectionCursorStreamOptionType<ItemType>) => WritableStream,
+        limit: (size: number) => MongoCollectionCursor<ItemType>,
+        skip: (size: number) => MongoCollectionCursor<ItemType>,
+        sort: (sort: {[key: string]: 1 | -1}) => MongoCollectionCursor<ItemType>,
     }
 
     declare type MongoCollectionFindOption = {
@@ -30,6 +33,7 @@ declare module 'mongodb' {
         find: (item: $Shape<ItemType>, options?: MongoCollectionFindOption) => MongoCollectionCursor<ItemType>,
         findOne: (item: $Shape<ItemType>) => Promise<ItemType | null>,
         updateMany: (filter: $Shape<ItemType>, update: {}, options: {}, callBack: () => mixed) => mixed,
+        count: () => Promise<number>,
     }
 
     declare export class MongoDataBase {

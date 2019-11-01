@@ -24,15 +24,33 @@ export function addApiIntoApplication(app: $Application) {
 
     // user - get list
     app.get('/api/get-user-list', async (request: $Request, response: $Response) => {
-        console.log('---> /api/get-user-list');
+        console.log('---> /api/get-user-list?page-number=11&size=33&sort-direction=1|-1&sort-parameter=register.date');
 
         const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
+
+        const size = parseInt(request.param('size'), 10) || 10;
+        const pageNumber = parseInt(request.param('page-number'), 10) || 0;
+        const sortParameter = request.param('sort-parameter') || '';
+        const sortDirection = parseInt(request.param('sort-direction'), 10) || 1;
 
         // TODO: try to remove "await", because work without it
         (await collection)
             .find({})
+            .sort({[sortParameter]: sortDirection})
+            .skip(size * pageNumber)
+            .limit(size)
             .stream(streamOptionsArray)
             .pipe(response.type('json'));
+    });
+
+    app.get('/api/get-user-list-size', async (request: $Request, response: $Response) => {
+        console.log('---> /api/get-user-list-size');
+
+        const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
+
+        const count = await collection.count();
+
+        response.send(String(count));
     });
 
     // user - get create/register
