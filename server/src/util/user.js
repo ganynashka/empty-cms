@@ -4,6 +4,8 @@ import type {MongoUserType} from '../db/type';
 import {getCollection} from '../db/util';
 import {dataBaseConst} from '../db/const';
 
+export type UserLoginPasswordType = {login: string, password: string};
+
 export async function getUserByLogin(login: string): Promise<MongoUserType | null> {
     const userCollection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 

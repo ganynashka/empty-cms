@@ -22,6 +22,10 @@ package-lock.json
 
 # data base
 /db
+/db-1
+/db-2
+/db-3
+/db-4
 
 # other
 .DS_Store

@@ -6,12 +6,12 @@ import type {ApiDataType} from '../../www/js/component/need-end-point/c-need-end
 import {typeConverter} from '../../www/js/lib/type';
 
 import {getSession} from './util/session';
-
 import {getCollection} from './db/util';
 import type {MongoDocumentType, MongoUserType} from './db/type';
 import {dataBaseConst} from './db/const';
 import {getTime} from './util/time';
 import {getUserByLogin} from './util/user';
+import type {UserLoginPasswordType} from './util/user';
 
 const streamOptionsArray = {transform: (item: {}): string => JSON.stringify(item) + ','};
 
@@ -39,7 +39,7 @@ export function addApiIntoApplication(app: $Application) {
     app.post('/api/register', async (request: $Request, response: $Response) => {
         console.log('---> /api/register');
 
-        const {login, password} = typeConverter<{login: string, password: string}>(request.body);
+        const {login, password}: UserLoginPasswordType = typeConverter<UserLoginPasswordType>(request.body);
 
         const user = await getUserByLogin(login);
 
@@ -72,7 +72,7 @@ export function addApiIntoApplication(app: $Application) {
     app.post('/api/login', async (request: $Request, response: $Response) => {
         console.log('---> /api/login');
 
-        const {login, password} = typeConverter<{login: string, password: string}>(request.body);
+        const {login, password}: UserLoginPasswordType = typeConverter<UserLoginPasswordType>(request.body);
         const user = await getUserByLogin(login);
 
         if (user === null) {
