@@ -30,8 +30,10 @@ export function addApiIntoApplication(app: $Application) {
 
         const size = parseInt(request.param('size'), 10) || 10;
         const pageNumber = parseInt(request.param('page-number'), 10) || 0;
-        const sortParameter = request.param('sort-parameter') || '';
+        const sortParameter = request.param('sort-parameter') || 'login';
         const sortDirection = parseInt(request.param('sort-direction'), 10) || 1;
+
+        console.log('---> get user list', size, pageNumber, sortParameter, sortDirection);
 
         // TODO: try to remove "await", because work without it
         (await collection)
