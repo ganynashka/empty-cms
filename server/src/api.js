@@ -6,7 +6,7 @@ import type {ApiDataType} from '../../www/js/component/need-end-point/c-need-end
 import {typeConverter} from '../../www/js/lib/type';
 
 import {getSession} from './util/session';
-import {getCollection} from './db/util';
+import {getCollection, getSortDirection} from './db/util';
 import type {MongoDocumentType, MongoUserType} from './db/type';
 import {dataBaseConst} from './db/const';
 import {getTime} from './util/time';
@@ -31,7 +31,7 @@ export function addApiIntoApplication(app: $Application) {
         const size = parseInt(request.param('size'), 10) || 10;
         const pageNumber = parseInt(request.param('page-number'), 10) || 0;
         const sortParameter = request.param('sort-parameter') || 'login';
-        const sortDirection = parseInt(request.param('sort-direction'), 10) || 1;
+        const sortDirection = getSortDirection(request.param('sort-direction'));
 
         console.log('---> get user list', size, pageNumber, sortParameter, sortDirection);
 

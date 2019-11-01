@@ -1,6 +1,8 @@
 // @flow
 
 declare module 'mongodb' {
+    declare export type SortDirectionType = 1 | -1;
+
     declare type MongoClientConnectCallBackType = (connectError: Error | null, client: MongoClient | null) => mixed;
 
     declare type MongoCollectionActionOperationType = {};
@@ -17,7 +19,7 @@ declare module 'mongodb' {
         stream: (option: MongoCollectionCursorStreamOptionType<ItemType>) => WritableStream,
         limit: (size: number) => MongoCollectionCursor<ItemType>,
         skip: (size: number) => MongoCollectionCursor<ItemType>,
-        sort: (sort: {[key: string]: 1 | -1}) => MongoCollectionCursor<ItemType>,
+        sort: (sort: {[key: string]: SortDirectionType}) => MongoCollectionCursor<ItemType>,
     }
 
     declare type MongoCollectionFindOption = {

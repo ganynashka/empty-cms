@@ -1,6 +1,6 @@
 // @flow
 
-import type {MongoDataBase, MongoCollection} from 'mongodb';
+import type {MongoDataBase, MongoCollection, SortDirectionType} from 'mongodb';
 import {MongoClient} from 'mongodb';
 
 import type {NullableType} from '../../../www/js/lib/type';
@@ -9,6 +9,8 @@ import {getTime} from '../util/time';
 
 import {dataBaseConst} from './const';
 import type {MongoUserType} from './type';
+
+// export type SortDirectionType = 1 | -1;
 
 const getDataBaseCache: {[key: string]: Promise<MongoDataBase>} = {};
 
@@ -53,6 +55,12 @@ export async function getCollection<ItemType>(
     const dataBase = await getDataBase(dataBaseName);
 
     return dataBase.collection<ItemType>(collectionName);
+}
+
+export function getSortDirection(value: mixed): SortDirectionType {
+    const sortNumber = parseInt(value, 10);
+
+    return sortNumber >= 0 ? 1 : -1;
 }
 
 /*
