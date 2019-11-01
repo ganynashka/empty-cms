@@ -11,6 +11,7 @@ import {getCollection} from './db/util';
 import type {MongoDocumentType, MongoUserType} from './db/type';
 import {dataBaseConst} from './db/const';
 import {getTime} from './util/time';
+import {getUserByLogin} from './util/user';
 
 const streamOptionsArray = {transform: (item: {}): string => JSON.stringify(item) + ','};
 
@@ -40,6 +41,13 @@ export function addApiIntoApplication(app: $Application) {
 
         const {login, password} = typeConverter<{login: string, password: string}>(request.body);
 
+        const user = await getUserByLogin(login);
+
+        if (user) {
+            response.json({success: false, errorList: ['User already exists.']});
+            return;
+        }
+
         const userCollection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 
         const date = getTime();
@@ -57,7 +65,7 @@ export function addApiIntoApplication(app: $Application) {
 
         await userCollection.insertOne(newUser);
 
-        response.json({register: true});
+        response.json({success: true, errorList: []});
     });
 
     // user - get login
@@ -65,13 +73,15 @@ export function addApiIntoApplication(app: $Application) {
         console.log('---> /api/login');
 
         const {login, password} = typeConverter<{login: string, password: string}>(request.body);
-
-        const userCollection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
-
-        const user = await userCollection.findOne({login, password});
+        const user = await getUserByLogin(login);
 
         if (user === null) {
-            response.json({login: false});
+            response.json({success: false, errorList: ['User is not exists.']});
+            return;
+        }
+
+        if (user.password !== password) {
+            response.json({success: false, errorList: ['Password is wrong.']});
             return;
         }
 
@@ -82,7 +92,7 @@ export function addApiIntoApplication(app: $Application) {
         console.log('--- user ---');
         console.log(user);
 
-        response.json({login: true});
+        response.json({success: true, errorList: []});
     });
 
     // document - get list
