@@ -58,7 +58,7 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                         classNames={cssTransitionClassNameMap}
                         in={match !== null}
                         // see ../page-wrapper/page-wrapper.style.scss to use the same transition duration
-                        timeout={3000}
+                        timeout={300}
                         unmountOnExit
                     >
                         <PageWrapper>
