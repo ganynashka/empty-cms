@@ -1,0 +1,60 @@
+@import './../../../../../css/var';
+
+.table_wrapper {
+    display: block;
+    margin-bottom: $mui-unit * 3;
+}
+
+.image_wrapper {
+    cursor: pointer;
+    display: block;
+    padding-bottom: $mui-unit / 2;
+    padding-top: $mui-unit / 2;
+    width: 100%;
+}
+
+.image {
+    background-color: #999;
+    border-radius: 4px;
+    display: block;
+    margin: 0 auto;
+    max-height: 128px;
+    max-width: 128px;
+    padding: $mui-unit;
+}
+
+%table-checkbox,
+.table_checkbox {
+    background-image: url('./i/checkbox.svg');
+    height: 24px;
+    width: 24px;
+}
+
+.table_checkbox__checked {
+    @extend %table-checkbox;
+
+    background-image: url('./i/checkbox-checked.svg');
+}
+
+body {
+    .table_wrapper {
+        .table_toolbar {
+            padding-top: 0;
+        }
+    }
+
+    .sort_label,
+    .sort_label__static {
+        color: $main-text-color;
+        font-weight: bold;
+    }
+
+    .sort_label {
+        cursor: pointer;
+        flex-direction: row-reverse;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

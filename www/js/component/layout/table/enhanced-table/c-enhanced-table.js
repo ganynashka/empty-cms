@@ -1,0 +1,192 @@
+// @flow
+
+import React, {Component, type Node} from 'react';
+import Table from '@material-ui/core/Table';
+import TablePagination from '@material-ui/core/TablePagination';
+import Paper from '@material-ui/core/Paper';
+
+import {EmptyTableBody} from '../empty-table-body/c-empty-table-body';
+import {typeConverter} from '../../../../lib/type';
+
+import {EnhancedTableHead} from './c-enhanced-table-head';
+import {EnhancedTableToolbar} from './c-enhanced-table-toolbar';
+import {EnhancedTableBody} from './c-enhanced-table-body';
+import {direction, getDefaultState, getSavedState, saveState} from './helper';
+import type {SortDirectionType} from './helper';
+import type {EnhancedTableGetDataType, TableBodyCellType, TableHeaderType} from './type';
+import style from './enhanced-table.style.scss';
+
+type PropsType = {
+    +currentPage: number,
+    +getData: EnhancedTableGetDataType,
+    +header: TableHeaderType,
+    +onSortChange: () => mixed,
+    +order: SortDirectionType,
+    +orderBy: string,
+    +rowsPerPage: number,
+};
+
+type StateType = {|
+    +order: SortDirectionType,
+    +orderBy: string,
+    +rowsPerPage: number,
+    +currentPage: number,
+    +list: Array<TableBodyCellType>,
+    +allElementsNumber: number,
+    +isInProgress: boolean,
+|};
+
+export type EnhancedTablePropsType = PropsType;
+
+export class EnhancedTable extends Component<PropsType, StateType> {
+    constructor(props: PropsType) {
+        super(props);
+
+        this.state = {
+            ...getDefaultState(props),
+            ...getSavedState(props),
+            currentPage: 0,
+            list: [],
+            allElementsNumber: 0,
+            isInProgress: false,
+        };
+    }
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    fetchData = async () => {
+        this.setState({isInProgress: true});
+
+        const {state, props} = this;
+        const {currentPage, rowsPerPage, orderBy, order} = state;
+
+        const {list, allElementsNumber} = await props.getData(currentPage, rowsPerPage, orderBy, order);
+
+        this.setState({list, allElementsNumber, isInProgress: false});
+
+        saveState({order, orderBy, rowsPerPage}, props);
+    };
+
+    handleRequestSort = (event: SyntheticEvent<HTMLElement>, orderBy: string) => {
+        const {orderBy: oldOrderBy, order: oldOrder} = this.state;
+        const order = oldOrderBy === orderBy && oldOrder === direction.desc ? direction.asc : direction.desc;
+
+        // eslint-disable-next-line react/no-set-state
+        this.setState({order, orderBy}, this.fetchData);
+    };
+
+    handleChangePage = (event: SyntheticEvent<HTMLElement> | null, currentPage: number) => {
+        // eslint-disable-next-line react/no-set-state
+        this.setState({currentPage}, this.fetchData);
+    };
+
+    handleChangeRowsPerPage = (event: SyntheticEvent<HTMLElement> | null) => {
+        if (event === null) {
+            return;
+        }
+
+        const {value}: {value?: mixed} = typeConverter<{value?: mixed}>(event.target);
+
+        // eslint-disable-next-line react/no-set-state
+        this.setState({rowsPerPage: parseInt(value, 10) || 0}, this.fetchData);
+    };
+
+    renderNoData(): Node {
+        const {props, state} = this;
+        const {header} = props;
+        const {order, orderBy} = state;
+
+        return (
+            <Table key="table">
+                <EnhancedTableHead order={order} orderBy={orderBy} rowList={header.rowList}/>
+
+                <EmptyTableBody colSpan={header.rowList.length}/>
+            </Table>
+        );
+    }
+
+    /*
+    handleSortChange = (rowList: Array<TableBodyCellType>) => {
+        const {props} = this;
+        const {onSortChange} = props;
+
+        if (onSortChange instanceof Function) {
+            onSortChange(rowList);
+        }
+    };
+*/
+
+    renderData(): Node {
+        const {props, state} = this;
+        const {header} = props;
+        const {order, orderBy, rowsPerPage, currentPage, list, allElementsNumber} = state;
+
+        return [
+            <Table key="table">
+                <EnhancedTableHead
+                    onRequestSort={this.handleRequestSort}
+                    order={order}
+                    orderBy={orderBy}
+                    rowList={header.rowList}
+                />
+                <EnhancedTableBody
+                    // currentPage={currentPage}
+                    header={header}
+                    // onSortChange={this.handleSortChange}
+                    // rowsPerPage={rowsPerPage}
+                    table={{
+                        rowList: list,
+                        rowMode: 'static',
+                    }}
+                />
+            </Table>,
+            <TablePagination
+                backIconButtonProps={{
+                    'aria-label': 'Previous Page',
+                }}
+                component="div"
+                count={allElementsNumber}
+                key="table-pagination"
+                nextIconButtonProps={{
+                    'aria-label': 'Next Page',
+                }}
+                onChangePage={this.handleChangePage}
+                onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                page={currentPage}
+                rowsPerPage={rowsPerPage}
+                rowsPerPageOptions={[100, 1e3, 10e3]}
+            />,
+        ];
+    }
+
+    renderContent(): Node {
+        const {state} = this;
+        const {list, isInProgress} = state;
+
+        if (isInProgress) {
+            // return <Spinner isFull isShow/>;
+            return <h1>Loading...</h1>;
+        }
+
+        return list.length === 0 ? this.renderNoData() : this.renderData();
+    }
+
+    render(): Node {
+        const {props} = this;
+        const {header} = props;
+        const headerText = header.header;
+        // const headerId = headerText.replace(/\s/gi, '-').toLowerCase();
+
+        return (
+            <Paper
+                className={style.table_wrapper}
+                // data-at-table-name={headerId}
+            >
+                <EnhancedTableToolbar header={headerText}/>
+                {this.renderContent()}
+            </Paper>
+        );
+    }
+}
