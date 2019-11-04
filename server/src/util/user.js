@@ -15,8 +15,8 @@ export async function getUserByLogin(login: string): Promise<MongoUserType | nul
     return userCollection.findOne({login});
 }
 
-const sha256PasswordHmac = crypto.createHmac('sha256', passwordKey);
-
 export function getPasswordSha256(text: string): string {
+    const sha256PasswordHmac = crypto.createHmac('sha256', passwordKey);
+
     return sha256PasswordHmac.update(text).digest('hex');
 }
