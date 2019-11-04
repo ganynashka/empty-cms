@@ -5,7 +5,8 @@
 import type {MongoUserType} from '../../../../server/src/db/type';
 
 export async function getUserList(): Promise<Array<MongoUserType>> {
-    const rawList: string = await (await fetch('/api/get-user-list')).text();
+    const rawFetchedData = await fetch('/api/get-user-list');
+    const rawList: string = await rawFetchedData.text();
 
     return JSON.parse('[' + rawList.replace(/,$/, '') + ']');
 }

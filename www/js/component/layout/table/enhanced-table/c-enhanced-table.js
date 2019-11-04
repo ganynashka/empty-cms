@@ -17,10 +17,10 @@ import type {EnhancedTableGetDataType, TableBodyCellType, TableHeaderType} from 
 import style from './enhanced-table.style.scss';
 
 type PropsType = {
-    +currentPage: number,
+    +pageIndex: number,
     +getData: EnhancedTableGetDataType,
     +header: TableHeaderType,
-    +onSortChange: () => mixed,
+    // +onSortChange: () => mixed,
     +order: SortDirectionType,
     +orderBy: string,
     +rowsPerPage: number,
@@ -30,7 +30,7 @@ type StateType = {|
     +order: SortDirectionType,
     +orderBy: string,
     +rowsPerPage: number,
-    +currentPage: number,
+    +pageIndex: number,
     +list: Array<TableBodyCellType>,
     +allElementsNumber: number,
     +isInProgress: boolean,
@@ -45,7 +45,7 @@ export class EnhancedTable extends Component<PropsType, StateType> {
         this.state = {
             ...getDefaultState(props),
             ...getSavedState(props),
-            currentPage: 0,
+            pageIndex: 0,
             list: [],
             allElementsNumber: 0,
             isInProgress: false,
@@ -60,9 +60,9 @@ export class EnhancedTable extends Component<PropsType, StateType> {
         this.setState({isInProgress: true});
 
         const {state, props} = this;
-        const {currentPage, rowsPerPage, orderBy, order} = state;
+        const {pageIndex, rowsPerPage, orderBy, order} = state;
 
-        const {list, allElementsNumber} = await props.getData(currentPage, rowsPerPage, orderBy, order);
+        const {list, allElementsNumber} = await props.getData(pageIndex, rowsPerPage, orderBy, order);
 
         this.setState({list, allElementsNumber, isInProgress: false});
 
@@ -77,9 +77,9 @@ export class EnhancedTable extends Component<PropsType, StateType> {
         this.setState({order, orderBy}, this.fetchData);
     };
 
-    handleChangePage = (event: SyntheticEvent<HTMLElement> | null, currentPage: number) => {
+    handleChangePage = (event: SyntheticEvent<HTMLElement> | null, pageIndex: number) => {
         // eslint-disable-next-line react/no-set-state
-        this.setState({currentPage}, this.fetchData);
+        this.setState({pageIndex}, this.fetchData);
     };
 
     handleChangeRowsPerPage = (event: SyntheticEvent<HTMLElement> | null) => {
@@ -121,7 +121,7 @@ export class EnhancedTable extends Component<PropsType, StateType> {
     renderData(): Node {
         const {props, state} = this;
         const {header} = props;
-        const {order, orderBy, rowsPerPage, currentPage, list, allElementsNumber} = state;
+        const {order, orderBy, rowsPerPage, pageIndex, list, allElementsNumber} = state;
 
         return [
             <Table key="table">
@@ -154,7 +154,7 @@ export class EnhancedTable extends Component<PropsType, StateType> {
                 }}
                 onChangePage={this.handleChangePage}
                 onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                page={currentPage}
+                page={pageIndex}
                 rowsPerPage={rowsPerPage}
                 rowsPerPageOptions={[100, 1e3, 10e3]}
             />,

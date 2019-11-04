@@ -31,7 +31,7 @@ export type TableHeaderType = {|
 |};
 
 export type TableBodyCellType = {
-    +[key: string]: Node,
+    +[key: string]: mixed,
     // +align: TableCellAlignType,
     // +id: string,
 };
@@ -53,8 +53,8 @@ export type EnhancedTableGetDataResultType = {|
 |};
 
 export type EnhancedTableGetDataType = (
-    currentPage: number,
+    pageIndex: number,
     rowsPerPage: number,
     orderBy: string,
     order: SortDirectionType,
-) => EnhancedTableGetDataResultType;
+) => Promise<EnhancedTableGetDataResultType>;
