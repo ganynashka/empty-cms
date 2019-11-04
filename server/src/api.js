@@ -75,14 +75,12 @@ export function addApiIntoApplication(app: $Application) {
         const date = getTime();
 
         const newUser: MongoUserType = {
+            id: String(date) + '-' + String(Math.random()),
+            role: 'user',
             login,
             password,
-            role: 'user',
-            id: String(date + Math.random()),
             rating: 0,
-            register: {
-                date,
-            },
+            registerDate: date,
         };
 
         await userCollection.insertOne(newUser);

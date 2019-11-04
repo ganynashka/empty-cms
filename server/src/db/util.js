@@ -68,9 +68,12 @@ export function getSortDirection(value: mixed): SortDirectionType {
 async function updateUserType() {
     const userCollection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 
-    userCollection.updateMany({}, {$set: {register: {date: getTime()}}}, {}, function () {
-        console.log(arguments);
-    });
+    // userCollection.updateMany({}, {$set: {registerDate: getTime()}}, {}, function () {
+    //     console.log(arguments);
+    // });
+    // userCollection.updateMany({}, {$unset: {register: ''}}, {}, function () {
+    //     console.log(arguments);
+    // });
 }
 
 updateUserType();
