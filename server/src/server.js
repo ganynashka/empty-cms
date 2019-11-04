@@ -4,7 +4,7 @@
 
 /* eslint no-process-env: 0, id-match: 0, optimize-regex/optimize-regex: 0, react/no-danger: 0 */
 
-import type {IncomingMessage, ServerResponse} from 'http';
+// import type {IncomingMessage, ServerResponse} from 'http';
 import https from 'https';
 import path from 'path';
 
@@ -21,6 +21,7 @@ import {InnerApp} from '../../www/js/component/app/c-inner-app';
 import {pathToDist, pathToStaticFileFolder, ssrServerPort} from '../../webpack/config';
 import {hasProperty, isObject} from '../../www/js/lib/is';
 import {sslCredentials} from '../../ssl/ssl.js';
+import {sessionKey} from '../key';
 
 import {getIndexHtmlTemplate} from './static-files';
 import {defaultInitialData, type InitialDataType} from './c-initial-data-context';
@@ -48,7 +49,7 @@ app.set('trust proxy', 1); // trust first proxy
 app.use(
     session({
         name: 'session-id',
-        secret: 'keyboard cat',
+        secret: sessionKey,
         resave: false,
         saveUninitialized: true,
     })
