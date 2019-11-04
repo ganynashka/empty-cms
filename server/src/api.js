@@ -24,23 +24,25 @@ export function addApiIntoApplication(app: $Application) {
 
     // user - get list
     app.get('/api/get-user-list', async (request: $Request, response: $Response) => {
-        console.log('---> /api/get-user-list?page-number=11&size=33&sort-direction=1|-1&sort-parameter=register.date');
+        console.log(
+            '---> /api/get-user-list?page-index=11&page-size=33&sort-direction=1|-1&sort-parameter=register.date'
+        );
 
         const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 
-        const size = parseInt(request.param('size'), 10) || 10;
-        const pageNumber = parseInt(request.param('page-number'), 10) || 0;
+        const pageIndex = parseInt(request.param('page-index'), 10) || 0;
+        const pageSize = parseInt(request.param('page-size'), 10) || 10;
         const sortParameter = request.param('sort-parameter') || 'login';
         const sortDirection = getSortDirection(request.param('sort-direction'));
 
-        console.log('---> get user list', size, pageNumber, sortParameter, sortDirection);
+        console.log('---> get user list', pageSize, pageIndex, sortParameter, sortDirection);
 
         // TODO: try to remove "await", because work without it
         (await collection)
             .find({})
             .sort({[sortParameter]: sortDirection})
-            .skip(size * pageNumber)
-            .limit(size)
+            .skip(pageSize * pageIndex)
+            .limit(pageSize)
             .stream(streamOptionsArray)
             .pipe(response.type('json'));
     });

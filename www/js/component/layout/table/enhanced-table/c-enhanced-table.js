@@ -17,13 +17,13 @@ import type {EnhancedTableGetDataType, TableBodyCellType, TableHeaderType} from 
 import style from './enhanced-table.style.scss';
 
 type PropsType = {
-    +pageIndex: number,
+    // +pageIndex: number,
     +getData: EnhancedTableGetDataType,
     +header: TableHeaderType,
     // +onSortChange: () => mixed,
-    +order: SortDirectionType,
-    +orderBy: string,
-    +rowsPerPage: number,
+    // +order: SortDirectionType,
+    // +orderBy: string,
+    // +rowsPerPage: number,
 };
 
 type StateType = {|
@@ -100,7 +100,12 @@ export class EnhancedTable extends Component<PropsType, StateType> {
 
         return (
             <Table key="table">
-                <EnhancedTableHead order={order} orderBy={orderBy} rowList={header.rowList}/>
+                <EnhancedTableHead
+                    onRequestSort={this.handleRequestSort}
+                    order={order}
+                    orderBy={orderBy}
+                    rowList={header.rowList}
+                />
 
                 <EmptyTableBody colSpan={header.rowList.length}/>
             </Table>
@@ -156,7 +161,7 @@ export class EnhancedTable extends Component<PropsType, StateType> {
                 onChangeRowsPerPage={this.handleChangeRowsPerPage}
                 page={pageIndex}
                 rowsPerPage={rowsPerPage}
-                rowsPerPageOptions={[100, 1e3, 10e3]}
+                rowsPerPageOptions={[5, 10, 25, 50, 100, 1e3, 5e3, 10e3]}
             />,
         ];
     }

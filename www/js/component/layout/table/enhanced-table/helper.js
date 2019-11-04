@@ -68,9 +68,9 @@ export type EnhancedTableSavedStateType = {|
 
 export function getDefaultState(props: EnhancedTablePropsType): EnhancedTableSavedStateType {
     return {
-        order: props.order === direction.desc ? direction.desc : direction.asc,
-        orderBy: props.orderBy || props.header.rowList[0].id,
-        rowsPerPage: props.rowsPerPage || 10,
+        order: direction.asc,
+        orderBy: props.header.rowList[0].id,
+        rowsPerPage: 100,
     };
 }
 

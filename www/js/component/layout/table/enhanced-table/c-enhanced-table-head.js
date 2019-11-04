@@ -6,14 +6,12 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
-import {isFunction} from '../../../../lib/is';
-
 import type {SortDirectionType} from './helper';
 import type {TableHeaderCellType, OnRequestSortCallBackType} from './type';
 import style from './enhanced-table.style.scss';
 
 type PropsType = {|
-    +onRequestSort?: OnRequestSortCallBackType,
+    +onRequestSort: OnRequestSortCallBackType,
     +order: SortDirectionType,
     +orderBy: string,
     +rowList: Array<TableHeaderCellType>,
@@ -27,19 +25,17 @@ export class EnhancedTableHead extends Component<PropsType, StateType> {
             const {props} = this;
             const {onRequestSort} = props;
 
-            if (isFunction(onRequestSort)) {
-                onRequestSort(event, rowId);
-            }
+            onRequestSort(event, rowId);
         };
     }
 
     renderSortLabel(row: TableHeaderCellType): Node {
         const {props} = this;
-        const {order, orderBy, onRequestSort} = props;
+        const {order, orderBy} = props;
         const rowId = row.id;
         const content = row.label;
 
-        if (isFunction(onRequestSort) && row.hasSort) {
+        if (row.hasSort === false) {
             return <span className={style.sort_label__static}>{content}</span>;
         }
 
@@ -54,10 +50,9 @@ export class EnhancedTableHead extends Component<PropsType, StateType> {
         }
 
         return (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-            <span className={style.sort_label} onClick={handleSort}>
+            <button className={style.sort_label} onClick={handleSort} type="button">
                 {content}
-            </span>
+            </button>
         );
     }
 
