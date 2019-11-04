@@ -9,16 +9,7 @@ type PropsType = {|
     +src: string,
 |};
 
-export class TableImageLink extends Component<PropsType, null> {
-    // static propTypes = {
-    //     alt: PropTypes.string,
-    //     src: PropTypes.string.isRequired,
-    // };
-
-    // handleShowFullImage = () => {
-    //     showPopup(this.renderImage());
-    // };
-
+export class EnhancedTableImage extends Component<PropsType, null> {
     renderImage(): Node {
         const {props} = this;
         const {src, alt = ''} = props;

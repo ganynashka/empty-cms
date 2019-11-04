@@ -112,17 +112,6 @@ export class EnhancedTable extends Component<PropsType, StateType> {
         );
     }
 
-    /*
-    handleSortChange = (rowList: Array<TableBodyCellType>) => {
-        const {props} = this;
-        const {onSortChange} = props;
-
-        if (onSortChange instanceof Function) {
-            onSortChange(rowList);
-        }
-    };
-*/
-
     renderData(): Node {
         const {props, state} = this;
         const {header} = props;
@@ -136,16 +125,7 @@ export class EnhancedTable extends Component<PropsType, StateType> {
                     orderBy={orderBy}
                     rowList={header.rowList}
                 />
-                <EnhancedTableBody
-                    // currentPage={currentPage}
-                    header={header}
-                    // onSortChange={this.handleSortChange}
-                    // rowsPerPage={rowsPerPage}
-                    table={{
-                        rowList: list,
-                        rowMode: 'static',
-                    }}
-                />
+                <EnhancedTableBody header={header} table={{rowList: list}}/>
             </Table>,
             <TablePagination
                 backIconButtonProps={{
@@ -172,7 +152,11 @@ export class EnhancedTable extends Component<PropsType, StateType> {
 
         if (isInProgress) {
             // return <Spinner isFull isShow/>;
-            return <h1>Loading...</h1>;
+            return (
+                <h1>
+                    <pre> Loading... </pre>
+                </h1>
+            );
         }
 
         return list.length === 0 ? this.renderNoData() : this.renderData();
@@ -182,13 +166,9 @@ export class EnhancedTable extends Component<PropsType, StateType> {
         const {props} = this;
         const {header} = props;
         const headerText = header.header;
-        // const headerId = headerText.replace(/\s/gi, '-').toLowerCase();
 
         return (
-            <Paper
-                className={style.table_wrapper}
-                // data-at-table-name={headerId}
-            >
+            <Paper className={style.table_wrapper}>
                 <EnhancedTableToolbar header={headerText}/>
                 {this.renderContent()}
             </Paper>
