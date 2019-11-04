@@ -26,9 +26,9 @@ async function enhancedTableGetUserList(
 
     return {
         list: list.map((userData: MongoUserType): EnhancedTableBodyCellType => {
-            const {id, role, login, password, rating} = userData;
+            const {id, role, login, passwordSha256, rating} = userData;
 
-            return {id, role, login, password, rating, edit: 1, remove: 1};
+            return {id, role, login, passwordSha256, rating, edit: 1, remove: 1};
         }),
         allElementsNumber: fullListSize,
     };
@@ -40,7 +40,7 @@ const enhancedTableHeader = {
         {id: 'id', align: 'left', label: 'Id', hasSort: true},
         {id: 'role', align: 'left', label: 'Role', hasSort: true},
         {id: 'login', align: 'left', label: 'Login', hasSort: true},
-        {id: 'password', align: 'left', label: 'Password', hasSort: false},
+        {id: 'passwordSha256', align: 'left', label: 'Password Sha256', hasSort: false},
         {id: 'rating', align: 'left', label: 'Rating', hasSort: true},
 
         {id: 'edit', align: 'left', label: 'Edit', hasSort: false},

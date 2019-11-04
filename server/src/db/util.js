@@ -7,6 +7,8 @@ import type {NullableType} from '../../../www/js/lib/type';
 import {hasProperty} from '../../../www/js/lib/is';
 import {getTime} from '../util/time';
 
+import {getPasswordSha256} from '../util/user';
+
 import {dataBaseConst} from './const';
 import type {MongoUserType} from './type';
 
@@ -66,7 +68,29 @@ export function getSortDirection(value: mixed): SortDirectionType {
 /*
 // change user type
 async function updateUserType() {
-    const userCollection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
+    const userCollection = await await await getCollection<MongoUserType>(
+        dataBaseConst.name,
+        dataBaseConst.collection.user
+    );
+
+    userCollection.find({}).each(function (error: Error | null, userData: MongoUserType | null) {
+        if (error || !userData) {
+            console.error('---> !!! error');
+            console.error(error);
+            console.log('---> !!! userData');
+            console.log(userData);
+            return;
+        }
+
+        console.log('---> userData');
+        console.log(userData);
+
+        // const {id, password} = userData;
+        //
+        // console.log(id, password);
+
+        // userCollection.updateOne({id}, {$set: {password: getPasswordSha256(password)}}, {});
+    });
 
     // userCollection.updateMany({}, {$set: {registerDate: getTime()}}, {}, function () {
     //     console.log(arguments);

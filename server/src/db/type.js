@@ -7,8 +7,7 @@ export type MongoUserType = {|
     +id: string,
     +role: MongoUserRoleType,
     +login: string,
-    +password: string,
-    +passwordSha256?: string,
+    +passwordSha256: string,
     +registerDate: number,
     +rating: number,
 |};

@@ -10,7 +10,7 @@ import {getCollection, getSortDirection} from './db/util';
 import type {MongoDocumentType, MongoUserType} from './db/type';
 import {dataBaseConst} from './db/const';
 import {getTime} from './util/time';
-import {getUserByLogin} from './util/user';
+import {getPasswordSha256, getUserByLogin} from './util/user';
 import type {UserLoginPasswordType} from './util/user';
 
 const streamOptionsArray = {transform: (item: {}): string => JSON.stringify(item) + ','};
@@ -78,7 +78,7 @@ export function addApiIntoApplication(app: $Application) {
             id: String(date) + '-' + String(Math.random()),
             role: 'user',
             login,
-            password,
+            passwordSha256: getPasswordSha256(password),
             rating: 0,
             registerDate: date,
         };
@@ -100,7 +100,7 @@ export function addApiIntoApplication(app: $Application) {
             return;
         }
 
-        if (user.password !== password) {
+        if (user.passwordSha256 !== getPasswordSha256(password)) {
             response.json({success: false, errorList: ['Password is wrong.']});
             return;
         }

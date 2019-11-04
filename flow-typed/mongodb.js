@@ -15,7 +15,13 @@ declare module 'mongodb' {
         transform?: (item: ItemType) => mixed,
     };
 
+    declare type MongoCollectionCursorIteratorType<ItemType> = (
+        mayBeError: Error | null,
+        item: ItemType | null,
+    ) => mixed;
+
     declare export class MongoCollectionCursor<ItemType> {
+        each: MongoCollectionCursorIteratorType<ItemType>,
         stream: (option: MongoCollectionCursorStreamOptionType<ItemType>) => WritableStream,
         limit: (size: number) => MongoCollectionCursor<ItemType>,
         skip: (size: number) => MongoCollectionCursor<ItemType>,
@@ -30,11 +36,12 @@ declare module 'mongodb' {
     };
 
     declare export class MongoCollection<ItemType> {
-        insertMany: (itemList: Array<ItemType>) => Promise<MongoCollectionActionResultType>,
         insertOne: (item: ItemType) => Promise<MongoCollectionActionResultType>,
+        insertMany: (itemList: Array<ItemType>) => Promise<MongoCollectionActionResultType>,
         find: (item: $Shape<ItemType>, options?: MongoCollectionFindOption) => MongoCollectionCursor<ItemType>,
         findOne: (item: $Shape<ItemType>) => Promise<ItemType | null>,
         updateMany: (filter: $Shape<ItemType>, update: {}, options: {}, callBack: () => mixed) => mixed,
+        updateOne: (filter: $Shape<ItemType>, update: {}, options: {}, callBack: () => mixed) => mixed,
         countDocuments: () => Promise<number>,
     }
 
