@@ -5,12 +5,13 @@
 import {isNumber, isString} from '../../../../lib/is';
 
 import type {EnhancedTablePropsType} from './c-enhanced-table';
-import type {TableHeaderCellType} from './type';
+import type {EnhancedTableHeaderCellType} from './type';
 
 export const direction = {
     asc: 'asc',
     desc: 'desc',
 };
+
 export type SortDirectionType = 'asc' | 'desc';
 
 export type EnhancedTableSavedStateType = {|
@@ -29,7 +30,7 @@ export function getDefaultState(props: EnhancedTablePropsType): EnhancedTableSav
 
 function getTableKey(props: EnhancedTablePropsType): string {
     const header = props.header.header;
-    const columns = props.header.rowList.map((column: TableHeaderCellType): string => column.id).join(' | ');
+    const columns = props.header.rowList.map((column: EnhancedTableHeaderCellType): string => column.id).join(' | ');
 
     return `Table "${header}" - ${columns}`;
 }

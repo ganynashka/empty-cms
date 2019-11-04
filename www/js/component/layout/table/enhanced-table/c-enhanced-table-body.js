@@ -7,18 +7,24 @@ import TableCell from '@material-ui/core/TableCell/TableCell';
 
 import {isBoolean} from '../../../../lib/is';
 
-import type {TableBodyType, TableHeaderType, TableHeaderCellType, TableBodyCellType} from './type';
 import {EnhancedTableCheckbox} from './ui/c-enhanced-table-checkbox';
 
+import type {
+    EnhancedTableBodyType,
+    EnhancedTableHeaderType,
+    EnhancedTableHeaderCellType,
+    EnhancedTableBodyCellType,
+} from './type';
+
 type PropsType = {
-    +header: TableHeaderType,
-    +table: TableBodyType,
+    +header: EnhancedTableHeaderType,
+    +table: EnhancedTableBodyType,
 };
 
 type StateType = null;
 
 export class EnhancedTableBody extends Component<PropsType, StateType> {
-    getCellValue(headerCell: TableHeaderCellType, row: TableBodyCellType): Node {
+    getCellValue(headerCell: EnhancedTableHeaderCellType, row: EnhancedTableBodyCellType): Node {
         const cellName = headerCell.id;
 
         const cellValue = row[cellName];
@@ -30,7 +36,7 @@ export class EnhancedTableBody extends Component<PropsType, StateType> {
         return cellValue;
     }
 
-    renderCell(headerCell: TableHeaderCellType, row: TableBodyCellType): Node {
+    renderCell(headerCell: EnhancedTableHeaderCellType, row: EnhancedTableBodyCellType): Node {
         const cellName = headerCell.id;
         const cellValue = this.getCellValue(headerCell, row);
 
@@ -41,14 +47,14 @@ export class EnhancedTableBody extends Component<PropsType, StateType> {
         );
     }
 
-    renderRow = (row: TableBodyCellType, index: number): Node => {
+    renderRow = (row: EnhancedTableBodyCellType, index: number): Node => {
         const {props} = this;
         const {header} = props;
         const {rowList} = header;
 
         return (
             <TableRow hover key={index} tabIndex={-1}>
-                {rowList.map((headerCell: TableHeaderCellType): Node => this.renderCell(headerCell, row))}
+                {rowList.map((headerCell: EnhancedTableHeaderCellType): Node => this.renderCell(headerCell, row))}
             </TableRow>
         );
     };

@@ -13,13 +13,13 @@ import {EnhancedTableToolbar} from './c-enhanced-table-toolbar';
 import {EnhancedTableBody} from './c-enhanced-table-body';
 import {direction, getDefaultState, getSavedState, saveState} from './helper';
 import type {SortDirectionType} from './helper';
-import type {EnhancedTableGetDataType, TableBodyCellType, TableHeaderType} from './type';
+import type {EnhancedTableGetDataType, EnhancedTableBodyCellType, EnhancedTableHeaderType} from './type';
 import style from './enhanced-table.style.scss';
 
 type PropsType = {
     // +pageIndex: number,
     +getData: EnhancedTableGetDataType,
-    +header: TableHeaderType,
+    +header: EnhancedTableHeaderType,
     // +onSortChange: () => mixed,
     // +order: SortDirectionType,
     // +orderBy: string,
@@ -31,7 +31,7 @@ type StateType = {|
     +orderBy: string,
     +rowsPerPage: number,
     +pageIndex: number,
-    +list: Array<TableBodyCellType>,
+    +list: Array<EnhancedTableBodyCellType>,
     +allElementsNumber: number,
     +isInProgress: boolean,
 |};

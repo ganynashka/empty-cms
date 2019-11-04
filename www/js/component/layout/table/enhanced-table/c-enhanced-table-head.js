@@ -7,14 +7,14 @@ import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 import type {SortDirectionType} from './helper';
-import type {TableHeaderCellType, OnRequestSortCallBackType} from './type';
+import type {EnhancedTableHeaderCellType, OnRequestSortCallBackType} from './type';
 import style from './enhanced-table.style.scss';
 
 type PropsType = {|
     +onRequestSort: OnRequestSortCallBackType,
     +order: SortDirectionType,
     +orderBy: string,
-    +rowList: Array<TableHeaderCellType>,
+    +rowList: Array<EnhancedTableHeaderCellType>,
 |};
 
 type StateType = null;
@@ -29,14 +29,14 @@ export class EnhancedTableHead extends Component<PropsType, StateType> {
         };
     }
 
-    renderSortLabel(row: TableHeaderCellType): Node {
+    renderSortLabel(row: EnhancedTableHeaderCellType): Node {
         const {props} = this;
         const {order, orderBy} = props;
         const rowId = row.id;
         const content = row.label;
 
         if (row.hasSort === false) {
-            return <span className={style.sort_label__static}>{content}</span>;
+            return <span className={style.sort_label}>{content}</span>;
         }
 
         const handleSort = this.createSortHandler(rowId);
@@ -56,7 +56,7 @@ export class EnhancedTableHead extends Component<PropsType, StateType> {
         );
     }
 
-    renderCell = (row: TableHeaderCellType): Node => {
+    renderCell = (row: EnhancedTableHeaderCellType): Node => {
         return (
             <TableCell align={row.align} key={row.id}>
                 {this.renderSortLabel(row)}

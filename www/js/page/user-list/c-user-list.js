@@ -5,7 +5,10 @@ import React, {Component, type Node} from 'react';
 import type {MongoUserType} from '../../../../server/src/db/type';
 import {EnhancedTable} from '../../component/layout/table/enhanced-table/c-enhanced-table';
 import type {SortDirectionType} from '../../component/layout/table/enhanced-table/helper';
-import type {EnhancedTableGetDataResultType, TableBodyCellType} from '../../component/layout/table/enhanced-table/type';
+import type {
+    EnhancedTableGetDataResultType,
+    EnhancedTableBodyCellType,
+} from '../../component/layout/table/enhanced-table/type';
 
 import {getUserList, getUserListSize} from './user-list-api';
 
@@ -22,7 +25,7 @@ async function enhancedTableGetUserList(
     const fullListSize = await getUserListSize();
 
     return {
-        list: list.map((userData: MongoUserType): TableBodyCellType => {
+        list: list.map((userData: MongoUserType): EnhancedTableBodyCellType => {
             const {id, role, login, password, rating} = userData;
 
             return {id, role, login, password, rating, edit: 1, remove: 1};

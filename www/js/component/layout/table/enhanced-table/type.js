@@ -2,32 +2,32 @@
 
 import type {SortDirectionType} from './helper';
 
-export type TableCellAlignType = 'inherit' | 'left' | 'center' | 'right' | 'justify';
+export type EnhancedTableCellAlignType = 'inherit' | 'left' | 'center' | 'right' | 'justify';
 
-export type TableHeaderCellType = {|
+export type EnhancedTableHeaderCellType = {|
     +id: string,
     +label: string,
-    +align: TableCellAlignType,
+    +align: EnhancedTableCellAlignType,
     +hasSort: boolean,
 |};
 
-export type TableHeaderType = {|
+export type EnhancedTableHeaderType = {|
     +header: string,
-    +rowList: Array<TableHeaderCellType>,
+    +rowList: Array<EnhancedTableHeaderCellType>,
 |};
 
-export type TableBodyCellType = {
+export type EnhancedTableBodyCellType = {
     +[key: string]: string | number | boolean,
 };
 
-export type TableBodyType = {|
-    +rowList: Array<TableBodyCellType>,
+export type EnhancedTableBodyType = {|
+    +rowList: Array<EnhancedTableBodyCellType>,
 |};
 
 export type OnRequestSortCallBackType = (event: SyntheticEvent<HTMLElement>, rowId: string) => mixed;
 
 export type EnhancedTableGetDataResultType = {|
-    +list: Array<TableBodyCellType>,
+    +list: Array<EnhancedTableBodyCellType>,
     +allElementsNumber: number,
 |};
 

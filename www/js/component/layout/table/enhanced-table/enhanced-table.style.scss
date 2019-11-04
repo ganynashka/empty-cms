@@ -36,25 +36,10 @@
     background-image: url('./i/checkbox-checked.svg');
 }
 
-body {
-    .table_wrapper {
-        .table_toolbar {
-            padding-top: 0;
-        }
-    }
+.sort_label {
+    cursor: pointer;
 
-    .sort_label,
-    .sort_label__static {
-        color: $main-text-color;
-        font-weight: bold;
-    }
-
-    .sort_label {
-        cursor: pointer;
-        flex-direction: row-reverse;
-
-        &:hover {
-            text-decoration: underline;
-        }
+    &:hover {
+        text-decoration: underline;
     }
 }
