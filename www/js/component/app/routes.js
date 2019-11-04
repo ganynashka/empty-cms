@@ -1,8 +1,5 @@
 // @flow
 
-// import {Component} from 'react';
-// import {React$ComponentType} from 'react';
-
 import {Home} from '../../page/home/c-home';
 import {Login} from '../../page/login/c-login';
 import {AboutUs} from '../../page/about-us/c-about-us';

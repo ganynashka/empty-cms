@@ -12,9 +12,12 @@ body {
     font-family: $main-font-family;
     font-size: $main-font-size;
     line-height: $main-line-height;
-    overflow-y: scroll;
+    min-width: 960px;
+    //overflow-y: hidden;
 }
 
 :global .app-wrapper {
+    display: flex;
+    flex-direction: column;
     min-height: 100%;
 }

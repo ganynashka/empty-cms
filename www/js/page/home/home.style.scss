@@ -1,14 +1,6 @@
-// the scss
-
 .home__wrapper {
     background-color: #ccc;
-}
-
-.image {
-    background-image: url('./image/css3-420x210.jpg');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 300px;
-    width: 50%;
+    font-size: 26px;
+    padding: 100px 10px;
+    text-align: center;
 }

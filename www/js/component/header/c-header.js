@@ -1,21 +1,23 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
-
-import React, {Component, type Node} from 'react';
+import React, {type Node} from 'react';
 import {Link} from 'react-router-dom';
-import {AppBar, Toolbar, IconButton, Typography, Button} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import {AppBar, Toolbar, Button} from '@material-ui/core';
 
 import {routeItemMap} from '../app/routes';
 
+import headerStyle from './header.style.scss';
+
 type PropsType = {};
-type StateType = null;
 
 export function Header(props: PropsType): Node {
     return (
-        <AppBar position="static">
+        <AppBar className={headerStyle.header}>
             <Toolbar>
+                <Button component={Link} size="large" to={routeItemMap.home.path} variant="contained">
+                    Home
+                </Button>
+                &nbsp;|&nbsp;
                 <Button component={Link} size="large" to={routeItemMap.userList.path} variant="contained">
                     User: list
                 </Button>
