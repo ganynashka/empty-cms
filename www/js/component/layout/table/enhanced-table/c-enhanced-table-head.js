@@ -36,7 +36,7 @@ export class EnhancedTableHead extends Component<PropsType, StateType> {
         const content = row.label;
 
         if (row.hasSort === false) {
-            return <span className={style.sort_label}>{content}</span>;
+            return <span>{content}</span>;
         }
 
         const handleSort = this.createSortHandler(rowId);
