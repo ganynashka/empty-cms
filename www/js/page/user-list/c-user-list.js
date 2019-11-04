@@ -4,6 +4,7 @@ import React, {Component, type Node} from 'react';
 
 import type {MongoUserType} from '../../../../server/src/db/type';
 import {EnhancedTable} from '../../component/layout/table/enhanced-table/c-enhanced-table';
+import {timeToHumanString} from '../../../../server/src/util/time';
 import type {SortDirectionType} from '../../component/layout/table/enhanced-table/helper';
 import type {
     EnhancedTableGetDataResultType,
@@ -26,9 +27,15 @@ async function enhancedTableGetUserList(
 
     return {
         list: list.map((userData: MongoUserType): EnhancedTableBodyCellType => {
-            const {id, role, login, passwordSha256, rating} = userData;
+            const {id, role, login, registerDate, rating} = userData;
 
-            return {id, role, login, passwordSha256, rating, edit: 1, remove: 1};
+            return {
+                id,
+                role,
+                login,
+                rating,
+                registerDate: timeToHumanString(registerDate),
+            };
         }),
         allElementsNumber: fullListSize,
     };
@@ -40,11 +47,8 @@ const enhancedTableHeader = {
         {id: 'id', align: 'left', label: 'Id', hasSort: true},
         {id: 'role', align: 'left', label: 'Role', hasSort: true},
         {id: 'login', align: 'left', label: 'Login', hasSort: true},
-        {id: 'passwordSha256', align: 'left', label: 'Password Sha256', hasSort: false},
+        {id: 'registerDate', align: 'left', label: 'Register Date', hasSort: true},
         {id: 'rating', align: 'left', label: 'Rating', hasSort: true},
-
-        {id: 'edit', align: 'left', label: 'Edit', hasSort: false},
-        {id: 'remove', align: 'right', label: 'Remove', hasSort: false},
     ],
 };
 
