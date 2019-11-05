@@ -2,27 +2,19 @@
 
 import {type $Application, type $Request, type $Response} from 'express';
 
-import type {ApiDataType} from '../../www/js/component/need-end-point/c-need-end-point';
-import {typeConverter} from '../../www/js/lib/type';
+import {typeConverter} from '../../../www/js/lib/type';
 
-import {getSession} from './util/session';
-import {getCollection, getSortDirection} from './db/util';
-import type {MongoDocumentType, MongoUserType} from './db/type';
-import {dataBaseConst} from './db/const';
-import {getTime} from './util/time';
-import {getPasswordSha256, getUserByLogin} from './util/user';
-import type {UserLoginPasswordType} from './util/user';
+import {getSession} from '../util/session';
+import {getCollection, getSortDirection} from '../db/util';
+import type {MongoUserType} from '../db/type';
+import {dataBaseConst} from '../db/const';
+import {getTime} from '../util/time';
+import type {UserLoginPasswordType} from '../util/user';
+import {getPasswordSha256, getUserByLogin} from '../util/user';
 
-const streamOptionsArray = {transform: (item: {}): string => JSON.stringify(item) + ','};
+import {streamOptionsArray} from './helper';
 
-export function addApiIntoApplication(app: $Application) {
-    app.get('/api/some-api-url', async (request: $Request, response: $Response) => {
-        const apiData: ApiDataType = {status: 'success'};
-
-        response.json(apiData);
-    });
-
-    // user - get list
+export function addUserApi(app: $Application) {
     app.get('/api/get-user-list', async (request: $Request, response: $Response) => {
         console.log(
             '---> /api/get-user-list?page-index=11&page-size=33&sort-direction=1|-1&sort-parameter=register.date'
@@ -57,7 +49,6 @@ export function addApiIntoApplication(app: $Application) {
         response.send(String(count));
     });
 
-    // user - get create/register
     app.post('/api/register', async (request: $Request, response: $Response) => {
         console.log('---> /api/register');
 
@@ -113,48 +104,5 @@ export function addApiIntoApplication(app: $Application) {
         console.log(user);
 
         response.json({success: true, errorList: []});
-    });
-
-    // document - get list
-    app.get('/api/get-document-list', async (request: $Request, response: $Response) => {
-        console.log('---> /api/get-document-list');
-
-        const collection = await getCollection<MongoDocumentType>(
-            dataBaseConst.name,
-            dataBaseConst.collection.document
-        );
-
-        // TODO: try to remove "await", because work without it
-        (await collection)
-            .find({})
-            .stream(streamOptionsArray)
-            .pipe(response.type('json'));
-    });
-
-    // document - create
-    app.post('/api/create-document', async (request: $Request, response: $Response) => {
-        console.log('---> /api/create-document');
-
-        const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(request.body);
-
-        const documentCollection = await getCollection<MongoDocumentType>(
-            dataBaseConst.name,
-            dataBaseConst.collection.document
-        );
-
-        console.log('---- mongoDocument ----');
-        console.log(mongoDocument);
-
-        const date = getTime();
-
-        const newDocument: MongoDocumentType = {
-            ...mongoDocument,
-            createdDate: date,
-            updatedDate: date,
-        };
-
-        await documentCollection.insertOne(newDocument);
-
-        response.json({created: true});
     });
 }

@@ -19,15 +19,15 @@ import session from 'express-session';
 
 import {InnerApp} from '../../www/js/component/app/c-inner-app';
 import {pathToDist, pathToStaticFileFolder, ssrServerPort} from '../../webpack/config';
-import {hasProperty, isObject} from '../../www/js/lib/is';
+import {isObject} from '../../www/js/lib/is';
 import {sslCredentials} from '../../ssl/ssl.js';
 import {sessionKey} from '../key';
 
 import {getIndexHtmlTemplate} from './static-files';
+import type {RouterStaticContextType} from './c-initial-data-context';
 import {defaultInitialData, type InitialDataType} from './c-initial-data-context';
 import {staticFilesList, stringForReplace} from './config';
-import {addApiIntoApplication} from './api';
-import type {RouterStaticContextType} from './c-initial-data-context';
+import {addApiIntoApplication} from './api/api';
 import {getSession} from './util/session';
 
 const PORT: number = ssrServerPort;
@@ -100,7 +100,7 @@ addApiIntoApplication(app);
 
 // *.html
 app.get('*', async (request: $Request, response: $Response) => {
-    const initialData: InitialDataType = {...defaultInitialData, apiData: {status: 'success from server'}};
+    const initialData: InitialDataType = {...defaultInitialData, apiData: null};
     const staticContext: RouterStaticContextType = {is404: false};
     const result = ReactDOMServer.renderToString(
         <StaticRouter context={staticContext} location={request.url}>

@@ -1,16 +1,12 @@
 // @flow
 
-import type {MongoDataBase, MongoCollection, SortDirectionType} from 'mongodb';
+import type {MongoCollection, MongoDataBase, SortDirectionType} from 'mongodb';
 import {MongoClient} from 'mongodb';
 
 import type {NullableType} from '../../../www/js/lib/type';
 import {hasProperty} from '../../../www/js/lib/is';
-import {getTime} from '../util/time';
-
-import {getPasswordSha256} from '../util/user';
 
 import {dataBaseConst} from './const';
-import type {MongoUserType} from './type';
 
 // export type SortDirectionType = 1 | -1;
 

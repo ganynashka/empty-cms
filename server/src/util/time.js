@@ -15,7 +15,6 @@ export function getTime(): number {
 export function timeToHumanString(time: number): string {
     return new Date(time - getTimezoneOffsetMS())
         .toISOString()
-        .replace('Z', '')
-        .replace(/\.\d{3}$/, '')
+        .replace(/\.\d{3}Z$/, '')
         .replace('T', ' ');
 }
