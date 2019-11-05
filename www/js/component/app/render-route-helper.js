@@ -13,6 +13,7 @@ import pageWrapperStyle from '../page-wrapper/page-wrapper.style.scss';
 
 export type RouteItemType = {|
     +path: string,
+    +dynamicPath?: string,
     // eslint-disable-next-line id-match
     +component: React$ComponentType<*>,
     +type: 'route',

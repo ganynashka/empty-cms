@@ -23,7 +23,7 @@ import {InputTextArea} from '../../component/layout/form-generator/field/input-t
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
 import {isError} from '../../lib/is';
 
-import {createDocument} from './document-list-api';
+import {createDocument} from './document-api';
 
 type PropsType = {};
 type StateType = null;

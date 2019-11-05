@@ -5,9 +5,10 @@ import {Login} from '../../page/login/c-login';
 import {AboutUs} from '../../page/about-us/c-about-us';
 import {Contact} from '../../page/contact/c-contact';
 import {Register} from '../../page/register/c-register';
-import {UserList} from '../../page/user-list/c-user-list';
-import {DocumentList} from '../../page/document-list/c-document-list';
-import {DocumentCreate} from '../../page/document-list/c-document-create';
+import {UserList} from '../../page/user/c-user-list';
+import {DocumentList} from '../../page/document/c-document-list';
+import {DocumentCreate} from '../../page/document/c-document-create';
+import {DocumentEdit} from '../../page/document/c-document-edit';
 
 import type {RedirectItemType, RouteItemType} from './render-route-helper';
 
@@ -30,6 +31,12 @@ export const routeItemMap: {[key: string]: RouteItemType | RedirectItemType} = {
     documentCreate: {
         path: '/document-create',
         component: DocumentCreate,
+        type: 'route',
+    },
+    documentEdit: {
+        path: '/document-edit',
+        dynamicPath: '/document-edit/:slug',
+        component: DocumentEdit,
         type: 'route',
     },
     login: {
