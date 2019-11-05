@@ -4,7 +4,7 @@
 
 import type {MongoUserType} from '../../../../server/src/db/type';
 import type {SortDirectionType} from '../../component/layout/table/enhanced-table/helper';
-import {direction} from '../../component/layout/table/enhanced-table/helper';
+import {getLisParametersToUrl} from '../../lib/url';
 
 export async function getUserList(
     pageIndex: number,
@@ -12,14 +12,8 @@ export async function getUserList(
     orderBy: string,
     order: SortDirectionType
 ): Promise<Array<MongoUserType>> {
-    const url = '/api/get-user-list';
-    const urlParameters = [
-        `page-index=${pageIndex}`,
-        `page-size=${rowsPerPage}`,
-        `sort-parameter=${orderBy}`,
-        `sort-direction=${order === direction.asc ? 1 : -1}`,
-    ].join('&');
-    const rawFetchedData = await fetch(url + '?' + urlParameters);
+    const url = getLisParametersToUrl('/api/get-user-list', pageIndex, rowsPerPage, orderBy, order);
+    const rawFetchedData = await fetch(url);
     const rawList: string = await rawFetchedData.text();
 
     return JSON.parse('[' + rawList.replace(/,$/, '') + ']');

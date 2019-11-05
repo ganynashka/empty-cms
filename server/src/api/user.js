@@ -3,7 +3,6 @@
 import {type $Application, type $Request, type $Response} from 'express';
 
 import {typeConverter} from '../../../www/js/lib/type';
-
 import {getSession} from '../util/session';
 import {getCollection, getSortDirection} from '../db/util';
 import type {MongoUserType} from '../db/type';
