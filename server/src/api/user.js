@@ -4,14 +4,14 @@ import {type $Application, type $Request, type $Response} from 'express';
 
 import {typeConverter} from '../../../www/js/lib/type';
 import {getSession} from '../util/session';
-import {getCollection, getSortDirection} from '../db/util';
+import {getCollection} from '../db/util';
 import type {MongoUserType} from '../db/type';
 import {dataBaseConst} from '../db/const';
 import {getTime} from '../util/time';
 import type {UserLoginPasswordType} from '../util/user';
 import {getPasswordSha256, getUserByLogin} from '../util/user';
 
-import {streamOptionsArray} from './helper';
+import {getListParameters, streamOptionsArray} from './helper';
 
 export function addUserApi(app: $Application) {
     app.get('/api/get-user-list', async (request: $Request, response: $Response) => {
@@ -21,10 +21,7 @@ export function addUserApi(app: $Application) {
 
         const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 
-        const pageIndex = parseInt(request.param('page-index'), 10) || 0;
-        const pageSize = parseInt(request.param('page-size'), 10) || 10;
-        const sortParameter = request.param('sort-parameter') || 'login';
-        const sortDirection = getSortDirection(request.param('sort-direction'));
+        const {pageIndex, pageSize, sortParameter, sortDirection} = getListParameters(request);
 
         console.log('---> get user list', pageSize, pageIndex, sortParameter, sortDirection);
 
