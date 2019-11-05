@@ -58,7 +58,7 @@ export function addDocumentApi(app: $Application) {
             dataBaseConst.collection.document
         );
 
-        const {slug} = mongoDocument;
+        const slug = mongoDocument.slug.toLowerCase().trim();
 
         const existedDocument = documentCollection.findOne({slug});
 
@@ -74,6 +74,7 @@ export function addDocumentApi(app: $Application) {
 
         const newDocument: MongoDocumentType = {
             ...mongoDocument,
+            slug,
             createdDate: date,
             updatedDate: date,
         };
