@@ -4,15 +4,12 @@
 
 import {isNumber, isString} from '../../../../lib/is';
 
-import type {EnhancedTablePropsType} from './c-enhanced-table';
-import type {EnhancedTableHeaderCellType} from './type';
+import type {EnhancedTableHeaderCellType, EnhancedTablePropsType, SortDirectionType} from './type';
 
 export const direction = {
     asc: 'asc',
     desc: 'desc',
 };
-
-export type SortDirectionType = 'asc' | 'desc';
 
 export type EnhancedTableSavedStateType = {|
     +order: SortDirectionType,

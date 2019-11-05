@@ -1,6 +1,6 @@
 // @flow
 
-import type {SortDirectionType} from '../component/layout/table/enhanced-table/helper';
+import type {SortDirectionType} from '../component/layout/table/enhanced-table/type';
 import {direction} from '../component/layout/table/enhanced-table/helper';
 
 export function getLisParametersToUrl(

@@ -1,6 +1,6 @@
 // @flow
 
-import type {SortDirectionType} from './helper';
+export type SortDirectionType = 'asc' | 'desc';
 
 export type EnhancedTableCellAlignType = 'inherit' | 'left' | 'center' | 'right' | 'justify';
 
@@ -37,3 +37,8 @@ export type EnhancedTableGetDataType = (
     orderBy: string,
     order: SortDirectionType,
 ) => Promise<EnhancedTableGetDataResultType>;
+
+export type EnhancedTablePropsType = {
+    +getData: EnhancedTableGetDataType,
+    +header: EnhancedTableHeaderType,
+};

@@ -6,8 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
-import type {SortDirectionType} from './helper';
-import type {EnhancedTableHeaderCellType, OnRequestSortCallBackType} from './type';
+import type {EnhancedTableHeaderCellType, OnRequestSortCallBackType, SortDirectionType} from './type';
 import style from './enhanced-table.style.scss';
 
 type PropsType = {|

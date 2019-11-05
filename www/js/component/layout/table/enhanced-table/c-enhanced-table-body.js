@@ -10,10 +10,10 @@ import {isBoolean} from '../../../../lib/is';
 import {EnhancedTableCheckbox} from './ui/c-enhanced-table-checkbox';
 
 import type {
-    EnhancedTableBodyType,
-    EnhancedTableHeaderType,
-    EnhancedTableHeaderCellType,
     EnhancedTableBodyCellType,
+    EnhancedTableBodyType,
+    EnhancedTableHeaderCellType,
+    EnhancedTableHeaderType,
 } from './type';
 
 type PropsType = {

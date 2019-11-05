@@ -12,19 +12,10 @@ import {EnhancedTableHead} from './c-enhanced-table-head';
 import {EnhancedTableToolbar} from './c-enhanced-table-toolbar';
 import {EnhancedTableBody} from './c-enhanced-table-body';
 import {direction, getDefaultState, getSavedState, saveState} from './helper';
-import type {SortDirectionType} from './helper';
-import type {EnhancedTableGetDataType, EnhancedTableBodyCellType, EnhancedTableHeaderType} from './type';
+import type {EnhancedTableBodyCellType, EnhancedTablePropsType, SortDirectionType} from './type';
 import style from './enhanced-table.style.scss';
 
-type PropsType = {
-    // +pageIndex: number,
-    +getData: EnhancedTableGetDataType,
-    +header: EnhancedTableHeaderType,
-    // +onSortChange: () => mixed,
-    // +order: SortDirectionType,
-    // +orderBy: string,
-    // +rowsPerPage: number,
-};
+type PropsType = EnhancedTablePropsType;
 
 type StateType = {|
     +order: SortDirectionType,
@@ -35,8 +26,6 @@ type StateType = {|
     +allElementsNumber: number,
     +isInProgress: boolean,
 |};
-
-export type EnhancedTablePropsType = PropsType;
 
 export class EnhancedTable extends Component<PropsType, StateType> {
     constructor(props: PropsType) {

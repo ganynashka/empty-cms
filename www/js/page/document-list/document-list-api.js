@@ -3,8 +3,7 @@
 /* global fetch */
 
 import type {MongoDocumentType} from '../../../../server/src/db/type';
-import type {SortDirectionType} from '../../component/layout/table/enhanced-table/helper';
-import {promiseCatch} from '../../lib/promise';
+import type {SortDirectionType} from '../../component/layout/table/enhanced-table/type';
 import {getLisParametersToUrl} from '../../lib/url';
 import type {MainServerApiResponseType} from '../../type/response';
 import {typeConverter} from '../../lib/type';

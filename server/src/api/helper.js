@@ -1,7 +1,7 @@
 // @flow
 
 import {type $Request} from 'express';
-import {type SortDirectionType} from 'mongodb';
+import {type MongoSortDirectionType} from 'mongodb';
 
 import {getSortDirection} from '../db/util';
 
@@ -11,7 +11,7 @@ export type GetListParameterType = {|
     +pageIndex: number,
     +pageSize: number,
     +sortParameter: string,
-    +sortDirection: SortDirectionType,
+    +sortDirection: MongoSortDirectionType,
 |};
 
 export function getListParameters(request: $Request): GetListParameterType {

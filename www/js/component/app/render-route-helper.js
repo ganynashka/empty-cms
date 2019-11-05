@@ -5,7 +5,7 @@
 import type {Node} from 'react';
 import React from 'react';
 import {CSSTransition} from 'react-transition-group';
-import {Link, Route, Redirect} from 'react-router-dom';
+import {Link, Redirect, Route} from 'react-router-dom';
 
 import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 import {PageWrapper} from '../page-wrapper/c-page-wrapper';

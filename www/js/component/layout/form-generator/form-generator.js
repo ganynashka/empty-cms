@@ -8,7 +8,6 @@ import React, {Component} from 'react';
 import {hasProperty, isFunction} from '../../../lib/is';
 
 import fieldStyle from './field/field.style.scss';
-import formGeneratorStyle from './form-generator.style.scss';
 
 import type {
     FieldDataType,

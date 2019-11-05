@@ -3,7 +3,7 @@
 /* global fetch */
 
 import type {MongoUserType} from '../../../../server/src/db/type';
-import type {SortDirectionType} from '../../component/layout/table/enhanced-table/helper';
+import type {SortDirectionType} from '../../component/layout/table/enhanced-table/type';
 import {getLisParametersToUrl} from '../../lib/url';
 
 export async function getUserList(

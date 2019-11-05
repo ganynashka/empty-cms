@@ -2,7 +2,7 @@
 
 import React, {type Node} from 'react';
 import {Link} from 'react-router-dom';
-import {AppBar, Toolbar, Button} from '@material-ui/core';
+import {AppBar, Button, Toolbar} from '@material-ui/core';
 
 import {routeItemMap} from '../app/routes';
 

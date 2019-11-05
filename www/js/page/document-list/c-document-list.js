@@ -5,10 +5,10 @@ import React, {Component, type Node} from 'react';
 import type {MongoDocumentType} from '../../../../server/src/db/type';
 import {EnhancedTable} from '../../component/layout/table/enhanced-table/c-enhanced-table';
 import {timeToHumanString} from '../../../../server/src/util/time';
-import type {SortDirectionType} from '../../component/layout/table/enhanced-table/helper';
 import type {
-    EnhancedTableGetDataResultType,
     EnhancedTableBodyCellType,
+    EnhancedTableGetDataResultType,
+    SortDirectionType,
 } from '../../component/layout/table/enhanced-table/type';
 
 import {getDocumentList, getDocumentListSize} from './document-list-api';
