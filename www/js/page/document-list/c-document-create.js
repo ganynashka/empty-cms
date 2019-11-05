@@ -20,8 +20,8 @@ import {stringToArray} from '../../component/layout/form-generator/field/input-t
 import {typeConverter} from '../../lib/type';
 import {InputSelect} from '../../component/layout/form-generator/field/input-select/c-input-select';
 import {InputTextArea} from '../../component/layout/form-generator/field/input-text-area/c-input-text-area';
-
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
+import {isError} from '../../lib/is';
 
 import {createDocument} from './document-list-api';
 
@@ -160,12 +160,17 @@ export class DocumentCreate extends Component<PropsType, StateType> {
 
         const createDocumentResult = await createDocument(endDocumentData);
 
-        if (createDocumentResult === null) {
-            alert('success');
+        if (isError(createDocumentResult)) {
+            alert(createDocumentResult.message);
             return;
         }
 
-        alert('error');
+        if (createDocumentResult.isSuccessful !== true) {
+            alert(createDocumentResult.errorList.join(','));
+            return;
+        }
+
+        alert('Document created!');
     };
 
     renderFormFooter(): Node {

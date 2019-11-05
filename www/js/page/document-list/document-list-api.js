@@ -6,6 +6,8 @@ import type {MongoDocumentType} from '../../../../server/src/db/type';
 import type {SortDirectionType} from '../../component/layout/table/enhanced-table/helper';
 import {promiseCatch} from '../../lib/promise';
 import {getLisParametersToUrl} from '../../lib/url';
+import type {MainServerApiResponseType} from '../../type/response';
+import {typeConverter} from '../../lib/type';
 
 export async function getDocumentList(
     pageIndex: number,
@@ -27,7 +29,7 @@ export async function getDocumentListSize(): Promise<number> {
     return parseInt(rawSize, 10);
 }
 
-export function createDocument(data: MongoDocumentType): Promise<null | Error> {
+export function createDocument(data: MongoDocumentType): Promise<MainServerApiResponseType | Error> {
     return fetch('/api/create-document', {
         method: 'POST',
         headers: {
@@ -35,6 +37,8 @@ export function createDocument(data: MongoDocumentType): Promise<null | Error> {
         },
         body: JSON.stringify(data),
     })
-        .then((): null => null)
+        .then(async (response: Response): Promise<MainServerApiResponseType | Error> => {
+            return typeConverter<MainServerApiResponseType>(await response.json());
+        })
         .catch(promiseCatch);
 }

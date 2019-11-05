@@ -53,7 +53,7 @@ export function addUserApi(app: $Application) {
         const user = await getUserByLogin(login);
 
         if (user) {
-            response.json({success: false, errorList: ['User already exists.']});
+            response.json({isSuccessful: false, errorList: ['User already exists.']});
             return;
         }
 
@@ -72,7 +72,7 @@ export function addUserApi(app: $Application) {
 
         await userCollection.insertOne(newUser);
 
-        response.json({success: true, errorList: []});
+        response.json({isSuccessful: true, errorList: []});
     });
 
     // user - get login
@@ -83,12 +83,12 @@ export function addUserApi(app: $Application) {
         const user = await getUserByLogin(login);
 
         if (user === null) {
-            response.json({success: false, errorList: ['User is not exists.']});
+            response.json({isSuccessful: false, errorList: ['User is not exists.']});
             return;
         }
 
         if (user.passwordSha256 !== getPasswordSha256(password)) {
-            response.json({success: false, errorList: ['Password is wrong.']});
+            response.json({isSuccessful: false, errorList: ['Password is wrong.']});
             return;
         }
 
@@ -99,6 +99,6 @@ export function addUserApi(app: $Application) {
         console.log('--- user ---');
         console.log(user);
 
-        response.json({success: true, errorList: []});
+        response.json({isSuccessful: true, errorList: []});
     });
 }

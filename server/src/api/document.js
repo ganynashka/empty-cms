@@ -58,6 +58,15 @@ export function addDocumentApi(app: $Application) {
             dataBaseConst.collection.document
         );
 
+        const {slug} = mongoDocument;
+
+        const existedDocument = documentCollection.findOne({slug});
+
+        if (existedDocument) {
+            response.json({isSuccessful: false, errorList: [`Document with slug: '${slug}' already exists.`]});
+            return;
+        }
+
         console.log('---- mongoDocument ----');
         console.log(mongoDocument);
 
@@ -71,6 +80,6 @@ export function addDocumentApi(app: $Application) {
 
         await documentCollection.insertOne(newDocument);
 
-        response.json({created: true});
+        response.json({isSuccessful: true, errorList: [`Document with slug: '${slug}' already exists.`]});
     });
 }
