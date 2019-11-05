@@ -11,51 +11,52 @@ import {DocumentCreate} from '../../page/document/c-document-create';
 import {DocumentEdit} from '../../page/document/c-document-edit';
 
 import type {RedirectItemType, RouteItemType} from './render-route-helper';
+import {routePathMap} from './routes-path-map';
 
 export const routeItemMap: {[key: string]: RouteItemType | RedirectItemType} = {
     home: {
-        path: '/',
+        path: routePathMap.home.path,
         component: Home,
         type: 'route',
     },
     userList: {
-        path: '/user-list',
+        path: routePathMap.userList.path,
         component: UserList,
         type: 'route',
     },
     documentList: {
-        path: '/document-list',
+        path: routePathMap.documentList.path,
         component: DocumentList,
         type: 'route',
     },
     documentCreate: {
-        path: '/document-create',
+        path: routePathMap.documentCreate.path,
         component: DocumentCreate,
         type: 'route',
     },
     documentEdit: {
-        path: '/document-edit/:slug',
-        staticPartPath: '/document-edit',
+        path: routePathMap.documentEdit.path,
+        staticPartPath: routePathMap.documentEdit.staticPartPath,
         component: DocumentEdit,
         type: 'route',
     },
     login: {
-        path: '/login',
+        path: routePathMap.login.path,
         component: Login,
         type: 'route',
     },
     register: {
-        path: '/register',
+        path: routePathMap.register.path,
         component: Register,
         type: 'route',
     },
     aboutUs: {
-        path: '/about-us',
+        path: routePathMap.aboutUs.path,
         component: AboutUs,
         type: 'route',
     },
     contact: {
-        path: '/contact',
+        path: routePathMap.contact.path,
         component: Contact,
         type: 'route',
     },

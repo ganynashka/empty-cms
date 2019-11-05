@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import type {MongoDocumentType} from '../../../../server/src/db/type';
 import {EnhancedTable} from '../../component/layout/table/enhanced-table/c-enhanced-table';
 import {timeToHumanString} from '../../../../server/src/util/time';
-import {routeItemMap} from '../../component/app/routes';
+import {routePathMap} from '../../component/app/routes-path-map';
 import type {
     EnhancedTableBodyCellType,
     EnhancedTableGetDataResultType,
@@ -26,7 +26,7 @@ async function enhancedTableGetDocumentList(
 ): Promise<EnhancedTableGetDataResultType> {
     const list = await getDocumentList(pageIndex, rowsPerPage, orderBy, order);
     const fullListSize = await getDocumentListSize();
-    const staticPartPath = String(routeItemMap.documentEdit.staticPartPath);
+    const staticPartPath = String(routePathMap.documentEdit.staticPartPath);
 
     return {
         list: list.map((documentData: MongoDocumentType): EnhancedTableBodyCellType => {
