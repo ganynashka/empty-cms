@@ -1,4 +1,12 @@
+@import './../../../css/var';
+
 .main_wrapper {
     flex-grow: 1;
     position: relative;
+}
+
+.paper_wrapper {
+    display: block;
+    margin: 0 $mui-unit * 3 $mui-unit * 3;
+    //padding-bottom: $mui-unit * 2;
 }

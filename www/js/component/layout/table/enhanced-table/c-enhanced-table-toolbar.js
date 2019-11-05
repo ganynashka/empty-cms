@@ -13,7 +13,7 @@ export function EnhancedTableToolbar(props: PropsType): Node {
 
     return (
         <Toolbar>
-            <Typography variant="h6">{header}</Typography>
+            <Typography variant="h5">{header}</Typography>
         </Toolbar>
     );
 }

@@ -1,14 +1,14 @@
-//$form-generator-field-height: 90px;
 $form-generator-input-border-color: #c6d0dd;
 $form-generator-input-border-color-invalid: #c00;
 $form-generator-input-height: 38px;
 $form-generator-input-border-radius: 5px;
 $form-generator-input-border-width: 2px;
-$form-generator-input-font-size: 17px;
+$form-generator-input-font-size: 16px;
 $form-generator-input-side-padding: 7px;
 
 .form__generator {
     display: block;
+    padding: 0 24px 24px;
 
     .form__input__invalid {
         border-color: $form-generator-input-border-color-invalid;
@@ -37,6 +37,6 @@ $form-generator-input-side-padding: 7px;
 
 .form__label_description {
     display: block;
-    font-size: 17px;
+    font-size: 16px;
     margin-bottom: 6px;
 }

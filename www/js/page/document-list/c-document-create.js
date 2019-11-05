@@ -3,6 +3,9 @@
 /* global alert */
 
 import React, {Component, type Node} from 'react';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography/Typography';
+import {Paper} from '@material-ui/core';
 
 import {FormGenerator} from '../../component/layout/form-generator/form-generator';
 import type {FormGeneratorConfigType} from '../../component/layout/form-generator/type';
@@ -17,6 +20,8 @@ import {stringToArray} from '../../component/layout/form-generator/field/input-t
 import {typeConverter} from '../../lib/type';
 import {InputSelect} from '../../component/layout/form-generator/field/input-select/c-input-select';
 import {InputTextArea} from '../../component/layout/form-generator/field/input-text-area/c-input-text-area';
+
+import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
 
 import {createDocument} from './document-list-api';
 
@@ -177,12 +182,17 @@ export class DocumentCreate extends Component<PropsType, StateType> {
 
     render(): Node {
         return (
-            <FormGenerator
-                config={formConfig}
-                footer={this.renderFormFooter()}
-                onError={this.handleFormError}
-                onSubmit={this.handleFormSubmit}
-            />
+            <Paper className={mainWrapperStyle.paper_wrapper}>
+                <Toolbar>
+                    <Typography variant="h5">Create a Document</Typography>
+                </Toolbar>
+                <FormGenerator
+                    config={formConfig}
+                    footer={this.renderFormFooter()}
+                    onError={this.handleFormError}
+                    onSubmit={this.handleFormSubmit}
+                />
+            </Paper>
         );
     }
 }
