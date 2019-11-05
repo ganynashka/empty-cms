@@ -15,10 +15,10 @@ export type GetListParameterType = {|
 |};
 
 export function getListParameters(request: $Request): GetListParameterType {
-    const pageIndex = parseInt(request.param('page-index'), 10) || 0;
-    const pageSize = parseInt(request.param('page-size'), 10) || 10;
-    const sortParameter = request.param('sort-parameter') || ' ';
-    const sortDirection = getSortDirection(request.param('sort-direction'));
+    const pageIndex = parseInt(request.query['page-index'], 10) || 0;
+    const pageSize = parseInt(request.query['page-size'], 10) || 10;
+    const sortParameter = String(request.query['sort-parameter']).trim() || ' ';
+    const sortDirection = getSortDirection(request.query['sort-direction']);
 
     return {
         pageIndex,

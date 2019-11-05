@@ -17,18 +17,18 @@ import {StaticRouter} from 'react-router-dom';
 import express, {type $Application, type $Request, type $Response} from 'express';
 import session from 'express-session';
 
+// import {isObject} from '../../www/js/lib/is';
 import {InnerApp} from '../../www/js/component/app/c-inner-app';
 import {pathToDist, pathToStaticFileFolder, ssrServerPort} from '../../webpack/config';
-import {isObject} from '../../www/js/lib/is';
 import {sslCredentials} from '../../ssl/ssl.js';
 import {sessionKey} from '../key';
 
+// import {getSession} from './util/session';
 import {getIndexHtmlTemplate} from './static-files';
 import type {RouterStaticContextType} from './c-initial-data-context';
 import {defaultInitialData, type InitialDataType} from './c-initial-data-context';
 import {staticFilesList, stringForReplace} from './config';
 import {addApiIntoApplication} from './api/api';
-import {getSession} from './util/session';
 
 const PORT: number = ssrServerPort;
 const CWD = process.cwd();
@@ -62,6 +62,7 @@ staticFilesList.forEach((pathToFile: string) => {
     });
 });
 
+/*
 app.use((request: $Request, response: $Response, next: () => mixed) => {
     const userSession = getSession(request);
 
@@ -80,6 +81,7 @@ app.use((request: $Request, response: $Response, next: () => mixed) => {
 
     next();
 });
+*/
 
 // usual static files
 app.get(pathToStaticFileFolder + '/*', (request: $Request, response: $Response) => {
