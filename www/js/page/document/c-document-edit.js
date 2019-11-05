@@ -18,7 +18,7 @@ import {extendFieldList} from '../../component/layout/form-generator/form-genera
 import {typeConverter} from '../../lib/type';
 import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 
-import {createDocument, documentSearchExact} from './document-api';
+import {documentSearchExact, updateDocument} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './helper';
 
 type PropsType = {
@@ -68,7 +68,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
     handleFormSubmit = async (formData: {}) => {
         const endDocumentData: MongoDocumentType = formDataToMongoDocument(formData);
 
-        const createDocumentResult = await createDocument(endDocumentData);
+        const createDocumentResult = await updateDocument(endDocumentData);
 
         if (isError(createDocumentResult)) {
             alert(createDocumentResult.message);

@@ -42,6 +42,20 @@ export async function createDocument(data: MongoDocumentType): Promise<MainServe
     return typeConverter<MainServerApiResponseType>(responseJson);
 }
 
+export async function updateDocument(data: MongoDocumentType): Promise<MainServerApiResponseType> {
+    const response = await fetch('/api/update-document', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+
+    const responseJson = await response.json();
+
+    return typeConverter<MainServerApiResponseType>(responseJson);
+}
+
 export async function documentSearchExact(key: string, value: string): Promise<MainServerApiResponseType> {
     const url = getSearchExactParametersToUrl('/api/document-search-exact', key, value);
     const rawFetchedData = await fetch(url);

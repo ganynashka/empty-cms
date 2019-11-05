@@ -84,6 +84,43 @@ export function addDocumentApi(app: $Application) {
         response.json({isSuccessful: true, errorList: []});
     });
 
+    app.post('/api/update-document', async (request: $Request, response: $Response) => {
+        console.log('---> /api/update-document');
+
+        const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(request.body);
+
+        const documentCollection = await getCollection<MongoDocumentType>(
+            dataBaseConst.name,
+            dataBaseConst.collection.document
+        );
+
+        const {slug} = mongoDocument;
+
+        const existedDocument = await documentCollection.findOne({slug});
+
+        if (!existedDocument) {
+            response.json({isSuccessful: false, errorList: [`Document with slug: '${slug}' is NOT exists.`]});
+            return;
+        }
+
+        console.log('---- mongoDocument ----');
+        console.log(mongoDocument);
+
+        const date = getTime();
+
+        const newDocument: MongoDocumentType = {
+            ...mongoDocument,
+            createdDate: existedDocument.createdDate,
+            updatedDate: date,
+        };
+
+        const result = await documentCollection.updateOne({slug}, {$set: newDocument}, {});
+
+        console.log(result);
+
+        response.json({isSuccessful: true, errorList: []});
+    });
+
     app.get('/api/document-search-exact', async (request: $Request, response: $Response) => {
         console.log('---> /api/document-search-exact');
 

@@ -40,8 +40,16 @@ declare module 'mongodb' {
         insertMany: (itemList: Array<ItemType>) => Promise<MongoCollectionActionResultType>,
         find: (item: $Shape<ItemType>, options?: MongoCollectionFindOption) => MongoCollectionCursor<ItemType>,
         findOne: (item: $Shape<ItemType>) => Promise<ItemType | null>,
-        updateMany: (filter: $Shape<ItemType>, update: {}, options: {}, callBack: () => mixed) => mixed,
-        updateOne: (filter: $Shape<ItemType>, update: {}, options: {}, callBack: () => mixed) => mixed,
+        updateMany: (
+            filter: $Shape<ItemType>,
+            update: {},
+            options: {},
+        ) => Promise<Error | MongoCollectionActionResultType>,
+        updateOne: (
+            filter: $Shape<ItemType>,
+            update: {},
+            options: {},
+        ) => Promise<Error | MongoCollectionActionResultType>,
         countDocuments: () => Promise<number>,
     }
 
