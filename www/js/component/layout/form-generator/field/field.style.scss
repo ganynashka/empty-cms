@@ -13,6 +13,10 @@ $form-generator-input-side-padding: 7px;
     .form__input__invalid {
         border-color: $form-generator-input-border-color-invalid;
     }
+
+    .form_input__hidden {
+        display: none;
+    }
 }
 
 %form--label-wrapper,

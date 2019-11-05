@@ -8,6 +8,7 @@ import React, {Component} from 'react';
 import {hasProperty, isFunction} from '../../../lib/is';
 
 import fieldStyle from './field/field.style.scss';
+import formGeneratorStyle from './form-generator.style.scss';
 
 import type {
     FieldDataType,
@@ -102,6 +103,23 @@ export class FormGenerator extends Component<PropsType, StateType> {
 
     renderField = (fieldData: FieldDataType): Node => {
         const view = this;
+        const {isHidden} = fieldData;
+
+        return isHidden === true ? view.renderFieldHidden(fieldData) : view.renderFieldVisible(fieldData);
+    };
+
+    renderFieldHidden(fieldData: FieldDataType): Node {
+        const view = this;
+
+        return (
+            <div className={fieldStyle.form_input__hidden} key={fieldData.name}>
+                {view.renderFieldVisible(fieldData)}
+            </div>
+        );
+    }
+
+    renderFieldVisible(fieldData: FieldDataType): Node {
+        const view = this;
         const {state} = view;
         const {formValidation} = state;
         const {name, fieldComponent: FieldComponent, defaultValue, placeholder, labelText, content} = fieldData;
@@ -123,7 +141,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
                 placeholder={placeholder}
             />
         );
-    };
+    }
 
     renderFieldSet = (fieldSetData: FieldSetDataType): Node => {
         const view = this;

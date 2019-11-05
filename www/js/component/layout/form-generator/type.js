@@ -28,6 +28,7 @@ export type FieldDataType = {|
     +placeholder: Node,
     +labelText: Node,
     +content: Node,
+    +isHidden?: boolean,
 |};
 
 export type FieldSetWrapperDataType = {
