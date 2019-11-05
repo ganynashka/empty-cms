@@ -19,3 +19,9 @@ export function getLisParametersToUrl(
 
     return url + '?' + urlParameters;
 }
+
+export function getSearchExactParametersToUrl(url: string, key: string, value: string): string {
+    const urlParameters = [`key=${key}`, `value=${value}`].join('&');
+
+    return url + '?' + urlParameters;
+}

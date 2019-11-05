@@ -120,6 +120,15 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         content: null,
                     },
                     {
+                        name: 'subDocumentList',
+                        fieldComponent: InputText,
+                        validate: noValidate,
+                        defaultValue: '',
+                        placeholder: 'doc-1, doc-2, the-article',
+                        labelText: 'Sub-document list',
+                        content: null,
+                    },
+                    {
                         name: 'rating',
                         fieldComponent: InputIntNumber,
                         validate: noValidate,
@@ -128,15 +137,6 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         labelText: 'Rating',
                         content: null,
                         isHidden: true,
-                    },
-                    {
-                        name: 'subDocumentList',
-                        fieldComponent: InputText,
-                        validate: noValidate,
-                        defaultValue: '',
-                        placeholder: 'doc-1, doc-2, the-article',
-                        labelText: 'Sub-document list',
-                        content: null,
                     },
                 ],
                 fieldSetWrapper: {

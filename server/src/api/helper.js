@@ -14,6 +14,11 @@ export type GetListParameterType = {|
     +sortDirection: MongoSortDirectionType,
 |};
 
+export type GeSearchExactParameterType = {|
+    +key: string,
+    +value: string,
+|};
+
 export function getListParameters(request: $Request): GetListParameterType {
     const pageIndex = parseInt(request.query['page-index'], 10) || 0;
     const pageSize = parseInt(request.query['page-size'], 10) || 10;
@@ -26,4 +31,11 @@ export function getListParameters(request: $Request): GetListParameterType {
         sortParameter,
         sortDirection,
     };
+}
+
+export function getSearchExactParameters(request: $Request): GeSearchExactParameterType {
+    const key = String(request.query.key || '');
+    const value = String(request.query.value || '');
+
+    return {key, value};
 }

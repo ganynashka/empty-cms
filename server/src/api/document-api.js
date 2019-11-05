@@ -7,9 +7,8 @@ import {getCollection} from '../db/util';
 import type {MongoDocumentType} from '../db/type';
 import {dataBaseConst} from '../db/const';
 import {getTime} from '../util/time';
-import {getSlug} from '../../../www/js/component/layout/form-generator/field/input-text/input-text-helper';
 
-import {getListParameters, streamOptionsArray} from './helper';
+import {getListParameters, getSearchExactParameters, streamOptionsArray} from './helper';
 
 export function addDocumentApi(app: $Application) {
     app.get('/api/get-document-list', async (request: $Request, response: $Response) => {
@@ -59,7 +58,7 @@ export function addDocumentApi(app: $Application) {
             dataBaseConst.collection.document
         );
 
-        const slug = getSlug(mongoDocument.slug);
+        const {slug} = mongoDocument;
 
         const existedDocument = await documentCollection.findOne({slug});
 
@@ -83,5 +82,33 @@ export function addDocumentApi(app: $Application) {
         await documentCollection.insertOne(newDocument);
 
         response.json({isSuccessful: true, errorList: []});
+    });
+
+    app.get('/api/document-search-exact', async (request: $Request, response: $Response) => {
+        console.log('---> /api/document-search-exact');
+
+        const documentCollection = await getCollection<MongoDocumentType>(
+            dataBaseConst.name,
+            dataBaseConst.collection.document
+        );
+
+        const {key, value} = getSearchExactParameters(request);
+
+        const existedDocument = await documentCollection.findOne({[key]: value});
+
+        if (existedDocument) {
+            response.json({
+                isSuccessful: true,
+                errorList: [],
+                data: existedDocument,
+            });
+            return;
+        }
+
+        response.json({
+            isSuccessful: false,
+            errorList: [`Can not find a document by 'key = ${key}' and 'value = ${value}'`],
+            data: null,
+        });
     });
 }

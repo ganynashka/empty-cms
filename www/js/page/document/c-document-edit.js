@@ -15,30 +15,56 @@ import type {MongoDocumentType} from '../../../../server/src/db/type';
 import {isError} from '../../lib/is';
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
 import {extendFieldList} from '../../component/layout/form-generator/form-generator-util';
+import {typeConverter} from '../../lib/type';
+import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 
-import {createDocument} from './document-api';
+import {createDocument, documentSearchExact} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './helper';
 
-type PropsType = {};
-type StateType = null;
-
-const rawFormConfig: FormGeneratorConfigType = getDocumentFormConfig();
-
-const formConfig: FormGeneratorConfigType = {
-    ...rawFormConfig,
-    fieldSetList: [
-        {
-            ...rawFormConfig.fieldSetList[0],
-            fieldList: extendFieldList(rawFormConfig.fieldSetList[0].fieldList, {
-                slug: {
-                    defaultValue: 1,
-                },
-            }),
-        },
-    ],
+type PropsType = {
+    +match: MatchType | null,
 };
 
+type StateType = {|
+    +mongoDocument: MongoDocumentType | null,
+|};
+
 export class DocumentEdit extends Component<PropsType, StateType> {
+    constructor(props: PropsType) {
+        super(props);
+
+        this.state = {
+            mongoDocument: null,
+        };
+    }
+
+    async componentDidMount() {
+        this.fetchDocument();
+    }
+
+    async fetchDocument() {
+        const {props} = this;
+        const {match} = props;
+
+        if (match === null) {
+            console.error('DocumentEdit props.match is not defined!');
+            return;
+        }
+
+        const {slug} = match.params;
+
+        const {data, errorList} = await documentSearchExact('slug', String(slug));
+
+        if (errorList.length > 0) {
+            alert(errorList.join(','));
+            return;
+        }
+
+        const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(data);
+
+        this.setState({mongoDocument});
+    }
+
     handleFormSubmit = async (formData: {}) => {
         const endDocumentData: MongoDocumentType = formDataToMongoDocument(formData);
 
@@ -69,14 +95,55 @@ export class DocumentEdit extends Component<PropsType, StateType> {
         console.log('handleFormError', errorList);
     };
 
+    getFormConfig(): FormGeneratorConfigType {
+        const {state} = this;
+        const rawFormConfig: FormGeneratorConfigType = getDocumentFormConfig();
+        const {mongoDocument} = state;
+
+        if (mongoDocument === null) {
+            return rawFormConfig;
+        }
+
+        return {
+            ...rawFormConfig,
+            fieldSetList: [
+                {
+                    ...rawFormConfig.fieldSetList[0],
+                    fieldList: extendFieldList(rawFormConfig.fieldSetList[0].fieldList, {
+                        slug: {defaultValue: mongoDocument.slug},
+                        type: {defaultValue: mongoDocument.type},
+                        title: {defaultValue: mongoDocument.title},
+                        content: {defaultValue: mongoDocument.content},
+                        subDocumentList: {defaultValue: mongoDocument.subDocumentList.join(', ')},
+                        tagList: {defaultValue: mongoDocument.tagList.join(', ')},
+                        rating: {defaultValue: mongoDocument.rating, isHidden: false},
+                    }),
+                },
+            ],
+        };
+    }
+
     render(): Node {
+        const {state} = this;
+        const {mongoDocument} = state;
+
+        if (mongoDocument === null) {
+            return (
+                <Paper className={mainWrapperStyle.paper_wrapper}>
+                    <Toolbar>
+                        <Typography variant="h5">Document loading...</Typography>
+                    </Toolbar>
+                </Paper>
+            );
+        }
+
         return (
             <Paper className={mainWrapperStyle.paper_wrapper}>
                 <Toolbar>
                     <Typography variant="h5">Edit a Document</Typography>
                 </Toolbar>
                 <FormGenerator
-                    config={formConfig}
+                    config={this.getFormConfig()}
                     footer={this.renderFormFooter()}
                     onError={this.handleFormError}
                     onSubmit={this.handleFormSubmit}

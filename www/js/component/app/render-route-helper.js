@@ -64,7 +64,7 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                         unmountOnExit
                     >
                         <PageWrapper>
-                            <PageComponent/>
+                            <PageComponent match={match}/>
                         </PageWrapper>
                     </CSSTransition>
                 );

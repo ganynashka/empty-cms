@@ -4,7 +4,7 @@
 
 import type {MongoDocumentType} from '../../../../server/src/db/type';
 import type {SortDirectionType} from '../../component/layout/table/enhanced-table/type';
-import {getLisParametersToUrl} from '../../lib/url';
+import {getLisParametersToUrl, getSearchExactParametersToUrl} from '../../lib/url';
 import type {MainServerApiResponseType} from '../../type/response';
 import {typeConverter} from '../../lib/type';
 
@@ -40,4 +40,11 @@ export async function createDocument(data: MongoDocumentType): Promise<MainServe
     const responseJson = await response.json();
 
     return typeConverter<MainServerApiResponseType>(responseJson);
+}
+
+export async function documentSearchExact(key: string, value: string): Promise<MainServerApiResponseType> {
+    const url = getSearchExactParametersToUrl('/api/document-search-exact', key, value);
+    const rawFetchedData = await fetch(url);
+
+    return rawFetchedData.json();
 }
