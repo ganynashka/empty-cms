@@ -147,7 +147,7 @@ export class DocumentCreate extends Component<PropsType, StateType> {
         const documentData: FormDataMongoDocumentType = typeConverter<FormDataMongoDocumentType>(formData);
 
         const endDocumentData: MongoDocumentType = {
-            slug: documentData.slug,
+            slug: documentData.slug.toLowerCase().replace(/\s/gi, '-'),
             type: documentData.type,
             title: documentData.title,
             content: documentData.content,
