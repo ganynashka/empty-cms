@@ -29,16 +29,16 @@ export async function getDocumentListSize(): Promise<number> {
     return parseInt(rawSize, 10);
 }
 
-export function createDocument(data: MongoDocumentType): Promise<MainServerApiResponseType | Error> {
-    return fetch('/api/create-document', {
+export async function createDocument(data: MongoDocumentType): Promise<MainServerApiResponseType> {
+    const response = await fetch('/api/create-document', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-    })
-        .then(async (response: Response): Promise<MainServerApiResponseType | Error> => {
-            return typeConverter<MainServerApiResponseType>(await response.json());
-        })
-        .catch(promiseCatch);
+    });
+
+    const responseJson = await response.json();
+
+    return typeConverter<MainServerApiResponseType>(responseJson);
 }

@@ -7,6 +7,7 @@ import {getCollection} from '../db/util';
 import type {MongoDocumentType} from '../db/type';
 import {dataBaseConst} from '../db/const';
 import {getTime} from '../util/time';
+import {getSlug} from '../../../www/js/component/layout/form-generator/field/input-text/input-text-helper';
 
 import {getListParameters, streamOptionsArray} from './helper';
 
@@ -58,9 +59,9 @@ export function addDocumentApi(app: $Application) {
             dataBaseConst.collection.document
         );
 
-        const slug = mongoDocument.slug.toLowerCase().trim();
+        const slug = getSlug(mongoDocument.slug);
 
-        const existedDocument = documentCollection.findOne({slug});
+        const existedDocument = await documentCollection.findOne({slug});
 
         if (existedDocument) {
             response.json({isSuccessful: false, errorList: [`Document with slug: '${slug}' already exists.`]});
@@ -81,6 +82,6 @@ export function addDocumentApi(app: $Application) {
 
         await documentCollection.insertOne(newDocument);
 
-        response.json({isSuccessful: true, errorList: [`Document with slug: '${slug}' already exists.`]});
+        response.json({isSuccessful: true, errorList: []});
     });
 }

@@ -16,7 +16,7 @@ import {getIsRequired, noValidate} from '../../component/layout/form-generator/v
 import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../component/layout/form-button/c-form-button';
 import type {MongoDocumentType, MongoDocumentTypeType} from '../../../../server/src/db/type';
-import {stringToArray} from '../../component/layout/form-generator/field/input-text/input-text-helper';
+import {getSlug, stringToArray} from '../../component/layout/form-generator/field/input-text/input-text-helper';
 import {typeConverter} from '../../lib/type';
 import {InputSelect} from '../../component/layout/form-generator/field/input-select/c-input-select';
 import {InputTextArea} from '../../component/layout/form-generator/field/input-text-area/c-input-text-area';
@@ -50,7 +50,7 @@ const formConfig: FormGeneratorConfigType = {
                     fieldComponent: InputText,
                     validate: getIsRequired,
                     defaultValue: '',
-                    placeholder: 'Slug (ID)',
+                    placeholder: 'the-slug-or-id-of-document',
                     labelText: 'Slug',
                     content: null,
                 },
@@ -147,7 +147,7 @@ export class DocumentCreate extends Component<PropsType, StateType> {
         const documentData: FormDataMongoDocumentType = typeConverter<FormDataMongoDocumentType>(formData);
 
         const endDocumentData: MongoDocumentType = {
-            slug: documentData.slug.toLowerCase().replace(/\s/gi, '-'),
+            slug: getSlug(documentData.slug),
             type: documentData.type,
             title: documentData.title,
             content: documentData.content,
