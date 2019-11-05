@@ -35,6 +35,19 @@ export function addDocumentApi(app: $Application) {
             .pipe(response.type('json'));
     });
 
+    app.get('/api/get-document-list-size', async (request: $Request, response: $Response) => {
+        console.log('---> /api/get-document-list-size');
+
+        const collection = await getCollection<MongoDocumentType>(
+            dataBaseConst.name,
+            dataBaseConst.collection.document
+        );
+
+        const count = await collection.countDocuments();
+
+        response.send(String(count));
+    });
+
     app.post('/api/create-document', async (request: $Request, response: $Response) => {
         console.log('---> /api/create-document');
 
