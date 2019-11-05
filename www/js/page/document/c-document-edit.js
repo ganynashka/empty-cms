@@ -5,7 +5,7 @@
 import React, {Component, type Node} from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
-import {Paper} from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 
 import {FormGenerator} from '../../component/layout/form-generator/form-generator';
 import type {FormGeneratorConfigType} from '../../component/layout/form-generator/type';
@@ -17,6 +17,7 @@ import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.sc
 import {extendFieldList} from '../../component/layout/form-generator/form-generator-util';
 import {typeConverter} from '../../lib/type';
 import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
+import {Spinner} from '../../component/layout/spinner/c-spinner';
 
 import {documentSearchExact, updateDocument} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './helper';
@@ -133,6 +134,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                     <Toolbar>
                         <Typography variant="h5">Document loading...</Typography>
                     </Toolbar>
+                    <Spinner/>
                 </Paper>
             );
         }

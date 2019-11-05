@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 
 import {EmptyTableBody} from '../empty-table-body/c-empty-table-body';
 import {typeConverter} from '../../../../lib/type';
+import {Spinner} from '../../spinner/c-spinner';
 
 import {EnhancedTableHead} from './c-enhanced-table-head';
 import {EnhancedTableToolbar} from './c-enhanced-table-toolbar';
@@ -140,12 +141,7 @@ export class EnhancedTable extends Component<PropsType, StateType> {
         const {list, isInProgress} = state;
 
         if (isInProgress) {
-            // return <Spinner isFull isShow/>;
-            return (
-                <h1>
-                    <pre> Loading... </pre>
-                </h1>
-            );
+            return <Spinner/>;
         }
 
         return list.length === 0 ? this.renderNoData() : this.renderData();

@@ -5,12 +5,12 @@
 import React, {Component, type Node} from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
-import {Paper} from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 
 import {FormGenerator} from '../../component/layout/form-generator/form-generator';
 import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../component/layout/form-button/c-form-button';
-import type {MongoDocumentType, MongoDocumentTypeType} from '../../../../server/src/db/type';
+import type {MongoDocumentType} from '../../../../server/src/db/type';
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
 import {isError} from '../../lib/is';
 import type {FormGeneratorConfigType} from '../../component/layout/form-generator/type';
