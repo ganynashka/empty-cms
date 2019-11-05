@@ -13,7 +13,11 @@ cd $pathToFolder
 
 fileCount=$(set -- ./* ; echo $#)
 
+echo "Make file list -> file count: $fileCount"
+
 touch $(date +%Y-%m-%d-%H-%M-%S).txt
+
+#mongodump --port=27001 --archive=db-dump-`date +%Y-%m-%d-%H-%M-%S`.zip
 
 # remove extra files
 if [ "$fileCount" -gt "$maxFileCount" ]; then
