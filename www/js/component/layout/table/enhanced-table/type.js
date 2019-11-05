@@ -1,5 +1,7 @@
 // @flow
 
+import {type Node} from 'react';
+
 export type SortDirectionType = 'asc' | 'desc';
 
 export type EnhancedTableCellAlignType = 'inherit' | 'left' | 'center' | 'right' | 'justify';
@@ -17,7 +19,7 @@ export type EnhancedTableHeaderType = {|
 |};
 
 export type EnhancedTableBodyCellType = {
-    +[key: string]: string | number | boolean,
+    +[key: string]: string | number | boolean | Node,
 };
 
 export type EnhancedTableBodyType = {|

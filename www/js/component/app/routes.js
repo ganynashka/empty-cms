@@ -34,8 +34,8 @@ export const routeItemMap: {[key: string]: RouteItemType | RedirectItemType} = {
         type: 'route',
     },
     documentEdit: {
-        path: '/document-edit',
-        dynamicPath: '/document-edit/:slug',
+        path: '/document-edit/:slug',
+        staticPartPath: '/document-edit',
         component: DocumentEdit,
         type: 'route',
     },

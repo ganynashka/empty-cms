@@ -1,10 +1,12 @@
 // @flow
 
 import React, {Component, type Node} from 'react';
+import {Link} from 'react-router-dom';
 
 import type {MongoDocumentType} from '../../../../server/src/db/type';
 import {EnhancedTable} from '../../component/layout/table/enhanced-table/c-enhanced-table';
 import {timeToHumanString} from '../../../../server/src/util/time';
+import {routeItemMap} from '../../component/app/routes';
 import type {
     EnhancedTableBodyCellType,
     EnhancedTableGetDataResultType,
@@ -24,13 +26,14 @@ async function enhancedTableGetDocumentList(
 ): Promise<EnhancedTableGetDataResultType> {
     const list = await getDocumentList(pageIndex, rowsPerPage, orderBy, order);
     const fullListSize = await getDocumentListSize();
+    const staticPartPath = String(routeItemMap.documentEdit.staticPartPath);
 
     return {
         list: list.map((documentData: MongoDocumentType): EnhancedTableBodyCellType => {
             const {slug, type, title, updatedDate, rating} = documentData;
 
             return {
-                slug,
+                slug: <Link to={staticPartPath + '/' + slug}>{slug}</Link>,
                 type,
                 title,
                 rating,
