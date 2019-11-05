@@ -27,11 +27,14 @@ async function enhancedTableGetDocumentList(
 
     return {
         list: list.map((documentData: MongoDocumentType): EnhancedTableBodyCellType => {
-            const {slug, createdDate} = documentData;
+            const {slug, type, title, updatedDate, rating} = documentData;
 
             return {
                 slug,
-                createdDate: timeToHumanString(createdDate),
+                type,
+                title,
+                rating,
+                updatedDate: timeToHumanString(updatedDate),
             };
         }),
         allElementsNumber: fullListSize,
@@ -41,8 +44,11 @@ async function enhancedTableGetDocumentList(
 const enhancedTableHeader = {
     header: 'Document list',
     rowList: [
-        {id: 'slug', align: 'left', label: 'Id', hasSort: true},
-        {id: 'createdDate', align: 'left', label: 'Rating', hasSort: true},
+        {id: 'slug', align: 'left', label: 'Slug', hasSort: true},
+        {id: 'type', align: 'left', label: 'Type', hasSort: true},
+        {id: 'title', align: 'left', label: 'Title', hasSort: true},
+        {id: 'rating', align: 'left', label: 'Rating', hasSort: true},
+        {id: 'updatedDate', align: 'left', label: 'Updated Date (UTC 0)', hasSort: true},
     ],
 };
 

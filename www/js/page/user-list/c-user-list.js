@@ -47,7 +47,7 @@ const enhancedTableHeader = {
         {id: 'id', align: 'left', label: 'Id', hasSort: true},
         {id: 'role', align: 'left', label: 'Role', hasSort: true},
         {id: 'login', align: 'left', label: 'Login', hasSort: true},
-        {id: 'registerDate', align: 'left', label: 'Register Date', hasSort: true},
+        {id: 'registerDate', align: 'left', label: 'Register Date (UTC 0)', hasSort: true},
         {id: 'rating', align: 'left', label: 'Rating', hasSort: true},
     ],
 };
