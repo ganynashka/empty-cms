@@ -3,9 +3,9 @@
 import {type Node} from 'react';
 
 export type SnackbarPropsType = {|
-    +isShow: boolean,
-    +isFullScreen?: boolean,
+    +isShow?: boolean,
     +children: Node,
+    +variant: 'error' | 'info' | 'success' | 'warning',
 
     +onEnter?: () => void,
     +onEntering?: () => void,

@@ -5,9 +5,32 @@
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
-import type {SnackbarPropsType} from '../type';
-import {Snackbar} from '../c-snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import WarningIcon from '@material-ui/icons/Warning';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
+import InfoIcon from '@material-ui/icons/Info';
+import CloseIcon from '@material-ui/icons/Close';
+
 import {isFunction} from '../../../../lib/is';
+import type {SnackbarPropsType} from '../type';
+import snackbarStyle from '../snackbar.style.scss';
+
+const variantIcon = {
+    success: CheckCircleIcon,
+    warning: WarningIcon,
+    error: ErrorIcon,
+    info: InfoIcon,
+};
+
+const snackbarContentVariantCssClass = {
+    success: snackbarStyle.snackbar__color__success,
+    warning: snackbarStyle.snackbar__color__warning,
+    error: snackbarStyle.snackbar__color__error,
+    info: snackbarStyle.snackbar__color__info,
+};
 
 export type ShowSnackbarType = (snackbarProps: SnackbarPropsType, id: string) => Promise<mixed>;
 export type HideSnackbarByIdType = (id: string, value: mixed) => mixed;
@@ -127,10 +150,23 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
             const {state} = view;
             const {snackbarDataList} = state;
 
+            const snackbarData = view.getSnackbarById(id);
+
+            if (snackbarData) {
+                snackbarDataList[snackbarDataList.indexOf(snackbarData)] = {
+                    ...snackbarData,
+                    resolve,
+                    snackbarProps: {...snackbarData.snackbarProps, isShow: false},
+                };
+
+                view.setState({snackbarDataList: [...snackbarDataList]}, (): mixed => view.showSnackbarById(id));
+                return;
+            }
+
             const newSnackbarDataList = [
                 ...snackbarDataList,
                 {
-                    snackbarProps: {...snackbarProps, isShow: snackbarProps.isShow},
+                    snackbarProps: {...snackbarProps, isShow: false},
                     resolve,
                     id,
                 },
@@ -163,7 +199,13 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
             const {state} = view;
             const {snackbarDataList} = state;
 
-            snackbarDataList.splice(snackbarDataList.indexOf(snackbarData), 1);
+            snackbarDataList[snackbarDataList.indexOf(snackbarData)] = {
+                ...snackbarData,
+                snackbarProps: {
+                    ...snackbarData.snackbarProps,
+                    isShow: false,
+                },
+            };
 
             view.setState({snackbarDataList: [...snackbarDataList]}, () => {
                 const {onExited} = snackbarData.snackbarProps;
@@ -171,6 +213,8 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
                 if (isFunction(onExited)) {
                     onExited();
                 }
+
+                snackbarData.resolve();
             });
         };
     }
@@ -178,11 +222,36 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
     renderSnackbar = (snackbarData: SnackbarDataType): Node => {
         const view = this;
         const {snackbarProps, id} = snackbarData;
-        const {isFullScreen, isShow, children} = snackbarProps;
+        const {isShow, children, variant} = snackbarProps;
+        const Icon = variantIcon[variant];
+
+        const handleClose = view.createOnExitedHandler(id);
 
         return (
-            <Snackbar isFullScreen={isFullScreen} isShow={isShow} key={id} onExited={view.createOnExitedHandler(id)}>
-                {children}
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                autoHideDuration={6e3}
+                key={id}
+                onClose={handleClose}
+                open={Boolean(isShow)}
+            >
+                <SnackbarContent
+                    action={[
+                        <IconButton aria-label="close" color="inherit" key="close" onClick={handleClose}>
+                            <CloseIcon className={snackbarStyle.snackbar__icon}/>
+                        </IconButton>,
+                    ]}
+                    className={`${snackbarStyle.snackbar__content} ${snackbarContentVariantCssClass[variant]}`}
+                    message={
+                        <div className={snackbarStyle.snackbar__message}>
+                            <Icon className={snackbarStyle.snackbar__icon_variant}/>
+                            <div className={snackbarStyle.snackbar__message__content}>{children}</div>
+                        </div>
+                    }
+                />
             </Snackbar>
         );
     };

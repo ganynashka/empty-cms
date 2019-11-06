@@ -1,7 +1,5 @@
 // @flow
 
-/* global alert */
-
 import React, {Component, type Node} from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
@@ -14,32 +12,40 @@ import type {MongoDocumentType} from '../../../../server/src/db/type';
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
 import {isError} from '../../lib/is';
 import type {FormGeneratorConfigType} from '../../component/layout/form-generator/type';
+import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
 
 import {createDocument} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './helper';
 
-type PropsType = {};
+type PropsType = {
+    +snackbarPortalContext: SnackbarPortalContextType,
+};
 type StateType = null;
 
 const formConfig: FormGeneratorConfigType = getDocumentFormConfig();
 
 export class DocumentCreate extends Component<PropsType, StateType> {
     handleFormSubmit = async (formData: {}) => {
+        const {props} = this;
+        const {snackbarPortalContext} = props;
+        const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());
+        const {showSnackbar} = snackbarPortalContext;
+
         const endDocumentData: MongoDocumentType = formDataToMongoDocument(formData);
 
         const createDocumentResult = await createDocument(endDocumentData);
 
         if (isError(createDocumentResult)) {
-            alert(createDocumentResult.message);
+            await showSnackbar({children: createDocumentResult.message, variant: 'error'}, snackBarId);
             return;
         }
 
         if (createDocumentResult.isSuccessful !== true) {
-            alert(createDocumentResult.errorList.join(','));
+            await showSnackbar({children: createDocumentResult.errorList.join(','), variant: 'error'}, snackBarId);
             return;
         }
 
-        alert('Document created!');
+        await showSnackbar({children: 'Document has been created!', variant: 'success'}, snackBarId);
     };
 
     renderFormFooter(): Node {
@@ -50,8 +56,14 @@ export class DocumentCreate extends Component<PropsType, StateType> {
         );
     }
 
-    handleFormError = (errorList: Array<Error>) => {
+    handleFormError = async (errorList: Array<Error>) => {
+        const {props} = this;
+        const {snackbarPortalContext} = props;
+        const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());
+        const {showSnackbar} = snackbarPortalContext;
+
         console.log('handleFormError', errorList);
+        await showSnackbar({children: 'Fill all required fields properly!', variant: 'error'}, snackBarId);
     };
 
     render(): Node {

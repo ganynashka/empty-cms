@@ -1,0 +1,38 @@
+@import './../../../../css/var';
+
+.snackbar__message {
+    align-items: center;
+    display: flex;
+}
+
+.snackbar__message__content {
+    display: block;
+}
+
+.snackbar__icon {
+    font-size: 20px;
+}
+
+.snackbar__icon_variant {
+    display: block;
+    margin-right: $mui-unit;
+    opacity: 0.9;
+}
+
+.snackbar__content {
+    &.snackbar__color__success {
+        background-color: #43a047;
+    }
+
+    &.snackbar__color__error {
+        background-color: #d32f2f;
+    }
+
+    &.snackbar__color__info {
+        background-color: #1976d2;
+    }
+
+    &.snackbar__color__warning {
+        background-color: #ffa000;
+    }
+}

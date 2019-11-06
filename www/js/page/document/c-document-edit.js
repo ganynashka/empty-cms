@@ -1,7 +1,5 @@
 // @flow
 
-/* global alert */
-
 import React, {Component, type Node} from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
@@ -18,12 +16,14 @@ import {extendFieldList} from '../../component/layout/form-generator/form-genera
 import {typeConverter} from '../../lib/type';
 import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 import {Spinner} from '../../component/layout/spinner/c-spinner';
+import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
 
 import {documentSearchExact, updateDocument} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './helper';
 
 type PropsType = {
     +match: MatchType | null,
+    +snackbarPortalContext: SnackbarPortalContextType,
 };
 
 type StateType = {|
@@ -45,7 +45,8 @@ export class DocumentEdit extends Component<PropsType, StateType> {
 
     async fetchDocument() {
         const {props} = this;
-        const {match} = props;
+        const {match, snackbarPortalContext} = props;
+        const {showSnackbar} = snackbarPortalContext;
 
         if (match === null) {
             console.error('DocumentEdit props.match is not defined!');
@@ -57,7 +58,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
         const {data, errorList} = await documentSearchExact('slug', String(slug));
 
         if (errorList.length > 0) {
-            alert(errorList.join(','));
+            await showSnackbar({children: errorList.join(','), variant: 'error'}, errorList.join(','));
             return;
         }
 
@@ -67,21 +68,24 @@ export class DocumentEdit extends Component<PropsType, StateType> {
     }
 
     handleFormSubmit = async (formData: {}) => {
+        const {props} = this;
+        const {snackbarPortalContext} = props;
+        const {showSnackbar} = snackbarPortalContext;
+        const snackBarId = 'document-saved-snack-bar-id-' + String(Date.now());
         const endDocumentData: MongoDocumentType = formDataToMongoDocument(formData);
+        const updateDocumentResult = await updateDocument(endDocumentData);
 
-        const createDocumentResult = await updateDocument(endDocumentData);
-
-        if (isError(createDocumentResult)) {
-            alert(createDocumentResult.message);
+        if (isError(updateDocumentResult)) {
+            await showSnackbar({children: updateDocumentResult.message, variant: 'error'}, snackBarId);
             return;
         }
 
-        if (createDocumentResult.isSuccessful !== true) {
-            alert(createDocumentResult.errorList.join(','));
+        if (updateDocumentResult.isSuccessful !== true) {
+            await showSnackbar({children: updateDocumentResult.errorList.join(','), variant: 'error'}, snackBarId);
             return;
         }
 
-        alert('Document saved!');
+        await showSnackbar({children: 'Document has been updated!', variant: 'success'}, snackBarId);
     };
 
     renderFormFooter(): Node {
@@ -92,8 +96,14 @@ export class DocumentEdit extends Component<PropsType, StateType> {
         );
     }
 
-    handleFormError = (errorList: Array<Error>) => {
+    handleFormError = async (errorList: Array<Error>) => {
+        const {props} = this;
+        const {snackbarPortalContext} = props;
+        const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());
+        const {showSnackbar} = snackbarPortalContext;
+
         console.log('handleFormError', errorList);
+        await showSnackbar({children: 'Fill all required fields properly!', variant: 'error'}, snackBarId);
     };
 
     getFormConfig(): FormGeneratorConfigType {
