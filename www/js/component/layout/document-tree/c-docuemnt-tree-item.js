@@ -7,6 +7,7 @@ import type {MongoDocumentType} from '../../../../../server/src/db/type';
 import {documentSearchExact} from '../../../page/document/document-api';
 import {typeConverter} from '../../../lib/type';
 import {routePathMap} from '../../app/routes-path-map';
+import {stopPropagation} from '../../../lib/event';
 
 type PropsType = {|
     +slug: string,
@@ -54,7 +55,7 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
         const {deep} = props;
 
         if (mongoDocument === null) {
-            return [null];
+            return [];
         }
 
         return mongoDocument.subDocumentList.map((subDocumentSlug: string): Node => {
@@ -62,26 +63,26 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
         });
     }
 
-    renderShortInfo(): Node {
+    renderLabel(): Array<Node> {
         const {props, state} = this;
         const {mongoDocument} = state;
         const {slug} = props;
 
+        const slugNode = <span key="label-slug">{slug}&nbsp;&ndash;&nbsp;</span>;
+
         if (mongoDocument === null) {
-            return null;
+            return [slugNode];
         }
 
         const {title} = mongoDocument;
         const href = routePathMap.documentEdit.staticPartPath + '/' + slug;
 
-        const label = [
-            <span key="title-text">Title: </span>,
-            <a href={href} key="title-link" rel="noopener noreferrer" target="_blank">
+        return [
+            slugNode,
+            <a href={href} key="title-link" onClick={stopPropagation} rel="noopener noreferrer" target="_blank">
                 {title}
             </a>,
         ];
-
-        return <TreeItem label={label} nodeId={slug + '-info'}/>;
     }
 
     render(): Node {
@@ -101,9 +102,12 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
             return <TreeItem label="Loading..." nodeId={slug}/>;
         }
 
+        if (mongoDocument.subDocumentList.length === 0) {
+            return <TreeItem label={this.renderLabel()} nodeId={slug}/>;
+        }
+
         return (
-            <TreeItem label={slug} nodeId={slug}>
-                {this.renderShortInfo()}
+            <TreeItem label={this.renderLabel()} nodeId={slug}>
                 {this.renderSubDocumentList()}
             </TreeItem>
         );
