@@ -28,6 +28,10 @@ export function Header(props: PropsType): Node {
                     Document: list
                 </Button>
                 &nbsp;|&nbsp;
+                <Button component={Link} size="large" to={routeItemMap.documentTree.path} variant="contained">
+                    Document: tree
+                </Button>
+                &nbsp;|&nbsp;
                 <Button component={Link} size="large" to={routeItemMap.documentCreate.path} variant="contained">
                     Document: create
                 </Button>

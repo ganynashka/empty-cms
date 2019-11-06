@@ -41,6 +41,7 @@
   "dependencies": {
     "@material-ui/core": "^4.6.0",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.31",
     "body-parser": "^1.19.0",
     "classnames": "^2.2.6",
     "compression": "^1.7.4",

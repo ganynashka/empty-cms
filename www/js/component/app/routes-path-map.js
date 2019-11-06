@@ -10,6 +10,9 @@ export const routePathMap = {
     documentList: {
         path: '/document-list',
     },
+    documentTree: {
+        path: '/document-tree',
+    },
     documentCreate: {
         path: '/document-create',
     },

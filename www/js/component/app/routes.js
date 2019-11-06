@@ -7,6 +7,7 @@ import {Contact} from '../../page/contact/c-contact';
 import {Register} from '../../page/register/c-register';
 import {UserList} from '../../page/user/c-user-list';
 import {DocumentList} from '../../page/document/c-document-list';
+import {DocumentTreeView} from '../../page/document/c-document-tree-view';
 import {DocumentCreate} from '../../page/document/c-document-create';
 import {DocumentEdit} from '../../page/document/c-document-edit';
 
@@ -27,6 +28,11 @@ export const routeItemMap: {[key: string]: RouteItemType | RedirectItemType} = {
     documentList: {
         path: routePathMap.documentList.path,
         component: DocumentList,
+        type: 'route',
+    },
+    documentTree: {
+        path: routePathMap.documentTree.path,
+        component: DocumentTreeView,
         type: 'route',
     },
     documentCreate: {
