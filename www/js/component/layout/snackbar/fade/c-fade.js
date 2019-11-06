@@ -6,7 +6,7 @@ import type {Node} from 'react';
 import React, {Component} from 'react';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
-import type {PopupPropsType} from '../type';
+import type {SnackbarPropsType} from '../type';
 
 import fadeStyle from './fade.style.scss';
 
@@ -18,7 +18,7 @@ const fadeClassNames = {
     exit: fadeStyle.fade__exit,
 };
 
-export class Fade extends Component<PopupPropsType, null> {
+export class Fade extends Component<SnackbarPropsType, null> {
     renderContent(): Node {
         const view = this;
         const {props} = view;

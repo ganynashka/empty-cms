@@ -12,6 +12,8 @@ import {PageWrapper} from '../page-wrapper/c-page-wrapper';
 import pageWrapperStyle from '../page-wrapper/page-wrapper.style.scss';
 import type {PopupPortalContextType} from '../layout/popup/popup-portal/c-popup-portal';
 import {PopupPortalContextConsumer} from '../layout/popup/popup-portal/c-popup-portal';
+import {SnackbarPortalContextConsumer} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
+import type {SnackbarPortalContextType} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
 
 export type RouteItemType = {|
     +path: string,
@@ -65,15 +67,25 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                         timeout={300}
                         unmountOnExit
                     >
-                        <PopupPortalContextConsumer>
-                            {(popupPortalContextData: PopupPortalContextType): Node => {
+                        <SnackbarPortalContextConsumer>
+                            {(snackbarPortalContextData: SnackbarPortalContextType): Node => {
                                 return (
-                                    <PageWrapper>
-                                        <PageComponent match={match} popupPortalContext={popupPortalContextData}/>
-                                    </PageWrapper>
+                                    <PopupPortalContextConsumer>
+                                        {(popupPortalContextData: PopupPortalContextType): Node => {
+                                            return (
+                                                <PageWrapper>
+                                                    <PageComponent
+                                                        match={match}
+                                                        popupPortalContext={popupPortalContextData}
+                                                        snackbarPortalContext={snackbarPortalContextData}
+                                                    />
+                                                </PageWrapper>
+                                            );
+                                        }}
+                                    </PopupPortalContextConsumer>
                                 );
                             }}
-                        </PopupPortalContextConsumer>
+                        </SnackbarPortalContextConsumer>
                     </CSSTransition>
                 );
             }}

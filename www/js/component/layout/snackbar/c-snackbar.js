@@ -8,12 +8,12 @@ import ReactDOM from 'react-dom';
 
 import {selector} from '../../../const';
 
-import type {PopupPropsType} from './type';
+import type {SnackbarPropsType} from './type';
 import {Fade} from './fade/c-fade';
 import {PopupAppear} from './popup-appear/c-popup-appear';
 import fadeStyle from './fade/fade.style.scss';
 
-export function Popup({
+export function Snackbar({
     children,
     isShow,
     isFullScreen,
@@ -23,7 +23,7 @@ export function Popup({
     onExit,
     onExiting,
     onExited,
-}: PopupPropsType): Node {
+}: SnackbarPropsType): Node {
     if (typeof document === 'undefined') {
         return null;
     }

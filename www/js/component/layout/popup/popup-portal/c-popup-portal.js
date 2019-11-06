@@ -5,7 +5,7 @@
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
-import type {PopupPropsType} from '../fade/c-fade';
+import type {PopupPropsType} from '../type';
 import {Popup} from '../c-popup';
 import {isFunction} from '../../../../lib/is';
 

@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import className from 'classnames';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
-import type {PopupPropsType} from '../type';
+import type {SnackbarPropsType} from '../type';
 import {ScreenContextConsumer} from '../../../screen/c-screen-context';
 import type {ScreenContextType} from '../../../screen/screen-helper';
 
@@ -22,7 +22,7 @@ const popupAppearClassNames = {
     exit: popupAppearStyle.popup_appear__exit,
 };
 
-export class PopupAppear extends Component<PopupPropsType> {
+export class PopupAppear extends Component<SnackbarPropsType> {
     renderContent(): Node {
         const view = this;
         const {props} = view;
@@ -35,7 +35,7 @@ export class PopupAppear extends Component<PopupPropsType> {
         return (
             <CSSTransition
                 classNames={popupAppearClassNames}
-                key="css-transition--popup-appear"
+                key="css-transition--snackbar-appear"
                 onEnter={onEnter}
                 onEntered={onEntered}
                 onEntering={onEntering}

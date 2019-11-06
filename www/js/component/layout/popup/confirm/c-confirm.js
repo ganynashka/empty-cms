@@ -14,7 +14,7 @@ import {PopupContent} from '../popup-content/c-popup-content';
 import {FormButton} from '../../form-button/c-form-button';
 import {Locale} from '../../../locale/c-locale';
 import {ButtonListWrapper} from '../../button-list-wrapper/c-button-list-wrapper';
-import type {PopupPropsType} from '../fade/c-fade';
+import type {PopupPropsType} from '../type';
 
 import {createHandler} from './confirm-helper';
 import confirmStyle from './confirm.style.scss';
