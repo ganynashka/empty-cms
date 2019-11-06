@@ -10,6 +10,8 @@ import {Link, Redirect, Route} from 'react-router-dom';
 import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 import {PageWrapper} from '../page-wrapper/c-page-wrapper';
 import pageWrapperStyle from '../page-wrapper/page-wrapper.style.scss';
+import type {PopupPortalContextType} from '../layout/popup/popup-portal/c-popup-portal';
+import {PopupPortalContextConsumer} from '../layout/popup/popup-portal/c-popup-portal';
 
 export type RouteItemType = {|
     +path: string,
@@ -63,9 +65,15 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                         timeout={300}
                         unmountOnExit
                     >
-                        <PageWrapper>
-                            <PageComponent match={match}/>
-                        </PageWrapper>
+                        <PopupPortalContextConsumer>
+                            {(popupPortalContextData: PopupPortalContextType): Node => {
+                                return (
+                                    <PageWrapper>
+                                        <PageComponent match={match} popupPortalContext={popupPortalContextData}/>
+                                    </PageWrapper>
+                                );
+                            }}
+                        </PopupPortalContextConsumer>
                     </CSSTransition>
                 );
             }}

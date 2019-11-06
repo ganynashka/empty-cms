@@ -18,7 +18,7 @@ export function Spinner(props: PropsType): Node {
 
     return (
         <div className={spinnerStyle.spinner_wrapper}>
-            <CircularProgress color="primary" size={42}/>
+            <CircularProgress color="primary" size={64}/>
         </div>
     );
 }
