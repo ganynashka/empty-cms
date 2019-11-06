@@ -120,13 +120,15 @@ app.get('*', async (request: $Request, response: $Response) => {
     response.send(htmlTemplate.replace(stringForReplace, result));
 });
 
+/*
 if (process.env.NODE_ENV === 'production') {
     // $FlowFixMe
     https.createServer(sslCredentials, app).listen(PORT, () => {
         console.info(`Server listening on port ${PORT} - production`);
     });
 } else {
-    app.listen(PORT, () => {
-        console.info(`Server listening on port ${PORT} - development`);
-    });
-}
+*/
+app.listen(PORT, () => {
+    console.info(`Server listening on port ${PORT} - ${String(process.env.NODE_ENV || 'development')}`);
+});
+// }

@@ -121,7 +121,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                 {
                     ...rawFormConfig.fieldSetList[0],
                     fieldList: extendFieldList(rawFormConfig.fieldSetList[0].fieldList, {
-                        slug: {defaultValue: mongoDocument.slug},
+                        slug: {defaultValue: mongoDocument.slug, isHidden: true},
                         type: {defaultValue: mongoDocument.type},
                         title: {defaultValue: mongoDocument.title},
                         content: {defaultValue: mongoDocument.content},
@@ -152,7 +152,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
         return (
             <Paper className={mainWrapperStyle.paper_wrapper}>
                 <Toolbar>
-                    <Typography variant="h5">Edit a Document</Typography>
+                    <Typography variant="h5">Edit a Document. Slug: {mongoDocument.slug}</Typography>
                 </Toolbar>
                 <FormGenerator
                     config={this.getFormConfig()}
