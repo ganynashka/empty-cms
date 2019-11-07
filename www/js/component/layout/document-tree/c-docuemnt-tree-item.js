@@ -68,20 +68,20 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
         const {mongoDocument} = state;
         const {slug} = props;
 
-        const slugNode = <span key="label-slug">{slug}&nbsp;&ndash;&nbsp;</span>;
+        const slugNode = <span key="label-slug">&nbsp;&ndash;&nbsp;{slug}</span>;
 
         if (mongoDocument === null) {
-            return [slugNode];
+            return [<span key="title-text">Loading...</span>, slugNode];
         }
 
         const {title} = mongoDocument;
         const href = routePathMap.documentEdit.staticPartPath + '/' + slug;
 
         return [
-            slugNode,
             <a href={href} key="title-link" onClick={stopPropagation} rel="noopener noreferrer" target="_blank">
                 {title}
             </a>,
+            slugNode,
         ];
     }
 
