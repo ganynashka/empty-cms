@@ -14,16 +14,6 @@ import {getPasswordSha256, getUserByLogin} from '../util/user';
 import {getListParameters, streamOptionsArray} from './helper';
 
 export function addUserApi(app: $Application) {
-    app.use((request: $Request, response: $Response, next: () => mixed) => {
-        const userSession = getSession(request);
-
-        console.log('---> Session:');
-        console.log('--->     login:', String(userSession.login));
-        console.log('--->     role:', String(userSession.role));
-
-        next();
-    });
-
     app.get('/api/get-user-list', async (request: $Request, response: $Response) => {
         console.log(
             '---> /api/get-user-list?page-index=11&page-size=33&sort-direction=1|-1&sort-parameter=register.date'

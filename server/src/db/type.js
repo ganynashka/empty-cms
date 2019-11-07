@@ -2,6 +2,11 @@
 
 export type MongoUserRoleType = 'user' | 'admin';
 
+export const mongoUserRoleMap: {+[key: MongoUserRoleType]: MongoUserRoleType} = {
+    user: 'user',
+    admin: 'admin',
+};
+
 export type MongoUserType = {|
     +_id?: mixed,
     +id: string,
