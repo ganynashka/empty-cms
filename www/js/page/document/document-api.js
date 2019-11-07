@@ -3,6 +3,7 @@
 /* global fetch */
 
 import type {MongoDocumentType} from '../../../../server/src/db/type';
+import {documentApiRouteMap} from '../../../../server/src/api/document-api';
 import type {SortDirectionType} from '../../component/layout/table/enhanced-table/type';
 import {getLisParametersToUrl, getSearchExactParametersToUrl} from '../../lib/url';
 import type {MainServerApiResponseType} from '../../type/response';
@@ -14,7 +15,7 @@ export async function getDocumentList(
     orderBy: string,
     order: SortDirectionType
 ): Promise<Array<MongoDocumentType>> {
-    const url = getLisParametersToUrl('/api/get-document-list', pageIndex, rowsPerPage, orderBy, order);
+    const url = getLisParametersToUrl(documentApiRouteMap.getDocumentList, pageIndex, rowsPerPage, orderBy, order);
     const rawFetchedData = await fetch(url);
     const rawList: string = await rawFetchedData.text();
 
@@ -22,14 +23,14 @@ export async function getDocumentList(
 }
 
 export async function getDocumentListSize(): Promise<number> {
-    const rawFetchedData = await fetch('/api/get-document-list-size');
+    const rawFetchedData = await fetch(documentApiRouteMap.getDocumentListSize);
     const rawSize: string = await rawFetchedData.text();
 
     return parseInt(rawSize, 10);
 }
 
 export async function createDocument(data: MongoDocumentType): Promise<MainServerApiResponseType> {
-    const response = await fetch('/api/create-document', {
+    const response = await fetch(documentApiRouteMap.createDocument, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -43,7 +44,7 @@ export async function createDocument(data: MongoDocumentType): Promise<MainServe
 }
 
 export async function updateDocument(data: MongoDocumentType): Promise<MainServerApiResponseType> {
-    const response = await fetch('/api/update-document', {
+    const response = await fetch(documentApiRouteMap.updateDocument, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -57,7 +58,7 @@ export async function updateDocument(data: MongoDocumentType): Promise<MainServe
 }
 
 export async function documentSearchExact(key: string, value: string): Promise<MainServerApiResponseType> {
-    const url = getSearchExactParametersToUrl('/api/document-search-exact', key, value);
+    const url = getSearchExactParametersToUrl(documentApiRouteMap.documentSearchExact, key, value);
     const rawFetchedData = await fetch(url);
 
     return rawFetchedData.json();

@@ -5,6 +5,8 @@
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
+import {userApiRouteMap} from '../../../../server/src/api/user-api';
+
 type PropsType = {};
 type StateType = null;
 
@@ -15,7 +17,7 @@ export class Register extends Component<PropsType, StateType> {
             <div>
                 <h1>Register</h1>
                 <br/>
-                <form action="/api/register" method="post">
+                <form action={userApiRouteMap.register} method="post">
                     <label>
                         <p>Login:</p>
                         <input name="login" placeholder="login" type="text"/>

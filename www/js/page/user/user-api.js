@@ -5,6 +5,7 @@
 import type {MongoUserType} from '../../../../server/src/db/type';
 import type {SortDirectionType} from '../../component/layout/table/enhanced-table/type';
 import {getLisParametersToUrl} from '../../lib/url';
+import {userApiRouteMap} from '../../../../server/src/api/user-api';
 
 export async function getUserList(
     pageIndex: number,
@@ -12,7 +13,7 @@ export async function getUserList(
     orderBy: string,
     order: SortDirectionType
 ): Promise<Array<MongoUserType>> {
-    const url = getLisParametersToUrl('/api/get-user-list', pageIndex, rowsPerPage, orderBy, order);
+    const url = getLisParametersToUrl(userApiRouteMap.getUserList, pageIndex, rowsPerPage, orderBy, order);
     const rawFetchedData = await fetch(url);
     const rawList: string = await rawFetchedData.text();
 
@@ -20,7 +21,7 @@ export async function getUserList(
 }
 
 export async function getUserListSize(): Promise<number> {
-    const rawFetchedData = await fetch('/api/get-user-list-size');
+    const rawFetchedData = await fetch(userApiRouteMap.getUserListSize);
     const rawSize: string = await rawFetchedData.text();
 
     return parseInt(rawSize, 10);
