@@ -14,6 +14,16 @@ import {getPasswordSha256, getUserByLogin} from '../util/user';
 import {getListParameters, streamOptionsArray} from './helper';
 
 export function addUserApi(app: $Application) {
+    app.use((request: $Request, response: $Response, next: () => mixed) => {
+        const userSession = getSession(request);
+
+        console.log('---> Session:');
+        console.log('--->     login:', String(userSession.login));
+        console.log('--->     role:', String(userSession.role));
+
+        next();
+    });
+
     app.get('/api/get-user-list', async (request: $Request, response: $Response) => {
         console.log(
             '---> /api/get-user-list?page-index=11&page-size=33&sort-direction=1|-1&sort-parameter=register.date'
@@ -75,7 +85,6 @@ export function addUserApi(app: $Application) {
         response.json({isSuccessful: true, errorList: []});
     });
 
-    // user - get login
     app.post('/api/login', async (request: $Request, response: $Response) => {
         console.log('---> /api/login');
 
@@ -94,7 +103,8 @@ export function addUserApi(app: $Application) {
 
         const userSession = getSession(request);
 
-        userSession.login = login;
+        // $FlowFixMe
+        Object.assign(userSession, {login, role: user.role});
 
         console.log('--- user ---');
         console.log(user);

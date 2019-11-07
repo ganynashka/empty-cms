@@ -2,11 +2,11 @@
 
 import {type $Request} from 'express';
 
+import type {MongoUserRoleType} from '../db/type';
+
 export type SessionType = {
-    login?: string,
-    views?: {
-        [key: string]: number,
-    },
+    +login?: string,
+    +role?: MongoUserRoleType,
 };
 
 export function getSession(request: $Request): SessionType {

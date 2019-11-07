@@ -5,7 +5,7 @@
 /* eslint no-process-env: 0, id-match: 0, optimize-regex/optimize-regex: 0, react/no-danger: 0 */
 
 // import type {IncomingMessage, ServerResponse} from 'http';
-import https from 'https';
+// import https from 'https';
 import path from 'path';
 
 import React from 'react';
@@ -17,13 +17,11 @@ import {StaticRouter} from 'react-router-dom';
 import express, {type $Application, type $Request, type $Response} from 'express';
 import session from 'express-session';
 
-// import {isObject} from '../../www/js/lib/is';
 import {InnerApp} from '../../www/js/component/app/c-inner-app';
 import {pathToDist, pathToStaticFileFolder, ssrServerPort} from '../../webpack/config';
 import {sslCredentials} from '../../ssl/ssl.js';
 import {sessionKey} from '../key';
 
-// import {getSession} from './util/session';
 import {getIndexHtmlTemplate} from './static-files';
 import type {RouterStaticContextType} from './c-initial-data-context';
 import {defaultInitialData, type InitialDataType} from './c-initial-data-context';
@@ -61,27 +59,6 @@ staticFilesList.forEach((pathToFile: string) => {
         response.sendFile(path.join(CWD, pathToDist + pathToFile));
     });
 });
-
-/*
-app.use((request: $Request, response: $Response, next: () => mixed) => {
-    const userSession = getSession(request);
-
-    const pathname: string = String(request.url);
-
-    const {views} = userSession;
-
-    const currentViews = isObject(views) ? views : {};
-
-    userSession.views = {
-        ...currentViews,
-        [pathname]: (Number(currentViews[pathname]) || 0) + 1,
-    };
-
-    console.log(userSession);
-
-    next();
-});
-*/
 
 // usual static files
 app.get(pathToStaticFileFolder + '/*', (request: $Request, response: $Response) => {
