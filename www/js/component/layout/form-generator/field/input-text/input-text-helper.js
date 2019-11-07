@@ -20,3 +20,7 @@ export function stringToArray(wordList: string, separator: string): Array<string
         .map(cleanText)
         .filter(Boolean);
 }
+
+export function stringToUniqArray(wordList: string, separator: string): Array<string> {
+    return [...new Set(stringToArray(wordList, separator))];
+}

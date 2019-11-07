@@ -11,7 +11,7 @@ import {InputIntNumber} from '../../component/layout/form-generator/field/input-
 import {FieldSet} from '../../component/layout/form-generator/field/field-set/field-set';
 import {typeConverter} from '../../lib/type';
 import type {MongoDocumentType, MongoDocumentTypeType} from '../../../../server/src/db/type';
-import {getSlug, stringToArray} from '../../component/layout/form-generator/field/input-text/input-text-helper';
+import {getSlug, stringToUniqArray} from '../../component/layout/form-generator/field/input-text/input-text-helper';
 
 export type FormDataMongoDocumentType = {
     +slug: string,
@@ -28,16 +28,23 @@ export type FormDataMongoDocumentType = {
 export function formDataToMongoDocument(formData: {}): MongoDocumentType {
     const documentFormData: FormDataMongoDocumentType = typeConverter<FormDataMongoDocumentType>(formData);
 
+    const subDocumentList = stringToUniqArray(documentFormData.subDocumentList, ',');
+    const slug = getSlug(documentFormData.slug);
+
+    if (subDocumentList.includes(slug)) {
+        subDocumentList.splice(subDocumentList.indexOf(slug), 1);
+    }
+
     return {
-        slug: getSlug(documentFormData.slug),
+        slug,
         type: documentFormData.type,
         title: documentFormData.title,
         content: documentFormData.content,
         createdDate: 0,
         updatedDate: 0,
         rating: documentFormData.rating,
-        tagList: stringToArray(documentFormData.tagList, ','),
-        subDocumentList: stringToArray(documentFormData.subDocumentList, ','),
+        tagList: stringToUniqArray(documentFormData.tagList, ','),
+        subDocumentList,
     };
 }
 
