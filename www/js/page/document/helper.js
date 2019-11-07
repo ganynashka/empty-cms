@@ -11,6 +11,7 @@ import {InputIntNumber} from '../../component/layout/form-generator/field/input-
 import {FieldSet} from '../../component/layout/form-generator/field/field-set/field-set';
 import {typeConverter} from '../../lib/type';
 import type {MongoDocumentType, MongoDocumentTypeType} from '../../../../server/src/db/type';
+import {mongoDocumentTypeMap} from '../../../../server/src/db/type';
 import {getSlug, stringToUniqArray} from '../../component/layout/form-generator/field/input-text/input-text-helper';
 
 export type FormDataMongoDocumentType = {
@@ -67,15 +68,15 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         name: 'type',
                         fieldComponent: InputSelect,
                         validate: getIsRequired,
-                        defaultValue: 'article',
+                        defaultValue: mongoDocumentTypeMap.article,
                         placeholder: 'Type: article or container',
                         labelText: 'Type',
                         content: [
-                            <option key="article" value="article">
-                                article
+                            <option key={mongoDocumentTypeMap.article} value={mongoDocumentTypeMap.article}>
+                                {mongoDocumentTypeMap.article}
                             </option>,
-                            <option key="container" value="container">
-                                container
+                            <option key={mongoDocumentTypeMap.container} value={mongoDocumentTypeMap.container}>
+                                {mongoDocumentTypeMap.container}
                             </option>,
                         ],
                     },

@@ -10,20 +10,22 @@ import {dataBaseConst} from '../db/const';
 import {getTime} from '../util/time';
 import type {UserLoginPasswordType} from '../util/user';
 import {getPasswordSha256, getUserByLogin} from '../util/user';
+import {mongoUserRoleMap} from '../db/type';
 
 import {getListParameters, streamOptionsArray} from './helper';
 
-export function addUserApi(app: $Application) {
-    app.get('/api/get-user-list', async (request: $Request, response: $Response) => {
-        console.log(
-            '---> /api/get-user-list?page-index=11&page-size=33&sort-direction=1|-1&sort-parameter=register.date'
-        );
+export const userApiRouteMap = {
+    getUserList: '/api/get-user-list',
+    getUserListSize: '/api/get-user-list-size',
+    register: '/api/register',
+    login: '/api/login',
+};
 
+export function addUserApi(app: $Application) {
+    app.get(userApiRouteMap.getUserList, async (request: $Request, response: $Response) => {
         const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 
         const {pageIndex, pageSize, sortParameter, sortDirection} = getListParameters(request);
-
-        console.log('---> get user list', pageSize, pageIndex, sortParameter, sortDirection);
 
         // TODO: try to remove "await", because work without it
         (await collection)
@@ -35,9 +37,7 @@ export function addUserApi(app: $Application) {
             .pipe(response.type('json'));
     });
 
-    app.get('/api/get-user-list-size', async (request: $Request, response: $Response) => {
-        console.log('---> /api/get-user-list-size');
-
+    app.get(userApiRouteMap.getUserListSize, async (request: $Request, response: $Response) => {
         const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 
         const count = await collection.countDocuments();
@@ -45,9 +45,7 @@ export function addUserApi(app: $Application) {
         response.send(String(count));
     });
 
-    app.post('/api/register', async (request: $Request, response: $Response) => {
-        console.log('---> /api/register');
-
+    app.post(userApiRouteMap.register, async (request: $Request, response: $Response) => {
         const {login, password}: UserLoginPasswordType = typeConverter<UserLoginPasswordType>(request.body);
 
         const user = await getUserByLogin(login);
@@ -63,7 +61,7 @@ export function addUserApi(app: $Application) {
 
         const newUser: MongoUserType = {
             id: String(date) + '-' + String(Math.random()),
-            role: 'user',
+            role: mongoUserRoleMap.user,
             login,
             passwordSha256: getPasswordSha256(password),
             rating: 0,
@@ -75,9 +73,7 @@ export function addUserApi(app: $Application) {
         response.json({isSuccessful: true, errorList: []});
     });
 
-    app.post('/api/login', async (request: $Request, response: $Response) => {
-        console.log('---> /api/login');
-
+    app.post(userApiRouteMap.login, async (request: $Request, response: $Response) => {
         const {login, password}: UserLoginPasswordType = typeConverter<UserLoginPasswordType>(request.body);
         const user = await getUserByLogin(login);
 
@@ -95,9 +91,6 @@ export function addUserApi(app: $Application) {
 
         // $FlowFixMe
         Object.assign(userSession, {login, role: user.role});
-
-        console.log('--- user ---');
-        console.log(user);
 
         response.json({isSuccessful: true, errorList: []});
     });

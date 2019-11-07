@@ -19,6 +19,11 @@ export type MongoUserType = {|
 
 export type MongoDocumentTypeType = 'article' | 'container';
 
+export const mongoDocumentTypeMap: {+[key: MongoDocumentTypeType]: MongoDocumentTypeType} = {
+    article: 'article',
+    container: 'container',
+};
+
 export type MongoDocumentType = {|
     +_id?: mixed,
     +slug: string,

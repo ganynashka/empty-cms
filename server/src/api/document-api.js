@@ -10,20 +10,22 @@ import {getTime} from '../util/time';
 
 import {getListParameters, getSearchExactParameters, streamOptionsArray} from './helper';
 
-export function addDocumentApi(app: $Application) {
-    app.get('/api/get-document-list', async (request: $Request, response: $Response) => {
-        console.log(
-            '---> /api/get-document-list?page-index=11&page-size=33&sort-direction=1|-1&sort-parameter=createdDate'
-        );
+export const documentApiRouteMap = {
+    getDocumentList: '/api/get-document-list',
+    getDocumentListSize: '/api/get-document-list-size',
+    createDocument: '/api/create-document',
+    updateDocument: '/api/update-document',
+    documentSearchExact: '/api/document-search-exact',
+};
 
+export function addDocumentApi(app: $Application) {
+    app.get(documentApiRouteMap.getDocumentList, async (request: $Request, response: $Response) => {
         const collection = await getCollection<MongoDocumentType>(
             dataBaseConst.name,
             dataBaseConst.collection.document
         );
 
         const {pageIndex, pageSize, sortParameter, sortDirection} = getListParameters(request);
-
-        console.log('---> get document list', pageSize, pageIndex, sortParameter, sortDirection);
 
         // TODO: try to remove "await", because work without it
         (await collection)
@@ -35,9 +37,7 @@ export function addDocumentApi(app: $Application) {
             .pipe(response.type('json'));
     });
 
-    app.get('/api/get-document-list-size', async (request: $Request, response: $Response) => {
-        console.log('---> /api/get-document-list-size');
-
+    app.get(documentApiRouteMap.getDocumentListSize, async (request: $Request, response: $Response) => {
         const collection = await getCollection<MongoDocumentType>(
             dataBaseConst.name,
             dataBaseConst.collection.document
@@ -48,9 +48,7 @@ export function addDocumentApi(app: $Application) {
         response.send(String(count));
     });
 
-    app.post('/api/create-document', async (request: $Request, response: $Response) => {
-        console.log('---> /api/create-document');
-
+    app.post(documentApiRouteMap.createDocument, async (request: $Request, response: $Response) => {
         const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(request.body);
 
         const documentCollection = await getCollection<MongoDocumentType>(
@@ -67,9 +65,6 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        console.log('---- mongoDocument ----');
-        console.log(mongoDocument);
-
         const date = getTime();
 
         const newDocument: MongoDocumentType = {
@@ -84,9 +79,7 @@ export function addDocumentApi(app: $Application) {
         response.json({isSuccessful: true, errorList: []});
     });
 
-    app.post('/api/update-document', async (request: $Request, response: $Response) => {
-        console.log('---> /api/update-document');
-
+    app.post(documentApiRouteMap.updateDocument, async (request: $Request, response: $Response) => {
         const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(request.body);
 
         const documentCollection = await getCollection<MongoDocumentType>(
@@ -103,9 +96,6 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        console.log('---- mongoDocument ----');
-        console.log(mongoDocument);
-
         const date = getTime();
 
         const newDocument: MongoDocumentType = {
@@ -116,14 +106,10 @@ export function addDocumentApi(app: $Application) {
 
         const result = await documentCollection.updateOne({slug}, {$set: newDocument}, {});
 
-        console.log(result);
-
         response.json({isSuccessful: true, errorList: []});
     });
 
-    app.get('/api/document-search-exact', async (request: $Request, response: $Response) => {
-        console.log('---> /api/document-search-exact');
-
+    app.get(documentApiRouteMap.documentSearchExact, async (request: $Request, response: $Response) => {
         const documentCollection = await getCollection<MongoDocumentType>(
             dataBaseConst.name,
             dataBaseConst.collection.document
