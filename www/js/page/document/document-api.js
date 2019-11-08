@@ -3,7 +3,7 @@
 /* global fetch */
 
 import type {MongoDocumentType} from '../../../../server/src/db/type';
-import {documentApiRouteMap} from '../../../../server/src/api/document-api';
+import {documentApiRouteMap} from '../../../../server/src/api/route-map';
 import type {SortDirectionType} from '../../component/layout/table/enhanced-table/type';
 import {getLisParametersToUrl, getSearchExactParametersToUrl} from '../../lib/url';
 import type {MainServerApiResponseType} from '../../type/response';

@@ -13,13 +13,7 @@ import {getPasswordSha256, getUserByLogin} from '../util/user';
 import {mongoUserRoleMap} from '../db/type';
 
 import {getListParameters, streamOptionsArray} from './helper';
-
-export const userApiRouteMap = {
-    getUserList: '/api/get-user-list',
-    getUserListSize: '/api/get-user-list-size',
-    register: '/api/register',
-    login: '/api/login',
-};
+import {userApiRouteMap} from './route-map';
 
 export function addUserApi(app: $Application) {
     app.get(userApiRouteMap.getUserList, async (request: $Request, response: $Response) => {

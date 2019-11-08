@@ -24,6 +24,7 @@ export type FormDataMongoDocumentType = {
     +subDocumentList: string, // list of slug
     +tagList: string,
     +rating: number,
+    +isActive: boolean,
 };
 
 export function formDataToMongoDocument(formData: {}): MongoDocumentType {
@@ -46,6 +47,7 @@ export function formDataToMongoDocument(formData: {}): MongoDocumentType {
         rating: documentFormData.rating,
         tagList: stringToUniqArray(documentFormData.tagList, ','),
         subDocumentList,
+        isActive: documentFormData.isActive,
     };
 }
 

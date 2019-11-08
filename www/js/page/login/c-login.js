@@ -5,7 +5,7 @@
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
-import {userApiRouteMap} from '../../../../server/src/api/user-api';
+import {userApiRouteMap} from '../../../../server/src/api/route-map';
 
 type PropsType = {};
 type StateType = null;

@@ -5,7 +5,7 @@
 import type {MongoUserType} from '../../../../server/src/db/type';
 import type {SortDirectionType} from '../../component/layout/table/enhanced-table/type';
 import {getLisParametersToUrl} from '../../lib/url';
-import {userApiRouteMap} from '../../../../server/src/api/user-api';
+import {userApiRouteMap} from '../../../../server/src/api/route-map';
 
 export async function getUserList(
     pageIndex: number,

@@ -35,4 +35,5 @@ export type MongoDocumentType = {|
     +subDocumentList: Array<string>, // list of slug
     +tagList: Array<string>,
     +rating: number,
+    +isActive: boolean,
 |};

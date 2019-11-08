@@ -9,14 +9,7 @@ import {dataBaseConst} from '../db/const';
 import {getTime} from '../util/time';
 
 import {getListParameters, getSearchExactParameters, streamOptionsArray} from './helper';
-
-export const documentApiRouteMap = {
-    getDocumentList: '/api/get-document-list',
-    getDocumentListSize: '/api/get-document-list-size',
-    createDocument: '/api/create-document',
-    updateDocument: '/api/update-document',
-    documentSearchExact: '/api/document-search-exact',
-};
+import {documentApiRouteMap} from './route-map';
 
 export function addDocumentApi(app: $Application) {
     app.get(documentApiRouteMap.getDocumentList, async (request: $Request, response: $Response) => {

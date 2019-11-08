@@ -5,7 +5,7 @@ import {type $Application, type $Request, type $Response} from 'express';
 import {getSession, isAdmin} from '../util/session';
 import {routePathMap} from '../../../www/js/component/app/routes-path-map';
 
-import {userApiRouteMap} from './user-api';
+import {userApiRouteMap} from './route-map';
 
 export function addDefendApi(app: $Application) {
     app.use((request: $Request, response: $Response, next: () => mixed) => {
