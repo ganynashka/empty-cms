@@ -27,7 +27,7 @@ export function addDocumentApi(app: $Application) {
             .skip(pageSize * pageIndex)
             .limit(pageSize)
             .stream(streamOptionsArray)
-            .pipe(response.type('json'));
+            .pipe(response);
     });
 
     app.get(documentApiRouteMap.getDocumentListSize, async (request: $Request, response: $Response) => {
@@ -126,5 +126,19 @@ export function addDocumentApi(app: $Application) {
             errorList: [`Can not find a document by 'key = ${key}' and 'value = ${value}'`],
             data: null,
         });
+    });
+
+    app.get(documentApiRouteMap.getParentList, async (request: $Request, response: $Response) => {
+        const promiseCollection = await getCollection<MongoDocumentType>(
+            dataBaseConst.name,
+            dataBaseConst.collection.document
+        );
+
+        const collection = await promiseCollection;
+
+        (await collection)
+            .find({subDocumentList: String(request.query.slug)})
+            .stream(streamOptionsArray)
+            .pipe(response);
     });
 }

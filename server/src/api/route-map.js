@@ -6,6 +6,7 @@ export const documentApiRouteMap = {
     createDocument: '/api/create-document',
     updateDocument: '/api/update-document',
     documentSearchExact: '/api/document-search-exact',
+    getParentList: '/api/get-parent-list',
 };
 
 export const userApiRouteMap = {

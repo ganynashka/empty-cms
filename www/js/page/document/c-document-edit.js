@@ -1,6 +1,6 @@
 // @flow
 
-import React, {Component, type Node} from 'react';
+import React, {Component, Fragment, type Node} from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -18,7 +18,11 @@ import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 import {Spinner} from '../../component/layout/spinner/c-spinner';
 import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
 
-import {documentSearchExact, updateDocument} from './document-api';
+import {stopPropagation} from '../../lib/event';
+
+import {routePathMap} from '../../component/app/routes-path-map';
+
+import {documentSearchExact, getDocumentParentList, updateDocument} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './helper';
 
 type PropsType = {
@@ -28,6 +32,7 @@ type PropsType = {
 
 type StateType = {|
     +mongoDocument: MongoDocumentType | null,
+    +parentList: Array<MongoDocumentType>,
 |};
 
 export class DocumentEdit extends Component<PropsType, StateType> {
@@ -36,6 +41,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
 
         this.state = {
             mongoDocument: null,
+            parentList: [],
         };
     }
 
@@ -56,6 +62,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
         const {slug} = match.params;
 
         const {data, errorList} = await documentSearchExact('slug', String(slug));
+        const parentList = await getDocumentParentList(String(slug));
 
         if (errorList.length > 0) {
             await showSnackbar({children: errorList.join(','), variant: 'error'}, errorList.join(','));
@@ -64,7 +71,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
 
         const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(data);
 
-        this.setState({mongoDocument});
+        this.setState({mongoDocument, parentList});
     }
 
     handleFormSubmit = async (formData: {}) => {
@@ -135,6 +142,39 @@ export class DocumentEdit extends Component<PropsType, StateType> {
         };
     }
 
+    renderParentList(): Node {
+        const {state} = this;
+        const {parentList} = state;
+
+        if (parentList.length === 0) {
+            return (
+                <Toolbar>
+                    <Typography variant="body1">Parent list: no parents</Typography>
+                </Toolbar>
+            );
+        }
+        return (
+            <Toolbar>
+                <Typography variant="body1">
+                    {'Parents: '}
+                    {parentList.map((documentData: MongoDocumentType, index: number): Node => {
+                        const {slug, title} = documentData;
+                        const href = routePathMap.documentEdit.staticPartPath + '/' + slug;
+
+                        return (
+                            <Fragment key={slug}>
+                                {index === 0 ? '' : ', '}
+                                <a href={href} key={'a-' + slug} rel="noopener noreferrer" target="_blank">
+                                    {title}
+                                </a>
+                            </Fragment>
+                        );
+                    })}
+                </Typography>
+            </Toolbar>
+        );
+    }
+
     render(): Node {
         const {state} = this;
         const {mongoDocument} = state;
@@ -155,6 +195,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                 <Toolbar>
                     <Typography variant="h5">Edit a Document. Slug: {mongoDocument.slug}</Typography>
                 </Toolbar>
+                {this.renderParentList()}
                 <FormGenerator
                     config={this.getFormConfig()}
                     footer={this.renderFormFooter()}

@@ -63,3 +63,12 @@ export async function documentSearchExact(key: string, value: string): Promise<M
 
     return rawFetchedData.json();
 }
+
+export async function getDocumentParentList(slug: string): Promise<Array<MongoDocumentType>> {
+    const url = `${documentApiRouteMap.getParentList}?slug=${slug}`;
+    const rawFetchedData = await fetch(url);
+
+    const rawList: string = await rawFetchedData.text();
+
+    return JSON.parse('[' + rawList.replace(/,$/, '') + ']');
+}
