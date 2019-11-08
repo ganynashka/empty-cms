@@ -9,6 +9,8 @@ import {typeConverter} from '../../../lib/type';
 import {routePathMap} from '../../app/routes-path-map';
 import {stopPropagation} from '../../../lib/event';
 
+import documentTreeStyle from './document-tree.style.scss';
+
 type PropsType = {|
     +slug: string,
     +deep: number,
@@ -68,20 +70,29 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
         const {mongoDocument} = state;
         const {slug} = props;
 
-        const slugNode = <span key="label-slug">&nbsp;&ndash;&nbsp;{slug}</span>;
-
         if (mongoDocument === null) {
-            return [<span key="title-text">Loading...</span>, slugNode];
+            return [<span key="title-text">Loading...</span>, <span key="label-slug">&nbsp;&ndash;&nbsp;{slug}</span>];
         }
 
-        const {title} = mongoDocument;
+        const {title, isActive} = mongoDocument;
         const href = routePathMap.documentEdit.staticPartPath + '/' + slug;
 
+        const className = isActive ? null : documentTreeStyle.not_active_item;
+
         return [
-            <a href={href} key="title-link" onClick={stopPropagation} rel="noopener noreferrer" target="_blank">
+            <a
+                className={className}
+                href={href}
+                key="title-link"
+                onClick={stopPropagation}
+                rel="noopener noreferrer"
+                target="_blank"
+            >
                 {title}
             </a>,
-            slugNode,
+            <span className={className} key="label-slug">
+                &nbsp;&ndash;&nbsp;{slug}
+            </span>,
         ];
     }
 
