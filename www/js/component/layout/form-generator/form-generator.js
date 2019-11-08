@@ -2,8 +2,7 @@
 
 /* eslint consistent-this: ["error", "view"] */
 
-import type {Node} from 'react';
-import React, {Component} from 'react';
+import React, {Component, type Node} from 'react';
 
 import {hasProperty, isFunction} from '../../../lib/is';
 

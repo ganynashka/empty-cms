@@ -8,6 +8,7 @@ import {getIsRequired, noValidate} from '../../component/layout/form-generator/v
 import {InputSelect} from '../../component/layout/form-generator/field/input-select/c-input-select';
 import {InputTextArea} from '../../component/layout/form-generator/field/input-text-area/c-input-text-area';
 import {InputIntNumber} from '../../component/layout/form-generator/field/input-int-number/c-input-int-number';
+import {InputCheckbox} from '../../component/layout/form-generator/field/input-checkbox/c-input-checkbox';
 import {FieldSet} from '../../component/layout/form-generator/field/field-set/field-set';
 import {typeConverter} from '../../lib/type';
 import type {MongoDocumentType, MongoDocumentTypeType} from '../../../../server/src/db/type';
@@ -127,6 +128,15 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: '',
                         placeholder: 'art, picture, color',
                         labelText: 'Tag list',
+                        content: null,
+                    },
+                    {
+                        name: 'isActive',
+                        fieldComponent: InputCheckbox,
+                        validate: noValidate,
+                        defaultValue: true,
+                        placeholder: '',
+                        labelText: 'Is active',
                         content: null,
                     },
                     {

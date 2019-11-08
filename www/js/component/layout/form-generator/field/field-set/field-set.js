@@ -1,7 +1,6 @@
 // @flow
 
-import type {Node} from 'react';
-import React from 'react';
+import React, {type Node} from 'react';
 
 import type {FieldSetWrapperDataType} from '../../type';
 

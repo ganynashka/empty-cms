@@ -1,0 +1,37 @@
+/* stylelint-disable selector-combinator-blacklist */
+
+@import './../field.style';
+
+.input_checkbox__input_state {
+    @extend %form--input;
+
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    float: left;
+    height: $form-generator-input-height - 2;
+    margin-right: 12px;
+    width: $form-generator-input-height - 2;
+}
+
+.input_checkbox__input_state__invalid {
+    background-color: $form-generator-input-border-color-invalid;
+}
+
+.input_checkbox__input {
+    display: block;
+    height: 0;
+    opacity: 0;
+    position: relative;
+    width: 0;
+
+    &:checked + .input_checkbox__input_state {
+        background-image: url('./i/checkbox-checked.svg');
+    }
+}
+
+.input_checkbox__label_description {
+    box-sizing: border-box;
+    min-height: 34px;
+    padding-top: 8px;
+}

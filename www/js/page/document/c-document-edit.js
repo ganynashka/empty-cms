@@ -127,6 +127,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                         content: {defaultValue: mongoDocument.content},
                         subDocumentList: {defaultValue: mongoDocument.subDocumentList.join(', ')},
                         tagList: {defaultValue: mongoDocument.tagList.join(', ')},
+                        isActive: {defaultValue: mongoDocument.isActive},
                         rating: {defaultValue: mongoDocument.rating, isHidden: false},
                     }),
                 },
