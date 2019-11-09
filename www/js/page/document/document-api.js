@@ -73,12 +73,9 @@ export async function getDocumentParentList(slug: string): Promise<Array<MongoDo
     return JSON.parse('[' + rawList.replace(/,$/, '') + ']');
 }
 
-export async function getDocumentOrphanList(): Promise<mixed> {
+export async function getDocumentOrphanList(): Promise<Array<MongoDocumentType>> {
     const url = documentApiRouteMap.getOrphanList;
     const rawFetchedData = await fetch(url);
 
-    const rawList: string = await rawFetchedData.text();
-
-    return '[' + rawList.replace(/,$/, '') + ']';
-    // return JSON.parse('[' + rawList.replace(/,$/, '') + ']');
+    return rawFetchedData.json();
 }
