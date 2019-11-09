@@ -141,4 +141,28 @@ export function addDocumentApi(app: $Application) {
             .stream(streamOptionsArray)
             .pipe(response);
     });
+
+    app.get(documentApiRouteMap.getOrphanList, async (request: $Request, response: $Response) => {
+        const promiseCollection = await getCollection<MongoDocumentType>(
+            dataBaseConst.name,
+            dataBaseConst.collection.document
+        );
+
+        const collection = await promiseCollection;
+
+        (await collection).find({}).toArray((error: Error | null, documentList: Array<MongoDocumentType> | null) => {
+            if (error || !Array.isArray(documentList)) {
+                response.send(JSON.stringify(new Error('CAn not read collection!')));
+                return;
+            }
+
+            const orphanList = documentList.filter((orphanDocument: MongoDocumentType): boolean => {
+                return documentList.every((mongoDocument: MongoDocumentType): boolean => {
+                    return !mongoDocument.subDocumentList.includes(orphanDocument.slug);
+                });
+            });
+
+            response.send(JSON.stringify(orphanList));
+        });
+    });
 }

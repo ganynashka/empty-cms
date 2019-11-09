@@ -95,7 +95,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                     {
                         name: 'content',
                         fieldComponent: InputTextArea,
-                        validate: getIsRequired,
+                        validate: noValidate,
                         defaultValue: '',
                         placeholder: 'Content',
                         labelText: 'Content',

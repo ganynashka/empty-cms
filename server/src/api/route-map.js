@@ -7,6 +7,7 @@ export const documentApiRouteMap = {
     updateDocument: '/api/update-document',
     documentSearchExact: '/api/document-search-exact',
     getParentList: '/api/get-parent-list',
+    getOrphanList: '/api/get-orphan-list',
 };
 
 export const userApiRouteMap = {

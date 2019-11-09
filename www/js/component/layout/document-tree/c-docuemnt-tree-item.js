@@ -4,7 +4,7 @@ import React, {Component, type Node} from 'react';
 import TreeItem from '@material-ui/lab/TreeItem';
 
 import type {MongoDocumentType} from '../../../../../server/src/db/type';
-import {documentSearchExact} from '../../../page/document/document-api';
+import {documentSearchExact, getDocumentOrphanList} from '../../../page/document/document-api';
 import {typeConverter} from '../../../lib/type';
 import {routePathMap} from '../../app/routes-path-map';
 import {stopPropagation} from '../../../lib/event';
@@ -33,6 +33,7 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
 
     async componentDidMount() {
         this.fetchDocument();
+        this.fetchDocumentOrphan();
     }
 
     async fetchDocument() {
@@ -49,6 +50,13 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
         const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(data);
 
         this.setState({mongoDocument});
+    }
+
+    async fetchDocumentOrphan() {
+        const {props} = this;
+        // const {slug} = props;
+
+        await getDocumentOrphanList();
     }
 
     renderSubDocumentList(): Array<Node> {
