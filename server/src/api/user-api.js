@@ -6,11 +6,11 @@ import {typeConverter} from '../../../www/js/lib/type';
 import {getSession} from '../util/session';
 import {getCollection} from '../db/util';
 import type {MongoUserType} from '../db/type';
+import {mongoUserRoleMap} from '../db/type';
 import {dataBaseConst} from '../db/const';
 import {getTime} from '../util/time';
 import type {UserLoginPasswordType} from '../util/user';
 import {getPasswordSha256, getUserByLogin} from '../util/user';
-import {mongoUserRoleMap} from '../db/type';
 
 import {getListParameters, streamOptionsArray} from './helper';
 import {userApiRouteMap} from './route-map';

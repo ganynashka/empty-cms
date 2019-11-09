@@ -12,8 +12,8 @@ import {PageWrapper} from '../page-wrapper/c-page-wrapper';
 import pageWrapperStyle from '../page-wrapper/page-wrapper.style.scss';
 import type {PopupPortalContextType} from '../layout/popup/popup-portal/c-popup-portal';
 import {PopupPortalContextConsumer} from '../layout/popup/popup-portal/c-popup-portal';
-import {SnackbarPortalContextConsumer} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
 import type {SnackbarPortalContextType} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
+import {SnackbarPortalContextConsumer} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
 
 export type RouteItemType = {|
     +path: string,

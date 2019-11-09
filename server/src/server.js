@@ -19,7 +19,6 @@ import session from 'express-session';
 
 import {InnerApp} from '../../www/js/component/app/c-inner-app';
 import {pathToDist, pathToStaticFileFolder, ssrServerPort} from '../../webpack/config';
-import {sslCredentials} from '../../ssl/ssl.js';
 import {sessionKey} from '../key';
 
 import {getIndexHtmlTemplate} from './static-files';

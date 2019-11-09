@@ -13,7 +13,7 @@ import {FieldSet} from '../../component/layout/form-generator/field/field-set/fi
 import {typeConverter} from '../../lib/type';
 import type {MongoDocumentType, MongoDocumentTypeType} from '../../../../server/src/db/type';
 import {mongoDocumentTypeMap} from '../../../../server/src/db/type';
-import {getSlug, stringToUniqArray} from '../../component/layout/form-generator/field/input-text/input-text-helper';
+import {getSlug, stringToUniqArray} from '../../lib/string';
 
 export type FormDataMongoDocumentType = {
     +slug: string,
@@ -32,7 +32,7 @@ export function formDataToMongoDocument(formData: {}): MongoDocumentType {
     const documentFormData: FormDataMongoDocumentType = typeConverter<FormDataMongoDocumentType>(formData);
 
     const subDocumentList = stringToUniqArray(documentFormData.subDocumentList, ',');
-    const slug = getSlug(documentFormData.slug);
+    const slug = getSlug(documentFormData.title);
 
     if (subDocumentList.includes(slug)) {
         subDocumentList.splice(subDocumentList.indexOf(slug), 1);
@@ -66,6 +66,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         placeholder: 'the-slug-or-id-of-document',
                         labelText: 'Slug',
                         content: null,
+                        isHidden: true,
                     },
                     {
                         name: 'type',

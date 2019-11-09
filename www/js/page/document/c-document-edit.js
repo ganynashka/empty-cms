@@ -18,8 +18,6 @@ import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 import {Spinner} from '../../component/layout/spinner/c-spinner';
 import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
 
-import {stopPropagation} from '../../lib/event';
-
 import {routePathMap} from '../../component/app/routes-path-map';
 
 import {documentSearchExact, getDocumentParentList, updateDocument} from './document-api';
