@@ -1,5 +1,7 @@
 // @flow
 
+/* global window */
+
 import React, {Component, type Node} from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
@@ -13,6 +15,8 @@ import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.sc
 import {isError} from '../../lib/is';
 import type {FormGeneratorConfigType} from '../../component/layout/form-generator/type';
 import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
+
+import {routePathMap} from '../../component/app/routes-path-map';
 
 import {createDocument} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './helper';
@@ -44,6 +48,10 @@ export class DocumentCreate extends Component<PropsType, StateType> {
             await showSnackbar({children: createDocumentResult.errorList.join(','), variant: 'error'}, snackBarId);
             return;
         }
+
+        window.setTimeout(() => {
+            window.location.href = routePathMap.documentEdit.staticPartPath + '/' + endDocumentData.slug;
+        }, 3e3);
 
         await showSnackbar({children: 'Document has been created!', variant: 'success'}, snackBarId);
     };

@@ -61,7 +61,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                     {
                         name: 'slug',
                         fieldComponent: InputText,
-                        validate: getIsRequired,
+                        validate: noValidate,
                         defaultValue: '',
                         placeholder: 'the-slug-or-id-of-document',
                         labelText: 'Slug',
