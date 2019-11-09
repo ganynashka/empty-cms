@@ -26,6 +26,7 @@ declare module 'mongodb' {
         limit: (size: number) => MongoCollectionCursor<ItemType>,
         skip: (size: number) => MongoCollectionCursor<ItemType>,
         sort: (sort: {[key: string]: MongoSortDirectionType}) => MongoCollectionCursor<ItemType>,
+        toArray: (callBack: (error: Error | null, array: Array<ItemType> | null) => mixed) => mixed,
     }
 
     declare type MongoCollectionFindOption = {
