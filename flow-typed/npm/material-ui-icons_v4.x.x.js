@@ -21072,65 +21072,35 @@ declare module '@material-ui/icons' {
     declare export {default as AirlineSeatFlatSharp} from '@material-ui/icons/AirlineSeatFlatSharp';
     declare export {default as AirlineSeatFlatTwoTone} from '@material-ui/icons/AirlineSeatFlatTwoTone';
     declare export {default as AirlineSeatIndividualSuite} from '@material-ui/icons/AirlineSeatIndividualSuite';
-    declare export {
-        default as AirlineSeatIndividualSuiteOutlined,
-    } from '@material-ui/icons/AirlineSeatIndividualSuiteOutlined';
-    declare export {
-        default as AirlineSeatIndividualSuiteRounded,
-    } from '@material-ui/icons/AirlineSeatIndividualSuiteRounded';
-    declare export {
-        default as AirlineSeatIndividualSuiteSharp,
-    } from '@material-ui/icons/AirlineSeatIndividualSuiteSharp';
-    declare export {
-        default as AirlineSeatIndividualSuiteTwoTone,
-    } from '@material-ui/icons/AirlineSeatIndividualSuiteTwoTone';
+    declare export {default as AirlineSeatIndividualSuiteOutlined} from '@material-ui/icons/AirlineSeatIndividualSuiteOutlined';
+    declare export {default as AirlineSeatIndividualSuiteRounded} from '@material-ui/icons/AirlineSeatIndividualSuiteRounded';
+    declare export {default as AirlineSeatIndividualSuiteSharp} from '@material-ui/icons/AirlineSeatIndividualSuiteSharp';
+    declare export {default as AirlineSeatIndividualSuiteTwoTone} from '@material-ui/icons/AirlineSeatIndividualSuiteTwoTone';
     declare export {default as AirlineSeatLegroomExtra} from '@material-ui/icons/AirlineSeatLegroomExtra';
-    declare export {
-        default as AirlineSeatLegroomExtraOutlined,
-    } from '@material-ui/icons/AirlineSeatLegroomExtraOutlined';
+    declare export {default as AirlineSeatLegroomExtraOutlined} from '@material-ui/icons/AirlineSeatLegroomExtraOutlined';
     declare export {default as AirlineSeatLegroomExtraRounded} from '@material-ui/icons/AirlineSeatLegroomExtraRounded';
     declare export {default as AirlineSeatLegroomExtraSharp} from '@material-ui/icons/AirlineSeatLegroomExtraSharp';
     declare export {default as AirlineSeatLegroomExtraTwoTone} from '@material-ui/icons/AirlineSeatLegroomExtraTwoTone';
     declare export {default as AirlineSeatLegroomNormal} from '@material-ui/icons/AirlineSeatLegroomNormal';
-    declare export {
-        default as AirlineSeatLegroomNormalOutlined,
-    } from '@material-ui/icons/AirlineSeatLegroomNormalOutlined';
-    declare export {
-        default as AirlineSeatLegroomNormalRounded,
-    } from '@material-ui/icons/AirlineSeatLegroomNormalRounded';
+    declare export {default as AirlineSeatLegroomNormalOutlined} from '@material-ui/icons/AirlineSeatLegroomNormalOutlined';
+    declare export {default as AirlineSeatLegroomNormalRounded} from '@material-ui/icons/AirlineSeatLegroomNormalRounded';
     declare export {default as AirlineSeatLegroomNormalSharp} from '@material-ui/icons/AirlineSeatLegroomNormalSharp';
-    declare export {
-        default as AirlineSeatLegroomNormalTwoTone,
-    } from '@material-ui/icons/AirlineSeatLegroomNormalTwoTone';
+    declare export {default as AirlineSeatLegroomNormalTwoTone} from '@material-ui/icons/AirlineSeatLegroomNormalTwoTone';
     declare export {default as AirlineSeatLegroomReduced} from '@material-ui/icons/AirlineSeatLegroomReduced';
-    declare export {
-        default as AirlineSeatLegroomReducedOutlined,
-    } from '@material-ui/icons/AirlineSeatLegroomReducedOutlined';
-    declare export {
-        default as AirlineSeatLegroomReducedRounded,
-    } from '@material-ui/icons/AirlineSeatLegroomReducedRounded';
+    declare export {default as AirlineSeatLegroomReducedOutlined} from '@material-ui/icons/AirlineSeatLegroomReducedOutlined';
+    declare export {default as AirlineSeatLegroomReducedRounded} from '@material-ui/icons/AirlineSeatLegroomReducedRounded';
     declare export {default as AirlineSeatLegroomReducedSharp} from '@material-ui/icons/AirlineSeatLegroomReducedSharp';
-    declare export {
-        default as AirlineSeatLegroomReducedTwoTone,
-    } from '@material-ui/icons/AirlineSeatLegroomReducedTwoTone';
+    declare export {default as AirlineSeatLegroomReducedTwoTone} from '@material-ui/icons/AirlineSeatLegroomReducedTwoTone';
     declare export {default as AirlineSeatReclineExtra} from '@material-ui/icons/AirlineSeatReclineExtra';
-    declare export {
-        default as AirlineSeatReclineExtraOutlined,
-    } from '@material-ui/icons/AirlineSeatReclineExtraOutlined';
+    declare export {default as AirlineSeatReclineExtraOutlined} from '@material-ui/icons/AirlineSeatReclineExtraOutlined';
     declare export {default as AirlineSeatReclineExtraRounded} from '@material-ui/icons/AirlineSeatReclineExtraRounded';
     declare export {default as AirlineSeatReclineExtraSharp} from '@material-ui/icons/AirlineSeatReclineExtraSharp';
     declare export {default as AirlineSeatReclineExtraTwoTone} from '@material-ui/icons/AirlineSeatReclineExtraTwoTone';
     declare export {default as AirlineSeatReclineNormal} from '@material-ui/icons/AirlineSeatReclineNormal';
-    declare export {
-        default as AirlineSeatReclineNormalOutlined,
-    } from '@material-ui/icons/AirlineSeatReclineNormalOutlined';
-    declare export {
-        default as AirlineSeatReclineNormalRounded,
-    } from '@material-ui/icons/AirlineSeatReclineNormalRounded';
+    declare export {default as AirlineSeatReclineNormalOutlined} from '@material-ui/icons/AirlineSeatReclineNormalOutlined';
+    declare export {default as AirlineSeatReclineNormalRounded} from '@material-ui/icons/AirlineSeatReclineNormalRounded';
     declare export {default as AirlineSeatReclineNormalSharp} from '@material-ui/icons/AirlineSeatReclineNormalSharp';
-    declare export {
-        default as AirlineSeatReclineNormalTwoTone,
-    } from '@material-ui/icons/AirlineSeatReclineNormalTwoTone';
+    declare export {default as AirlineSeatReclineNormalTwoTone} from '@material-ui/icons/AirlineSeatReclineNormalTwoTone';
     declare export {default as AirplanemodeActive} from '@material-ui/icons/AirplanemodeActive';
     declare export {default as AirplanemodeActiveOutlined} from '@material-ui/icons/AirplanemodeActiveOutlined';
     declare export {default as AirplanemodeActiveRounded} from '@material-ui/icons/AirplanemodeActiveRounded';
@@ -22947,16 +22917,12 @@ declare module '@material-ui/icons' {
     declare export {default as FormatStrikethroughSharp} from '@material-ui/icons/FormatStrikethroughSharp';
     declare export {default as FormatStrikethroughTwoTone} from '@material-ui/icons/FormatStrikethroughTwoTone';
     declare export {default as FormatTextdirectionLToR} from '@material-ui/icons/FormatTextdirectionLToR';
-    declare export {
-        default as FormatTextdirectionLToROutlined,
-    } from '@material-ui/icons/FormatTextdirectionLToROutlined';
+    declare export {default as FormatTextdirectionLToROutlined} from '@material-ui/icons/FormatTextdirectionLToROutlined';
     declare export {default as FormatTextdirectionLToRRounded} from '@material-ui/icons/FormatTextdirectionLToRRounded';
     declare export {default as FormatTextdirectionLToRSharp} from '@material-ui/icons/FormatTextdirectionLToRSharp';
     declare export {default as FormatTextdirectionLToRTwoTone} from '@material-ui/icons/FormatTextdirectionLToRTwoTone';
     declare export {default as FormatTextdirectionRToL} from '@material-ui/icons/FormatTextdirectionRToL';
-    declare export {
-        default as FormatTextdirectionRToLOutlined,
-    } from '@material-ui/icons/FormatTextdirectionRToLOutlined';
+    declare export {default as FormatTextdirectionRToLOutlined} from '@material-ui/icons/FormatTextdirectionRToLOutlined';
     declare export {default as FormatTextdirectionRToLRounded} from '@material-ui/icons/FormatTextdirectionRToLRounded';
     declare export {default as FormatTextdirectionRToLSharp} from '@material-ui/icons/FormatTextdirectionRToLSharp';
     declare export {default as FormatTextdirectionRToLTwoTone} from '@material-ui/icons/FormatTextdirectionRToLTwoTone';
@@ -24961,16 +24927,10 @@ declare module '@material-ui/icons' {
     declare export {default as SentimentSatisfiedSharp} from '@material-ui/icons/SentimentSatisfiedSharp';
     declare export {default as SentimentSatisfiedTwoTone} from '@material-ui/icons/SentimentSatisfiedTwoTone';
     declare export {default as SentimentVeryDissatisfied} from '@material-ui/icons/SentimentVeryDissatisfied';
-    declare export {
-        default as SentimentVeryDissatisfiedOutlined,
-    } from '@material-ui/icons/SentimentVeryDissatisfiedOutlined';
-    declare export {
-        default as SentimentVeryDissatisfiedRounded,
-    } from '@material-ui/icons/SentimentVeryDissatisfiedRounded';
+    declare export {default as SentimentVeryDissatisfiedOutlined} from '@material-ui/icons/SentimentVeryDissatisfiedOutlined';
+    declare export {default as SentimentVeryDissatisfiedRounded} from '@material-ui/icons/SentimentVeryDissatisfiedRounded';
     declare export {default as SentimentVeryDissatisfiedSharp} from '@material-ui/icons/SentimentVeryDissatisfiedSharp';
-    declare export {
-        default as SentimentVeryDissatisfiedTwoTone,
-    } from '@material-ui/icons/SentimentVeryDissatisfiedTwoTone';
+    declare export {default as SentimentVeryDissatisfiedTwoTone} from '@material-ui/icons/SentimentVeryDissatisfiedTwoTone';
     declare export {default as SentimentVerySatisfied} from '@material-ui/icons/SentimentVerySatisfied';
     declare export {default as SentimentVerySatisfiedOutlined} from '@material-ui/icons/SentimentVerySatisfiedOutlined';
     declare export {default as SentimentVerySatisfiedRounded} from '@material-ui/icons/SentimentVerySatisfiedRounded';
@@ -25141,81 +25101,31 @@ declare module '@material-ui/icons' {
     declare export {default as SignalCellularAltRounded} from '@material-ui/icons/SignalCellularAltRounded';
     declare export {default as SignalCellularAltSharp} from '@material-ui/icons/SignalCellularAltSharp';
     declare export {default as SignalCellularAltTwoTone} from '@material-ui/icons/SignalCellularAltTwoTone';
-    declare export {
-        default as SignalCellularConnectedNoInternet0Bar,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet0Bar';
-    declare export {
-        default as SignalCellularConnectedNoInternet0BarOutlined,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet0BarOutlined';
-    declare export {
-        default as SignalCellularConnectedNoInternet0BarRounded,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet0BarRounded';
-    declare export {
-        default as SignalCellularConnectedNoInternet0BarSharp,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet0BarSharp';
-    declare export {
-        default as SignalCellularConnectedNoInternet0BarTwoTone,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet0BarTwoTone';
-    declare export {
-        default as SignalCellularConnectedNoInternet1Bar,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet1Bar';
-    declare export {
-        default as SignalCellularConnectedNoInternet1BarOutlined,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet1BarOutlined';
-    declare export {
-        default as SignalCellularConnectedNoInternet1BarRounded,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet1BarRounded';
-    declare export {
-        default as SignalCellularConnectedNoInternet1BarSharp,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet1BarSharp';
-    declare export {
-        default as SignalCellularConnectedNoInternet1BarTwoTone,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet1BarTwoTone';
-    declare export {
-        default as SignalCellularConnectedNoInternet2Bar,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet2Bar';
-    declare export {
-        default as SignalCellularConnectedNoInternet2BarOutlined,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet2BarOutlined';
-    declare export {
-        default as SignalCellularConnectedNoInternet2BarRounded,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet2BarRounded';
-    declare export {
-        default as SignalCellularConnectedNoInternet2BarSharp,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet2BarSharp';
-    declare export {
-        default as SignalCellularConnectedNoInternet2BarTwoTone,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet2BarTwoTone';
-    declare export {
-        default as SignalCellularConnectedNoInternet3Bar,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet3Bar';
-    declare export {
-        default as SignalCellularConnectedNoInternet3BarOutlined,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet3BarOutlined';
-    declare export {
-        default as SignalCellularConnectedNoInternet3BarRounded,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet3BarRounded';
-    declare export {
-        default as SignalCellularConnectedNoInternet3BarSharp,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet3BarSharp';
-    declare export {
-        default as SignalCellularConnectedNoInternet3BarTwoTone,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet3BarTwoTone';
-    declare export {
-        default as SignalCellularConnectedNoInternet4Bar,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet4Bar';
-    declare export {
-        default as SignalCellularConnectedNoInternet4BarOutlined,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet4BarOutlined';
-    declare export {
-        default as SignalCellularConnectedNoInternet4BarRounded,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet4BarRounded';
-    declare export {
-        default as SignalCellularConnectedNoInternet4BarSharp,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet4BarSharp';
-    declare export {
-        default as SignalCellularConnectedNoInternet4BarTwoTone,
-    } from '@material-ui/icons/SignalCellularConnectedNoInternet4BarTwoTone';
+    declare export {default as SignalCellularConnectedNoInternet0Bar} from '@material-ui/icons/SignalCellularConnectedNoInternet0Bar';
+    declare export {default as SignalCellularConnectedNoInternet0BarOutlined} from '@material-ui/icons/SignalCellularConnectedNoInternet0BarOutlined';
+    declare export {default as SignalCellularConnectedNoInternet0BarRounded} from '@material-ui/icons/SignalCellularConnectedNoInternet0BarRounded';
+    declare export {default as SignalCellularConnectedNoInternet0BarSharp} from '@material-ui/icons/SignalCellularConnectedNoInternet0BarSharp';
+    declare export {default as SignalCellularConnectedNoInternet0BarTwoTone} from '@material-ui/icons/SignalCellularConnectedNoInternet0BarTwoTone';
+    declare export {default as SignalCellularConnectedNoInternet1Bar} from '@material-ui/icons/SignalCellularConnectedNoInternet1Bar';
+    declare export {default as SignalCellularConnectedNoInternet1BarOutlined} from '@material-ui/icons/SignalCellularConnectedNoInternet1BarOutlined';
+    declare export {default as SignalCellularConnectedNoInternet1BarRounded} from '@material-ui/icons/SignalCellularConnectedNoInternet1BarRounded';
+    declare export {default as SignalCellularConnectedNoInternet1BarSharp} from '@material-ui/icons/SignalCellularConnectedNoInternet1BarSharp';
+    declare export {default as SignalCellularConnectedNoInternet1BarTwoTone} from '@material-ui/icons/SignalCellularConnectedNoInternet1BarTwoTone';
+    declare export {default as SignalCellularConnectedNoInternet2Bar} from '@material-ui/icons/SignalCellularConnectedNoInternet2Bar';
+    declare export {default as SignalCellularConnectedNoInternet2BarOutlined} from '@material-ui/icons/SignalCellularConnectedNoInternet2BarOutlined';
+    declare export {default as SignalCellularConnectedNoInternet2BarRounded} from '@material-ui/icons/SignalCellularConnectedNoInternet2BarRounded';
+    declare export {default as SignalCellularConnectedNoInternet2BarSharp} from '@material-ui/icons/SignalCellularConnectedNoInternet2BarSharp';
+    declare export {default as SignalCellularConnectedNoInternet2BarTwoTone} from '@material-ui/icons/SignalCellularConnectedNoInternet2BarTwoTone';
+    declare export {default as SignalCellularConnectedNoInternet3Bar} from '@material-ui/icons/SignalCellularConnectedNoInternet3Bar';
+    declare export {default as SignalCellularConnectedNoInternet3BarOutlined} from '@material-ui/icons/SignalCellularConnectedNoInternet3BarOutlined';
+    declare export {default as SignalCellularConnectedNoInternet3BarRounded} from '@material-ui/icons/SignalCellularConnectedNoInternet3BarRounded';
+    declare export {default as SignalCellularConnectedNoInternet3BarSharp} from '@material-ui/icons/SignalCellularConnectedNoInternet3BarSharp';
+    declare export {default as SignalCellularConnectedNoInternet3BarTwoTone} from '@material-ui/icons/SignalCellularConnectedNoInternet3BarTwoTone';
+    declare export {default as SignalCellularConnectedNoInternet4Bar} from '@material-ui/icons/SignalCellularConnectedNoInternet4Bar';
+    declare export {default as SignalCellularConnectedNoInternet4BarOutlined} from '@material-ui/icons/SignalCellularConnectedNoInternet4BarOutlined';
+    declare export {default as SignalCellularConnectedNoInternet4BarRounded} from '@material-ui/icons/SignalCellularConnectedNoInternet4BarRounded';
+    declare export {default as SignalCellularConnectedNoInternet4BarSharp} from '@material-ui/icons/SignalCellularConnectedNoInternet4BarSharp';
+    declare export {default as SignalCellularConnectedNoInternet4BarTwoTone} from '@material-ui/icons/SignalCellularConnectedNoInternet4BarTwoTone';
     declare export {default as SignalCellularNoSim} from '@material-ui/icons/SignalCellularNoSim';
     declare export {default as SignalCellularNoSimOutlined} from '@material-ui/icons/SignalCellularNoSimOutlined';
     declare export {default as SignalCellularNoSimRounded} from '@material-ui/icons/SignalCellularNoSimRounded';
