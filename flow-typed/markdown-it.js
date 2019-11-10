@@ -13,7 +13,7 @@ declare module 'markdown-it' {
     |};
 
     declare export default class MarkdownIt {
-        constructor(config: MarkdownItConfig): MarkdownIt,
+        constructor(config: MarkdownItConfigType): MarkdownIt,
         render(markdown: string): string,
     }
 }
