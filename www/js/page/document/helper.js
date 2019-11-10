@@ -14,6 +14,7 @@ import {typeConverter} from '../../lib/type';
 import type {MongoDocumentType, MongoDocumentTypeType} from '../../../../server/src/db/type';
 import {mongoDocumentTypeMap} from '../../../../server/src/db/type';
 import {getSlug, stringToUniqArray} from '../../lib/string';
+import {InputMarkdown} from '../../component/layout/form-generator/field/input-markdown/c-input-markdown';
 
 export type FormDataMongoDocumentType = {
     +slug: string,
@@ -95,7 +96,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                     },
                     {
                         name: 'content',
-                        fieldComponent: InputTextArea,
+                        fieldComponent: InputMarkdown,
                         validate: noValidate,
                         defaultValue: '',
                         placeholder: 'Content',
