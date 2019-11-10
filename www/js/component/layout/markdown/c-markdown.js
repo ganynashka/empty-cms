@@ -14,7 +14,7 @@ type PropsType = {|
 
 const defaultConfig: MarkdownItConfigType = {
     html: false,
-    xhtmlOut: false,
+    xhtmlOut: true,
     breaks: true,
     langPrefix: 'markdown-lang-prefix',
     linkify: false,
