@@ -16,7 +16,7 @@ const defaultConfig: MarkdownItConfigType = {
     html: false,
     xhtmlOut: true,
     breaks: true,
-    langPrefix: 'markdown-lang-prefix',
+    langPrefix: 'markdown-lang-prefix--',
     linkify: false,
     typographer: false,
     quotes: '“”‘’',
