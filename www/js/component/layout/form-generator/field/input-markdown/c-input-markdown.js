@@ -1,15 +1,18 @@
 // @flow
 
 import React, {Component, type Node} from 'react';
+import classNames from 'classnames';
 
-import type {InputComponentPropsType, InputValueType} from '../../type';
-import {InputTextArea} from '../input-text-area/c-input-text-area';
+import type {InputComponentPropsType} from '../../type';
+import {Markdown} from '../../../markdown/c-markdown';
+import inputTextAreaStyle from '../input-text-area/input-text-area.style.scss';
+import fieldStyle from '../field.style.scss';
 
-import {Markdown} from './c-markdown';
+import inputMarkdownStyle from './input-markdown.style.scss';
 
 type PropsType = InputComponentPropsType;
 type StateType = {|
-    textContent: string,
+    +textContent: string,
 |};
 
 export class InputMarkdown extends Component<PropsType, StateType> {
@@ -21,9 +24,17 @@ export class InputMarkdown extends Component<PropsType, StateType> {
         };
     }
 
-    handleTextAreaOnChange = (value: InputValueType) => {
+    getTextAreaValue(evt: SyntheticEvent<HTMLInputElement>): string {
+        const {currentTarget} = evt;
+        const {value} = currentTarget;
+
+        return value.trim();
+    }
+
+    handleTextAreaOnChange = (evt: SyntheticEvent<HTMLInputElement>) => {
         const {props, state} = this;
         const {onChange} = props;
+        const value = this.getTextAreaValue(evt);
 
         onChange(value);
 
@@ -31,9 +42,10 @@ export class InputMarkdown extends Component<PropsType, StateType> {
         this.setState({textContent: String(value)});
     };
 
-    handleTextAreaOnBlur = (value: InputValueType) => {
+    handleTextAreaOnBlur = (evt: SyntheticEvent<HTMLInputElement>) => {
         const {props, state} = this;
         const {onBlur} = props;
+        const value = this.getTextAreaValue(evt);
 
         onBlur(value);
 
@@ -43,21 +55,33 @@ export class InputMarkdown extends Component<PropsType, StateType> {
 
     render(): Node {
         const {props, state} = this;
-        const {name, errorList, defaultValue, placeholder, labelText, content} = props;
+        const {name, errorList, defaultValue, placeholder, labelText} = props;
 
-        return [
-            <InputTextArea
-                content={content}
-                defaultValue={defaultValue}
-                errorList={errorList}
-                key="input-text-area"
-                labelText={labelText}
-                name={name}
-                onBlur={this.handleTextAreaOnBlur}
-                onChange={this.handleTextAreaOnChange}
-                placeholder={placeholder}
-            />,
-            <Markdown key="markdown-result" text={state.textContent}/>,
-        ];
+        return (
+            <label className={inputTextAreaStyle.text_area__label_wrapper}>
+                <span className={fieldStyle.form__label_description}>{labelText}</span>
+                <div className={inputMarkdownStyle.input_markdown__wrapper}>
+                    <textarea
+                        className={classNames(
+                            inputMarkdownStyle.input_markdown__half,
+                            inputTextAreaStyle.text_area__input,
+                            {
+                                [fieldStyle.form__input__invalid]: errorList.length > 0,
+                            }
+                        )}
+                        defaultValue={defaultValue}
+                        name={name}
+                        onBlur={this.handleTextAreaOnBlur}
+                        onChange={this.handleTextAreaOnChange}
+                        placeholder={placeholder}
+                    />
+                    <Markdown
+                        additionalClassName={inputMarkdownStyle.input_markdown__half}
+                        key="markdown-result"
+                        text={state.textContent}
+                    />
+                </div>
+            </label>
+        );
     }
 }

@@ -6,7 +6,8 @@ import type {FormGeneratorConfigType} from '../../component/layout/form-generato
 import {InputText} from '../../component/layout/form-generator/field/input-text/c-input-text';
 import {getIsRequired, noValidate} from '../../component/layout/form-generator/validate/validate';
 import {InputSelect} from '../../component/layout/form-generator/field/input-select/c-input-select';
-import {InputTextArea} from '../../component/layout/form-generator/field/input-text-area/c-input-text-area';
+// import {InputTextArea} from '../../component/layout/form-generator/field/input-text-area/c-input-text-area';
+import {InputMarkdown} from '../../component/layout/form-generator/field/input-markdown/c-input-markdown';
 import {InputIntNumber} from '../../component/layout/form-generator/field/input-int-number/c-input-int-number';
 import {InputCheckbox} from '../../component/layout/form-generator/field/input-checkbox/c-input-checkbox';
 import {FieldSet} from '../../component/layout/form-generator/field/field-set/field-set';
@@ -14,7 +15,6 @@ import {typeConverter} from '../../lib/type';
 import type {MongoDocumentType, MongoDocumentTypeType} from '../../../../server/src/db/type';
 import {mongoDocumentTypeMap} from '../../../../server/src/db/type';
 import {getSlug, stringToUniqArray} from '../../lib/string';
-import {InputMarkdown} from '../../component/layout/form-generator/field/input-markdown/c-input-markdown';
 
 export type FormDataMongoDocumentType = {
     +slug: string,
@@ -95,15 +95,6 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         content: null,
                     },
                     {
-                        name: 'content',
-                        fieldComponent: InputMarkdown,
-                        validate: noValidate,
-                        defaultValue: '',
-                        placeholder: 'Content',
-                        labelText: 'Content',
-                        content: null,
-                    },
-                    {
                         name: 'createdDate',
                         fieldComponent: InputIntNumber,
                         validate: noValidate,
@@ -159,6 +150,15 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         labelText: 'Rating',
                         content: null,
                         isHidden: true,
+                    },
+                    {
+                        name: 'content',
+                        fieldComponent: InputMarkdown,
+                        validate: noValidate,
+                        defaultValue: '',
+                        placeholder: 'Content',
+                        labelText: 'Content',
+                        content: null,
                     },
                 ],
                 fieldSetWrapper: {

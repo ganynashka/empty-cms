@@ -1,0 +1,16 @@
+@import './../field.style';
+
+.input_markdown__wrapper {
+    clear: both;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.input_markdown__half {
+    box-sizing: border-box;
+    display: block;
+    min-height: 500px;
+    padding: 10px;
+    width: 50%;
+}

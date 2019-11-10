@@ -3,6 +3,8 @@
 /* stylelint-disable no-descending-specificity, selector-no-qualifying-type */
 
 .markdown_wrapper {
+    border: 2px solid #c6d0dd;
+    border-radius: 5px;
     display: block;
 
     h1,
@@ -213,5 +215,9 @@
     abbr[data-original-title] {
         border-bottom: 1px dotted #777;
         cursor: help;
+    }
+
+    img {
+        max-width: 35%;
     }
 }

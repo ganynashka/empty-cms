@@ -2,12 +2,14 @@
 
 import React, {type Node} from 'react';
 import MarkdownIt, {type MarkdownItConfigType} from 'markdown-it';
+import classNames from 'classnames';
 
 import markdownStyle from './markdown.style.scss';
 
 type PropsType = {|
     +config?: MarkdownItConfigType,
     +text: string,
+    +additionalClassName?: string,
 |};
 
 const defaultConfig: MarkdownItConfigType = {
@@ -22,10 +24,15 @@ const defaultConfig: MarkdownItConfigType = {
 };
 
 export function Markdown(props: PropsType): Node {
-    const {config, text} = props;
+    const {config, text, additionalClassName} = props;
     const markdown = new MarkdownIt({...defaultConfig, ...config});
     const html = markdown.render(text);
 
-    // eslint-disable-next-line react/no-danger, id-match
-    return <div className={markdownStyle.markdown_wrapper} dangerouslySetInnerHTML={{__html: html}}/>;
+    return (
+        <div
+            className={classNames(markdownStyle.markdown_wrapper, additionalClassName || '')}
+            // eslint-disable-next-line react/no-danger, id-match
+            dangerouslySetInnerHTML={{__html: html}}
+        />
+    );
 }
