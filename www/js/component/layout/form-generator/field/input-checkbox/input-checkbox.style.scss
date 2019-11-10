@@ -9,9 +9,9 @@
     background-repeat: no-repeat;
     background-size: contain;
     float: left;
-    height: $form-generator-input-height - 2;
+    height: $form-generator-input-height - 6;
     margin-right: 12px;
-    width: $form-generator-input-height - 2;
+    width: $form-generator-input-height - 6;
 }
 
 .input_checkbox__input_state__invalid {
@@ -32,6 +32,6 @@
 
 .input_checkbox__label_description {
     box-sizing: border-box;
-    min-height: 34px;
-    padding-top: 8px;
+    min-height: 27px;
+    padding-top: 6px;
 }

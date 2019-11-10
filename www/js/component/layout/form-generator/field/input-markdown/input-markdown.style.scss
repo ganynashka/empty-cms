@@ -2,15 +2,30 @@
 
 .input_markdown__wrapper {
     clear: both;
-    display: flex;
-    flex-direction: row;
+    display: block;
+    position: relative;
     width: 100%;
 }
 
-.input_markdown__half {
+%input-markdown--half {
     box-sizing: border-box;
     display: block;
-    min-height: 500px;
     padding: 10px;
+    position: relative;
     width: 50%;
+}
+
+.input_markdown__text_area {
+    @extend %input-markdown--half;
+
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+.input_markdown__result {
+    @extend %input-markdown--half;
+
+    margin-left: 50%;
 }

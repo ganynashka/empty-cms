@@ -58,16 +58,14 @@ export class InputMarkdown extends Component<PropsType, StateType> {
         const {name, errorList, defaultValue, placeholder, labelText} = props;
 
         return (
-            <label className={inputTextAreaStyle.text_area__label_wrapper}>
+            <div className={inputTextAreaStyle.text_area__label_wrapper}>
                 <span className={fieldStyle.form__label_description}>{labelText}</span>
                 <div className={inputMarkdownStyle.input_markdown__wrapper}>
                     <textarea
                         className={classNames(
-                            inputMarkdownStyle.input_markdown__half,
+                            inputMarkdownStyle.input_markdown__text_area,
                             inputTextAreaStyle.text_area__input,
-                            {
-                                [fieldStyle.form__input__invalid]: errorList.length > 0,
-                            }
+                            {[fieldStyle.form__input__invalid]: errorList.length > 0}
                         )}
                         defaultValue={defaultValue}
                         name={name}
@@ -76,12 +74,12 @@ export class InputMarkdown extends Component<PropsType, StateType> {
                         placeholder={placeholder}
                     />
                     <Markdown
-                        additionalClassName={inputMarkdownStyle.input_markdown__half}
+                        additionalClassName={inputMarkdownStyle.input_markdown__result}
                         key="markdown-result"
                         text={state.textContent}
                     />
                 </div>
-            </label>
+            </div>
         );
     }
 }

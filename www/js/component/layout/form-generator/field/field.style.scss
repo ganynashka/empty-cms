@@ -3,7 +3,7 @@ $form-generator-input-border-color-invalid: #c00;
 $form-generator-input-height: 38px;
 $form-generator-input-border-radius: 5px;
 $form-generator-input-border-width: 2px;
-$form-generator-input-font-size: 16px;
+$form-generator-input-font-size: 14px;
 $form-generator-input-side-padding: 7px;
 
 .form__generator {
@@ -23,7 +23,7 @@ $form-generator-input-side-padding: 7px;
 .form__label_wrapper {
     box-sizing: border-box;
     display: block;
-    padding-bottom: 25px;
+    padding-bottom: 16px;
     //height: $form-generator-field-height;
 }
 
@@ -37,6 +37,7 @@ $form-generator-input-side-padding: 7px;
     border-radius: $form-generator-input-border-radius;
     box-sizing: border-box;
     display: block;
+    font-family: inherit;
     font-size: $form-generator-input-font-size;
     height: $form-generator-input-height;
     padding: 0 $form-generator-input-side-padding;
