@@ -1,6 +1,6 @@
 // copy from https://markdown-it.github.io/
 
-/* stylelint-disable no-descending-specificity */
+/* stylelint-disable no-descending-specificity, selector-no-qualifying-type */
 
 .markdown_wrapper {
     display: block;
@@ -207,5 +207,11 @@
         font-size: inherit;
         padding: 0;
         white-space: pre-wrap;
+    }
+
+    abbr[title],
+    abbr[data-original-title] {
+        border-bottom: 1px dotted #777;
+        cursor: help;
     }
 }
