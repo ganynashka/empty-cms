@@ -90,9 +90,19 @@ export function getSlug(text: string): string {
     return cyrillicToLatin(text)
         .trim()
         .toLowerCase()
-        .replace(/\s+/g, ' ')
-        .replace(/\s/gi, '-')
-        .replace(/[^\w-]/gi, '-')
+        .split('')
+        .map<string>((char: string): string => {
+            if (/\d|\w/.test(char)) {
+                return char;
+            }
+
+            if ([' ', '-'].includes(char)) {
+                return '-';
+            }
+
+            return '';
+        })
+        .join('')
         .replace(/-+/gi, '-')
         .replace(/^-+/gi, '')
         .replace(/-+$/gi, '');
