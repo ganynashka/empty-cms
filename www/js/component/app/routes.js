@@ -2,14 +2,14 @@
 
 import {Home} from '../../page/home/c-home';
 import {Login} from '../../page/login/c-login';
-import {AboutUs} from '../../page/about-us/c-about-us';
-import {Contact} from '../../page/contact/c-contact';
 import {Register} from '../../page/register/c-register';
 import {UserList} from '../../page/user/c-user-list';
 import {DocumentList} from '../../page/document/c-document-list';
 import {DocumentTreeView} from '../../page/document/c-document-tree-view';
 import {DocumentCreate} from '../../page/document/c-document-create';
 import {DocumentEdit} from '../../page/document/c-document-edit';
+import {ImageUpload} from '../../page/image-upload/c-image-upload';
+import {ImageList} from '../../page/image-list/c-image-list';
 
 import type {RedirectItemType, RouteItemType} from './render-route-helper';
 import {routePathMap} from './routes-path-map';
@@ -56,14 +56,14 @@ export const routeItemMap: {[key: string]: RouteItemType | RedirectItemType} = {
         component: Register,
         type: 'route',
     },
-    aboutUs: {
-        path: routePathMap.aboutUs.path,
-        component: AboutUs,
+    imageUpload: {
+        path: routePathMap.imageUpload.path,
+        component: ImageUpload,
         type: 'route',
     },
-    contact: {
-        path: routePathMap.contact.path,
-        component: Contact,
+    imageList: {
+        path: routePathMap.imageList.path,
+        component: ImageList,
         type: 'route',
     },
 };

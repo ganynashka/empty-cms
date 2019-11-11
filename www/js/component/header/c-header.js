@@ -35,6 +35,14 @@ export function Header(props: PropsType): Node {
                 <Button component={Link} size="large" to={routeItemMap.documentCreate.path} variant="contained">
                     Document: create
                 </Button>
+                &nbsp;|&nbsp;
+                <Button component={Link} size="large" to={routeItemMap.imageList.path} variant="contained">
+                    Image: List
+                </Button>
+                &nbsp;|&nbsp;
+                <Button component={Link} size="large" to={routeItemMap.imageUpload.path} variant="contained">
+                    Image: Upload
+                </Button>
             </Toolbar>
         </AppBar>
     );

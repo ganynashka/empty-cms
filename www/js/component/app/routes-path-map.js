@@ -26,10 +26,10 @@ export const routePathMap = {
     register: {
         path: '/register',
     },
-    aboutUs: {
-        path: '/about-us',
+    imageUpload: {
+        path: '/image-upload',
     },
-    contact: {
-        path: '/contact',
+    imageList: {
+        path: '/image-list',
     },
 };
