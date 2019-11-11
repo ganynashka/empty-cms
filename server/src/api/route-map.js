@@ -16,3 +16,11 @@ export const userApiRouteMap = {
     register: '/api/register',
     login: '/api/login',
 };
+
+export const fileApiRouteMap = {
+    uploadImageList: '/api/upload-image-list',
+};
+
+export const fileApiConst = {
+    fileListFormPropertyName: 'file-list',
+};

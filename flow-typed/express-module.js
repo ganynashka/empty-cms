@@ -30,3 +30,30 @@ declare module 'express-session' {
 
     declare export default function session(option: ExpressSessionOptionType): string;
 }
+
+declare module 'express-fileupload' {
+    declare export type ExpressFileUploadOptionType = {
+        createParentPath: boolean, // recommended -> true
+    };
+
+    declare export type ExpressFormDataFileMvCallBackType = (error: Error | null) => mixed;
+
+    declare export type ExpressFormDataFileMvType = (
+        pathToFile: string,
+        writeCallBack: ExpressFormDataFileMvCallBackType,
+    ) => mixed;
+
+    declare export type ExpressFormDataFileType = {
+        name: string,
+        data: Buffer,
+        size: number,
+        encoding: string,
+        tempFilePath: string,
+        truncated: boolean,
+        mimetype: string,
+        md5: string,
+        mv: ExpressFormDataFileMvType,
+    };
+
+    declare export default function fileUpload(option: ExpressFileUploadOptionType): string;
+}

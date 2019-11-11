@@ -10,9 +10,10 @@ export type SessionType = {
     +role?: MongoUserRoleType,
 };
 
-export function getSession(request: $Request): SessionType {
-    // $FlowFixMe
-    return request.session;
+export function getSession(request: {...$Request, session?: SessionType}): SessionType {
+    const {session} = request;
+
+    return session || {};
 }
 
 export function isAdmin(request: $Request): boolean {
