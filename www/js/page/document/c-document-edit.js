@@ -74,11 +74,17 @@ export class DocumentEdit extends Component<PropsType, StateType> {
 
     handleFormSubmit = async (formData: {}) => {
         const {props} = this;
-        const {snackbarPortalContext} = props;
+        const {snackbarPortalContext, match} = props;
+
+        if (match === null) {
+            console.error('DocumentEdit props.match is not defined!');
+            return;
+        }
+
         const {showSnackbar} = snackbarPortalContext;
         const snackBarId = 'document-saved-snack-bar-id-' + String(Date.now());
         const endDocumentData: MongoDocumentType = formDataToMongoDocument(formData);
-        const updateDocumentResult = await updateDocument(endDocumentData);
+        const updateDocumentResult = await updateDocument({...endDocumentData, slug: String(match.params.slug)});
 
         if (isError(updateDocumentResult)) {
             await showSnackbar({children: updateDocumentResult.message, variant: 'error'}, snackBarId);
