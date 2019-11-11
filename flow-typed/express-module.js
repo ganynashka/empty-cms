@@ -36,7 +36,7 @@ declare module 'express-fileupload' {
         createParentPath: boolean, // recommended -> true
     };
 
-    declare export type ExpressFormDataFileMvCallBackType = (error: Error | null) => mixed;
+    declare export type ExpressFormDataFileMvCallBackType = (error: Error | mixed) => mixed;
 
     declare export type ExpressFormDataFileMvType = (
         pathToFile: string,

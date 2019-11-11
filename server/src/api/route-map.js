@@ -20,7 +20,3 @@ export const userApiRouteMap = {
 export const fileApiRouteMap = {
     uploadImageList: '/api/upload-image-list',
 };
-
-export const fileApiConst = {
-    fileListFormPropertyName: 'file-list',
-};

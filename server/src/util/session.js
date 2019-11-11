@@ -10,7 +10,8 @@ export type SessionType = {
     +role?: MongoUserRoleType,
 };
 
-export function getSession(request: {...$Request, session?: SessionType}): SessionType {
+export function getSession(request: $Request): SessionType {
+    // $FlowFixMe
     const {session} = request;
 
     return session || {};

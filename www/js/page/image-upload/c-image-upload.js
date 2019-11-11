@@ -6,7 +6,8 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Paper from '@material-ui/core/Paper';
 
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
-import {fileApiConst, fileApiRouteMap} from '../../../../server/src/api/route-map';
+import {fileApiRouteMap} from '../../../../server/src/api/route-map';
+import {fileApiConst} from '../../../../server/src/api/file-const';
 
 type PropsType = {};
 type StateType = {};
