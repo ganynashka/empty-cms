@@ -4,6 +4,7 @@ import {promises as fsPromises} from 'fs';
 import path from 'path';
 
 import {pathToDist} from '../../webpack/config';
+import {promiseCatch} from '../../www/js/lib/promise';
 
 import {stringForReplace} from './config';
 
@@ -15,9 +16,7 @@ fsPromises
         indexHtmlTemplate = fileText;
         return fileText;
     })
-    .catch((error: Error) => {
-        throw error;
-    });
+    .catch(promiseCatch);
 
 export function getIndexHtmlTemplate(): string {
     return indexHtmlTemplate;

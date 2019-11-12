@@ -7,7 +7,7 @@ import {isError, isObject} from '../../../www/js/lib/is';
 import {fileApiConst} from '../api/file-const';
 import {cwd} from '../../../webpack/config';
 
-export function getFileList(request: $Request): Array<ExpressFormDataFileType> {
+export function getFormDataFileList(request: $Request): Array<ExpressFormDataFileType> {
     // $FlowFixMe
     const {files} = request;
 

@@ -19,5 +19,9 @@ module.exports.devServer = {
             target: 'http://localhost:' + ssrServerPort + '/',
             changeOrigin: true, // for this option only: see documentations here https://github.com/chimurai/http-proxy-middleware#http-proxy-middleware-options
         },
+        '/upload-file/': {
+            target: 'http://localhost:' + ssrServerPort + '/',
+            changeOrigin: true, // for this option only: see documentations here https://github.com/chimurai/http-proxy-middleware#http-proxy-middleware-options
+        },
     },
 };

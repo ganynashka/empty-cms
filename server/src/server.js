@@ -27,7 +27,9 @@ import type {RouterStaticContextType} from './c-initial-data-context';
 import {defaultInitialData, type InitialDataType} from './c-initial-data-context';
 import {staticFilesList, stringForReplace} from './config';
 import {addApiIntoApplication} from './api/api';
+import {fileApiConst} from './api/file-const';
 
+const {pathToUploadFiles} = fileApiConst;
 const PORT: number = ssrServerPort;
 const CWD = process.cwd();
 
@@ -66,6 +68,13 @@ app.get(pathToStaticFileFolder + '/*', (request: $Request, response: $Response) 
     console.log(pathToStaticFileFolder + '/*');
     console.log(request.url);
     response.sendFile(path.join(CWD, pathToDist, request.params['0']));
+});
+
+// upload files
+app.get(pathToUploadFiles + '/*', (request: $Request, response: $Response) => {
+    console.log(pathToUploadFiles + '/*');
+    console.log(request.url);
+    response.sendFile(path.join(CWD, pathToUploadFiles, request.params['0']));
 });
 
 // service worker
