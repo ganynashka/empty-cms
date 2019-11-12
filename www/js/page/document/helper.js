@@ -2,11 +2,10 @@
 
 import React from 'react';
 
-import type {FormGeneratorConfigType} from '../../component/layout/form-generator/type';
+import type {FormGeneratorConfigType, FormGeneratorFormDataType} from '../../component/layout/form-generator/type';
 import {InputText} from '../../component/layout/form-generator/field/input-text/c-input-text';
 import {getIsRequired, noValidate} from '../../component/layout/form-generator/validate/validate';
 import {InputSelect} from '../../component/layout/form-generator/field/input-select/c-input-select';
-// import {InputTextArea} from '../../component/layout/form-generator/field/input-text-area/c-input-text-area';
 import {InputMarkdown} from '../../component/layout/form-generator/field/input-markdown/c-input-markdown';
 import {InputIntNumber} from '../../component/layout/form-generator/field/input-int-number/c-input-int-number';
 import {InputCheckbox} from '../../component/layout/form-generator/field/input-checkbox/c-input-checkbox';
@@ -29,7 +28,7 @@ export type FormDataMongoDocumentType = {
     +isActive: boolean,
 };
 
-export function formDataToMongoDocument(formData: {}): MongoDocumentType {
+export function formDataToMongoDocument(formData: FormGeneratorFormDataType): MongoDocumentType {
     const documentFormData: FormDataMongoDocumentType = typeConverter<FormDataMongoDocumentType>(formData);
 
     const subDocumentList = stringToUniqArray(documentFormData.subDocumentList, ',');

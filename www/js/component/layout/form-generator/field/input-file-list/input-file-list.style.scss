@@ -1,0 +1,28 @@
+@import './../field.style';
+
+.file_input__wrapper {
+    @extend %form--input;
+
+    position: relative;
+}
+
+.file_input__input {
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.file_input__text {
+    box-sizing: border-box;
+    height: 100%;
+    left: 0;
+    padding: 9px 7px 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+}

@@ -1,0 +1,97 @@
+// @flow
+
+import React, {Component, type Node} from 'react';
+import classNames from 'classnames';
+
+import type {InputComponentPropsType} from '../../type';
+import fieldStyle from '../field.style.scss';
+import {isString} from '../../../../../lib/is';
+import serviceStyle from '../../../../../../css/service.scss';
+
+import inputFileListStyle from './input-file-list.style.scss';
+
+type PropsType = InputComponentPropsType;
+type StateType = {fileList: Array<File>};
+
+export class InputFileList extends Component<PropsType, StateType> {
+    constructor(props: PropsType) {
+        super(props);
+
+        this.state = {
+            fileList: [],
+        };
+    }
+
+    getValue(evt: SyntheticEvent<HTMLInputElement>): Array<File> {
+        const {currentTarget} = evt;
+        const {files} = currentTarget;
+
+        return [...files];
+    }
+
+    handleOnChange = (evt: SyntheticEvent<HTMLInputElement>) => {
+        const {props, state} = this;
+        const {onChange} = props;
+        const fileList = this.getValue(evt);
+
+        onChange(fileList);
+
+        // eslint-disable-next-line react/no-set-state
+        this.setState({fileList});
+    };
+
+    handleOnBlur = (evt: SyntheticEvent<HTMLInputElement>) => {
+        const {props, state} = this;
+        const {onBlur} = props;
+        const fileList = this.getValue(evt);
+
+        onBlur(fileList);
+
+        // eslint-disable-next-line react/no-set-state
+        this.setState({fileList});
+    };
+
+    renderFileListStateLabel(): Node {
+        const {state} = this;
+        const {fileList} = state;
+        const fileCount = fileList.length;
+        const className = classNames(inputFileListStyle.file_input__text, serviceStyle.ellipsis);
+
+        const message
+            = fileCount > 0
+                ? `Files: ${fileCount}. ${fileList.map((file: File): string => file.name).join(', ') + '.'}`
+                : 'Click here or drop files.';
+
+        return <span className={className}>{message}</span>;
+    }
+
+    render(): Node {
+        const {props, state} = this;
+        const {name, onChange, onBlur, errorList, defaultValue, placeholder, labelText, accept, isMultiple} = props;
+
+        return (
+            <label className={fieldStyle.form__label_wrapper}>
+                <span className={fieldStyle.form__label_description}>{labelText}</span>
+                <div
+                    className={classNames(fieldStyle.form__input, inputFileListStyle.file_input__wrapper, {
+                        [fieldStyle.form__input__invalid]: errorList.length > 0,
+                    })}
+                >
+                    {this.renderFileListStateLabel()}
+                    <input
+                        accept={isString(accept) ? accept : '*/*'}
+                        className={inputFileListStyle.file_input__input}
+                        defaultValue={Array.isArray(defaultValue) ? defaultValue : []}
+                        key="file-input"
+                        multiple={Boolean(isMultiple)}
+                        name={name}
+                        onBlur={this.handleOnBlur}
+                        onChange={this.handleOnChange}
+                        placeholder={placeholder}
+                        type="file"
+                    />
+                </div>
+            </label>
+        );
+    }
+}

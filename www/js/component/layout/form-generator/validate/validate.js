@@ -1,14 +1,14 @@
 // @flow
 
-import type {InputValueType} from '../type';
+import type {InputValueType, FormGeneratorFormDataType} from '../type';
 import {isBoolean, isNull, isNumber, isString} from '../../../../lib/is';
 
-export function noValidate(name: string, value: InputValueType, formData: {}): Array<Error> {
+export function noValidate(name: string, value: InputValueType, formData: FormGeneratorFormDataType): Array<Error> {
     return [];
 }
 
 // eslint-disable-next-line complexity
-export function getIsRequired(name: string, value: InputValueType, formData: {}): Array<Error> {
+export function getIsRequired(name: string, value: InputValueType, formData: FormGeneratorFormDataType): Array<Error> {
     const errorMessage = 'Required field!';
     const requiredErrorList = [new Error(errorMessage)];
 
@@ -26,6 +26,10 @@ export function getIsRequired(name: string, value: InputValueType, formData: {})
 
     if (isNull(value)) {
         return requiredErrorList;
+    }
+
+    if (Array.isArray(value)) {
+        return value.length === 0 ? requiredErrorList : [];
     }
 
     console.log(value);

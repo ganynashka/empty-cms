@@ -13,9 +13,8 @@ import {FormButton} from '../../component/layout/form-button/c-form-button';
 import type {MongoDocumentType} from '../../../../server/src/db/type';
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
 import {isError} from '../../lib/is';
-import type {FormGeneratorConfigType} from '../../component/layout/form-generator/type';
+import type {FormGeneratorConfigType, FormGeneratorFormDataType} from '../../component/layout/form-generator/type';
 import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
-
 import {routePathMap} from '../../component/app/routes-path-map';
 
 import {createDocument} from './document-api';
@@ -29,7 +28,7 @@ type StateType = null;
 const formConfig: FormGeneratorConfigType = getDocumentFormConfig();
 
 export class DocumentCreate extends Component<PropsType, StateType> {
-    handleFormSubmit = async (formData: {}) => {
+    handleFormSubmit = async (formData: FormGeneratorFormDataType) => {
         const {props} = this;
         const {snackbarPortalContext} = props;
         const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());

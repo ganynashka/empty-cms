@@ -12,21 +12,20 @@ import type {
     FieldDataType,
     FieldSetDataType,
     FormGeneratorConfigType,
+    FormGeneratorFormDataType,
     InputComponentOnChangeType,
     InputValueType,
 } from './type';
 
 type PropsType = {|
     +config: FormGeneratorConfigType,
-    +onSubmit: (formData: {}) => mixed,
+    +onSubmit: (formData: FormGeneratorFormDataType) => mixed,
     +onError: (errorList: Array<Error>) => mixed,
     +footer: Node,
 |};
 
 type StateType = {|
-    +formData: {
-        +[key: string]: InputValueType,
-    },
+    +formData: FormGeneratorFormDataType,
     +formValidation: {
         +[key: string]: Array<Error>,
     },
@@ -44,7 +43,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
         };
     }
 
-    getDefaultFormData(): {} {
+    getDefaultFormData(): FormGeneratorFormDataType {
         const view = this;
         const {props} = view;
         const {config} = props;
@@ -120,7 +119,16 @@ export class FormGenerator extends Component<PropsType, StateType> {
         const view = this;
         const {state} = view;
         const {formValidation} = state;
-        const {name, fieldComponent: FieldComponent, defaultValue, placeholder, labelText, content} = fieldData;
+        const {
+            name,
+            fieldComponent: FieldComponent,
+            defaultValue,
+            placeholder,
+            labelText,
+            content,
+            accept,
+            isMultiple,
+        } = fieldData;
 
         const onChangeFieldHandler = view.createOnChangeFieldHandler(fieldData);
         const onBlurFieldHandler = view.createOnBlurFieldHandler(fieldData);
@@ -128,9 +136,11 @@ export class FormGenerator extends Component<PropsType, StateType> {
 
         return (
             <FieldComponent
+                accept={accept}
                 content={content}
                 defaultValue={defaultValue}
                 errorList={errorList}
+                isMultiple={isMultiple}
                 key={name}
                 labelText={labelText}
                 name={name}

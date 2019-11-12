@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Paper from '@material-ui/core/Paper';
 
 import {FormGenerator} from '../../component/layout/form-generator/form-generator';
-import type {FormGeneratorConfigType} from '../../component/layout/form-generator/type';
+import type {FormGeneratorConfigType, FormGeneratorFormDataType} from '../../component/layout/form-generator/type';
 import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../component/layout/form-button/c-form-button';
 import type {MongoDocumentType} from '../../../../server/src/db/type';
@@ -17,7 +17,6 @@ import {typeConverter} from '../../lib/type';
 import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 import {Spinner} from '../../component/layout/spinner/c-spinner';
 import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
-
 import {routePathMap} from '../../component/app/routes-path-map';
 
 import {documentSearchExact, getDocumentParentList, updateDocument} from './document-api';
@@ -72,7 +71,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
         this.setState({mongoDocument, parentList});
     }
 
-    handleFormSubmit = async (formData: {}) => {
+    handleFormSubmit = async (formData: FormGeneratorFormDataType) => {
         const {props} = this;
         const {snackbarPortalContext, match} = props;
 
