@@ -2,7 +2,6 @@
 
 import React, {Component, type Node} from 'react';
 import Paper from '@material-ui/core/Paper';
-
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
 
