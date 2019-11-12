@@ -17,3 +17,10 @@ export function uploadImageList(fileList: Array<File>): Promise<Error | MainServ
         .then((response: Response): Promise<MainServerApiResponseType> => response.json())
         .catch(promiseCatch);
 }
+
+export function getImageList(): Promise<Array<string> | Error | MainServerApiResponseType> {
+    return window
+        .fetch(fileApiRouteMap.getFileList)
+        .then((response: Response): Promise<Array<string> | MainServerApiResponseType> => response.json())
+        .catch(promiseCatch);
+}

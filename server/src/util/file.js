@@ -5,6 +5,7 @@ import {type ExpressFormDataFileType} from 'express-fileupload';
 
 import {isError, isObject} from '../../../www/js/lib/is';
 import {fileApiConst} from '../api/file-const';
+import {cwd} from '../../../webpack/config';
 
 export function getFileList(request: $Request): Array<ExpressFormDataFileType> {
     // $FlowFixMe
@@ -31,7 +32,7 @@ export function saveFile(fileData: ExpressFormDataFileType): Promise<null | Erro
     const endFileName = `${fileName}-${Date.now()}${fileExtension}`;
 
     return new Promise<Error | null>((resolve: (Error | null) => mixed) => {
-        fileData.mv(fileApiConst.pathToUploadFiles + '/' + endFileName, (error: Error | mixed) => {
+        fileData.mv(cwd + fileApiConst.pathToUploadFiles + '/' + endFileName, (error: Error | mixed) => {
             resolve(isError(error) ? error : null);
         });
     });

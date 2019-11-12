@@ -8,8 +8,8 @@ import {DocumentList} from '../../page/document/c-document-list';
 import {DocumentTreeView} from '../../page/document/c-document-tree-view';
 import {DocumentCreate} from '../../page/document/c-document-create';
 import {DocumentEdit} from '../../page/document/c-document-edit';
-import {ImageUpload} from '../../page/image-upload/c-image-upload';
-import {ImageList} from '../../page/image-list/c-image-list';
+import {ImageUpload} from '../../page/image/c-image-upload';
+import {ImageList} from '../../page/image/c-image-list';
 
 import type {RedirectItemType, RouteItemType} from './render-route-helper';
 import {routePathMap} from './routes-path-map';

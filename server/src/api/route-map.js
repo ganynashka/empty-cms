@@ -19,4 +19,5 @@ export const userApiRouteMap = {
 
 export const fileApiRouteMap = {
     uploadImageList: '/api/upload-image-list',
+    getFileList: '/api/get-file-list',
 };

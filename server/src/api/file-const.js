@@ -2,5 +2,5 @@
 
 export const fileApiConst = {
     fileListFormPropertyName: 'file-list',
-    pathToUploadFiles: './upload-file',
+    pathToUploadFiles: '/upload-file',
 };
