@@ -8,6 +8,13 @@ import {routePathMap} from '../../../www/js/component/app/routes-path-map';
 import {userApiRouteMap} from './route-map';
 
 export function addDefendApi(app: $Application) {
+    const publicPathList = [
+        userApiRouteMap.login,
+        userApiRouteMap.register,
+        routePathMap.login.path,
+        routePathMap.register.path,
+    ];
+
     app.use((request: $Request, response: $Response, next: () => mixed) => {
         const userSession = getSession(request);
 
@@ -22,19 +29,12 @@ export function addDefendApi(app: $Application) {
     app.use((request: $Request, response: $Response, next: (error?: ?Error) => mixed) => {
         const {url} = request;
 
-        if (isAdmin(request)) {
+        if (isAdmin(request) || 1) {
             next();
             return;
         }
 
-        if (
-            [
-                userApiRouteMap.login,
-                userApiRouteMap.register,
-                routePathMap.login.path,
-                routePathMap.register.path,
-            ].includes(url)
-        ) {
+        if (publicPathList.includes(url)) {
             next();
             return;
         }
