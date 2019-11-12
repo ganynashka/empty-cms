@@ -23,9 +23,9 @@ type PropsType = {
     +snackbarPortalContext: SnackbarPortalContextType,
 };
 
-type StateType = {
-    formGeneratorKey: number,
-};
+type StateType = {|
+    +formGeneratorKey: number,
+|};
 
 const formConfig: FormGeneratorConfigType = {
     fieldSetList: [
@@ -125,19 +125,5 @@ export class ImageUpload extends Component<PropsType, StateType> {
                 />
             </Paper>
         );
-
-        /*
-                return (
-                    <Paper className={mainWrapperStyle.paper_wrapper}>
-                        <Toolbar>
-                            <Typography variant="h5">Upload image</Typography>
-                        </Toolbar>
-                        <form action={fileApiRouteMap.uploadImageList} encType="multipart/form-data" method="post">
-                            <input multiple name={fileApiConst.fileListFormPropertyName} type="file"/>
-                            <input type="submit"/>
-                        </form>
-                    </Paper>
-                );
-        */
     }
 }
