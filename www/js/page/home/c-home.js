@@ -20,7 +20,7 @@ export class Home extends Component<PropsType, StateType> {
                 <div className={homeStyle.home__wrapper}>Welcome to the Empty CMS!</div>
                 <img
                     alt=""
-                    src={fileApiRouteMap.getResizedImage + '/frontend-backend.png?width=500?height=200&fit=contain'}
+                    src={fileApiRouteMap.getResizedImage + '/frontend-backend.png?width=500&height=200&fit=contain'}
                 />
             </>
         );

@@ -39,3 +39,7 @@ export function getSearchExactParameters(request: $Request): GeSearchExactParame
 
     return {key, value};
 }
+
+export function getImageResizeParameters() {
+
+}

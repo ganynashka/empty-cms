@@ -1,7 +1,7 @@
 // @flow
 
 import fileSystem from 'fs';
-
+import sharp, {fit as sharpFit} from 'sharp';
 import {type $Application, type $Request, type $Response} from 'express';
 import {type ExpressFormDataFileType} from 'express-fileupload';
 
@@ -33,11 +33,39 @@ export function addFileApi(app: $Application) {
     });
 
     app.get(fileApiRouteMap.getResizedImage + '/*', async (request: $Request, response: $Response) => {
-        const maxWidth = parseInt(request.query.width, 10) || 0;
-        const maxHeight = parseInt(request.query.height, 10) || 0;
+
+        const width = parseInt(request.query.width, 10) || 0;
+        const height = parseInt(request.query.height, 10) || 0;
         const fit = String(request.query.fit);
         const imageName = String(request.params['0']);
 
-        response.json({maxWidth, maxHeight, imageName, fit});
+        console.log(sharpFit)
+
+/*
+        console.log('sharp.fit');
+        console.log(sharp.fit);
+
+        const fitData = {
+            contain: 'contain',
+            cover: 'cover',
+            fill: 'fill',
+            inside: 'inside',
+            outside: 'outside'
+        };
+*/
+
+        console.log(width, height, fit, imageName);
+
+        sharp(cwd + fileApiConst.pathToUploadFiles + '/' + imageName)
+            .resize({
+                width,
+                height,
+                fit: sharp.fit.inside,
+                // withoutEnlargement: true
+            })
+            .toFile(cwd + fileApiConst.pathToUploadFiles + '/output.jpg')
+            .then(() => {
+                response.json({maxWidth, maxHeight, imageName, fit});
+            });
     });
 }
