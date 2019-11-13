@@ -31,4 +31,13 @@ export function addFileApi(app: $Application) {
             response.json(result);
         });
     });
+
+    app.get(fileApiRouteMap.getResizedImage + '/*', async (request: $Request, response: $Response) => {
+        const maxWidth = parseInt(request.query.width, 10) || 0;
+        const maxHeight = parseInt(request.query.height, 10) || 0;
+        const fit = String(request.query.fit);
+        const imageName = String(request.params['0']);
+
+        response.json({maxWidth, maxHeight, imageName, fit});
+    });
 }
