@@ -2,8 +2,10 @@
 
 import {type $Request} from 'express';
 import {type MongoSortDirectionType} from 'mongodb';
+import {type SharpResizeConfigType, fit as sharpFit} from 'sharp';
 
 import {getSortDirection} from '../db/util';
+import {hasProperty} from '../../../www/js/lib/is';
 
 export const streamOptionsArray = {transform: (item: {}): string => JSON.stringify(item) + ','};
 
@@ -40,6 +42,11 @@ export function getSearchExactParameters(request: $Request): GeSearchExactParame
     return {key, value};
 }
 
-export function getImageResizeParameters() {
+export function getImageResizeParameters(request: $Request): SharpResizeConfigType {
+    const width = parseInt(request.query.width, 10) || 0;
+    const height = parseInt(request.query.height, 10) || 0;
+    const requestFitType = String(request.query.fit);
+    const fit = hasProperty(sharpFit, requestFitType) ? sharpFit[requestFitType] : sharpFit.inside;
 
+    return {width, height, fit};
 }

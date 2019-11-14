@@ -1,10 +1,6 @@
 // @flow
 
 declare module 'sharp' {
-    declare class Sharp {
-        constructor(pathToFile: string): Sharp,
-    }
-
     declare type SharpFitResizeNameType = 'contain' | 'cover' | 'fill' | 'inside' | 'outside';
 
     declare type SharpFitResizeNameMapType = {
@@ -12,11 +8,22 @@ declare module 'sharp' {
         cover: 'cover',
         fill: 'fill',
         inside: 'inside',
-        outside: 'outside'
+        outside: 'outside',
     };
 
     declare export var fit: SharpFitResizeNameMapType;
 
-    declare export default function sharp(pathToFile: string): Sharp;
+    declare export type SharpResizeConfigType = {
+        width: number,
+        height: number,
+        fit: SharpFitResizeNameType,
+    };
 
+    declare class Sharp {
+        constructor(pathToFile: string): Sharp,
+        resize(config: SharpResizeConfigType): Sharp,
+        toFile(pathToNewFile: string): Promise<void>,
+    }
+
+    declare export default function sharp(pathToFile: string): Sharp;
 }

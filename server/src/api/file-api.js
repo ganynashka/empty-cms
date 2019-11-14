@@ -1,15 +1,19 @@
 // @flow
 
 import fileSystem from 'fs';
-import sharp, {fit as sharpFit} from 'sharp';
+
+import sharp from 'sharp';
 import {type $Application, type $Request, type $Response} from 'express';
 import {type ExpressFormDataFileType} from 'express-fileupload';
 
 import {getFormDataFileList, saveFile} from '../util/file';
 import {cwd} from '../../../webpack/config';
+import {promiseCatch} from '../../../www/js/lib/promise';
+import {isError} from '../../../www/js/lib/is';
 
-import {fileApiRouteMap} from './route-map';
 import {fileApiConst} from './file-const';
+import {fileApiRouteMap} from './route-map';
+import {getImageResizeParameters} from './helper';
 
 export function addFileApi(app: $Application) {
     fileSystem.mkdir(cwd + fileApiConst.pathToUploadFiles, (): null => null);
@@ -33,39 +37,18 @@ export function addFileApi(app: $Application) {
     });
 
     app.get(fileApiRouteMap.getResizedImage + '/*', async (request: $Request, response: $Response) => {
-
-        const width = parseInt(request.query.width, 10) || 0;
-        const height = parseInt(request.query.height, 10) || 0;
-        const fit = String(request.query.fit);
         const imageName = String(request.params['0']);
 
-        console.log(sharpFit)
-
-/*
-        console.log('sharp.fit');
-        console.log(sharp.fit);
-
-        const fitData = {
-            contain: 'contain',
-            cover: 'cover',
-            fill: 'fill',
-            inside: 'inside',
-            outside: 'outside'
-        };
-*/
-
-        console.log(width, height, fit, imageName);
-
-        sharp(cwd + fileApiConst.pathToUploadFiles + '/' + imageName)
-            .resize({
-                width,
-                height,
-                fit: sharp.fit.inside,
-                // withoutEnlargement: true
-            })
+        const resizeResult = await sharp(cwd + fileApiConst.pathToUploadFiles + '/' + imageName)
+            .resize(getImageResizeParameters(request))
             .toFile(cwd + fileApiConst.pathToUploadFiles + '/output.jpg')
-            .then(() => {
-                response.json({maxWidth, maxHeight, imageName, fit});
-            });
+            .catch(promiseCatch);
+
+        if (isError(resizeResult)) {
+            response.json({isSuccessful: false, errorList: [resizeResult]});
+            return;
+        }
+
+        response.sendFile(cwd + fileApiConst.pathToUploadFiles + '/output.jpg');
     });
 }
