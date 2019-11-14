@@ -1,5 +1,7 @@
 // @flow
 
+import path from 'path';
+
 import {type $Request} from 'express';
 import {type ExpressFormDataFileType} from 'express-fileupload';
 
@@ -25,14 +27,19 @@ export function getFormDataFileList(request: $Request): Array<ExpressFormDataFil
     return [fileOrFileList];
 }
 
+export function getFileNamePartList(fullFleName: string): [string, string] {
+    const [fileExtension] = fullFleName.match(/\.\w+$/) || ['']; // "some.file.txt" -> ".txt"
+    const fileName = fullFleName.slice(0, fullFleName.length - fileExtension.length);
+
+    return [fileName, fileExtension];
+}
+
 export function saveFile(fileData: ExpressFormDataFileType): Promise<null | Error> {
-    const fileDataName = fileData.name;
-    const [fileExtension] = fileDataName.match(/\.\w+$/) || ['']; // "some.file.txt" -> ".txt"
-    const fileName = fileDataName.slice(0, fileDataName.length - fileExtension.length);
+    const [fileName, fileExtension] = getFileNamePartList(fileData.name);
     const endFileName = `${fileName}-${Date.now()}${fileExtension}`;
 
     return new Promise<Error | null>((resolve: (Error | null) => mixed) => {
-        fileData.mv(cwd + fileApiConst.pathToUploadFiles + '/' + endFileName, (error: Error | mixed) => {
+        fileData.mv(path.join(cwd, fileApiConst.pathToUploadFiles, endFileName), (error: Error | mixed) => {
             resolve(isError(error) ? error : null);
         });
     });

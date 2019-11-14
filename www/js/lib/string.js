@@ -91,17 +91,7 @@ export function getSlug(text: string): string {
         .trim()
         .toLowerCase()
         .split('')
-        .map<string>((char: string): string => {
-            if (/\d|\w/.test(char)) {
-                return char;
-            }
-
-            if ([' ', '-'].includes(char)) {
-                return '-';
-            }
-
-            return '';
-        })
+        .map<string>((char: string): string => /\d|\w/.test(char) ? char : '-')
         .join('')
         .replace(/-+/gi, '-')
         .replace(/^-+/gi, '')

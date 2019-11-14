@@ -1,6 +1,7 @@
 // @flow
 
 import fileSystem from 'fs';
+import path from 'path';
 
 import sharp from 'sharp';
 import {type $Application, type $Request, type $Response} from 'express';
@@ -10,13 +11,15 @@ import {getFormDataFileList, saveFile} from '../util/file';
 import {cwd} from '../../../webpack/config';
 import {promiseCatch} from '../../../www/js/lib/promise';
 import {isError} from '../../../www/js/lib/is';
+import {getSlug} from '../../../www/js/lib/string';
 
 import {fileApiConst} from './file-const';
 import {fileApiRouteMap} from './route-map';
 import {getImageResizeParameters} from './helper';
 
 export function addFileApi(app: $Application) {
-    fileSystem.mkdir(cwd + fileApiConst.pathToUploadFiles, (): null => null);
+    fileSystem.mkdir(path.join(cwd, fileApiConst.pathToUploadFiles), (): null => null);
+    fileSystem.mkdir(path.join(cwd, fileApiConst.pathToUploadFilesCache), (): null => null);
 
     app.post(fileApiRouteMap.uploadImageList, async (request: $Request, response: $Response) => {
         const fileDataList: Array<ExpressFormDataFileType> = getFormDataFileList(request);
@@ -38,10 +41,16 @@ export function addFileApi(app: $Application) {
 
     app.get(fileApiRouteMap.getResizedImage + '/*', async (request: $Request, response: $Response) => {
         const imageName = String(request.params['0']);
+        const resizeConfig = getImageResizeParameters(request);
+        const pathToNewFile = path.join(
+            cwd,
+            fileApiConst.pathToUploadFilesCache,
+            getSlug(JSON.stringify(resizeConfig)) + '--' + imageName
+        );
 
-        const resizeResult = await sharp(cwd + fileApiConst.pathToUploadFiles + '/' + imageName)
-            .resize(getImageResizeParameters(request))
-            .toFile(cwd + fileApiConst.pathToUploadFiles + '/output.jpg')
+        const resizeResult = await sharp(path.join(cwd, fileApiConst.pathToUploadFiles, imageName))
+            .resize(resizeConfig)
+            .toFile(pathToNewFile)
             .catch(promiseCatch);
 
         if (isError(resizeResult)) {
@@ -49,6 +58,6 @@ export function addFileApi(app: $Application) {
             return;
         }
 
-        response.sendFile(cwd + fileApiConst.pathToUploadFiles + '/output.jpg');
+        response.sendFile(pathToNewFile);
     });
 }
