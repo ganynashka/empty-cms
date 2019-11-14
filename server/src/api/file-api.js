@@ -7,7 +7,7 @@ import sharp from 'sharp';
 import {type $Application, type $Request, type $Response} from 'express';
 import {type ExpressFormDataFileType} from 'express-fileupload';
 
-import {getFormDataFileList, saveFile} from '../util/file';
+import {getFormDataFileList, getIsFileExists, saveFile} from '../util/file';
 import {cwd} from '../../../webpack/config';
 import {promiseCatch} from '../../../www/js/lib/promise';
 import {isError} from '../../../www/js/lib/is';
@@ -47,6 +47,16 @@ export function addFileApi(app: $Application) {
             fileApiConst.pathToUploadFilesCache,
             getSlug(JSON.stringify(resizeConfig)) + '--' + imageName
         );
+
+        const isFileExists = await getIsFileExists(pathToNewFile);
+
+        if (isFileExists) {
+            console.log('get file from cache', pathToNewFile);
+            response.sendFile(pathToNewFile);
+            return;
+        }
+
+        console.log('make new file and send', pathToNewFile);
 
         const resizeResult = await sharp(path.join(cwd, fileApiConst.pathToUploadFiles, imageName))
             .resize(resizeConfig)

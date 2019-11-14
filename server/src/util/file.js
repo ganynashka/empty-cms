@@ -1,6 +1,7 @@
 // @flow
 
 import path from 'path';
+import fileSystem from 'fs';
 
 import {type $Request} from 'express';
 import {type ExpressFormDataFileType} from 'express-fileupload';
@@ -43,4 +44,11 @@ export function saveFile(fileData: ExpressFormDataFileType): Promise<null | Erro
             resolve(isError(error) ? error : null);
         });
     });
+}
+
+export function getIsFileExists(pathToFile: string): Promise<boolean> {
+    return fileSystem.promises
+        .access(pathToFile)
+        .then((): true => true)
+        .catch((): false => false);
 }
