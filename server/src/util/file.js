@@ -9,6 +9,11 @@ import {type ExpressFormDataFileType} from 'express-fileupload';
 import {isError, isObject} from '../../../www/js/lib/is';
 import {fileApiConst} from '../api/file-const';
 import {cwd} from '../../../webpack/config';
+import {promiseCatch} from '../../../www/js/lib/promise';
+
+const imageminPngquant = require('imagemin-pngquant');
+const imageminJpegtran = require('imagemin-jpegtran');
+const imagemin = require('imagemin');
 
 export function getFormDataFileList(request: $Request): Array<ExpressFormDataFileType> {
     // $FlowFixMe
@@ -51,4 +56,18 @@ export function getIsFileExists(pathToFile: string): Promise<boolean> {
         .access(pathToFile)
         .then((): true => true)
         .catch((): false => false);
+}
+
+export function compressImage(pathToFile: string, pathToFolder: string): Promise<null | Error> {
+    return imagemin([pathToFile], {
+        destination: pathToFolder,
+        plugins: [
+            imageminJpegtran(),
+            imageminPngquant({
+                quality: [0.6, 0.8],
+            }),
+        ],
+    })
+        .then((): null => null)
+        .catch(promiseCatch);
 }

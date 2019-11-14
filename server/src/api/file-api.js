@@ -7,7 +7,7 @@ import sharp from 'sharp';
 import {type $Application, type $Request, type $Response} from 'express';
 import {type ExpressFormDataFileType} from 'express-fileupload';
 
-import {getFormDataFileList, getIsFileExists, saveFile} from '../util/file';
+import {compressImage, getFormDataFileList, getIsFileExists, saveFile} from '../util/file';
 import {cwd} from '../../../webpack/config';
 import {promiseCatch} from '../../../www/js/lib/promise';
 import {isError} from '../../../www/js/lib/is';
@@ -20,6 +20,7 @@ import {getImageResizeParameters} from './helper';
 export function addFileApi(app: $Application) {
     fileSystem.mkdir(path.join(cwd, fileApiConst.pathToUploadFiles), (): null => null);
     fileSystem.mkdir(path.join(cwd, fileApiConst.pathToUploadFilesCache), (): null => null);
+    fileSystem.mkdir(path.join(cwd, fileApiConst.pathToUploadFilesTemp), (): null => null);
 
     app.post(fileApiRouteMap.uploadImageList, async (request: $Request, response: $Response) => {
         const fileDataList: Array<ExpressFormDataFileType> = getFormDataFileList(request);
@@ -42,25 +43,25 @@ export function addFileApi(app: $Application) {
     app.get(fileApiRouteMap.getResizedImage + '/*', async (request: $Request, response: $Response) => {
         const imageName = String(request.params['0']);
         const resizeConfig = getImageResizeParameters(request);
-        const pathToNewFile = path.join(
-            cwd,
-            fileApiConst.pathToUploadFilesCache,
-            getSlug(JSON.stringify(resizeConfig)) + '--' + imageName
-        );
+        const configId = getSlug(JSON.stringify(resizeConfig));
+        const endFileName = configId + '--' + imageName;
+        const pathToFile = path.join(cwd, fileApiConst.pathToUploadFilesCache, endFileName);
 
-        const isFileExists = await getIsFileExists(pathToNewFile);
+        const isFileExists = await getIsFileExists(pathToFile);
 
         if (isFileExists) {
-            console.log('get file from cache', pathToNewFile);
-            response.sendFile(pathToNewFile);
+            console.log('get file from cache', pathToFile);
+            response.sendFile(pathToFile);
             return;
         }
 
-        console.log('make new file and send', pathToNewFile);
+        console.log('make new file and send', pathToFile);
+
+        const pathToTemporaryFile = path.join(cwd, fileApiConst.pathToUploadFilesTemp, endFileName);
 
         const resizeResult = await sharp(path.join(cwd, fileApiConst.pathToUploadFiles, imageName))
             .resize(resizeConfig)
-            .toFile(pathToNewFile)
+            .toFile(pathToTemporaryFile)
             .catch(promiseCatch);
 
         if (isError(resizeResult)) {
@@ -68,6 +69,18 @@ export function addFileApi(app: $Application) {
             return;
         }
 
-        response.sendFile(pathToNewFile);
+        const compressImageResult = await compressImage(
+            pathToTemporaryFile,
+            path.join(cwd, fileApiConst.pathToUploadFilesCache)
+        );
+
+        fileSystem.unlink(pathToTemporaryFile, () => {});
+
+        if (isError(compressImageResult)) {
+            response.json({isSuccessful: false, errorList: [compressImageResult]});
+            return;
+        }
+
+        response.sendFile(pathToFile);
     });
 }
