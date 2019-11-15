@@ -2,23 +2,20 @@
 
 /* global localStorage */
 
-/* eslint consistent-this: ["error", "view"] */
-
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
 import type {LocaleNameType} from './const';
-import {localeConst} from './const';
-import {getLocaleName} from './locale-helper';
+import {getLocaleName, setLocaleName} from './locale-helper';
 
 export type LocaleContextType = {|
     +name: LocaleNameType,
-    +setName: (localeName: LocaleNameType) => void,
+    +setName: (localeName: LocaleNameType) => mixed,
 |};
 
 const defaultContextData = {
     name: getLocaleName(),
-    setName: (localeName: LocaleNameType) => {},
+    setName: (localeName: LocaleNameType): null => null,
 };
 
 const CLocaleContext = React.createContext<LocaleContextType>(defaultContextData);
@@ -38,44 +35,32 @@ export class LocaleProvider extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
-        const view = this;
-
-        view.state = {
-            providedData: defaultContextData,
-        };
+        this.state = {providedData: defaultContextData};
     }
 
     setName = (localeName: LocaleNameType) => {
-        const view = this;
-        const {state} = view;
+        const {state} = this;
         const {providedData} = state;
 
-        console.log('---> write to localStorage:', localeConst.key.localStorage.localeName, localeName);
-        localStorage.setItem(localeConst.key.localStorage.localeName, localeName);
+        setLocaleName(localeName);
 
-        view.setState({
-            providedData: {
-                ...providedData,
-                name: localeName,
-            },
-        });
+        // eslint-disable-next-line react/no-set-state
+        this.setState({providedData: {...providedData, name: localeName}});
     };
 
     getProviderValue(): LocaleContextType {
-        const view = this;
-        const {state} = view;
+        const {state} = this;
 
         return {
             ...state.providedData,
-            setName: view.setName,
+            setName: this.setName,
         };
     }
 
     render(): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {children} = props;
 
-        return <LocaleContextProvider value={view.getProviderValue()}>{children}</LocaleContextProvider>;
+        return <LocaleContextProvider value={this.getProviderValue()}>{children}</LocaleContextProvider>;
     }
 }

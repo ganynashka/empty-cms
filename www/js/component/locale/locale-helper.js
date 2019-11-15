@@ -51,6 +51,13 @@ export function getLocaleName(): LocaleNameType {
     return localeName;
 }
 
+export function setLocaleName(localeName: LocaleNameType): LocaleNameType {
+    console.log('---> write to localStorage:', localeConst.key.localStorage.localeName, localeName);
+    localStorage.setItem(localeConst.key.localStorage.localeName, localeName);
+
+    return localeName;
+}
+
 function replacePlaceholderMap(rawString: string, valueMap: ValueMapType): string {
     let resultString = rawString;
 
