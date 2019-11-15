@@ -6,22 +6,26 @@ import type {Node} from 'react';
 import React, {Component} from 'react';
 
 import type {LocaleNameType} from './const';
-import {getLocaleName, setLocaleName} from './locale-helper';
+import {getLocaleName, getLocalizedString, setLocaleName} from './locale-helper';
+import type {LangKeyType} from './translation/type';
+import type {ValueMapType} from './locale-helper';
 
 export type LocaleContextType = {|
     +name: LocaleNameType,
     +setName: (localeName: LocaleNameType) => mixed,
+    +getLocalizedString: (stringKey: LangKeyType, valueMap?: ValueMapType) => string,
 |};
 
 const defaultContextData = {
     name: getLocaleName(),
     setName: (localeName: LocaleNameType): null => null,
+    getLocalizedString: (stringKey: LangKeyType, valueMap?: ValueMapType): string => stringKey,
 };
 
-const CLocaleContext = React.createContext<LocaleContextType>(defaultContextData);
-const LocaleContextProvider = CLocaleContext.Provider;
+const LocaleContext = React.createContext<LocaleContextType>(defaultContextData);
+const LocaleContextProvider = LocaleContext.Provider;
 
-export const LocaleContextConsumer = CLocaleContext.Consumer;
+export const {Consumer: LocaleContextConsumer} = LocaleContext;
 
 type PropsType = {|
     +children: Node,
@@ -48,12 +52,23 @@ export class LocaleProvider extends Component<PropsType, StateType> {
         this.setState({providedData: {...providedData, name: localeName}});
     };
 
+    getLocalizedString = (stringKey: LangKeyType, valueMap?: ValueMapType): string => {
+        const {state} = this;
+        const {providedData} = state;
+        const {name} = providedData;
+
+        return getLocalizedString(stringKey, name, valueMap);
+    };
+
     getProviderValue(): LocaleContextType {
         const {state} = this;
+        const {providedData} = state;
+        const {name} = providedData;
 
         return {
-            ...state.providedData,
+            name,
             setName: this.setName,
+            getLocalizedString: this.getLocalizedString,
         };
     }
 
