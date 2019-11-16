@@ -7,11 +7,15 @@ import Typography from '@material-ui/core/Typography/Typography';
 
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
 import serviceStyle from '../../../css/service.scss';
+import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
 
 import {getImageList, getResizedImage, sharpFitResizeNameMap} from './image-api';
 import imageStyle from './image.scss';
 
-type PropsType = {};
+type PropsType = {
+    +snackbarPortalContext: SnackbarPortalContextType,
+};
+
 type StateType = {|
     +imageList: Array<string>,
 |};
