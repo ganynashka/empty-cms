@@ -15,6 +15,7 @@ export const userApiRouteMap = {
     getUserListSize: '/api/get-user-list-size',
     register: '/api/register',
     login: '/api/login',
+    getCurrentUser: '/api/get-current-user',
 };
 
 export const fileApiRouteMap = {

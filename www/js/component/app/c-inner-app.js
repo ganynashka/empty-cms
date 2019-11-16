@@ -6,6 +6,7 @@ import {Route, Switch} from 'react-router-dom';
 import {PageNotFound} from '../../page/page-not-found/c-page-not-found';
 import {LocaleProvider} from '../locale/c-locale-context';
 import {ScreenProvider} from '../screen/c-screen-context';
+import {UserProvider} from '../user/c-user-context';
 import {PopupPortalProvider} from '../layout/popup/popup-portal/c-popup-portal';
 import {SnackbarPortalProvider} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
 import {MainWrapper} from '../main-wrapper/c-main-wrapper';
@@ -17,7 +18,14 @@ import {routeItemMap} from './routes';
 import {redderEmptyRoute, redderRoute} from './render-route-helper';
 import {renderWrapperList} from './wrapper-list';
 
-const wrapperList = [LocaleProvider, ScreenProvider, PopupPortalProvider, SnackbarPortalProvider, MainWrapper];
+const wrapperList = [
+    LocaleProvider,
+    ScreenProvider,
+    UserProvider,
+    PopupPortalProvider,
+    SnackbarPortalProvider,
+    MainWrapper,
+];
 
 const routeItemKeyList = Object.keys(routeItemMap);
 

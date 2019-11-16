@@ -5,7 +5,7 @@ import {type $Application, type $Request, type $Response} from 'express';
 import {typeConverter} from '../../../www/js/lib/type';
 import {getSession} from '../util/session';
 import {getCollection} from '../db/util';
-import type {MongoUserType} from '../db/type';
+import type {MongoUserFrontType, MongoUserType} from '../db/type';
 import {mongoUserRoleMap} from '../db/type';
 import {dataBaseConst} from '../db/const';
 import {getTime} from '../util/time';
@@ -16,6 +16,23 @@ import {getListParameters, streamOptionsArray} from './helper';
 import {userApiRouteMap} from './route-map';
 
 export function addUserApi(app: $Application) {
+    app.get(userApiRouteMap.getCurrentUser, async (request: $Request, response: $Response) => {
+        const userSession = getSession(request);
+        const user = await getUserByLogin(userSession.login || '');
+
+        if (user === null) {
+            const notUser: MongoUserFrontType = {role: mongoUserRoleMap.user, login: '', registerDate: 0, rating: 0};
+
+            response.json(notUser);
+            return;
+        }
+
+        const {role, login, registerDate, rating} = user;
+        const frontUser: MongoUserFrontType = {role, login, registerDate, rating};
+
+        response.json(frontUser);
+    });
+
     app.get(userApiRouteMap.getUserList, async (request: $Request, response: $Response) => {
         const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 

@@ -14,6 +14,8 @@ import type {PopupPortalContextType} from '../layout/popup/popup-portal/c-popup-
 import {PopupPortalContextConsumer} from '../layout/popup/popup-portal/c-popup-portal';
 import type {SnackbarPortalContextType} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
 import {SnackbarPortalContextConsumer} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
+import type {UserContextConsumerType} from '../user/type-user-content';
+import {UserContextConsumer} from '../user/c-user-context';
 
 export type RouteItemType = {|
     +path: string,
@@ -70,19 +72,26 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                         <SnackbarPortalContextConsumer>
                             {(snackbarPortalContextData: SnackbarPortalContextType): Node => {
                                 return (
-                                    <PopupPortalContextConsumer>
-                                        {(popupPortalContextData: PopupPortalContextType): Node => {
+                                    <UserContextConsumer>
+                                        {(userContextData: UserContextConsumerType): Node => {
                                             return (
-                                                <PageWrapper>
-                                                    <PageComponent
-                                                        match={match}
-                                                        popupPortalContext={popupPortalContextData}
-                                                        snackbarPortalContext={snackbarPortalContextData}
-                                                    />
-                                                </PageWrapper>
+                                                <PopupPortalContextConsumer>
+                                                    {(popupPortalContextData: PopupPortalContextType): Node => {
+                                                        return (
+                                                            <PageWrapper>
+                                                                <PageComponent
+                                                                    match={match}
+                                                                    popupPortalContext={popupPortalContextData}
+                                                                    snackbarPortalContext={snackbarPortalContextData}
+                                                                    userContextData={userContextData}
+                                                                />
+                                                            </PageWrapper>
+                                                        );
+                                                    }}
+                                                </PopupPortalContextConsumer>
                                             );
                                         }}
-                                    </PopupPortalContextConsumer>
+                                    </UserContextConsumer>
                                 );
                             }}
                         </SnackbarPortalContextConsumer>

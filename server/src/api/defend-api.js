@@ -11,6 +11,7 @@ export function addDefendApi(app: $Application) {
     const publicPathList = [
         userApiRouteMap.login,
         userApiRouteMap.register,
+        userApiRouteMap.getCurrentUser,
         routePathMap.login.path,
         routePathMap.register.path,
     ];
