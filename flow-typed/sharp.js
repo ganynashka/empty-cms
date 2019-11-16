@@ -17,6 +17,7 @@ declare module 'sharp' {
         width: number,
         height: number,
         fit: SharpFitResizeNameType,
+        withoutEnlargement?: boolean,
     };
 
     declare class Sharp {

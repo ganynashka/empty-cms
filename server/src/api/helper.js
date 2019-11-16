@@ -48,5 +48,5 @@ export function getImageResizeParameters(request: $Request): SharpResizeConfigTy
     const requestFitType = String(request.query.fit);
     const fit = hasProperty(sharpFit, requestFitType) ? sharpFit[requestFitType] : sharpFit.inside;
 
-    return {width, height, fit};
+    return {width, height, fit, withoutEnlargement: true};
 }
