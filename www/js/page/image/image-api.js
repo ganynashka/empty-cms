@@ -28,7 +28,12 @@ export function uploadImageList(fileList: Array<File>): Promise<Error | MainServ
         .catch(promiseCatch);
 }
 
-export function getResizedImage(src: string, width: number, height: number, fit: SharpFitResizeNameType): string {
+export function getResizedImage(
+    src: string,
+    width: number,
+    height: number,
+    fit?: SharpFitResizeNameType = sharpFitResizeNameMap.inside
+): string {
     return `${fileApiRouteMap.getResizedImage}/${src}?width=${width}&height=${height}&fit=${fit}`;
 }
 
