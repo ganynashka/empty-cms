@@ -13,6 +13,7 @@ import {isError, isObject} from '../../../www/js/lib/is';
 import {fileApiConst} from '../api/file-const';
 import {cwd} from '../../../webpack/config';
 import {promiseCatch} from '../../../www/js/lib/promise';
+import {getSlug} from '../../../www/js/lib/string';
 
 export function getFormDataFileList(request: $Request): Array<ExpressFormDataFileType> {
     // $FlowFixMe
@@ -41,7 +42,7 @@ export function getFileNamePartList(fullFleName: string): [string, string] {
 
 export function saveFile(fileData: ExpressFormDataFileType): Promise<null | Error> {
     const [fileName, fileExtension] = getFileNamePartList(fileData.name);
-    const endFileName = `${fileName}-${Date.now()}${fileExtension}`;
+    const endFileName = `${getSlug(fileName)}--md5__${fileData.md5}__--${fileExtension}`;
 
     return new Promise<Error | null>((resolve: (Error | null) => mixed) => {
         fileData.mv(path.join(cwd, fileApiConst.pathToUploadFiles, endFileName), (error: Error | mixed) => {

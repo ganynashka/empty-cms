@@ -1,7 +1,7 @@
 // @flow
 
 declare module 'sharp' {
-    declare type SharpFitResizeNameType = 'contain' | 'cover' | 'fill' | 'inside' | 'outside';
+    declare export type SharpFitResizeNameType = 'contain' | 'cover' | 'fill' | 'inside' | 'outside';
 
     declare type SharpFitResizeNameMapType = {
         contain: 'contain',

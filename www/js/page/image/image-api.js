@@ -7,6 +7,16 @@ import {fileApiConst} from '../../../../server/src/api/file-const';
 import {promiseCatch} from '../../lib/promise';
 import type {MainServerApiResponseType} from '../../type/response';
 
+export type SharpFitResizeNameType = 'contain' | 'cover' | 'fill' | 'inside' | 'outside';
+
+export const sharpFitResizeNameMap = {
+    contain: 'contain',
+    cover: 'cover',
+    fill: 'fill',
+    inside: 'inside',
+    outside: 'outside',
+};
+
 export function uploadImageList(fileList: Array<File>): Promise<Error | MainServerApiResponseType> {
     const formData = new FormData();
 
@@ -16,6 +26,10 @@ export function uploadImageList(fileList: Array<File>): Promise<Error | MainServ
         .fetch(fileApiRouteMap.uploadImageList, {method: 'POST', body: formData})
         .then((response: Response): Promise<MainServerApiResponseType> => response.json())
         .catch(promiseCatch);
+}
+
+export function getResizedImage(src: string, width: number, height: number, fit: SharpFitResizeNameType): string {
+    return `${fileApiRouteMap.getResizedImage}/${src}?width=${width}&height=${height}&fit=${fit}`;
 }
 
 export function getImageList(): Promise<Array<string> | Error | MainServerApiResponseType> {
