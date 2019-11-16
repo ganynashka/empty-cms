@@ -42,7 +42,7 @@ const formConfig: FormGeneratorConfigType = {
                     content: null,
                     isHidden: false,
                     isMultiple: true,
-                    accept: 'image/*',
+                    accept: 'image/png, image/jpg, image/jpeg',
                 },
             ],
             fieldSetWrapper: {
@@ -114,7 +114,7 @@ export class ImageUpload extends Component<PropsType, StateType> {
         return (
             <Paper className={mainWrapperStyle.paper_wrapper}>
                 <Toolbar>
-                    <Typography variant="h5">Upload image list</Typography>
+                    <Typography variant="h5">Upload image</Typography>
                 </Toolbar>
                 <FormGenerator
                     config={formConfig}
