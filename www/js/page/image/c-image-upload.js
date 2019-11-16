@@ -114,7 +114,7 @@ export class ImageUpload extends Component<PropsType, StateType> {
         return (
             <Paper className={mainWrapperStyle.paper_wrapper}>
                 <Toolbar>
-                    <Typography variant="h5">Upload image</Typography>
+                    <Typography variant="h5">Upload image: *.png, *.jpg, *.jpeg</Typography>
                 </Toolbar>
                 <FormGenerator
                     config={formConfig}
