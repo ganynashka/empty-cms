@@ -11,7 +11,7 @@ import type {
     SortDirectionType,
 } from '../../component/layout/table/enhanced-table/type';
 
-import {getUserList, getUserListSize} from './user-api';
+import {getUserList, getUserListSize} from './api-user-list';
 
 type PropsType = {};
 type StateType = {};

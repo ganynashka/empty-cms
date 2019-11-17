@@ -12,3 +12,25 @@ export function getCurrentUser(): Promise<MongoUserFrontType | Error> {
         .then((response: Response): Promise<MongoUserFrontType> => response.json())
         .catch(promiseCatch);
 }
+
+export function login(userLogin: string, userPassword: string): Promise<MongoUserFrontType | Error> {
+    return window
+        .fetch(userApiRouteMap.login, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({login: userLogin, password: userPassword}),
+        })
+        .then((response: Response): Promise<MongoUserFrontType> => response.json())
+        .catch(promiseCatch);
+}
+
+export function register(userLogin: string, userPassword: string): Promise<MongoUserFrontType | Error> {
+    return window
+        .fetch(userApiRouteMap.register, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({login: userLogin, password: userPassword}),
+        })
+        .then((response: Response): Promise<MongoUserFrontType> => response.json())
+        .catch(promiseCatch);
+}

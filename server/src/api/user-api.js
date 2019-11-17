@@ -100,13 +100,11 @@ export function addUserApi(app: $Application) {
         const user = await getUserByLogin(login);
 
         if (user === null) {
-            response.json({isSuccessful: false, errorList: ['User is not exists.']});
-            return;
+            throw new Error('User is not exists.');
         }
 
         if (user.passwordSha256 !== getPasswordSha256(password)) {
-            response.json({isSuccessful: false, errorList: ['Password is wrong.']});
-            return;
+            throw new Error('Password is wrong.');
         }
 
         const userSession = getSession(request);
@@ -114,6 +112,13 @@ export function addUserApi(app: $Application) {
         // $FlowFixMe
         Object.assign(userSession, {login, role: user.role});
 
-        response.json({isSuccessful: true, errorList: []});
+        const frontUser: MongoUserFrontType = {
+            role: user.role,
+            login: user.login,
+            registerDate: user.registerDate,
+            rating: user.rating,
+        };
+
+        response.json(frontUser);
     });
 }

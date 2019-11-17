@@ -5,13 +5,18 @@
 import React, {Component, type Node} from 'react';
 
 import {isError} from '../../lib/is';
+import type {MongoUserFrontType} from '../../../../server/src/db/type';
 
 import type {UserContextConsumerType} from './type-user-context';
-import {getCurrentUser} from './api-user-context';
+import {getCurrentUser, login, register} from './api-user-context';
 import {defaultUserFrontState} from './const-user-context';
 
 const defaultContextData = {
     user: defaultUserFrontState,
+    login: (userLogin: string, userPassword: string): Promise<MongoUserFrontType | Error> =>
+        Promise.resolve(defaultUserFrontState),
+    register: (userLogin: string, userPassword: string): Promise<MongoUserFrontType | Error> =>
+        Promise.resolve(defaultUserFrontState),
 };
 
 const userContext = React.createContext<UserContextConsumerType>(defaultContextData);
@@ -59,11 +64,39 @@ export class UserProvider extends Component<PropsType, StateType> {
         this.setState({providedData: {...providedData, user}});
     }
 
+    login = async (userLogin: string, userPassword: string): Promise<MongoUserFrontType | Error> => {
+        const result = await login(userLogin, userPassword);
+
+        if (isError(result)) {
+            return result;
+        }
+
+        console.log(result);
+
+        return result;
+    };
+
+    register = async (userLogin: string, userPassword: string): Promise<MongoUserFrontType | Error> => {
+        const result = await register(userLogin, userPassword);
+
+        if (isError(result)) {
+            return result;
+        }
+
+        console.log(result);
+
+        return result;
+    };
+
     getProviderValue(): UserContextConsumerType {
         const {state} = this;
+        const {providedData} = state;
+        const {user} = providedData;
 
         return {
-            ...state.providedData,
+            user,
+            login: this.login,
+            register: this.register,
         };
     }
 
