@@ -22,11 +22,12 @@ declare module 'mongodb' {
 
     declare export class MongoCollectionCursor<ItemType> {
         each: MongoCollectionCursorIteratorType<ItemType>,
-        stream: (option: MongoCollectionCursorStreamOptionType<ItemType>) => WritableStream,
+        stream: (option: MongoCollectionCursorStreamOptionType<ItemType>) => MongoCollectionCursor<ItemType>,
         limit: (size: number) => MongoCollectionCursor<ItemType>,
         skip: (size: number) => MongoCollectionCursor<ItemType>,
         sort: (sort: {[key: string]: MongoSortDirectionType}) => MongoCollectionCursor<ItemType>,
         toArray: (callBack: (error: Error | null, array: Array<ItemType> | null) => mixed) => mixed,
+        pipe: (destination: mixed) => mixed,
     }
 
     declare type MongoCollectionFindOption = {

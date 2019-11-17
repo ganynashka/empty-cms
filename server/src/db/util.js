@@ -4,51 +4,58 @@ import type {MongoCollection, MongoDataBase, MongoSortDirectionType} from 'mongo
 import {MongoClient} from 'mongodb';
 
 import type {NullableType} from '../../../www/js/lib/type';
-import {hasProperty} from '../../../www/js/lib/is';
+import {hasProperty, isError} from '../../../www/js/lib/is';
+import {promiseCatch} from '../../../www/js/lib/promise';
 
 import {dataBaseConst} from './const';
 
 const getDataBaseCache: {[key: string]: Promise<MongoDataBase>} = {};
 
-export async function getDataBase(name: string): Promise<MongoDataBase> {
+export function getDataBase(name: string): Promise<MongoDataBase> {
     if (hasProperty(getDataBaseCache, name)) {
         console.log('getDataBase: MongoDataBase get from cache, name:', name);
         return getDataBaseCache[name];
     }
 
-    getDataBaseCache[name] = new Promise<MongoDataBase>((resolve: MongoDataBase => mixed) => {
-        MongoClient.connect(
-            dataBaseConst.url,
-            {
-                useUnifiedTopology: true,
-                useNewUrlParser: true,
-            },
-            (clientError: NullableType<Error>, client: NullableType<MongoClient>) => {
-                if (clientError instanceof Error) {
-                    throw new TypeError('Can not connect to mongo server');
-                }
+    getDataBaseCache[name] = new Promise<MongoDataBase>(
+        (resolve: MongoDataBase => mixed, reject: (error: Error) => mixed) => {
+            MongoClient.connect(
+                dataBaseConst.url,
+                {
+                    useUnifiedTopology: true,
+                    useNewUrlParser: true,
+                },
+                (clientError: NullableType<Error>, client: NullableType<MongoClient>) => {
+                    if (isError(clientError)) {
+                        console.error('Can not connect to mongo server');
+                        reject(new Error('Can not connect to mongo server'));
+                        return;
+                    }
 
-                if (client === null) {
-                    throw new Error('Mongo client is not define');
-                }
+                    if (client === null) {
+                        console.error('Mongo client is not define');
+                        reject(new Error('Mongo client is not define'));
+                        return;
+                    }
 
-                resolve(client.db(name));
-            }
-        );
-    });
+                    resolve(client.db(name));
+                }
+            );
+        }
+    );
 
     console.log('getDataBase: MongoDataBase defined');
 
     return getDataBaseCache[name];
 }
 
-export async function getCollection<ItemType>(
+export function getCollection<ItemType>(
     dataBaseName: string,
     collectionName: string
-): Promise<MongoCollection<ItemType>> {
-    const dataBase = await getDataBase(dataBaseName);
-
-    return dataBase.collection<ItemType>(collectionName);
+): Promise<MongoCollection<ItemType> | Error> {
+    return getDataBase(dataBaseName)
+        .then((dataBase: MongoDataBase): MongoCollection<ItemType> => dataBase.collection<ItemType>(collectionName))
+        .catch(promiseCatch);
 }
 
 export function getSortDirection(value: mixed): MongoSortDirectionType {

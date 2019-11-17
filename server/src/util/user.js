@@ -6,13 +6,18 @@ import type {MongoUserType} from '../db/type';
 import {getCollection} from '../db/util';
 import {dataBaseConst} from '../db/const';
 import {passwordKey} from '../../key';
+import {isError} from '../../../www/js/lib/is';
 
 export type UserLoginPasswordType = {login: string, password: string};
 
 export async function getUserByLogin(login: string): Promise<MongoUserType | null> {
-    const userCollection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
+    const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 
-    return userCollection.findOne({login});
+    if (isError(collection)) {
+        throw new Error(`Can not get collection: ${dataBaseConst.collection.user}`);
+    }
+
+    return collection.findOne({login});
 }
 
 export function getPasswordSha256(text: string): string {

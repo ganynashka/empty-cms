@@ -11,6 +11,8 @@ import {dataBaseConst} from '../db/const';
 import {getTime} from '../util/time';
 import type {UserLoginPasswordType} from '../util/user';
 import {getPasswordSha256, getUserByLogin} from '../util/user';
+import {defaultUserFrontState} from '../../../www/js/component/user/const-user-context';
+import {isError} from '../../../www/js/lib/is';
 
 import {getListParameters, streamOptionsArray} from './helper';
 import {userApiRouteMap} from './route-map';
@@ -21,9 +23,7 @@ export function addUserApi(app: $Application) {
         const user = await getUserByLogin(userSession.login || '');
 
         if (user === null) {
-            const notUser: MongoUserFrontType = {role: mongoUserRoleMap.user, login: '', registerDate: 0, rating: 0};
-
-            response.json(notUser);
+            response.json(defaultUserFrontState);
             return;
         }
 
@@ -36,10 +36,13 @@ export function addUserApi(app: $Application) {
     app.get(userApiRouteMap.getUserList, async (request: $Request, response: $Response) => {
         const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 
+        if (isError(collection)) {
+            throw new Error(`Can not get collection: ${dataBaseConst.collection.user}`);
+        }
+
         const {pageIndex, pageSize, sortParameter, sortDirection} = getListParameters(request);
 
-        // TODO: try to remove "await", because work without it
-        (await collection)
+        collection
             .find({})
             .sort({[sortParameter]: sortDirection})
             .skip(pageSize * pageIndex)
@@ -50,6 +53,10 @@ export function addUserApi(app: $Application) {
 
     app.get(userApiRouteMap.getUserListSize, async (request: $Request, response: $Response) => {
         const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
+
+        if (isError(collection)) {
+            throw new Error(`Can not get collection: ${dataBaseConst.collection.user}`);
+        }
 
         const count = await collection.countDocuments();
 
@@ -66,7 +73,11 @@ export function addUserApi(app: $Application) {
             return;
         }
 
-        const userCollection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
+        const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
+
+        if (isError(collection)) {
+            throw new Error(`Can not get collection: ${dataBaseConst.collection.user}`);
+        }
 
         const date = getTime();
 
@@ -79,7 +90,7 @@ export function addUserApi(app: $Application) {
             registerDate: date,
         };
 
-        await userCollection.insertOne(newUser);
+        await collection.insertOne(newUser);
 
         response.json({isSuccessful: true, errorList: []});
     });

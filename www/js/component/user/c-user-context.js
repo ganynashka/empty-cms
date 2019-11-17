@@ -2,22 +2,16 @@
 
 /* global window */
 
-import type {Node} from 'react';
-import React, {Component} from 'react';
+import React, {Component, type Node} from 'react';
 
-import {mongoUserRoleMap} from '../../../../server/src/db/type';
 import {isError} from '../../lib/is';
 
-import type {UserContextConsumerType} from './type-user-content';
+import type {UserContextConsumerType} from './type-user-context';
 import {getCurrentUser} from './api-user-context';
+import {defaultUserFrontState} from './const-user-context';
 
 const defaultContextData = {
-    user: {
-        role: mongoUserRoleMap.user,
-        login: '',
-        registerDate: 0,
-        rating: 0,
-    },
+    user: defaultUserFrontState,
 };
 
 const userContext = React.createContext<UserContextConsumerType>(defaultContextData);
