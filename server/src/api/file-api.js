@@ -34,9 +34,13 @@ export function addFileApi(app: $Application) {
 
     app.get(fileApiRouteMap.getFileList, async (request: $Request, response: $Response) => {
         fileSystem.readdir(cwd + fileApiConst.pathToUploadFiles, (error: Error | mixed, fileList: Array<string>) => {
-            const result = Array.isArray(fileList) ? fileList : {isSuccessful: false, errorList: [error]};
+            if (Array.isArray(fileList)) {
+                response.json(fileList);
+                return;
+            }
 
-            response.json(result);
+            response.status(400);
+            response.json({isSuccessful: false, errorList: [String(error)]});
         });
     });
 
@@ -66,6 +70,7 @@ export function addFileApi(app: $Application) {
             .catch(promiseCatch);
 
         if (isError(resizeResult)) {
+            response.status(400);
             response.json({isSuccessful: false, errorList: [resizeResult]});
             return;
         }
@@ -78,6 +83,7 @@ export function addFileApi(app: $Application) {
         fileSystem.unlink(pathToTemporaryFile, () => {});
 
         if (isError(compressImageResult)) {
+            response.status(400);
             response.json({isSuccessful: false, errorList: [compressImageResult]});
             return;
         }

@@ -8,6 +8,7 @@ import type {SortDirectionType} from '../../component/layout/table/enhanced-tabl
 import {getLisParametersToUrl, getSearchExactParametersToUrl} from '../../lib/url';
 import type {MainServerApiResponseType} from '../../type/response';
 import {typeConverter} from '../../lib/type';
+import {promiseCatch} from '../../lib/promise';
 
 export async function getDocumentList(
     pageIndex: number,
@@ -57,11 +58,15 @@ export async function updateDocument(data: MongoDocumentType): Promise<MainServe
     return typeConverter<MainServerApiResponseType>(responseJson);
 }
 
-export async function documentSearchExact(key: string, value: string): Promise<MainServerApiResponseType> {
+export function documentSearchExact(
+    key: string,
+    value: string
+): Promise<MainServerApiResponseType | MongoDocumentType | Error> {
     const url = getSearchExactParametersToUrl(documentApiRouteMap.documentSearchExact, key, value);
-    const rawFetchedData = await fetch(url);
 
-    return rawFetchedData.json();
+    return fetch(url)
+        .then((response: Response): Promise<MainServerApiResponseType | MongoDocumentType | Error> => response.json())
+        .catch(promiseCatch);
 }
 
 export async function getDocumentParentList(slug: string): Promise<Array<MongoDocumentType>> {

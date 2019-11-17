@@ -5,6 +5,8 @@
 import React, {Component, type Node} from 'react';
 
 import {isError} from '../../lib/is';
+import type {MainServerApiResponseType} from '../../type/response';
+
 import type {MongoUserFrontType} from '../../../../server/src/db/type';
 
 import type {UserContextConsumerType} from './type-user-context';
@@ -15,8 +17,8 @@ const defaultContextData = {
     user: defaultUserFrontState,
     login: (userLogin: string, userPassword: string): Promise<MongoUserFrontType | Error> =>
         Promise.resolve(defaultUserFrontState),
-    register: (userLogin: string, userPassword: string): Promise<MongoUserFrontType | Error> =>
-        Promise.resolve(defaultUserFrontState),
+    register: (userLogin: string, userPassword: string): Promise<MainServerApiResponseType | Error> =>
+        Promise.resolve(new Error('You should override this method')),
 };
 
 const userContext = React.createContext<UserContextConsumerType>(defaultContextData);
@@ -65,18 +67,20 @@ export class UserProvider extends Component<PropsType, StateType> {
     }
 
     login = async (userLogin: string, userPassword: string): Promise<MongoUserFrontType | Error> => {
-        const result = await login(userLogin, userPassword);
+        const {state} = this;
+        const {providedData} = state;
+        const loginResult = await login(userLogin, userPassword);
 
-        if (isError(result)) {
-            return result;
+        if (isError(loginResult)) {
+            return loginResult;
         }
 
-        console.log(result);
+        this.setState({providedData: {...providedData, user: loginResult}});
 
-        return result;
+        return loginResult;
     };
 
-    register = async (userLogin: string, userPassword: string): Promise<MongoUserFrontType | Error> => {
+    register = async (userLogin: string, userPassword: string): Promise<MainServerApiResponseType | Error> => {
         const result = await register(userLogin, userPassword);
 
         if (isError(result)) {

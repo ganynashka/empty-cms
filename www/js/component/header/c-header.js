@@ -41,7 +41,7 @@ export class Header extends Component<PropsType, StateType> {
             <>
                 &nbsp;|&nbsp;
                 <Button size="large" variant="contained">
-                    You are logged as: {user.role}
+                    You: {user.role}
                 </Button>
             </>
         );

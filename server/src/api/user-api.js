@@ -37,7 +37,12 @@ export function addUserApi(app: $Application) {
         const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 
         if (isError(collection)) {
-            throw new Error(`Can not get collection: ${dataBaseConst.collection.user}`);
+            response.status(500);
+            response.json({
+                isSuccessful: false,
+                errorList: [`Can not get collection: ${dataBaseConst.collection.user}`],
+            });
+            return;
         }
 
         const {pageIndex, pageSize, sortParameter, sortDirection} = getListParameters(request);
@@ -55,7 +60,12 @@ export function addUserApi(app: $Application) {
         const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 
         if (isError(collection)) {
-            throw new Error(`Can not get collection: ${dataBaseConst.collection.user}`);
+            response.status(500);
+            response.json({
+                isSuccessful: false,
+                errorList: [`Can not get collection: ${dataBaseConst.collection.user}`],
+            });
+            return;
         }
 
         const count = await collection.countDocuments();
@@ -69,6 +79,7 @@ export function addUserApi(app: $Application) {
         const user = await getUserByLogin(login);
 
         if (user) {
+            response.status(400);
             response.json({isSuccessful: false, errorList: ['User already exists.']});
             return;
         }
@@ -76,7 +87,12 @@ export function addUserApi(app: $Application) {
         const collection = await getCollection<MongoUserType>(dataBaseConst.name, dataBaseConst.collection.user);
 
         if (isError(collection)) {
-            throw new Error(`Can not get collection: ${dataBaseConst.collection.user}`);
+            response.status(400);
+            response.json({
+                isSuccessful: false,
+                errorList: [`Can not get collection: ${dataBaseConst.collection.user}`],
+            });
+            return;
         }
 
         const date = getTime();
@@ -100,11 +116,15 @@ export function addUserApi(app: $Application) {
         const user = await getUserByLogin(login);
 
         if (user === null) {
-            throw new Error('User is not exists.');
+            response.status(400);
+            response.json({isSuccessful: false, errorList: ['User is not exists.']});
+            return;
         }
 
         if (user.passwordSha256 !== getPasswordSha256(password)) {
-            throw new Error('Password is wrong.');
+            response.status(400);
+            response.json({isSuccessful: false, errorList: ['Password is wrong.']});
+            return;
         }
 
         const userSession = getSession(request);

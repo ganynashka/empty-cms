@@ -58,15 +58,23 @@ export class DocumentEdit extends Component<PropsType, StateType> {
 
         const {slug} = match.params;
 
-        const {data, errorList} = await documentSearchExact('slug', String(slug));
+        const mayBeDocumentPromise = await documentSearchExact('slug', String(slug));
+        const mayBeDocument = await mayBeDocumentPromise;
         const parentList = await getDocumentParentList(String(slug));
 
-        if (errorList.length > 0) {
+        if (isError(mayBeDocument)) {
+            await showSnackbar({children: mayBeDocument.message, variant: 'error'}, mayBeDocument.message);
+            return;
+        }
+
+        const {errorList} = mayBeDocument;
+
+        if (Array.isArray(errorList) && errorList.length > 0) {
             await showSnackbar({children: errorList.join(','), variant: 'error'}, errorList.join(','));
             return;
         }
 
-        const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(data);
+        const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(mayBeDocument);
 
         this.setState({mongoDocument, parentList});
     }

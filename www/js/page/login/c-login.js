@@ -1,38 +1,83 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
+import React, {Component, type Node} from 'react';
+import Paper from '@material-ui/core/Paper';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography/Typography';
 
-import type {Node} from 'react';
-import React, {Component} from 'react';
+import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
+import {FormGenerator} from '../../component/layout/form-generator/form-generator';
+import type {FormGeneratorFormDataType} from '../../component/layout/form-generator/type';
+import {isError} from '../../lib/is';
+import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-button-list-wrapper';
+import {FormButton} from '../../component/layout/form-button/c-form-button';
+import type {UserContextConsumerType} from '../../component/user/type-user-context';
+import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
+import {loginPasswordFormConfig} from '../register/c-register';
 
-import {userApiRouteMap} from '../../../../server/src/api/route-map';
+type PropsType = {
+    +userContextData: UserContextConsumerType,
+    +snackbarPortalContext: SnackbarPortalContextType,
+};
 
-type PropsType = {};
-type StateType = null;
+type StateType = {};
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class Login extends Component<PropsType, StateType> {
+    constructor(props: PropsType) {
+        super(props);
+
+        this.state = {};
+    }
+
+    handleFormSubmit = async (formData: FormGeneratorFormDataType) => {
+        const {props} = this;
+        const {login, password} = formData;
+        const {snackbarPortalContext, userContextData} = props;
+        const snackBarId = 'login-snack-bar-id-' + String(Date.now());
+        const {showSnackbar} = snackbarPortalContext;
+
+        const loginResult = await userContextData.login(String(login), String(password));
+
+        if (isError(loginResult)) {
+            await showSnackbar({children: loginResult.message, variant: 'error'}, snackBarId);
+            return;
+        }
+
+        await showSnackbar({children: 'You login successfully!', variant: 'success'}, snackBarId);
+    };
+
+    renderFormFooter(): Node {
+        return (
+            <ButtonListWrapper direction="right">
+                <FormButton type="submit">Login</FormButton>
+            </ButtonListWrapper>
+        );
+    }
+
+    handleFormError = async (errorList: Array<Error>) => {
+        const {props} = this;
+        const {snackbarPortalContext} = props;
+        const snackBarId = 'login-snack-bar-id-' + String(Date.now());
+        const {showSnackbar} = snackbarPortalContext;
+
+        console.log('handleFormError', errorList);
+        await showSnackbar({children: 'Fill all required fields properly!', variant: 'error'}, snackBarId);
+    };
+
     render(): Node {
         return (
-            <div>
-                <h1>Login</h1>
-                <br/>
-                <form action={userApiRouteMap.login} method="post">
-                    <label>
-                        <p>Login:</p>
-                        <input name="login" placeholder="login" type="text"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <label>
-                        <p>Password:</p>
-                        <input name="password" placeholder="password" type="text"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+            <Paper className={mainWrapperStyle.paper_wrapper}>
+                <Toolbar>
+                    <Typography variant="h5">Login</Typography>
+                </Toolbar>
+                <FormGenerator
+                    config={loginPasswordFormConfig}
+                    footer={this.renderFormFooter()}
+                    onError={this.handleFormError}
+                    onSubmit={this.handleFormSubmit}
+                />
+            </Paper>
         );
     }
 }

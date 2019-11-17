@@ -20,7 +20,12 @@ export function addDocumentApi(app: $Application) {
         );
 
         if (isError(collection)) {
-            throw new Error(`Can not get collection: ${dataBaseConst.collection.document}`);
+            response.status(400);
+            response.json({
+                isSuccessful: false,
+                errorList: [`Can not get collection: ${dataBaseConst.collection.document}`],
+            });
+            return;
         }
 
         const {pageIndex, pageSize, sortParameter, sortDirection} = getListParameters(request);
@@ -41,7 +46,12 @@ export function addDocumentApi(app: $Application) {
         );
 
         if (isError(collection)) {
-            throw new Error(`Can not get collection: ${dataBaseConst.collection.document}`);
+            response.status(400);
+            response.json({
+                isSuccessful: false,
+                errorList: [`Can not get collection: ${dataBaseConst.collection.document}`],
+            });
+            return;
         }
 
         const count = await collection.countDocuments();
@@ -58,7 +68,12 @@ export function addDocumentApi(app: $Application) {
         );
 
         if (isError(collection)) {
-            throw new Error(`Can not get collection: ${dataBaseConst.collection.document}`);
+            response.status(400);
+            response.json({
+                isSuccessful: false,
+                errorList: [`Can not get collection: ${dataBaseConst.collection.document}`],
+            });
+            return;
         }
 
         const {slug} = mongoDocument;
@@ -66,6 +81,7 @@ export function addDocumentApi(app: $Application) {
         const existedDocument = await collection.findOne({slug});
 
         if (existedDocument) {
+            response.status(400);
             response.json({isSuccessful: false, errorList: [`Document with slug: '${slug}' already exists.`]});
             return;
         }
@@ -93,7 +109,12 @@ export function addDocumentApi(app: $Application) {
         );
 
         if (isError(collection)) {
-            throw new Error(`Can not get collection: ${dataBaseConst.collection.document}`);
+            response.status(400);
+            response.json({
+                isSuccessful: false,
+                errorList: [`Can not get collection: ${dataBaseConst.collection.document}`],
+            });
+            return;
         }
 
         const {slug} = mongoDocument;
@@ -101,6 +122,7 @@ export function addDocumentApi(app: $Application) {
         const existedDocument = await collection.findOne({slug});
 
         if (!existedDocument) {
+            response.status(400);
             response.json({isSuccessful: false, errorList: [`Document with slug: '${slug}' is NOT exists.`]});
             return;
         }
@@ -125,7 +147,12 @@ export function addDocumentApi(app: $Application) {
         );
 
         if (isError(collection)) {
-            throw new Error(`Can not get collection: ${dataBaseConst.collection.document}`);
+            response.status(400);
+            response.json({
+                isSuccessful: false,
+                errorList: [`Can not get collection: ${dataBaseConst.collection.document}`],
+            });
+            return;
         }
 
         const {key, value} = getSearchExactParameters(request);
@@ -133,18 +160,14 @@ export function addDocumentApi(app: $Application) {
         const existedDocument = await collection.findOne({[key]: value});
 
         if (existedDocument) {
-            response.json({
-                isSuccessful: true,
-                errorList: [],
-                data: existedDocument,
-            });
+            response.json(existedDocument);
             return;
         }
 
+        response.status(400);
         response.json({
             isSuccessful: false,
             errorList: [`Can not find a document by 'key = ${key}' and 'value = ${value}'`],
-            data: null,
         });
     });
 
@@ -155,7 +178,12 @@ export function addDocumentApi(app: $Application) {
         );
 
         if (isError(collection)) {
-            throw new Error(`Can not get collection: ${dataBaseConst.collection.document}`);
+            response.status(400);
+            response.json({
+                isSuccessful: false,
+                errorList: [`Can not get collection: ${dataBaseConst.collection.document}`],
+            });
+            return;
         }
 
         collection
@@ -172,12 +200,21 @@ export function addDocumentApi(app: $Application) {
         );
 
         if (isError(collection)) {
-            throw new Error(`Can not get collection: ${dataBaseConst.collection.document}`);
+            response.status(400);
+            response.json({
+                isSuccessful: false,
+                errorList: [`Can not get collection: ${dataBaseConst.collection.document}`],
+            });
+            return;
         }
 
         collection.find({}).toArray((error: Error | null, documentList: Array<MongoDocumentType> | null) => {
             if (error || !Array.isArray(documentList)) {
-                response.send(JSON.stringify(new Error('CAn not read collection!')));
+                response.status(400);
+                response.json({
+                    isSuccessful: false,
+                    errorList: ['Can not read collection!'],
+                });
                 return;
             }
 

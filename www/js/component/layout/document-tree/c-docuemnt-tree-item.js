@@ -9,6 +9,8 @@ import {typeConverter} from '../../../lib/type';
 import {routePathMap} from '../../app/routes-path-map';
 import {stopPropagation} from '../../../lib/event';
 
+import {isError} from '../../../lib/is';
+
 import documentTreeStyle from './document-tree.style.scss';
 
 type PropsType = {|
@@ -35,21 +37,29 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
         this.fetchDocument();
     }
 
-    async fetchDocument() {
+    fetchDocument = async () => {
         const {props} = this;
         const {slug} = props;
 
-        const {data, errorList} = await documentSearchExact('slug', String(slug));
+        const mayBeDocumentPromise = await documentSearchExact('slug', String(slug));
+        const mayBeDocument = await mayBeDocumentPromise;
 
-        if (errorList.length > 0) {
+        if (isError(mayBeDocument)) {
             this.setState({hasError: true});
             return;
         }
 
-        const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(data);
+        const {errorList} = mayBeDocument;
+
+        if (Array.isArray(errorList) && errorList.length > 0) {
+            this.setState({hasError: true});
+            return;
+        }
+
+        const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(mayBeDocument);
 
         this.setState({mongoDocument});
-    }
+    };
 
     renderSubDocumentList(): Array<Node> {
         const {props, state} = this;
