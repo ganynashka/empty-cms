@@ -1,5 +1,7 @@
 // @flow
 
+/* global window */
+
 import React, {Component, type Node} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -17,6 +19,7 @@ import {getIsRequired} from '../../component/layout/form-generator/validate/vali
 import {FieldSet} from '../../component/layout/form-generator/field/field-set/field-set';
 import {InputText} from '../../component/layout/form-generator/field/input-text/c-input-text';
 import {InputPassword} from '../../component/layout/form-generator/field/input-password/c-input-text';
+import {routePathMap} from '../../component/app/routes-path-map';
 
 export const loginPasswordFormConfig: FormGeneratorConfigType = {
     fieldSetList: [
@@ -94,6 +97,8 @@ export class Register extends Component<PropsType, StateType> {
         }
 
         await showSnackbar({children: 'You register successfully!', variant: 'success'}, snackBarId);
+
+        window.location.href = routePathMap.home.path;
     };
 
     renderFormFooter(): Node {

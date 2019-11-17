@@ -1,5 +1,7 @@
 // @flow
 
+/* global window */
+
 import React, {Component, type Node} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,6 +16,7 @@ import {FormButton} from '../../component/layout/form-button/c-form-button';
 import type {UserContextConsumerType} from '../../component/user/type-user-context';
 import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
 import {loginPasswordFormConfig} from '../register/c-register';
+import {routePathMap} from '../../component/app/routes-path-map';
 
 type PropsType = {
     +userContextData: UserContextConsumerType,
@@ -45,6 +48,8 @@ export class Login extends Component<PropsType, StateType> {
         }
 
         await showSnackbar({children: 'You login successfully!', variant: 'success'}, snackBarId);
+
+        window.location.href = routePathMap.home.path;
     };
 
     renderFormFooter(): Node {
