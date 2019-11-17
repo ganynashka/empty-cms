@@ -40,6 +40,7 @@ export function addFileApi(app: $Application) {
         });
     });
 
+    // eslint-disable-next-line max-statements
     app.get(fileApiRouteMap.getResizedImage + '/*', async (request: $Request, response: $Response) => {
         const imageName = String(request.params['0']);
         const resizeConfig = getImageResizeParameters(request);

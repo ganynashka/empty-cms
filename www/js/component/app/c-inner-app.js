@@ -12,7 +12,7 @@ import {SnackbarPortalProvider} from '../layout/snackbar/snackbar-portal/c-snack
 import {MainWrapper} from '../main-wrapper/c-main-wrapper';
 import type {InitialDataType} from '../../../../server/src/c-initial-data-context';
 import {InitialDataProvider} from '../../../../server/src/c-initial-data-context';
-import {Header} from '../header/c-header';
+import {HeaderWrapper} from '../header/c-header-wrapper';
 
 import {routeItemMap} from './routes';
 import {redderEmptyRoute, redderRoute} from './render-route-helper';
@@ -35,7 +35,7 @@ export function InnerApp(props: {|+initialData: InitialDataType|}): Node {
     return (
         <InitialDataProvider value={initialData}>
             {renderWrapperList(wrapperList, [
-                <Route component={Header} key="header"/>,
+                <Route component={HeaderWrapper} key="header"/>,
                 routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key])),
                 <Switch key="switch">
                     {routeItemKeyList.map((key: string): Node => redderEmptyRoute(routeItemMap[key]))}
