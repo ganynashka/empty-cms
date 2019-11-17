@@ -35,3 +35,10 @@ export function register(userLogin: string, userPassword: string): Promise<MainS
         .then((response: Response): Promise<MainServerApiResponseType> => response.json())
         .catch(promiseCatch);
 }
+
+export function unLogin(): Promise<MainServerApiResponseType | Error> {
+    return window
+        .fetch(userApiRouteMap.unLogin)
+        .then((response: Response): Promise<MainServerApiResponseType> => response.json())
+        .catch(promiseCatch);
+}

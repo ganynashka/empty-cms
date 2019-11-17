@@ -8,6 +8,7 @@ import {mongoUserRoleMap} from '../db/type';
 export type SessionType = {
     +login?: string,
     +role?: MongoUserRoleType,
+    +destroy: (callBack?: mixed) => mixed,
 };
 
 export function getSession(request: $Request): SessionType {
