@@ -33,7 +33,6 @@ export const loginPasswordFormConfig: FormGeneratorConfigType = {
                     defaultValue: null,
                     placeholder: 'Your nick name...',
                     labelText: 'Login',
-                    content: null,
                     isHidden: false,
                 },
                 {
@@ -43,7 +42,6 @@ export const loginPasswordFormConfig: FormGeneratorConfigType = {
                     defaultValue: null,
                     placeholder: 'Your password...',
                     labelText: 'Password',
-                    content: null,
                     isHidden: false,
                 },
             ],

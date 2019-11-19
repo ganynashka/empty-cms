@@ -34,6 +34,7 @@ export const mongoDocumentTypeMap: {+[key: MongoDocumentTypeType]: MongoDocument
 export type MongoDocumentType = {|
     +_id?: mixed,
     +slug: string,
+    +titleImage: string,
     +type: MongoDocumentTypeType,
     +title: string,
     +content: string,

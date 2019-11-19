@@ -10,7 +10,7 @@ export type InputComponentOnChangeType = (value: InputValueType) => mixed;
 
 export type ValidateType = (name: string, value: InputValueType, formData: FormGeneratorFormDataType) => Array<Error>;
 
-export type InputComponentPropsType = {
+export type InputComponentPropsType = {|
     +name: string,
     +onChange: InputComponentOnChangeType,
     +onBlur: InputComponentOnChangeType,
@@ -18,10 +18,10 @@ export type InputComponentPropsType = {
     +defaultValue: InputValueType,
     +placeholder: Node,
     +labelText: Node,
-    +content: Node,
+    +content?: Node,
     +accept?: string,
     +isMultiple?: boolean,
-};
+|};
 
 export type FieldDataType = {|
     +name: string,
@@ -31,7 +31,7 @@ export type FieldDataType = {|
     +defaultValue: InputValueType,
     +placeholder: Node,
     +labelText: Node,
-    +content: Node,
+    +content?: Node,
     +isHidden?: boolean,
     +accept?: string,
     +isMultiple?: boolean,

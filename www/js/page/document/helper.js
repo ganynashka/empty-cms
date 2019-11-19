@@ -14,9 +14,11 @@ import {typeConverter} from '../../lib/type';
 import type {MongoDocumentType, MongoDocumentTypeType} from '../../../../server/src/db/type';
 import {mongoDocumentTypeMap} from '../../../../server/src/db/type';
 import {getSlug, stringToUniqArray} from '../../lib/string';
+import {InputUploadImage} from '../../component/layout/form-generator/field/input-upload-image/c-input-upload-image';
 
 export type FormDataMongoDocumentType = {
     +slug: string,
+    +titleImage: string | Array<File>,
     +type: MongoDocumentTypeType,
     +title: string,
     +content: string,
@@ -40,6 +42,7 @@ export function formDataToMongoDocument(formData: FormGeneratorFormDataType): Mo
 
     return {
         slug,
+        titleImage: '',
         type: documentFormData.type,
         title: documentFormData.title,
         content: documentFormData.content,
@@ -65,8 +68,16 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: '',
                         placeholder: 'the-slug-or-id-of-document',
                         labelText: 'Slug',
-                        content: null,
                         isHidden: true,
+                    },
+                    {
+                        name: 'titleImage',
+                        fieldComponent: InputUploadImage,
+                        validate: noValidate,
+                        defaultValue: null,
+                        placeholder: 'title-image',
+                        labelText: 'Title image',
+                        accept: 'image/png, image/jpg, image/jpeg',
                     },
                     {
                         name: 'type',
@@ -91,7 +102,6 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: '',
                         placeholder: 'Title',
                         labelText: 'Title',
-                        content: null,
                     },
                     {
                         name: 'createdDate',
@@ -100,7 +110,6 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: 0,
                         placeholder: 'Created Date',
                         labelText: 'Created Date',
-                        content: null,
                         isHidden: true,
                     },
                     {
@@ -110,7 +119,6 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: 0,
                         placeholder: 'Updated Date',
                         labelText: 'Updated Date',
-                        content: null,
                         isHidden: true,
                     },
                     {
@@ -120,7 +128,6 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: '',
                         placeholder: 'art, picture, color',
                         labelText: 'Tag list',
-                        content: null,
                     },
                     {
                         name: 'isActive',
@@ -129,7 +136,6 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: true,
                         placeholder: '',
                         labelText: 'Is active',
-                        content: null,
                     },
                     {
                         name: 'subDocumentList',
@@ -138,7 +144,6 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: '',
                         placeholder: 'doc-1, doc-2, the-article',
                         labelText: 'Sub-document list',
-                        content: null,
                     },
                     {
                         name: 'rating',
@@ -147,7 +152,6 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: 0,
                         placeholder: 'rating',
                         labelText: 'Rating',
-                        content: null,
                         isHidden: true,
                     },
                     {
@@ -157,7 +161,6 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: '',
                         placeholder: 'Content',
                         labelText: 'Content',
-                        content: null,
                     },
                 ],
                 fieldSetWrapper: {

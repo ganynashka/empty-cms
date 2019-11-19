@@ -20,7 +20,7 @@ import type {
 type PropsType = {|
     +config: FormGeneratorConfigType,
     +onSubmit: (formData: FormGeneratorFormDataType) => mixed,
-    +onError: (errorList: Array<Error>) => mixed,
+    +onError: (errorList: Array<Error>, formData: FormGeneratorFormDataType) => mixed,
     +footer: Node,
 |};
 
@@ -216,7 +216,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
         console.log(errorList);
 
         if (isFunction(onError)) {
-            onError(errorList);
+            onError(errorList, formData);
         }
     };
 

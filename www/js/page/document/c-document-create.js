@@ -63,11 +63,13 @@ export class DocumentCreate extends Component<PropsType, StateType> {
         );
     }
 
-    handleFormError = async (errorList: Array<Error>) => {
+    handleFormError = async (errorList: Array<Error>, formData: FormGeneratorFormDataType) => {
         const {props} = this;
         const {snackbarPortalContext} = props;
         const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());
         const {showSnackbar} = snackbarPortalContext;
+
+        console.log(formData);
 
         console.log('handleFormError', errorList);
         await showSnackbar({children: 'Fill all required fields properly!', variant: 'error'}, snackBarId);

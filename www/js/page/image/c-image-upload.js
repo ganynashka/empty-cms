@@ -39,7 +39,6 @@ const formConfig: FormGeneratorConfigType = {
                     defaultValue: null,
                     placeholder: 'File list',
                     labelText: 'File list',
-                    content: null,
                     isHidden: false,
                     isMultiple: true,
                     accept: 'image/png, image/jpg, image/jpeg',
