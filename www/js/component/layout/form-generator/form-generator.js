@@ -128,6 +128,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
             content,
             accept,
             isMultiple,
+            imagePathPrefix,
         } = fieldData;
 
         const onChangeFieldHandler = view.createOnChangeFieldHandler(fieldData);
@@ -140,6 +141,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
                 content={content}
                 defaultValue={defaultValue}
                 errorList={errorList}
+                imagePathPrefix={imagePathPrefix}
                 isMultiple={isMultiple}
                 key={name}
                 labelText={labelText}
@@ -193,6 +195,9 @@ export class FormGenerator extends Component<PropsType, StateType> {
         });
 
         view.setState({formValidation});
+
+        console.log('---> formData');
+        console.log(formData);
 
         return errorList;
     }

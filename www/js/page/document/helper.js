@@ -47,7 +47,7 @@ function extractImage(inputValue: InputValueType): Promise<Error | string> {
     }
 
     if (inputValue.length === 0) {
-        return Promise.resolve(new Error('Array has length: 0'));
+        return Promise.resolve('');
     }
 
     const [file] = inputValue;

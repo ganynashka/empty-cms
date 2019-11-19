@@ -21,6 +21,7 @@ export type InputComponentPropsType = {|
     +content?: Node,
     +accept?: string,
     +isMultiple?: boolean,
+    +imagePathPrefix?: string,
 |};
 
 export type FieldDataType = {|
@@ -35,6 +36,7 @@ export type FieldDataType = {|
     +isHidden?: boolean,
     +accept?: string,
     +isMultiple?: boolean,
+    +imagePathPrefix?: string,
 |};
 
 export type FieldSetWrapperDataType = {
