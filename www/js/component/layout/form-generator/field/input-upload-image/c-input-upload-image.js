@@ -35,7 +35,7 @@ export class InputUploadImage extends Component<PropsType, StateType> {
     }
 
     handleOnChange = (evt: SyntheticEvent<HTMLInputElement>) => {
-        const {props, state} = this;
+        const {props} = this;
         const {onChange} = props;
         const fileList = this.getValue(evt);
 
@@ -61,7 +61,7 @@ export class InputUploadImage extends Component<PropsType, StateType> {
 
     renderImageInput(): Node {
         const {props} = this;
-        const {onChange, accept} = props;
+        const {accept} = props;
 
         return (
             <>
