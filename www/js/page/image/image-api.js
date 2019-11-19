@@ -44,6 +44,10 @@ export function getResizedImage(
     return `${fileApiRouteMap.getResizedImage}/${src}?width=${width}&height=${height}&fit=${fit}`;
 }
 
+export function getMarkdownResizedImage(src: string): string {
+    return `![](${getResizedImage(src, 1024, 1024)})`;
+}
+
 export function getImageList(): Promise<Array<string> | Error | MainServerApiResponseType> {
     return window
         .fetch(fileApiRouteMap.getFileList)

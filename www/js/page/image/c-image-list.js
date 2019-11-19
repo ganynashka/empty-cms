@@ -12,8 +12,9 @@ import serviceStyle from '../../../css/service.scss';
 import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
 import {promiseCatch} from '../../lib/promise';
 import {isError} from '../../lib/is';
+import {getNoHashFileName} from '../../../../server/src/util/string';
 
-import {getImageList, getResizedImage} from './image-api';
+import {getImageList, getMarkdownResizedImage, getResizedImage} from './image-api';
 import imageStyle from './image.scss';
 
 type PropsType = {
@@ -65,7 +66,7 @@ export class ImageList extends Component<PropsType, StateType> {
 
         const src = String(evt.currentTarget.dataset.src);
 
-        const imageMarkdown = `![](${getResizedImage(src, 1024, 1024)})`;
+        const imageMarkdown = getMarkdownResizedImage(src);
 
         const copyResult = await navigator.clipboard.writeText(imageMarkdown).catch(promiseCatch);
 
@@ -88,7 +89,7 @@ export class ImageList extends Component<PropsType, StateType> {
             >
                 <img alt="" className={imageStyle.image} src={getResizedImage(src, 256, 256)}/>
                 <span className={imageStyle.image_name}>
-                    <span className={serviceStyle.ellipsis}>{src.replace(/--md5__[\S\s]+/, '')}</span>
+                    <span className={serviceStyle.ellipsis}>{getNoHashFileName(src)}</span>
                 </span>
             </button>
         );

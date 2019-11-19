@@ -1,12 +1,19 @@
 // @flow
 
-/* global URL */
+/* global URL, navigator */
 
 import React, {Component, type Node} from 'react';
 import classNames from 'classnames';
 
 import type {InputComponentPropsType, InputValueType} from '../../type';
 import fieldStyle from '../field.style.scss';
+
+import {getMarkdownResizedImage} from '../../../../../page/image/image-api';
+import {promiseCatch} from '../../../../../lib/promise';
+import {isError} from '../../../../../lib/is';
+
+import {PopupHeader} from '../../../popup/popup-header/c-popup-header';
+import {PopupContent} from '../../../popup/popup-content/c-popup-content';
 
 import inputUploadImageStyle from './input-upload-image.style.scss';
 
@@ -90,19 +97,82 @@ export class InputUploadImage extends Component<PropsType, StateType> {
                 >
                     &#10005;
                 </button>
-                <img
-                    alt=""
-                    className={inputUploadImageStyle.input_upload_image__uploaded_file}
-                    src={URL.createObjectURL(file)}
-                />
+                <button
+                    className={inputUploadImageStyle.input_upload_image__full_button}
+                    onClick={this.handleShowHowToUse}
+                    type="button"
+                >
+                    <img
+                        alt=""
+                        className={inputUploadImageStyle.input_upload_image__uploaded_file}
+                        src={URL.createObjectURL(file)}
+                    />
+                </button>
             </>
         );
     }
 
+    renderHowToUseContent(): Node {
+        const {props} = this;
+        const {popupPortalContext} = props;
+        const {hidePopupById} = popupPortalContext;
+        const howToUsePopupId = 'how-to-use-popup-id';
+
+        return [
+            <PopupHeader closeButton={{onClick: (): mixed => hidePopupById(howToUsePopupId, null)}} key="header">
+                How to use
+            </PopupHeader>,
+            <PopupContent key="content">
+                <p>You can not add to document not upload image!</p>
+                <br/>
+                <p>Instruction:</p>
+                <br/>
+                <p>1 - Save document, all not uploaded images will upload</p>
+                <p>2 - Refresh page</p>
+                <p>3 - Click to needed image to get markdown code</p>
+            </PopupContent>,
+        ];
+    }
+
+    handleShowHowToUse = async () => {
+        const {props} = this;
+        const {popupPortalContext} = props;
+        const {showPopup} = popupPortalContext;
+        const howToUsePopupId = 'how-to-use-popup-id';
+
+        await showPopup({children: this.renderHowToUseContent()}, howToUsePopupId);
+    };
+
+    handleCopyImageSrc = async () => {
+        const {state, props} = this;
+        const {snackbarPortalContext} = props;
+        const {defaultValue} = state;
+        const snackBarId = 'copy-image-markdown-snack-bar-id-' + String(Date.now());
+        const {showSnackbar} = snackbarPortalContext;
+
+        if (!navigator.clipboard) {
+            await showSnackbar(
+                {children: 'Your browser DO NOT support \'navigator.clipboard\'!', variant: 'error'},
+                snackBarId
+            );
+            return;
+        }
+
+        const imageMarkdown = getMarkdownResizedImage(String(defaultValue));
+
+        const copyResult = await navigator.clipboard.writeText(imageMarkdown).catch(promiseCatch);
+
+        if (isError(copyResult)) {
+            await showSnackbar({children: 'can not copy image markdown!', variant: 'error'}, snackBarId);
+            return;
+        }
+
+        await showSnackbar({children: 'Copy as markdown!', variant: 'success'}, snackBarId);
+    };
+
     renderDefaultImage(): Node {
         const {state, props} = this;
         const {defaultValue} = state;
-
         const src = String(props.imagePathPrefix || '') + '/' + String(defaultValue);
 
         return (
@@ -114,7 +184,13 @@ export class InputUploadImage extends Component<PropsType, StateType> {
                 >
                     &#10005;
                 </button>
-                <img alt="" className={inputUploadImageStyle.input_upload_image__uploaded_file} src={src}/>
+                <button
+                    className={inputUploadImageStyle.input_upload_image__full_button}
+                    onClick={this.handleCopyImageSrc}
+                    type="button"
+                >
+                    <img alt="" className={inputUploadImageStyle.input_upload_image__uploaded_file} src={src}/>
+                </button>
             </>
         );
     }

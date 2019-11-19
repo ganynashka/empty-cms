@@ -5,6 +5,12 @@
 import React, {Component, type Node} from 'react';
 
 import {hasProperty, isFunction} from '../../../lib/is';
+import {SnackbarPortalContextConsumer} from '../snackbar/snackbar-portal/c-snackbar-portal';
+import type {SnackbarPortalContextType} from '../snackbar/snackbar-portal/c-snackbar-portal';
+
+import {PopupPortalContextConsumer} from '../popup/popup-portal/c-popup-portal';
+
+import type {PopupPortalContextType} from '../popup/popup-portal/c-popup-portal';
 
 import fieldStyle from './field/field.style.scss';
 
@@ -136,20 +142,33 @@ export class FormGenerator extends Component<PropsType, StateType> {
         const errorList = hasProperty(formValidation, name) ? formValidation[name] : [];
 
         return (
-            <FieldComponent
-                accept={accept}
-                content={content}
-                defaultValue={defaultValue}
-                errorList={errorList}
-                imagePathPrefix={imagePathPrefix}
-                isMultiple={isMultiple}
-                key={name}
-                labelText={labelText}
-                name={name}
-                onBlur={onBlurFieldHandler}
-                onChange={onChangeFieldHandler}
-                placeholder={placeholder}
-            />
+            <SnackbarPortalContextConsumer key={name}>
+                {(snackbarPortalContextData: SnackbarPortalContextType): Node => {
+                    return (
+                        <PopupPortalContextConsumer>
+                            {(popupPortalContextData: PopupPortalContextType): Node => {
+                                return (
+                                    <FieldComponent
+                                        accept={accept}
+                                        content={content}
+                                        defaultValue={defaultValue}
+                                        errorList={errorList}
+                                        imagePathPrefix={imagePathPrefix}
+                                        isMultiple={isMultiple}
+                                        labelText={labelText}
+                                        name={name}
+                                        onBlur={onBlurFieldHandler}
+                                        onChange={onChangeFieldHandler}
+                                        placeholder={placeholder}
+                                        popupPortalContext={popupPortalContextData}
+                                        snackbarPortalContext={snackbarPortalContextData}
+                                    />
+                                );
+                            }}
+                        </PopupPortalContextConsumer>
+                    );
+                }}
+            </SnackbarPortalContextConsumer>
         );
     }
 

@@ -71,3 +71,7 @@
     width: 40px;
     z-index: 1;
 }
+
+.input_upload_image__full_button {
+    @extend %input-upload-image--content;
+}

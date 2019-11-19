@@ -2,6 +2,9 @@
 
 import type {Node} from 'react';
 
+import type {SnackbarPortalContextType} from '../snackbar/snackbar-portal/c-snackbar-portal';
+import type {PopupPortalContextType} from '../popup/popup-portal/c-popup-portal';
+
 export type InputValueType = string | number | boolean | null | Array<File>;
 
 export type FormGeneratorFormDataType = {[key: string]: InputValueType};
@@ -22,6 +25,8 @@ export type InputComponentPropsType = {|
     +accept?: string,
     +isMultiple?: boolean,
     +imagePathPrefix?: string,
+    +snackbarPortalContext: SnackbarPortalContextType,
+    +popupPortalContext: PopupPortalContextType,
 |};
 
 export type FieldDataType = {|

@@ -3,7 +3,7 @@
 import {type Node} from 'react';
 
 export type PopupPropsType = {|
-    +isShow: boolean,
+    +isShow?: boolean,
     +isFullScreen?: boolean,
     +children: Node,
 
