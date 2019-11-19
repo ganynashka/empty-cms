@@ -17,14 +17,21 @@ export const sharpFitResizeNameMap = {
     outside: 'outside',
 };
 
-export function uploadImageList(fileList: Array<File>): Promise<Error | MainServerApiResponseType> {
+export function uploadImageList(fileList: Array<File>): Promise<Error | Array<string>> {
     const formData = new FormData();
 
     fileList.forEach((file: File): mixed => formData.append(fileApiConst.fileListFormPropertyName, file));
 
     return window
         .fetch(fileApiRouteMap.uploadImageList, {method: 'POST', body: formData})
-        .then((response: Response): Promise<MainServerApiResponseType> => response.json())
+        .then((response: Response): Promise<Array<string>> => response.json())
+        .then((savedFileList: Array<string>): Array<string> | Error => {
+            if (savedFileList.length !== fileList.length) {
+                return new Error('Not All files saved!');
+            }
+
+            return savedFileList;
+        })
         .catch(promiseCatch);
 }
 

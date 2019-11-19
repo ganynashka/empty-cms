@@ -60,7 +60,7 @@ export class Login extends Component<PropsType, StateType> {
         );
     }
 
-    handleFormError = async (errorList: Array<Error>) => {
+    handleFormError = async (errorList: Array<Error>, formData: FormGeneratorFormDataType) => {
         const {props} = this;
         const {snackbarPortalContext} = props;
         const snackBarId = 'login-snack-bar-id-' + String(Date.now());

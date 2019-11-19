@@ -2,7 +2,11 @@
 
 import React from 'react';
 
-import type {FormGeneratorConfigType, FormGeneratorFormDataType} from '../../component/layout/form-generator/type';
+import type {
+    FormGeneratorConfigType,
+    FormGeneratorFormDataType,
+    InputValueType,
+} from '../../component/layout/form-generator/type';
 import {InputText} from '../../component/layout/form-generator/field/input-text/c-input-text';
 import {getIsRequired, noValidate} from '../../component/layout/form-generator/validate/validate';
 import {InputSelect} from '../../component/layout/form-generator/field/input-select/c-input-select';
@@ -15,6 +19,9 @@ import type {MongoDocumentType, MongoDocumentTypeType} from '../../../../server/
 import {mongoDocumentTypeMap} from '../../../../server/src/db/type';
 import {getSlug, stringToUniqArray} from '../../lib/string';
 import {InputUploadImage} from '../../component/layout/form-generator/field/input-upload-image/c-input-upload-image';
+import {isError, isString} from '../../lib/is';
+import {uploadImageList} from '../image/image-api';
+import {promiseCatch} from '../../lib/promise';
 
 export type FormDataMongoDocumentType = {
     +slug: string,
@@ -30,8 +37,49 @@ export type FormDataMongoDocumentType = {
     +isActive: boolean,
 };
 
-export function formDataToMongoDocument(formData: FormGeneratorFormDataType): MongoDocumentType {
+function extractImage(inputValue: InputValueType): Promise<Error | string> {
+    if (isString(inputValue)) {
+        return Promise.resolve(inputValue);
+    }
+
+    if (!Array.isArray(inputValue)) {
+        return Promise.resolve(new Error('invalid input data, should be: string | Array of File'));
+    }
+
+    if (inputValue.length === 0) {
+        return Promise.resolve(new Error('Array has length: 0'));
+    }
+
+    const [file] = inputValue;
+
+    if (isString(file)) {
+        return Promise.resolve(file);
+    }
+
+    return uploadImageList([file])
+        .then((uploadResult: Error | Array<string>): Error | string => {
+            if (isError(uploadResult)) {
+                return uploadResult;
+            }
+
+            if (uploadResult.length === 0) {
+                return new Error('Can not upload image!');
+            }
+
+            return uploadResult[0];
+        })
+        .catch(promiseCatch);
+}
+
+export async function formDataToMongoDocument(formData: FormGeneratorFormDataType): Promise<Error | MongoDocumentType> {
     const documentFormData: FormDataMongoDocumentType = typeConverter<FormDataMongoDocumentType>(formData);
+
+    const titleImage = await extractImage(documentFormData.titleImage);
+
+    if (isError(titleImage)) {
+        console.error('can not get title image');
+        return titleImage;
+    }
 
     const subDocumentList = stringToUniqArray(documentFormData.subDocumentList, ',');
     const slug = getSlug(documentFormData.title);
@@ -42,7 +90,7 @@ export function formDataToMongoDocument(formData: FormGeneratorFormDataType): Mo
 
     return {
         slug,
-        titleImage: '',
+        titleImage,
         type: documentFormData.type,
         title: documentFormData.title,
         content: documentFormData.content,

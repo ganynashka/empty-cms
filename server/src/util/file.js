@@ -40,13 +40,13 @@ export function getFileNamePartList(fullFleName: string): [string, string] {
     return [fileName, fileExtension];
 }
 
-export function saveFile(fileData: ExpressFormDataFileType): Promise<null | Error> {
+export function saveFile(fileData: ExpressFormDataFileType): Promise<string | Error> {
     const [fileName, fileExtension] = getFileNamePartList(fileData.name);
     const endFileName = `${getSlug(fileName)}--md5__${fileData.md5}__--${fileExtension}`;
 
-    return new Promise<Error | null>((resolve: (Error | null) => mixed) => {
+    return new Promise<string | Error>((resolve: (string | Error) => mixed) => {
         fileData.mv(path.join(cwd, fileApiConst.pathToUploadFiles, endFileName), (error: Error | mixed) => {
-            resolve(isError(error) ? error : null);
+            resolve(isError(error) ? error : endFileName);
         });
     });
 }

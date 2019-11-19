@@ -79,11 +79,6 @@ export class ImageUpload extends Component<PropsType, StateType> {
             return;
         }
 
-        if (uploadImageResult.isSuccessful !== true) {
-            await showSnackbar({children: uploadImageResult.errorList.join(','), variant: 'error'}, snackBarId);
-            return;
-        }
-
         this.setState({formGeneratorKey: formGeneratorKey + 1});
 
         await showSnackbar({children: 'File upload successfully!', variant: 'success'}, snackBarId);
@@ -97,7 +92,7 @@ export class ImageUpload extends Component<PropsType, StateType> {
         );
     }
 
-    handleFormError = async (errorList: Array<Error>) => {
+    handleFormError = async (errorList: Array<Error>, formData: FormGeneratorFormDataType) => {
         const {props} = this;
         const {snackbarPortalContext} = props;
         const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());

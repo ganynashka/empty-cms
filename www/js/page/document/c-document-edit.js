@@ -90,7 +90,13 @@ export class DocumentEdit extends Component<PropsType, StateType> {
 
         const {showSnackbar} = snackbarPortalContext;
         const snackBarId = 'document-saved-snack-bar-id-' + String(Date.now());
-        const endDocumentData: MongoDocumentType = formDataToMongoDocument(formData);
+        const endDocumentData: MongoDocumentType | Error = await formDataToMongoDocument(formData);
+
+        if (isError(endDocumentData)) {
+            console.error(endDocumentData);
+            return;
+        }
+
         const updateDocumentResult = await updateDocument({...endDocumentData, slug: String(match.params.slug)});
 
         if (isError(updateDocumentResult)) {
@@ -114,7 +120,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
         );
     }
 
-    handleFormError = async (errorList: Array<Error>) => {
+    handleFormError = async (errorList: Array<Error>, formData: FormGeneratorFormDataType) => {
         const {props} = this;
         const {snackbarPortalContext} = props;
         const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());

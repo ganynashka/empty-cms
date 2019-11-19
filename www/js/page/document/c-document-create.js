@@ -34,7 +34,12 @@ export class DocumentCreate extends Component<PropsType, StateType> {
         const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());
         const {showSnackbar} = snackbarPortalContext;
 
-        const endDocumentData: MongoDocumentType = formDataToMongoDocument(formData);
+        const endDocumentData: MongoDocumentType | Error = await formDataToMongoDocument(formData);
+
+        if (isError(endDocumentData)) {
+            console.error(endDocumentData);
+            return;
+        }
 
         const createDocumentResult = await createDocument(endDocumentData);
 
@@ -44,7 +49,7 @@ export class DocumentCreate extends Component<PropsType, StateType> {
         }
 
         if (createDocumentResult.isSuccessful !== true) {
-            await showSnackbar({children: createDocumentResult.errorList.join(','), variant: 'error'}, snackBarId);
+            await showSnackbar({children: createDocumentResult.errorList.join(', '), variant: 'error'}, snackBarId);
             return;
         }
 

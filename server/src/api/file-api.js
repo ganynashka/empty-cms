@@ -10,7 +10,7 @@ import {type ExpressFormDataFileType} from 'express-fileupload';
 import {compressImage, getFormDataFileList, getIsFileExists, saveFile} from '../util/file';
 import {cwd} from '../../../webpack/config';
 import {promiseCatch} from '../../../www/js/lib/promise';
-import {isError} from '../../../www/js/lib/is';
+import {isError, isString} from '../../../www/js/lib/is';
 import {getSlug} from '../../../www/js/lib/string';
 
 import {fileApiConst} from './file-const';
@@ -24,12 +24,17 @@ export function addFileApi(app: $Application) {
 
     app.post(fileApiRouteMap.uploadImageList, async (request: $Request, response: $Response) => {
         const fileDataList: Array<ExpressFormDataFileType> = getFormDataFileList(request);
-        const saveFileResultList = await Promise.all(fileDataList.map(saveFile));
-        const errorMessageList: Array<string> = saveFileResultList
-            .filter(Boolean)
-            .map((error: Error): string => error.message);
+        const saveFileResultList: Array<string | Error> = await Promise.all(fileDataList.map(saveFile));
 
-        response.json({isSuccessful: errorMessageList.length === 0, errorList: errorMessageList});
+        const savedImageList: Array<string> = [];
+
+        saveFileResultList.forEach((saveFileResult: string | Error) => {
+            if (isString(saveFileResult)) {
+                savedImageList.push(saveFileResult);
+            }
+        });
+
+        response.json(savedImageList);
     });
 
     app.get(fileApiRouteMap.getFileList, async (request: $Request, response: $Response) => {
