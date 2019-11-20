@@ -7,12 +7,9 @@ import classNames from 'classnames';
 
 import type {InputComponentPropsType, InputValueType} from '../../type';
 import fieldStyle from '../field.style.scss';
-
 import {getMarkdownResizedImage} from '../../../../../page/image/image-api';
 import {promiseCatch} from '../../../../../lib/promise';
 import {isError, isFunction, isNull, isString} from '../../../../../lib/is';
-import {PopupHeader} from '../../../popup/popup-header/c-popup-header';
-import {PopupContent} from '../../../popup/popup-content/c-popup-content';
 
 import inputUploadImageStyle from './input-upload-image.style.scss';
 
@@ -20,6 +17,7 @@ type PropsType = InputComponentPropsType;
 
 type StateType = {
     file: File | null,
+    isUploadInProgress: boolean,
     defaultValue: InputValueType,
 };
 
@@ -29,7 +27,16 @@ export class InputUploadImage extends Component<PropsType, StateType> {
 
         this.state = {
             file: null,
+            isUploadInProgress: false,
             defaultValue: props.defaultValue,
+        };
+    }
+
+    getDefaultState(): StateType {
+        return {
+            file: null,
+            isUploadInProgress: false,
+            defaultValue: '',
         };
     }
 
@@ -48,7 +55,8 @@ export class InputUploadImage extends Component<PropsType, StateType> {
 
     handleOnChange = (evt: SyntheticEvent<HTMLInputElement>) => {
         const {props} = this;
-        const {onChange, uploadFile} = props;
+        const {onChange, uploadFile, snackbarPortalContext} = props;
+        const {showSnackbar} = snackbarPortalContext;
         const fileOrNull = this.getValue(evt);
 
         if (!isFunction(uploadFile)) {
@@ -57,27 +65,44 @@ export class InputUploadImage extends Component<PropsType, StateType> {
         }
 
         if (isNull(fileOrNull)) {
-            onChange(fileOrNull);
+            onChange(null);
             // eslint-disable-next-line react/no-set-state
-            this.setState({file: fileOrNull});
+            this.setState(this.getDefaultState());
             return;
         }
 
+        onChange(fileOrNull);
+        // eslint-disable-next-line react/no-set-state
+        this.setState({file: fileOrNull, isUploadInProgress: true});
+
         uploadFile(fileOrNull)
-            .then((uploadResult: Error | string): Error | string => {
+            .then(async (uploadResult: Error | string): Promise<Error | string> => {
                 if (isError(uploadResult)) {
                     console.error('Can not upload image');
                     console.error(uploadResult);
+
+                    onChange(null);
+                    // eslint-disable-next-line react/no-set-state
+                    this.setState(this.getDefaultState());
+
+                    await showSnackbar({children: 'Error while upload file!', variant: 'error'}, 'can-not-upload-file');
+
                     return uploadResult;
                 }
 
-                onChange(fileOrNull);
+                onChange(uploadResult);
                 // eslint-disable-next-line react/no-set-state
-                this.setState({defaultValue: uploadResult});
+                this.setState({file: null, isUploadInProgress: false, defaultValue: uploadResult});
 
                 return uploadResult;
             })
-            .catch((error: Error): Error => {
+            .catch(async (error: Error): Promise<Error> => {
+                onChange(null);
+                // eslint-disable-next-line react/no-set-state
+                this.setState(this.getDefaultState());
+
+                await showSnackbar({children: 'Error while upload file!', variant: 'error'}, 'can-not-upload-file');
+
                 console.error('Can not upload image');
                 console.error(error);
                 return error;
@@ -87,12 +112,10 @@ export class InputUploadImage extends Component<PropsType, StateType> {
     handleRemoveImage = () => {
         const {props} = this;
         const {onChange} = props;
-        const nullFile = null;
 
-        onChange(nullFile);
-
+        onChange(null);
         // eslint-disable-next-line react/no-set-state
-        this.setState({file: nullFile, defaultValue: ''});
+        this.setState(this.getDefaultState());
     };
 
     renderImageInput(): Node {
@@ -122,59 +145,15 @@ export class InputUploadImage extends Component<PropsType, StateType> {
         }
 
         return (
-            <>
-                <button
-                    className={inputUploadImageStyle.input_upload_image__remove_file}
-                    onClick={this.handleRemoveImage}
-                    type="button"
-                >
-                    &#10005;
-                </button>
-                <button
-                    className={inputUploadImageStyle.input_upload_image__full_button}
-                    onClick={this.handleShowHowToUse}
-                    type="button"
-                >
-                    <img
-                        alt=""
-                        className={inputUploadImageStyle.input_upload_image__uploaded_file}
-                        src={URL.createObjectURL(file)}
-                    />
-                </button>
-            </>
+            <div className={inputUploadImageStyle.input_upload_image__full_wrapper}>
+                <img
+                    alt=""
+                    className={inputUploadImageStyle.input_upload_image__uploaded_file}
+                    src={URL.createObjectURL(file)}
+                />
+            </div>
         );
     }
-
-    renderHowToUseContent(): Node {
-        const {props} = this;
-        const {popupPortalContext} = props;
-        const {hidePopupById} = popupPortalContext;
-        const howToUsePopupId = 'how-to-use-popup-id';
-
-        return [
-            <PopupHeader closeButton={{onClick: (): mixed => hidePopupById(howToUsePopupId, null)}} key="header">
-                How to use
-            </PopupHeader>,
-            <PopupContent key="content">
-                <p>You can not add to document not upload image!</p>
-                <br/>
-                <p>Instruction:</p>
-                <br/>
-                <p>1 - Save document, all not uploaded images will upload</p>
-                <p>2 - Refresh page</p>
-                <p>3 - Click to needed image to get markdown code</p>
-            </PopupContent>,
-        ];
-    }
-
-    handleShowHowToUse = async () => {
-        const {props} = this;
-        const {popupPortalContext} = props;
-        const {showPopup} = popupPortalContext;
-        const howToUsePopupId = 'how-to-use-popup-id';
-
-        await showPopup({children: this.renderHowToUseContent()}, howToUsePopupId);
-    };
 
     handleCopyImageSrc = async () => {
         const {state, props} = this;
@@ -254,9 +233,21 @@ export class InputUploadImage extends Component<PropsType, StateType> {
         return Boolean(defaultValue);
     }
 
+    getWrapperClassName(): string {
+        const {props, state} = this;
+        const {isUploadInProgress} = state;
+        const {errorList} = props;
+
+        return classNames(inputUploadImageStyle.input_upload_image__wrapper, {
+            [inputUploadImageStyle.input_upload_image__wrapper__with_image]: this.hasFile() || this.hasDefaultValue(),
+            [fieldStyle.form__input__invalid]: errorList.length > 0,
+            [inputUploadImageStyle.input_upload_image__wrapper__upload_in_progress]: isUploadInProgress,
+        });
+    }
+
     render(): Node {
         const {props} = this;
-        const {labelText, errorList, defaultValue, uploadFile} = props;
+        const {labelText, defaultValue, uploadFile} = props;
 
         if (!isString(defaultValue) && !isNull(defaultValue)) {
             console.error('InputUploadImage: String or Null Support Only');
@@ -271,15 +262,7 @@ export class InputUploadImage extends Component<PropsType, StateType> {
         return (
             <div className={fieldStyle.form__label_wrapper}>
                 <span className={fieldStyle.form__label_description}>{labelText}</span>
-                <div
-                    className={classNames(inputUploadImageStyle.input_upload_image__wrapper, {
-                        [inputUploadImageStyle.input_upload_image__wrapper__with_image]:
-                            this.hasFile() || this.hasDefaultValue(),
-                        [fieldStyle.form__input__invalid]: errorList.length > 0,
-                    })}
-                >
-                    {this.renderContent()}
-                </div>
+                <div className={this.getWrapperClassName()}>{this.renderContent()}</div>
             </div>
         );
     }

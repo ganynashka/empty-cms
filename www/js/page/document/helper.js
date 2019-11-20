@@ -85,7 +85,7 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
 
     return {
         slug,
-        titleImage,
+        titleImage: String(documentFormData.titleImage || ''),
         type: documentFormData.type,
         title: documentFormData.title,
         content: documentFormData.content,
