@@ -8,13 +8,18 @@ import Paper from '@material-ui/core/Paper';
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
 import {fileApiConst} from '../../../../server/src/api/file-const';
 import {FormGenerator} from '../../component/layout/form-generator/form-generator';
-import type {FormGeneratorConfigType, FormGeneratorFormDataType} from '../../component/layout/form-generator/type';
+import type {
+    FormGeneratorConfigType,
+    FormGeneratorFormDataType,
+    InputValueType,
+    PrimitiveInputValueType,
+} from '../../component/layout/form-generator/type';
 import {getIsRequired} from '../../component/layout/form-generator/validate/validate';
 import {FieldSet} from '../../component/layout/form-generator/field/field-set/field-set';
 import {InputFileList} from '../../component/layout/form-generator/field/input-file-list/c-input-file-list';
 import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../component/layout/form-button/c-form-button';
-import {isError} from '../../lib/is';
+import {isError, isFile} from '../../lib/is';
 import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
 
 import {uploadImageList} from './image-api';
@@ -68,9 +73,20 @@ export class ImageUpload extends Component<PropsType, StateType> {
         const snackBarId = 'file-list-snack-bar-id-' + String(Date.now());
         const {showSnackbar} = snackbarPortalContext;
 
-        const mayBeFileList = formData[fileApiConst.fileListFormPropertyName];
+        const formFileList = formData[fileApiConst.fileListFormPropertyName];
 
-        const fileList: Array<File> = Array.isArray(mayBeFileList) ? mayBeFileList : [];
+        if (!Array.isArray(formFileList)) {
+            console.error('Must be list of files');
+            return;
+        }
+
+        const fileList: Array<File> = [];
+
+        formFileList.forEach((value: InputValueType) => {
+            if (isFile(value)) {
+                fileList.push(value);
+            }
+        });
 
         const uploadImageResult = await uploadImageList(fileList);
 

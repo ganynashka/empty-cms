@@ -27,6 +27,11 @@ export function InputSelect(props: PropsType): Node {
         onBlur(value);
     }
 
+    if (Array.isArray(defaultValue)) {
+        console.error('InputSelect: Array is not supported.');
+        return null;
+    }
+
     return (
         <label className={inputSelectStyle.form__label_wrapper__select}>
             <span className={fieldStyle.form__label_description}>{labelText}</span>

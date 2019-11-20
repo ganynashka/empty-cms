@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import type {InputComponentPropsType} from '../../type';
 import fieldStyle from '../field.style.scss';
+import {isNumber} from '../../../../../lib/is';
 
 import progressBarStyle from './progress-bar.style.scss';
 
@@ -13,7 +14,10 @@ type PropsType = InputComponentPropsType;
 export function ProgressBar(props: PropsType): Node {
     const {name, onChange, errorList, defaultValue, placeholder, labelText} = props;
 
-    const value = typeof defaultValue === 'number' ? defaultValue : 0;
+    if (!isNumber(defaultValue)) {
+        console.error('ProgressBar: Number Support Only');
+        return null;
+    }
 
     return (
         <div className={fieldStyle.form__label_wrapper}>
@@ -25,7 +29,7 @@ export function ProgressBar(props: PropsType): Node {
                         className={classNames(progressBarStyle.progress_bar__line, {
                             [progressBarStyle.progress_bar__line_error]: errorList.length > 0,
                         })}
-                        style={{width: `${value}%`}}
+                        style={{width: `${defaultValue}%`}}
                     />
                 </div>
             </div>

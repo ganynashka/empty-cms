@@ -5,7 +5,9 @@ import type {Node} from 'react';
 import type {SnackbarPortalContextType} from '../snackbar/snackbar-portal/c-snackbar-portal';
 import type {PopupPortalContextType} from '../popup/popup-portal/c-popup-portal';
 
-export type InputValueType = string | number | boolean | null | Array<File>;
+export type PrimitiveInputValueType = string | number | boolean | null | File;
+
+export type InputValueType = PrimitiveInputValueType | Array<PrimitiveInputValueType>;
 
 export type FormGeneratorFormDataType = {[key: string]: InputValueType};
 

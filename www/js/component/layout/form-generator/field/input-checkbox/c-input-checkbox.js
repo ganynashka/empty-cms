@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import type {InputComponentPropsType} from '../../type';
 import fieldStyle from '../field.style.scss';
+import {isBoolean} from '../../../../../lib/is';
 
 import inputCheckboxStyle from './input-checkbox.style.scss';
 
@@ -13,14 +14,10 @@ type PropsType = InputComponentPropsType;
 export function InputCheckbox(props: PropsType): Node {
     const {name, onChange, onBlur, errorList, defaultValue, placeholder, labelText} = props;
 
-    /*
-    function handleOnChange(evt: SyntheticEvent<HTMLInputElement>) {
-        const {currentTarget} = evt;
-        const value = Boolean(currentTarget.checked);
-
-        onChange(value);
+    if (!isBoolean(defaultValue)) {
+        console.error('InputCheckbox: Support Boolean Only');
+        return null;
     }
-*/
 
     function handleOnBlur(evt: SyntheticEvent<HTMLInputElement>) {
         const {currentTarget} = evt;
@@ -35,7 +32,7 @@ export function InputCheckbox(props: PropsType): Node {
         <label className={fieldStyle.form__label_wrapper}>
             <input
                 className={inputCheckboxStyle.input_checkbox__input}
-                defaultChecked={defaultValue === true}
+                defaultChecked={defaultValue}
                 name={name}
                 onBlur={handleOnBlur}
                 onChange={handleOnBlur}

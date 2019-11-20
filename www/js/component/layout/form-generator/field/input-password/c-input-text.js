@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import type {InputComponentPropsType} from '../../type';
 import fieldStyle from '../field.style.scss';
+import {isString} from '../../../../../lib/is';
 
 type PropsType = InputComponentPropsType;
 
@@ -23,6 +24,11 @@ export function InputPassword(props: PropsType): Node {
         const {value} = currentTarget;
 
         onBlur(value);
+    }
+
+    if (!isString(defaultValue)) {
+        console.error('InputPassword: Support String Only.');
+        return null;
     }
 
     return (

@@ -7,6 +7,7 @@ import type {InputComponentPropsType} from '../../type';
 import {Markdown} from '../../../markdown/c-markdown';
 import inputTextAreaStyle from '../input-text-area/input-text-area.style.scss';
 import fieldStyle from '../field.style.scss';
+import {isString} from '../../../../../lib/is';
 
 import inputMarkdownStyle from './input-markdown.style.scss';
 
@@ -56,6 +57,11 @@ export class InputMarkdown extends Component<PropsType, StateType> {
     render(): Node {
         const {props, state} = this;
         const {name, errorList, defaultValue, placeholder, labelText} = props;
+
+        if (!isString(defaultValue)) {
+            console.error('InputMarkdown: Support String Only.');
+            return null;
+        }
 
         return (
             <div className={inputTextAreaStyle.text_area__label_wrapper}>

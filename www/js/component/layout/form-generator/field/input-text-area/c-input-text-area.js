@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import type {InputComponentPropsType} from '../../type';
 import fieldStyle from '../field.style.scss';
+import {isString} from '../../../../../lib/is';
 
 import inputTextAreaStyle from './input-text-area.style.scss';
 
@@ -32,6 +33,11 @@ export function InputTextArea(props: PropsType): Node {
         }
 
         onBlur(trimmedValue);
+    }
+
+    if (!isString(defaultValue)) {
+        console.error('InputTextArea: Support String Only.');
+        return null;
     }
 
     return (

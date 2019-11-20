@@ -10,7 +10,7 @@ import fieldStyle from '../field.style.scss';
 
 import {getMarkdownResizedImage} from '../../../../../page/image/image-api';
 import {promiseCatch} from '../../../../../lib/promise';
-import {isError} from '../../../../../lib/is';
+import {isError, isNull, isString} from '../../../../../lib/is';
 
 import {PopupHeader} from '../../../popup/popup-header/c-popup-header';
 import {PopupContent} from '../../../popup/popup-content/c-popup-content';
@@ -20,7 +20,7 @@ import inputUploadImageStyle from './input-upload-image.style.scss';
 type PropsType = InputComponentPropsType;
 
 type StateType = {
-    fileList: Array<File>,
+    file: File | null,
     defaultValue: InputValueType,
 };
 
@@ -29,41 +29,44 @@ export class InputUploadImage extends Component<PropsType, StateType> {
         super(props);
 
         this.state = {
-            fileList: [],
+            file: null,
             defaultValue: props.defaultValue,
         };
     }
 
-    getValue(evt: SyntheticEvent<HTMLInputElement>): Array<File> {
+    getValue(evt: SyntheticEvent<HTMLInputElement>): File | null {
         const {currentTarget} = evt;
         const {files} = currentTarget;
 
-        return [...files];
+        const fileList = [...files];
+
+        if (fileList.length > 0) {
+            return fileList[0];
+        }
+
+        return null;
     }
 
     handleOnChange = (evt: SyntheticEvent<HTMLInputElement>) => {
         const {props} = this;
         const {onChange} = props;
-        const fileList = this.getValue(evt);
+        const fileOrNull = this.getValue(evt);
 
-        onChange(fileList);
+        onChange(fileOrNull);
 
         // eslint-disable-next-line react/no-set-state
-        this.setState({fileList});
+        this.setState({file: fileOrNull});
     };
 
     handleRemoveImage = () => {
         const {props} = this;
         const {onChange} = props;
-        const fileList = [];
+        const nullFile = null;
 
-        onChange(fileList);
+        onChange(nullFile);
 
         // eslint-disable-next-line react/no-set-state
-        this.setState({
-            fileList,
-            defaultValue: '',
-        });
+        this.setState({file: nullFile, defaultValue: ''});
     };
 
     renderImageInput(): Node {
@@ -85,8 +88,12 @@ export class InputUploadImage extends Component<PropsType, StateType> {
 
     renderUploadedImage(): Node {
         const {state} = this;
-        const {fileList} = state;
-        const [file] = fileList;
+        const {file} = state;
+
+        if (!file) {
+            console.error('There is should be a file!');
+            return null;
+        }
 
         return (
             <>
@@ -196,35 +203,47 @@ export class InputUploadImage extends Component<PropsType, StateType> {
     }
 
     renderContent(): Node {
-        const {state} = this;
-        const {fileList, defaultValue} = state;
-        const hasFile = fileList.length > 0;
-        const hasDefaultValue = Boolean(defaultValue);
-
-        if (hasFile) {
+        if (this.hasFile()) {
             return this.renderUploadedImage();
         }
 
-        if (hasDefaultValue) {
+        if (this.hasDefaultValue()) {
             return this.renderDefaultImage();
         }
 
         return this.renderImageInput();
     }
 
+    hasFile(): boolean {
+        const {state} = this;
+        const {file} = state;
+
+        return Boolean(file);
+    }
+
+    hasDefaultValue(): boolean {
+        const {state} = this;
+        const {defaultValue} = state;
+
+        return Boolean(defaultValue);
+    }
+
     render(): Node {
-        const {state, props} = this;
-        const {fileList, defaultValue} = state;
-        const {labelText, errorList} = props;
-        const hasFile = fileList.length > 0;
-        const hasDefaultValue = Boolean(defaultValue);
+        const {props} = this;
+        const {labelText, errorList, defaultValue} = props;
+
+        if (!isString(defaultValue) && !isNull(defaultValue)) {
+            console.error('InputUploadImage: String or Null Support Only');
+            return null;
+        }
 
         return (
             <div className={fieldStyle.form__label_wrapper}>
                 <span className={fieldStyle.form__label_description}>{labelText}</span>
                 <div
                     className={classNames(inputUploadImageStyle.input_upload_image__wrapper, {
-                        [inputUploadImageStyle.input_upload_image__wrapper__with_image]: hasFile || hasDefaultValue,
+                        [inputUploadImageStyle.input_upload_image__wrapper__with_image]:
+                            this.hasFile() || this.hasDefaultValue(),
                         [fieldStyle.form__input__invalid]: errorList.length > 0,
                     })}
                 >

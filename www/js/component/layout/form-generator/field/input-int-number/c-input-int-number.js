@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import type {InputComponentPropsType} from '../../type';
 import fieldStyle from '../field.style.scss';
+import {isNull, isNumber} from '../../../../../lib/is';
 
 import {stringToIntNumber} from './input-int-number-helper';
 
@@ -12,6 +13,11 @@ type PropsType = InputComponentPropsType;
 
 export function InputIntNumber(props: PropsType): Node {
     const {name, onChange, onBlur, errorList, defaultValue, placeholder, labelText} = props;
+
+    if (!isNumber(defaultValue) && !isNull(defaultValue)) {
+        console.error('InputIntNumber: Number or Null Support Only.');
+        return null;
+    }
 
     function handleOnChange(evt: SyntheticEvent<HTMLInputElement>) {
         const {currentTarget} = evt;

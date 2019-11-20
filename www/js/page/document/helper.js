@@ -19,13 +19,13 @@ import type {MongoDocumentType, MongoDocumentTypeType} from '../../../../server/
 import {mongoDocumentTypeMap} from '../../../../server/src/db/type';
 import {getSlug, stringToUniqArray} from '../../lib/string';
 import {InputUploadImage} from '../../component/layout/form-generator/field/input-upload-image/c-input-upload-image';
-import {isError, isString} from '../../lib/is';
+import {isError, isFile, isString} from '../../lib/is';
 import {uploadImageList} from '../image/image-api';
 import {promiseCatch} from '../../lib/promise';
 
 export type FormDataMongoDocumentType = {
     +slug: string,
-    +titleImage: string | Array<File>,
+    +titleImage: string | File,
     +type: MongoDocumentTypeType,
     +title: string,
     +content: string,
@@ -42,21 +42,11 @@ function extractImage(inputValue: InputValueType): Promise<Error | string> {
         return Promise.resolve(inputValue);
     }
 
-    if (!Array.isArray(inputValue)) {
-        return Promise.resolve(new Error('invalid input data, should be: string | Array of File'));
+    if (!isFile(inputValue)) {
+        return Promise.resolve(new Error('invalid input data, should be: string or File'));
     }
 
-    if (inputValue.length === 0) {
-        return Promise.resolve('');
-    }
-
-    const [file] = inputValue;
-
-    if (isString(file)) {
-        return Promise.resolve(file);
-    }
-
-    return uploadImageList([file])
+    return uploadImageList([inputValue])
         .then((uploadResult: Error | Array<string>): Error | string => {
             if (isError(uploadResult)) {
                 return uploadResult;

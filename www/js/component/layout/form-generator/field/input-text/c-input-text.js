@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import type {InputComponentPropsType} from '../../type';
 import fieldStyle from '../field.style.scss';
+import {isString} from '../../../../../lib/is';
 
 import {cleanText} from './input-text-helper';
 
@@ -32,6 +33,11 @@ export function InputText(props: PropsType): Node {
         }
 
         onBlur(trimmedValue);
+    }
+
+    if (!isString(defaultValue)) {
+        console.error('InputText: Support String Only.');
+        return null;
     }
 
     return (

@@ -1,5 +1,7 @@
 // @flow
 
+/* global File */
+
 export function isNull(value: mixed): boolean %checks {
     return value === null;
 }
@@ -62,6 +64,14 @@ export function isObject(value: mixed): boolean %checks {
 
 export function isNotObject(value: mixed): boolean %checks {
     return !(value instanceof Object);
+}
+
+export function isFile(value: mixed): boolean %checks {
+    return value instanceof File;
+}
+
+export function isNotFile(value: mixed): boolean %checks {
+    return !(value instanceof File);
 }
 
 export function hasProperty(object: mixed, propertyName: string): boolean %checks {
