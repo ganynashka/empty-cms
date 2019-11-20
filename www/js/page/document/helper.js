@@ -19,13 +19,13 @@ import type {MongoDocumentType, MongoDocumentTypeType} from '../../../../server/
 import {mongoDocumentTypeMap} from '../../../../server/src/db/type';
 import {getSlug, stringToUniqArray} from '../../lib/string';
 import {InputUploadImage} from '../../component/layout/form-generator/field/input-upload-image/c-input-upload-image';
-import {isError, isFile, isString} from '../../lib/is';
+import {isError, isFile, isNull, isString} from '../../lib/is';
 import {uploadImageList} from '../image/image-api';
 import {promiseCatch} from '../../lib/promise';
 
 export type FormDataMongoDocumentType = {
     +slug: string,
-    +titleImage: string | File,
+    +titleImage: string | File | null,
     +type: MongoDocumentTypeType,
     +title: string,
     +content: string,
@@ -42,8 +42,12 @@ function extractImage(inputValue: InputValueType): Promise<Error | string> {
         return Promise.resolve(inputValue);
     }
 
+    if (isNull(inputValue)) {
+        return Promise.resolve('');
+    }
+
     if (!isFile(inputValue)) {
-        return Promise.resolve(new Error('invalid input data, should be: string or File'));
+        return Promise.resolve(new Error('invalid input data, should be: String | File | Null'));
     }
 
     return uploadImageList([inputValue])
