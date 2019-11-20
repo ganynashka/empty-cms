@@ -29,6 +29,7 @@ export type InputComponentPropsType = {|
     +imagePathPrefix?: string,
     +snackbarPortalContext: SnackbarPortalContextType,
     +popupPortalContext: PopupPortalContextType,
+    +uploadFile?: (file: File) => Promise<Error | string>,
 |};
 
 export type FieldDataType = {|
@@ -44,6 +45,7 @@ export type FieldDataType = {|
     +accept?: string,
     +isMultiple?: boolean,
     +imagePathPrefix?: string,
+    +uploadFile?: (file: File) => Promise<Error | string>,
 |};
 
 export type FieldSetWrapperDataType = {

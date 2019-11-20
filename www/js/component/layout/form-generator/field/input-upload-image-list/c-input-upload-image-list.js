@@ -23,6 +23,13 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
     }
 
     render(): Node {
+        const {props, state} = this;
+
+        if (!Array.isArray(props.defaultValue)) {
+            console.error('InputUploadImageList: Array support only');
+            return null;
+        }
+
         return 'InputUploadImageList';
     }
 }

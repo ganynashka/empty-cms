@@ -10,8 +10,7 @@ import fieldStyle from '../field.style.scss';
 
 import {getMarkdownResizedImage} from '../../../../../page/image/image-api';
 import {promiseCatch} from '../../../../../lib/promise';
-import {isError, isNull, isString} from '../../../../../lib/is';
-
+import {isError, isFunction, isNull, isString} from '../../../../../lib/is';
 import {PopupHeader} from '../../../popup/popup-header/c-popup-header';
 import {PopupContent} from '../../../popup/popup-content/c-popup-content';
 
@@ -49,13 +48,40 @@ export class InputUploadImage extends Component<PropsType, StateType> {
 
     handleOnChange = (evt: SyntheticEvent<HTMLInputElement>) => {
         const {props} = this;
-        const {onChange} = props;
+        const {onChange, uploadFile} = props;
         const fileOrNull = this.getValue(evt);
 
-        onChange(fileOrNull);
+        if (!isFunction(uploadFile)) {
+            console.error('InputUploadImage: uploadFile should be a function');
+            return;
+        }
 
-        // eslint-disable-next-line react/no-set-state
-        this.setState({file: fileOrNull});
+        if (isNull(fileOrNull)) {
+            onChange(fileOrNull);
+            // eslint-disable-next-line react/no-set-state
+            this.setState({file: fileOrNull});
+            return;
+        }
+
+        uploadFile(fileOrNull)
+            .then((uploadResult: Error | string): Error | string => {
+                if (isError(uploadResult)) {
+                    console.error('Can not upload image');
+                    console.error(uploadResult);
+                    return uploadResult;
+                }
+
+                onChange(fileOrNull);
+                // eslint-disable-next-line react/no-set-state
+                this.setState({defaultValue: uploadResult});
+
+                return uploadResult;
+            })
+            .catch((error: Error): Error => {
+                console.error('Can not upload image');
+                console.error(error);
+                return error;
+            });
     };
 
     handleRemoveImage = () => {
@@ -230,10 +256,15 @@ export class InputUploadImage extends Component<PropsType, StateType> {
 
     render(): Node {
         const {props} = this;
-        const {labelText, errorList, defaultValue} = props;
+        const {labelText, errorList, defaultValue, uploadFile} = props;
 
         if (!isString(defaultValue) && !isNull(defaultValue)) {
             console.error('InputUploadImage: String or Null Support Only');
+            return null;
+        }
+
+        if (!isFunction(uploadFile)) {
+            console.error('InputUploadImage: uploadFile should be a function');
             return null;
         }
 

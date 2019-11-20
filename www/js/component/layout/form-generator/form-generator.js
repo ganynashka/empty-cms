@@ -135,6 +135,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
             accept,
             isMultiple,
             imagePathPrefix,
+            uploadFile,
         } = fieldData;
 
         const onChangeFieldHandler = view.createOnChangeFieldHandler(fieldData);
@@ -162,6 +163,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
                                         placeholder={placeholder}
                                         popupPortalContext={popupPortalContextData}
                                         snackbarPortalContext={snackbarPortalContextData}
+                                        uploadFile={uploadFile}
                                     />
                                 );
                             }}

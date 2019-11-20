@@ -6,6 +6,7 @@ import {fileApiRouteMap} from '../../../../server/src/api/route-map';
 import {fileApiConst} from '../../../../server/src/api/file-const';
 import {promiseCatch} from '../../lib/promise';
 import type {MainServerApiResponseType} from '../../type/response';
+import {isError} from '../../lib/is';
 
 export type SharpFitResizeNameType = 'contain' | 'cover' | 'fill' | 'inside' | 'outside';
 
@@ -31,6 +32,22 @@ export function uploadImageList(fileList: Array<File>): Promise<Error | Array<st
             }
 
             return savedFileList;
+        })
+        .catch(promiseCatch);
+}
+
+export function uploadImage(file: File): Promise<Error | string> {
+    return uploadImageList([file])
+        .then((uploadResult: Error | Array<string>): Error | string => {
+            if (isError(uploadResult)) {
+                return uploadResult;
+            }
+
+            if (uploadResult.length === 0) {
+                return new Error('Can not save file!');
+            }
+
+            return uploadResult[0];
         })
         .catch(promiseCatch);
 }

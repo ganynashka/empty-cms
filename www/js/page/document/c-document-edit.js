@@ -147,10 +147,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                     ...rawFormConfig.fieldSetList[0],
                     fieldList: extendFieldList(rawFormConfig.fieldSetList[0].fieldList, {
                         slug: {defaultValue: mongoDocument.slug, isHidden: true},
-                        titleImage: {
-                            defaultValue: mongoDocument.titleImage,
-                            imagePathPrefix: fileApiConst.pathToUploadFiles,
-                        },
+                        titleImage: {defaultValue: mongoDocument.titleImage},
                         type: {defaultValue: mongoDocument.type},
                         title: {defaultValue: mongoDocument.title},
                         content: {defaultValue: mongoDocument.content},

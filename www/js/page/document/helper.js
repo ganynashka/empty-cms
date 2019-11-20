@@ -20,8 +20,9 @@ import {mongoDocumentTypeMap} from '../../../../server/src/db/type';
 import {getSlug, stringToUniqArray} from '../../lib/string';
 import {InputUploadImage} from '../../component/layout/form-generator/field/input-upload-image/c-input-upload-image';
 import {isError, isFile, isNull, isString} from '../../lib/is';
-import {uploadImageList} from '../image/image-api';
+import {uploadImage, uploadImageList} from '../image/image-api';
 import {promiseCatch} from '../../lib/promise';
+import {fileApiConst} from '../../../../server/src/api/file-const';
 
 export type FormDataMongoDocumentType = {
     +slug: string,
@@ -120,6 +121,8 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         placeholder: 'title-image',
                         labelText: 'Title image',
                         accept: 'image/png, image/jpg, image/jpeg',
+                        uploadFile: uploadImage,
+                        imagePathPrefix: fileApiConst.pathToUploadFiles,
                     },
                     {
                         name: 'type',
