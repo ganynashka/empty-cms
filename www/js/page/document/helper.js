@@ -2,10 +2,13 @@
 
 import React from 'react';
 
+// eslint-disable-next-line max-len
+import {InputUploadImageList} from '../../component/layout/form-generator/field/input-upload-image-list/c-input-upload-image-list';
 import type {
     FormGeneratorConfigType,
     FormGeneratorFormDataType,
     InputValueType,
+    PrimitiveInputValueType,
 } from '../../component/layout/form-generator/type';
 import {InputText} from '../../component/layout/form-generator/field/input-text/c-input-text';
 import {getIsRequired, noValidate} from '../../component/layout/form-generator/validate/validate';
@@ -36,6 +39,7 @@ export type FormDataMongoDocumentType = {
     +tagList: string,
     +rating: number,
     +isActive: boolean,
+    +imageList: Array<string>,
 };
 
 function extractImage(inputValue: InputValueType): Promise<Error | string> {
@@ -64,6 +68,22 @@ function extractImage(inputValue: InputValueType): Promise<Error | string> {
             return uploadResult[0];
         })
         .catch(promiseCatch);
+}
+
+export function extractUniqueArrayString(inputValue: mixed): Array<string> {
+    const arrayString: Array<string> = [];
+
+    if (!Array.isArray(inputValue)) {
+        return arrayString;
+    }
+
+    inputValue.forEach((value: mixed) => {
+        if (isString(value) && !arrayString.includes(value)) {
+            arrayString.push(value);
+        }
+    });
+
+    return arrayString;
 }
 
 export async function formDataToMongoDocument(formData: FormGeneratorFormDataType): Promise<Error | MongoDocumentType> {
@@ -95,6 +115,7 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         tagList: stringToUniqArray(documentFormData.tagList, ','),
         subDocumentList,
         isActive: documentFormData.isActive,
+        imageList: extractUniqueArrayString(documentFormData.imageList),
     };
 }
 
@@ -206,6 +227,17 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: '',
                         placeholder: 'Content',
                         labelText: 'Content',
+                    },
+                    {
+                        name: 'imageList',
+                        fieldComponent: InputUploadImageList,
+                        validate: noValidate,
+                        defaultValue: new Array<string>(0),
+                        placeholder: 'Image List',
+                        labelText: 'Image List',
+                        accept: 'image/png, image/jpg, image/jpeg',
+                        uploadFile: uploadImage,
+                        imagePathPrefix: fileApiConst.pathToUploadFiles,
                     },
                 ],
                 fieldSetWrapper: {

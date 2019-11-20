@@ -90,9 +90,10 @@ export class InputUploadImage extends Component<PropsType, StateType> {
                     return uploadResult;
                 }
 
-                onChange(uploadResult);
                 // eslint-disable-next-line react/no-set-state
-                this.setState({file: null, isUploadInProgress: false, defaultValue: uploadResult});
+                this.setState({file: null, isUploadInProgress: false, defaultValue: uploadResult}, () => {
+                    onChange(uploadResult);
+                });
 
                 return uploadResult;
             })

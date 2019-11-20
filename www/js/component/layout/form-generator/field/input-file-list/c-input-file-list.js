@@ -11,7 +11,7 @@ import serviceStyle from '../../../../../../css/service.scss';
 import inputFileListStyle from './input-file-list.style.scss';
 
 type PropsType = InputComponentPropsType;
-type StateType = {fileList: Array<PrimitiveInputValueType>};
+type StateType = {fileList: Array<File>};
 
 export class InputFileList extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
@@ -22,11 +22,11 @@ export class InputFileList extends Component<PropsType, StateType> {
         };
     }
 
-    getValue(evt: SyntheticEvent<HTMLInputElement>): Array<PrimitiveInputValueType> {
+    getValue(evt: SyntheticEvent<HTMLInputElement>): Array<File> {
         const {currentTarget} = evt;
         const {files} = currentTarget;
 
-        const fileList: Array<PrimitiveInputValueType> = [];
+        const fileList: Array<File> = [];
 
         [...files].forEach((value: PrimitiveInputValueType) => {
             if (isFile(value)) {

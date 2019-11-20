@@ -7,9 +7,17 @@ import type {PopupPortalContextType} from '../popup/popup-portal/c-popup-portal'
 
 export type PrimitiveInputValueType = string | number | boolean | null | File;
 
-export type InputValueType = PrimitiveInputValueType | Array<PrimitiveInputValueType>;
+export type InputValueType =
+    | PrimitiveInputValueType
+    | Array<string>
+    | Array<number>
+    | Array<boolean>
+    | Array<null>
+    | Array<File>;
 
-export type FormGeneratorFormDataType = {[key: string]: InputValueType};
+export type FormGeneratorFormDataType = {
+    [key: string]: PrimitiveInputValueType | Array<string> | Array<number> | Array<boolean> | Array<null> | Array<File>,
+};
 
 export type InputComponentOnChangeType = (value: InputValueType) => mixed;
 

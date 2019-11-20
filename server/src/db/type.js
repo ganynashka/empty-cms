@@ -26,7 +26,7 @@ export type MongoUserFrontType = {|
 
 export type MongoDocumentTypeType = 'article' | 'container';
 
-export const mongoDocumentTypeMap: {+[key: MongoDocumentTypeType]: MongoDocumentTypeType} = {
+export const mongoDocumentTypeMap = {
     article: 'article',
     container: 'container',
 };
@@ -44,4 +44,5 @@ export type MongoDocumentType = {|
     +tagList: Array<string>,
     +rating: number,
     +isActive: boolean,
+    +imageList: Array<string>,
 |};

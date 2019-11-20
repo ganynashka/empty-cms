@@ -18,10 +18,9 @@ import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 import {Spinner} from '../../component/layout/spinner/c-spinner';
 import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
 import {routePathMap} from '../../component/app/routes-path-map';
-import {fileApiConst} from '../../../../server/src/api/file-const';
 
 import {documentSearchExact, getDocumentParentList, updateDocument} from './document-api';
-import {formDataToMongoDocument, getDocumentFormConfig} from './helper';
+import {extractUniqueArrayString, formDataToMongoDocument, getDocumentFormConfig} from './helper';
 
 type PropsType = {
     +match: MatchType | null,
@@ -155,6 +154,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                         tagList: {defaultValue: mongoDocument.tagList.join(', ')},
                         isActive: {defaultValue: mongoDocument.isActive},
                         rating: {defaultValue: mongoDocument.rating, isHidden: false},
+                        imageList: {defaultValue: extractUniqueArrayString(mongoDocument.imageList)},
                     }),
                 },
             ],
