@@ -67,23 +67,23 @@ export class Header extends Component<PropsType, StateType> {
                 </Button>
                 &nbsp;|&nbsp;
                 <Button component={Link} size="large" to={routeItemMap.documentList.path} variant="contained">
-                    Document: list
+                    Doc: list
                 </Button>
                 &nbsp;|&nbsp;
                 <Button component={Link} size="large" to={routeItemMap.documentTree.path} variant="contained">
-                    Document: tree
+                    Doc: tree
                 </Button>
                 &nbsp;|&nbsp;
                 <Button component={Link} size="large" to={routeItemMap.documentCreate.path} variant="contained">
-                    Document: create
+                    Doc: create
                 </Button>
                 &nbsp;|&nbsp;
                 <Button component={Link} size="large" to={routeItemMap.imageList.path} variant="contained">
-                    Image: List
+                    Img: List
                 </Button>
                 &nbsp;|&nbsp;
                 <Button component={Link} size="large" to={routeItemMap.imageUpload.path} variant="contained">
-                    Image: Upload
+                    Img: Upload
                 </Button>
             </>
         );
