@@ -8,10 +8,10 @@
 
 .image_wrapper {
     background-color: #777;
-    border-radius: $mui-unit;
+    border-radius: $ui-unit;
     display: block;
     height: 256px;
-    margin: $mui-unit * 3;
+    margin: $ui-unit * 3;
     overflow: hidden;
     position: relative;
     width: 256px;
@@ -24,7 +24,7 @@
     color: #fff;
     display: block;
     left: 0;
-    padding: $mui-unit;
+    padding: $ui-unit;
     position: absolute;
     user-select: none;
     width: 100%;
