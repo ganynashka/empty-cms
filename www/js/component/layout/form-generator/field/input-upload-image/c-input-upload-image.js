@@ -261,8 +261,8 @@ export class InputUploadImage extends Component<PropsType, StateType> {
         }
 
         return (
-            <div className={fieldStyle.form__label_wrapper}>
-                <span className={fieldStyle.form__label_description}>{labelText}</span>
+            <div className={inputUploadImageStyle.input_upload_image__label_wrapper}>
+                {labelText ? <span className={fieldStyle.form__label_description}>{labelText}</span> : null}
                 <div className={this.getWrapperClassName()}>{this.renderContent()}</div>
             </div>
         );

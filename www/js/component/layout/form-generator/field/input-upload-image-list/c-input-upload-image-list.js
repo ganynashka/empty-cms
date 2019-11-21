@@ -2,15 +2,13 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {
-    InputComponentOnChangeType,
-    InputComponentPropsType,
-    InputValueType,
-} from '../../type';
+import type {InputComponentOnChangeType, InputComponentPropsType, InputValueType} from '../../type';
 import {InputUploadImage} from '../input-upload-image/c-input-upload-image';
 import {isFile, isString} from '../../../../../lib/is';
 import fieldStyle from '../field.style.scss';
 import {extractUniqueArrayString} from '../../../../../page/document/helper';
+
+import inputUploadImageListStyle from './input-upload-image-list.style.scss';
 
 type PropsType = InputComponentPropsType;
 
@@ -155,8 +153,10 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
         return (
             <div className={fieldStyle.form__label_wrapper}>
                 <span className={fieldStyle.form__label_description}>{labelText}</span>
-                {valueList.map(this.renderValueItem)}
-                {this.renderAdditionalItem()}
+                <div className={inputUploadImageListStyle.input_upload_image_list__list_wrapper}>
+                    {valueList.map(this.renderValueItem)}
+                    {this.renderAdditionalItem()}
+                </div>
             </div>
         );
     }

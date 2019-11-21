@@ -221,14 +221,6 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         isHidden: true,
                     },
                     {
-                        name: 'content',
-                        fieldComponent: InputMarkdown,
-                        validate: noValidate,
-                        defaultValue: '',
-                        placeholder: 'Content',
-                        labelText: 'Content',
-                    },
-                    {
                         name: 'imageList',
                         fieldComponent: InputUploadImageList,
                         validate: noValidate,
@@ -238,6 +230,14 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         accept: 'image/png, image/jpg, image/jpeg',
                         uploadFile: uploadImage,
                         imagePathPrefix: fileApiConst.pathToUploadFiles,
+                    },
+                    {
+                        name: 'content',
+                        fieldComponent: InputMarkdown,
+                        validate: noValidate,
+                        defaultValue: '',
+                        placeholder: 'Content',
+                        labelText: 'Content',
                     },
                 ],
                 fieldSetWrapper: {

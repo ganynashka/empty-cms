@@ -29,6 +29,12 @@
     z-index: 1;
 }
 
+.input_upload_image__label_wrapper {
+    @extend %form--label-wrapper;
+
+    padding-right: 16px;
+}
+
 .input_upload_image__wrapper {
     @extend %form--input;
 
