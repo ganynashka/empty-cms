@@ -4,7 +4,7 @@ import type {Node} from 'react';
 import React, {Component} from 'react';
 
 import {isString} from '../../../lib/is';
-import type {ButtonType} from '../button/c-button';
+import type {ButtonType} from '../button/button-type';
 import {Button} from '../button/c-button';
 
 import formButtonStyle from './form-button.scss';

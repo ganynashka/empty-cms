@@ -5,10 +5,10 @@ import React, {Component, type Node} from 'react';
 import {isString} from '../../../lib/is';
 
 import buttonStyle from './button.scss';
+import type {ButtonType} from './button-type';
 
-export type ButtonType = 'button' | 'submit' | 'reset';
+type StateType = null;
 
-type StateType = {};
 type PropsType = {|
     +children: Node,
     +className?: string,
@@ -21,12 +21,6 @@ type PropsType = {|
 |};
 
 export class Button extends Component<PropsType, StateType> {
-    constructor(props: PropsType) {
-        super(props);
-
-        this.state = {};
-    }
-
     getClassName(): string {
         const {props} = this;
         const {className, isWide} = props;
