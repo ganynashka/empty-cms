@@ -48,7 +48,6 @@ export class LocaleProvider extends Component<PropsType, StateType> {
 
         setLocaleName(localeName);
 
-        // eslint-disable-next-line react/no-set-state
         this.setState({providedData: {...providedData, name: localeName}});
     };
 

@@ -1,7 +1,5 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
-
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
@@ -27,14 +25,11 @@ export class Button extends Component<PassedPropsType, StateType> {
     constructor(props: PassedPropsType) {
         super(props);
 
-        const view = this;
-
-        view.state = {};
+        this.state = {};
     }
 
     getClassName(): string {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {className, isWide} = props;
         const classNameList = [buttonStyle.button];
 
@@ -50,8 +45,7 @@ export class Button extends Component<PassedPropsType, StateType> {
     }
 
     getButtonType(): ButtonType {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {type} = props;
 
         if (isString(type)) {
@@ -62,8 +56,7 @@ export class Button extends Component<PassedPropsType, StateType> {
     }
 
     render(): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {accessKey, onClick, autoFocus, children, ariaLabel} = props;
 
         return (
@@ -72,9 +65,9 @@ export class Button extends Component<PassedPropsType, StateType> {
                 accessKey={accessKey || null}
                 aria-label={ariaLabel}
                 autoFocus={autoFocus}
-                className={view.getClassName()}
+                className={this.getClassName()}
                 onClick={onClick}
-                type={view.getButtonType()}
+                type={this.getButtonType()}
             >
                 {children}
             </button>

@@ -66,13 +66,11 @@ export class InputUploadImage extends Component<PropsType, StateType> {
 
         if (isNull(fileOrNull)) {
             onChange(null);
-            // eslint-disable-next-line react/no-set-state
             this.setState(this.getDefaultState());
             return;
         }
 
         onChange(fileOrNull);
-        // eslint-disable-next-line react/no-set-state
         this.setState({file: fileOrNull, isUploadInProgress: true});
 
         uploadFile(fileOrNull)
@@ -82,7 +80,6 @@ export class InputUploadImage extends Component<PropsType, StateType> {
                     console.error(uploadResult);
 
                     onChange(null);
-                    // eslint-disable-next-line react/no-set-state
                     this.setState(this.getDefaultState());
 
                     await showSnackbar({children: 'Error while upload file!', variant: 'error'}, 'can-not-upload-file');
@@ -90,7 +87,6 @@ export class InputUploadImage extends Component<PropsType, StateType> {
                     return uploadResult;
                 }
 
-                // eslint-disable-next-line react/no-set-state
                 this.setState({file: null, isUploadInProgress: false, defaultValue: uploadResult}, () => {
                     onChange(uploadResult);
                 });
@@ -99,7 +95,6 @@ export class InputUploadImage extends Component<PropsType, StateType> {
             })
             .catch(async (error: Error): Promise<Error> => {
                 onChange(null);
-                // eslint-disable-next-line react/no-set-state
                 this.setState(this.getDefaultState());
 
                 await showSnackbar({children: 'Error while upload file!', variant: 'error'}, 'can-not-upload-file');
@@ -115,7 +110,6 @@ export class InputUploadImage extends Component<PropsType, StateType> {
         const {onChange} = props;
 
         onChange(null);
-        // eslint-disable-next-line react/no-set-state
         this.setState(this.getDefaultState());
     };
 

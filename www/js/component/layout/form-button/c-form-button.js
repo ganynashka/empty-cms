@@ -1,7 +1,5 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
-
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
@@ -31,14 +29,11 @@ export class FormButton extends Component<PassedPropsType, StateType> {
     constructor(props: PassedPropsType) {
         super(props);
 
-        const view = this;
-
-        view.state = {};
+        this.state = {};
     }
 
     getClassName(): string {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {className, isDefault} = props;
         const defaultClassName = isDefault ? formButtonStyle.form_button__default : formButtonStyle.form_button;
 
@@ -50,8 +45,7 @@ export class FormButton extends Component<PassedPropsType, StateType> {
     }
 
     render(): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {children, accessKey, onClick, autoFocus, type, isWide, ariaLabel} = props;
 
         return (
@@ -59,7 +53,7 @@ export class FormButton extends Component<PassedPropsType, StateType> {
                 accessKey={accessKey}
                 ariaLabel={ariaLabel}
                 autoFocus={autoFocus}
-                className={view.getClassName()}
+                className={this.getClassName()}
                 isWide={isWide}
                 onClick={onClick}
                 type={type}

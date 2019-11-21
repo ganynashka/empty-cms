@@ -63,12 +63,10 @@ export class EnhancedTable extends Component<PropsType, StateType> {
         const {orderBy: oldOrderBy, order: oldOrder} = this.state;
         const order = oldOrderBy === orderBy && oldOrder === direction.desc ? direction.asc : direction.desc;
 
-        // eslint-disable-next-line react/no-set-state
         this.setState({order, orderBy}, this.fetchData);
     };
 
     handleChangePage = (event: SyntheticEvent<HTMLElement> | null, pageIndex: number) => {
-        // eslint-disable-next-line react/no-set-state
         this.setState({pageIndex}, this.fetchData);
     };
 
@@ -79,7 +77,6 @@ export class EnhancedTable extends Component<PropsType, StateType> {
 
         const {value}: {value?: mixed} = typeConverter<{value?: mixed}>(event.target);
 
-        // eslint-disable-next-line react/no-set-state
         this.setState({rowsPerPage: parseInt(value, 10) || 0}, this.fetchData);
     };
 

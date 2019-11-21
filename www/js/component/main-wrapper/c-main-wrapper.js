@@ -1,7 +1,5 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
-
 import type {Node} from 'react';
 import React from 'react';
 import classNames from 'classnames';

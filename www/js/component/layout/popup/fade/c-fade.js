@@ -1,7 +1,5 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
-
 import type {Node} from 'react';
 import React, {Component} from 'react';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
@@ -20,8 +18,7 @@ const fadeClassNames = {
 
 export class Fade extends Component<PopupPropsType, null> {
     renderContent(): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {isShow, children, onEnter, onEntering, onEntered, onExit, onExiting, onExited} = props;
 
         if (!isShow) {
@@ -46,8 +43,6 @@ export class Fade extends Component<PopupPropsType, null> {
     }
 
     render(): Node {
-        const view = this;
-
-        return <TransitionGroup>{view.renderContent()}</TransitionGroup>;
+        return <TransitionGroup>{this.renderContent()}</TransitionGroup>;
     }
 }

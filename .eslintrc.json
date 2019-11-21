@@ -208,6 +208,7 @@
         "react/jsx-one-expression-per-line": 0,
         //        "react/destructuring-assignment": [1, "never"],
         "react/state-in-constructor": 0,
+        "react/no-set-state": 0,
         "no-return-await": 1,
         "no-console": 0,
         "no-empty-label": 0,

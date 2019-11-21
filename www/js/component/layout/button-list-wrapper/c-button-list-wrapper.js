@@ -1,7 +1,5 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
-
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
@@ -30,14 +28,11 @@ export class ButtonListWrapper extends Component<PassedPropsType, StateType> {
     constructor(props: PassedPropsType) {
         super(props);
 
-        const view = this;
-
-        view.state = null;
+        this.state = null;
     }
 
     getClassName(): string {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {direction, className} = props;
 
         const defaultClassName = buttonListWrapperStyle.button_list_wrapper;
@@ -48,10 +43,9 @@ export class ButtonListWrapper extends Component<PassedPropsType, StateType> {
     }
 
     render(): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {children} = props;
 
-        return <div className={view.getClassName()}>{children}</div>;
+        return <div className={this.getClassName()}>{children}</div>;
     }
 }

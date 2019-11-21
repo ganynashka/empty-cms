@@ -44,7 +44,6 @@ export class InputFileList extends Component<PropsType, StateType> {
 
         onChange(fileList);
 
-        // eslint-disable-next-line react/no-set-state
         this.setState({fileList});
     };
 
@@ -55,7 +54,6 @@ export class InputFileList extends Component<PropsType, StateType> {
 
         onBlur(fileList);
 
-        // eslint-disable-next-line react/no-set-state
         this.setState({fileList});
     };
 

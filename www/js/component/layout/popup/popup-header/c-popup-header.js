@@ -1,7 +1,5 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
-
 import React, {Component, type Node} from 'react';
 
 import type {CloseButtonPropsType} from '../popup-header-close-button/c-popup-header-close-button';
@@ -20,8 +18,7 @@ type StateType = {};
 
 export class PopupHeader extends Component<PassedPropsType, StateType> {
     renderCloseButton(): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {closeButton} = props;
 
         if (!closeButton) {
@@ -34,13 +31,12 @@ export class PopupHeader extends Component<PassedPropsType, StateType> {
     }
 
     render(): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
 
         return (
             <header className={popupHeaderStyle.popup_header}>
                 <div className={popupHeaderStyle.popup_header_content}>{props.children}</div>
-                {view.renderCloseButton()}
+                {this.renderCloseButton()}
             </header>
         );
     }

@@ -1,7 +1,5 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
-
 import React, {Component, type Node} from 'react';
 
 import {hasProperty, isFunction} from '../../../lib/is';
@@ -41,17 +39,14 @@ export class FormGenerator extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
-        const view = this;
-
-        view.state = {
-            formData: view.getDefaultFormData(),
+        this.state = {
+            formData: this.getDefaultFormData(),
             formValidation: {},
         };
     }
 
     getDefaultFormData(): FormGeneratorFormDataType {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {config} = props;
         const {fieldSetList} = config;
         const defaultFormData = {};
@@ -70,60 +65,49 @@ export class FormGenerator extends Component<PropsType, StateType> {
     }
 
     createOnChangeFieldHandler(fieldData: FieldDataType): InputComponentOnChangeType {
-        const view = this;
-
         return (value: InputValueType) => {
-            const {state} = view;
+            const {state} = this;
             const {name, validate} = fieldData;
             const formData = {...state.formData, [name]: value};
             const fieldErrorList = validate(name, value, formData);
 
             if (fieldErrorList.length === 0) {
-                view.setState({
-                    formData,
-                    formValidation: {...state.formValidation, [name]: []},
-                });
+                this.setState({formData, formValidation: {...state.formValidation, [name]: []}});
                 return;
             }
 
-            view.setState({formData});
+            this.setState({formData});
         };
     }
 
     createOnBlurFieldHandler(fieldData: FieldDataType): InputComponentOnChangeType {
-        const view = this;
-
         return (value: InputValueType) => {
             const {name, validate} = fieldData;
-            const {state} = view;
+            const {state} = this;
             const formData = {...state.formData, [name]: value};
             const fieldErrorList = validate(name, value, formData);
             const formValidation = {...state.formValidation, [name]: fieldErrorList};
 
-            view.setState({formData, formValidation});
+            this.setState({formData, formValidation});
         };
     }
 
     renderField = (fieldData: FieldDataType): Node => {
-        const view = this;
         const {isHidden} = fieldData;
 
-        return isHidden === true ? view.renderFieldHidden(fieldData) : view.renderFieldVisible(fieldData);
+        return isHidden === true ? this.renderFieldHidden(fieldData) : this.renderFieldVisible(fieldData);
     };
 
     renderFieldHidden(fieldData: FieldDataType): Node {
-        const view = this;
-
         return (
             <div className={fieldStyle.form_input__hidden} key={fieldData.name}>
-                {view.renderFieldVisible(fieldData)}
+                {this.renderFieldVisible(fieldData)}
             </div>
         );
     }
 
     renderFieldVisible(fieldData: FieldDataType): Node {
-        const view = this;
-        const {state} = view;
+        const {state} = this;
         const {formValidation} = state;
         const {
             name,
@@ -138,8 +122,8 @@ export class FormGenerator extends Component<PropsType, StateType> {
             uploadFile,
         } = fieldData;
 
-        const onChangeFieldHandler = view.createOnChangeFieldHandler(fieldData);
-        const onBlurFieldHandler = view.createOnBlurFieldHandler(fieldData);
+        const onChangeFieldHandler = this.createOnChangeFieldHandler(fieldData);
+        const onBlurFieldHandler = this.createOnBlurFieldHandler(fieldData);
         const errorList = hasProperty(formValidation, name) ? formValidation[name] : [];
 
         return (
@@ -175,26 +159,22 @@ export class FormGenerator extends Component<PropsType, StateType> {
     }
 
     renderFieldSet = (fieldSetData: FieldSetDataType): Node => {
-        const view = this;
         const {name, fieldList, fieldSetWrapper} = fieldSetData;
         const {component: FieldSetWrapper, legend} = fieldSetWrapper;
 
         return (
             <FieldSetWrapper key={name} legend={legend}>
-                {fieldList.map(view.renderField)}
+                {fieldList.map(this.renderField)}
             </FieldSetWrapper>
         );
     };
 
     renderFieldSetList = (fieldSetDataList: Array<FieldSetDataType>): Array<Node> => {
-        const view = this;
-
-        return fieldSetDataList.map(view.renderFieldSet);
+        return fieldSetDataList.map(this.renderFieldSet);
     };
 
     validateFieldSetList(): Array<Error> {
-        const view = this;
-        const {props, state} = view;
+        const {props, state} = this;
         const {formData} = state;
         const formValidation = {};
         const {config} = props;
@@ -215,7 +195,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
             });
         });
 
-        view.setState({formValidation});
+        this.setState({formValidation});
 
         console.log('---> formData');
         console.log(formData);
@@ -226,12 +206,11 @@ export class FormGenerator extends Component<PropsType, StateType> {
     handleFormSubmit = (evt: SyntheticEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        const view = this;
-        const {props, state} = view;
+        const {props, state} = this;
         const {onError, onSubmit} = props;
         const {formData} = state;
 
-        const errorList = view.validateFieldSetList();
+        const errorList = this.validateFieldSetList();
 
         if (errorList.length === 0) {
             onSubmit(formData);
@@ -247,14 +226,13 @@ export class FormGenerator extends Component<PropsType, StateType> {
     };
 
     render(): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {config, footer} = props;
         const {fieldSetList} = config;
 
         return (
-            <form action="#" className={fieldStyle.form__generator} method="post" onSubmit={view.handleFormSubmit}>
-                {view.renderFieldSetList(fieldSetList)}
+            <form action="#" className={fieldStyle.form__generator} method="post" onSubmit={this.handleFormSubmit}>
+                {this.renderFieldSetList(fieldSetList)}
                 {footer}
             </form>
         );

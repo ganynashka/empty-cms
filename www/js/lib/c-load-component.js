@@ -1,7 +1,5 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
-
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
@@ -19,37 +17,31 @@ export class LoadComponent extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
-        const view = this;
-
-        view.state = {
+        this.state = {
             component: null,
         };
     }
 
     async componentDidMount() {
-        const view = this;
-
-        await view.load();
+        await this.load();
     }
 
     async load() {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
 
         const loadComponentResult = await props.load();
 
         if (loadComponentResult instanceof Error) {
             console.error('can not load component');
-            view.setState({component: <span>Error to load component</span>});
+            this.setState({component: <span>Error to load component</span>});
             return;
         }
 
-        view.setState({component: loadComponentResult});
+        this.setState({component: loadComponentResult});
     }
 
     render(): Node | Array<Node> {
-        const view = this;
-        const {state} = view;
+        const {state} = this;
 
         return state.component;
     }

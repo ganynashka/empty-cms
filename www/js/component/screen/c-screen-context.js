@@ -2,8 +2,6 @@
 
 /* global window */
 
-/* eslint consistent-this: ["error", "view"] */
-
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
@@ -29,36 +27,30 @@ export class ScreenProvider extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
-        const view = this;
-
-        view.state = {
+        this.state = {
             providedData: defaultContextData,
         };
     }
 
     componentDidMount() {
-        const view = this;
-
-        window.addEventListener('resize', view.handleResize, false);
+        window.addEventListener('resize', this.handleResize, false);
     }
 
     handleResize = () => {
-        const view = this;
-        const {state} = view;
+        const {state} = this;
         const {providedData} = state;
         const {width, height} = providedData;
         const screenState = getScreenState();
 
         if (screenState.width !== width || screenState.height !== height) {
-            view.setState({
+            this.setState({
                 providedData: screenState,
             });
         }
     };
 
     getProviderValue(): ScreenContextType {
-        const view = this;
-        const {state} = view;
+        const {state} = this;
 
         return {
             ...state.providedData,
@@ -66,10 +58,9 @@ export class ScreenProvider extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {children} = props;
 
-        return <ScreenContextProvider value={view.getProviderValue()}>{children}</ScreenContextProvider>;
+        return <ScreenContextProvider value={this.getProviderValue()}>{children}</ScreenContextProvider>;
     }
 }

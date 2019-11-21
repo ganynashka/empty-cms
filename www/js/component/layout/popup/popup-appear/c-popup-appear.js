@@ -1,7 +1,5 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
-
 import type {Node} from 'react';
 import React, {Component} from 'react';
 import className from 'classnames';
@@ -24,8 +22,7 @@ const popupAppearClassNames = {
 
 export class PopupAppear extends Component<PopupPropsType> {
     renderContent(): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {isShow, isFullScreen, children, onEnter, onEntering, onEntered, onExit, onExiting, onExited} = props;
 
         if (!isShow) {
@@ -81,8 +78,6 @@ export class PopupAppear extends Component<PopupPropsType> {
     }
 
     render(): Node {
-        const view = this;
-
-        return <TransitionGroup>{view.renderContent()}</TransitionGroup>;
+        return <TransitionGroup>{this.renderContent()}</TransitionGroup>;
     }
 }

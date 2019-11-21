@@ -1,7 +1,5 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
-
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
@@ -60,7 +58,7 @@ type PropsType = {|
 
 type StateType = {|
     +snackbarDataList: Array<SnackbarDataType>,
-    +providedData: SnackbarPortalContextType,
+    // +providedData: SnackbarPortalContextType,
 |};
 
 export {SnackbarPortalContextConsumer};
@@ -69,18 +67,14 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
-        const view = this;
-
-        view.state = {
+        this.state = {
             snackbarDataList: [],
-            providedData: defaultContextData,
+            // providedData: defaultContextData,
         };
     }
 
     getSnackbarById(id: string): SnackbarDataType | null {
-        const view = this;
-
-        const {state} = view;
+        const {state} = this;
         const {snackbarDataList} = state;
 
         return (
@@ -90,12 +84,10 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
     }
 
     showSnackbarById(id: string): Error | null {
-        const view = this;
-
-        const {state} = view;
+        const {state} = this;
         const {snackbarDataList} = state;
 
-        const snackbarData = view.getSnackbarById(id);
+        const snackbarData = this.getSnackbarById(id);
 
         if (!snackbarData) {
             console.error('Show snackbar by id: Can not find snackbar with id: ' + id);
@@ -110,18 +102,16 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
             },
         };
 
-        view.setState({snackbarDataList: [...snackbarDataList]});
+        this.setState({snackbarDataList: [...snackbarDataList]});
 
         return null;
     }
 
     hideSnackbarById = (id: string, data: mixed): Error | null => {
-        const view = this;
-
-        const {state} = view;
+        const {state} = this;
         const {snackbarDataList} = state;
 
-        const snackbarData = view.getSnackbarById(id);
+        const snackbarData = this.getSnackbarById(id);
 
         if (!snackbarData) {
             console.error('Show snackbar: Can not find snackbar with id: ' + id);
@@ -136,7 +126,7 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
             },
         };
 
-        view.setState({snackbarDataList: [...snackbarDataList]});
+        this.setState({snackbarDataList: [...snackbarDataList]});
 
         snackbarData.resolve(data);
 
@@ -145,12 +135,10 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
 
     showSnackbar = (snackbarProps: SnackbarPropsType, id: string): Promise<mixed> => {
         return new Promise((resolve: (value: mixed) => mixed) => {
-            const view = this;
-
-            const {state} = view;
+            const {state} = this;
             const {snackbarDataList} = state;
 
-            const snackbarData = view.getSnackbarById(id);
+            const snackbarData = this.getSnackbarById(id);
 
             if (snackbarData) {
                 snackbarDataList[snackbarDataList.indexOf(snackbarData)] = {
@@ -159,7 +147,7 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
                     snackbarProps: {...snackbarData.snackbarProps, isShow: false},
                 };
 
-                view.setState({snackbarDataList: [...snackbarDataList]}, (): mixed => view.showSnackbarById(id));
+                this.setState({snackbarDataList: [...snackbarDataList]}, (): mixed => this.showSnackbarById(id));
                 return;
             }
 
@@ -172,31 +160,27 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
                 },
             ];
 
-            view.setState({snackbarDataList: newSnackbarDataList}, (): mixed => view.showSnackbarById(id));
+            this.setState({snackbarDataList: newSnackbarDataList}, (): mixed => this.showSnackbarById(id));
         });
     };
 
     getProviderValue(): SnackbarPortalContextType {
-        const view = this;
-
         return {
-            showSnackbar: view.showSnackbar,
-            hideSnackbarById: view.hideSnackbarById,
+            showSnackbar: this.showSnackbar,
+            hideSnackbarById: this.hideSnackbarById,
         };
     }
 
     createOnExitedHandler(id: string): () => void {
         return () => {
-            const view = this;
-
-            const snackbarData = view.getSnackbarById(id);
+            const snackbarData = this.getSnackbarById(id);
 
             if (!snackbarData) {
                 console.error('createOnExitedHandler: Can not find snackbar with id: ' + id);
                 return;
             }
 
-            const {state} = view;
+            const {state} = this;
             const {snackbarDataList} = state;
 
             snackbarDataList[snackbarDataList.indexOf(snackbarData)] = {
@@ -207,7 +191,7 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
                 },
             };
 
-            view.setState({snackbarDataList: [...snackbarDataList]}, () => {
+            this.setState({snackbarDataList: [...snackbarDataList]}, () => {
                 const {onExited} = snackbarData.snackbarProps;
 
                 if (isFunction(onExited)) {
@@ -220,12 +204,11 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
     }
 
     renderSnackbar = (snackbarData: SnackbarDataType): Node => {
-        const view = this;
         const {snackbarProps, id} = snackbarData;
         const {isShow, children, variant} = snackbarProps;
         const Icon = variantIcon[variant];
 
-        const handleClose = view.createOnExitedHandler(id);
+        const handleClose = this.createOnExitedHandler(id);
 
         return (
             <Snackbar
@@ -257,22 +240,20 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
     };
 
     renderSnackbarList(): Array<Node> {
-        const view = this;
-        const {state} = view;
+        const {state} = this;
         const {snackbarDataList} = state;
 
-        return snackbarDataList.map(view.renderSnackbar);
+        return snackbarDataList.map(this.renderSnackbar);
     }
 
     render(): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {children} = props;
 
         return (
-            <SnackbarPortalContextProvider value={view.getProviderValue()}>
+            <SnackbarPortalContextProvider value={this.getProviderValue()}>
                 {children}
-                {view.renderSnackbarList()}
+                {this.renderSnackbarList()}
             </SnackbarPortalContextProvider>
         );
     }

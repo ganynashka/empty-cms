@@ -1,7 +1,5 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
-
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
@@ -42,8 +40,7 @@ export class Confirm extends Component<PropsType, StateType> {
     }
 
     renderHeader(popupPortalContextData: PopupPortalContextType): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {id, header} = props;
         const {hidePopupById} = popupPortalContextData;
         const {children, closeButton} = header;
@@ -68,8 +65,7 @@ export class Confirm extends Component<PropsType, StateType> {
     }
 
     renderContent(): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {content} = props;
         const {children} = content;
 
@@ -77,8 +73,7 @@ export class Confirm extends Component<PropsType, StateType> {
     }
 
     renderButtonList(popupPortalContextData: PopupPortalContextType): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {id} = props;
         const {hidePopupById} = popupPortalContextData;
 
@@ -99,16 +94,14 @@ export class Confirm extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        const view = this;
-
         return (
             <PopupPortalContextConsumer>
                 {(popupPortalContextData: PopupPortalContextType): Node => {
                     return (
                         <>
-                            {view.renderHeader(popupPortalContextData)}
-                            {view.renderContent()}
-                            {view.renderButtonList(popupPortalContextData)}
+                            {this.renderHeader(popupPortalContextData)}
+                            {this.renderContent()}
+                            {this.renderButtonList(popupPortalContextData)}
                         </>
                     );
                 }}

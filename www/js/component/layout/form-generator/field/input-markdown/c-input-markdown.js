@@ -39,7 +39,6 @@ export class InputMarkdown extends Component<PropsType, StateType> {
 
         onChange(value);
 
-        // eslint-disable-next-line react/no-set-state
         this.setState({textContent: String(value)});
     };
 
@@ -50,7 +49,6 @@ export class InputMarkdown extends Component<PropsType, StateType> {
 
         onBlur(value);
 
-        // eslint-disable-next-line react/no-set-state
         this.setState({textContent: String(value)});
     };
 

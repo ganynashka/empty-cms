@@ -41,7 +41,6 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
 
                 const decreasedValueList = extractUniqueArrayString(valueList);
 
-                // eslint-disable-next-line react/no-set-state
                 this.setState({valueList: decreasedValueList}, () => {
                     onChange(decreasedValueList);
                 });
@@ -53,7 +52,6 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
                 valueList.push(value);
                 const increasedValueList = extractUniqueArrayString(valueList);
 
-                // eslint-disable-next-line react/no-set-state
                 this.setState({valueList: increasedValueList, addItemIndex: addItemIndex + 1}, () => {
                     onChange(increasedValueList);
                 });

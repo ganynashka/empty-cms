@@ -1,7 +1,5 @@
 // @flow
 
-/* eslint consistent-this: ["error", "view"] */
-
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
@@ -37,7 +35,7 @@ type PropsType = {|
 
 type StateType = {|
     +popupDataList: Array<PopupDataType>,
-    +providedData: PopupPortalContextType,
+    // +providedData: PopupPortalContextType,
 |};
 
 export {PopupPortalContextConsumer};
@@ -46,30 +44,24 @@ export class PopupPortalProvider extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
-        const view = this;
-
-        view.state = {
+        this.state = {
             popupDataList: [],
-            providedData: defaultContextData,
+            // providedData: defaultContextData,
         };
     }
 
     getPopupById(id: string): PopupDataType | null {
-        const view = this;
-
-        const {state} = view;
+        const {state} = this;
         const {popupDataList} = state;
 
         return popupDataList.find((popupDataInList: PopupDataType): boolean => popupDataInList.id === id) || null;
     }
 
     showPopupById(id: string): Error | null {
-        const view = this;
-
-        const {state} = view;
+        const {state} = this;
         const {popupDataList} = state;
 
-        const popupData = view.getPopupById(id);
+        const popupData = this.getPopupById(id);
 
         if (!popupData) {
             console.error('Show popup by id: Can not find popup with id: ' + id);
@@ -84,18 +76,16 @@ export class PopupPortalProvider extends Component<PropsType, StateType> {
             },
         };
 
-        view.setState({popupDataList: [...popupDataList]});
+        this.setState({popupDataList: [...popupDataList]});
 
         return null;
     }
 
     hidePopupById = (id: string, data: mixed): Error | null => {
-        const view = this;
-
-        const {state} = view;
+        const {state} = this;
         const {popupDataList} = state;
 
-        const popupData = view.getPopupById(id);
+        const popupData = this.getPopupById(id);
 
         if (!popupData) {
             console.error('Show popup: Can not find popup with id: ' + id);
@@ -110,7 +100,7 @@ export class PopupPortalProvider extends Component<PropsType, StateType> {
             },
         };
 
-        view.setState({popupDataList: [...popupDataList]});
+        this.setState({popupDataList: [...popupDataList]});
 
         popupData.resolve(data);
 
@@ -119,9 +109,7 @@ export class PopupPortalProvider extends Component<PropsType, StateType> {
 
     showPopup = (popupProps: PopupPropsType, id: string): Promise<mixed> => {
         return new Promise((resolve: (value: mixed) => mixed) => {
-            const view = this;
-
-            const {state} = view;
+            const {state} = this;
             const {popupDataList} = state;
 
             const newPopupDataList = [
@@ -133,36 +121,32 @@ export class PopupPortalProvider extends Component<PropsType, StateType> {
                 },
             ];
 
-            view.setState({popupDataList: newPopupDataList}, (): mixed => view.showPopupById(id));
+            this.setState({popupDataList: newPopupDataList}, (): mixed => this.showPopupById(id));
         });
     };
 
     getProviderValue(): PopupPortalContextType {
-        const view = this;
-
         return {
-            showPopup: view.showPopup,
-            hidePopupById: view.hidePopupById,
+            showPopup: this.showPopup,
+            hidePopupById: this.hidePopupById,
         };
     }
 
     createOnExitedHandler(id: string): () => void {
         return () => {
-            const view = this;
-
-            const popupData = view.getPopupById(id);
+            const popupData = this.getPopupById(id);
 
             if (!popupData) {
                 console.error('createOnExitedHandler: Can not find popup with id: ' + id);
                 return;
             }
 
-            const {state} = view;
+            const {state} = this;
             const {popupDataList} = state;
 
             popupDataList.splice(popupDataList.indexOf(popupData), 1);
 
-            view.setState({popupDataList: [...popupDataList]}, () => {
+            this.setState({popupDataList: [...popupDataList]}, () => {
                 const {onExited} = popupData.popupProps;
 
                 if (isFunction(onExited)) {
@@ -173,34 +157,31 @@ export class PopupPortalProvider extends Component<PropsType, StateType> {
     }
 
     renderPopup = (popupData: PopupDataType): Node => {
-        const view = this;
         const {popupProps, id} = popupData;
         const {isFullScreen, isShow, children} = popupProps;
 
         return (
-            <Popup isFullScreen={isFullScreen} isShow={isShow} key={id} onExited={view.createOnExitedHandler(id)}>
+            <Popup isFullScreen={isFullScreen} isShow={isShow} key={id} onExited={this.createOnExitedHandler(id)}>
                 {children}
             </Popup>
         );
     };
 
     renderPopupList(): Array<Node> {
-        const view = this;
-        const {state} = view;
+        const {state} = this;
         const {popupDataList} = state;
 
-        return popupDataList.map(view.renderPopup);
+        return popupDataList.map(this.renderPopup);
     }
 
     render(): Node {
-        const view = this;
-        const {props} = view;
+        const {props} = this;
         const {children} = props;
 
         return (
-            <PopupPortalContextProvider value={view.getProviderValue()}>
+            <PopupPortalContextProvider value={this.getProviderValue()}>
                 {children}
-                {view.renderPopupList()}
+                {this.renderPopupList()}
             </PopupPortalContextProvider>
         );
     }
