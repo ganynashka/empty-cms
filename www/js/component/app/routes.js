@@ -11,7 +11,7 @@ import {DocumentEdit} from '../../page/document/c-document-edit';
 import {ImageUpload} from '../../page/image/c-image-upload';
 import {ImageList} from '../../page/image/c-image-list';
 
-import type {RedirectItemType, RouteItemType} from './render-route-helper';
+import type {RedirectItemType, RouteItemType} from './render-route/render-route-type';
 import {routePathMap} from './routes-path-map';
 
 export const routeItemMap: {[key: string]: RouteItemType | RedirectItemType} = {

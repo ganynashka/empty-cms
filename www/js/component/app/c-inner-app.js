@@ -15,7 +15,8 @@ import {InitialDataProvider} from '../../../../server/src/c-initial-data-context
 import {HeaderWrapper} from '../header/c-header-wrapper';
 
 import {routeItemMap} from './routes';
-import {redderEmptyRoute, redderRoute} from './render-route-helper';
+import {redderEmptyRoute} from './render-route/render-route-helper';
+import {redderRoute} from './render-route/render-route';
 import {renderWrapperList} from './wrapper-list';
 
 const wrapperList = [LocaleProvider, ScreenProvider, UserProvider, PopupProvider, SnackbarProvider, MainWrapper];
