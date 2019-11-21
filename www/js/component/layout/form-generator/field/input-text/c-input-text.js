@@ -6,8 +6,7 @@ import classNames from 'classnames';
 import type {InputComponentPropsType} from '../../form-generator-type';
 import fieldStyle from '../field.scss';
 import {isString} from '../../../../../lib/is';
-
-import {cleanText} from './input-text-helper';
+import {cleanText} from '../../../../../lib/string';
 
 type PropsType = InputComponentPropsType;
 

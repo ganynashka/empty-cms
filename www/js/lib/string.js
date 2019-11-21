@@ -1,7 +1,5 @@
 // @flow
 
-import {cleanText} from '../component/layout/form-generator/field/input-text/input-text-helper';
-
 import {hasProperty, isString} from './is';
 
 const cyrillicToLatinMap = {
@@ -84,6 +82,10 @@ export function cyrillicToLatin(text: string): string {
         .split('')
         .map(cyrillicToLatinChar)
         .join('');
+}
+
+export function cleanText(text: string): string {
+    return text.trim().replace(/\s+/g, ' ');
 }
 
 export function getSlug(text: string): string {
