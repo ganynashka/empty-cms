@@ -5,7 +5,7 @@
 import React, {Component, type Node} from 'react';
 import classNames from 'classnames';
 
-import type {InputComponentPropsType, FromGeneratorInputValueType} from '../../type';
+import type {InputComponentPropsType, FromGeneratorInputValueType} from '../../form-generator-type';
 import fieldStyle from '../field.scss';
 import {getMarkdownResizedImage} from '../../../../../page/image/image-api';
 import {promiseCatch} from '../../../../../lib/promise';

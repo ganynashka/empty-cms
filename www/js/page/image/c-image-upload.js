@@ -12,7 +12,7 @@ import type {
     FormGeneratorConfigType,
     FormGeneratorFormDataType,
     FromGeneratorInputValueType,
-} from '../../component/layout/form-generator/type';
+} from '../../component/layout/form-generator/form-generator-type';
 import {getIsRequired} from '../../component/layout/form-generator/validate/validate';
 import {FieldSet} from '../../component/layout/form-generator/field/field-set/field-set';
 import {InputFileList} from '../../component/layout/form-generator/field/input-file-list/c-input-file-list';

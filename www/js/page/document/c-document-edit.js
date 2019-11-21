@@ -6,13 +6,16 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Paper from '@material-ui/core/Paper';
 
 import {FormGenerator} from '../../component/layout/form-generator/form-generator';
-import type {FormGeneratorConfigType, FormGeneratorFormDataType} from '../../component/layout/form-generator/type';
+import type {
+    FormGeneratorConfigType,
+    FormGeneratorFormDataType,
+} from '../../component/layout/form-generator/form-generator-type';
 import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../component/layout/form-button/c-form-button';
 import type {MongoDocumentType} from '../../../../server/src/db/type';
 import {isError} from '../../lib/is';
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.scss';
-import {extendFieldList} from '../../component/layout/form-generator/form-generator-util';
+import {extendFieldList} from '../../component/layout/form-generator/form-generator-helper';
 import {typeConverter} from '../../lib/type';
 import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 import {Spinner} from '../../component/layout/spinner/c-spinner';

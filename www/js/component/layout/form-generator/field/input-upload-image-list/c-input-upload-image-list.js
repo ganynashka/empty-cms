@@ -2,7 +2,11 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {InputComponentOnChangeType, InputComponentPropsType, FromGeneratorInputValueType} from '../../type';
+import type {
+    InputComponentOnChangeType,
+    InputComponentPropsType,
+    FromGeneratorInputValueType,
+} from '../../form-generator-type';
 import {InputUploadImage} from '../input-upload-image/c-input-upload-image';
 import {isFile, isString} from '../../../../../lib/is';
 import fieldStyle from '../field.scss';

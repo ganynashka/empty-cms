@@ -17,7 +17,7 @@ import type {
     FormGeneratorFormDataType,
     InputComponentOnChangeType,
     FromGeneratorInputValueType,
-} from './type';
+} from './form-generator-type';
 
 type PropsType = {|
     +config: FormGeneratorConfigType,

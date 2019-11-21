@@ -3,7 +3,7 @@
 import React, {Component, type Node} from 'react';
 import classNames from 'classnames';
 
-import type {InputComponentPropsType, FromGeneratorPrimitiveInputValueType} from '../../type';
+import type {InputComponentPropsType, FromGeneratorPrimitiveInputValueType} from '../../form-generator-type';
 import fieldStyle from '../field.scss';
 import {isFile, isNull, isString} from '../../../../../lib/is';
 import serviceStyle from '../../../../../../css/service.scss';

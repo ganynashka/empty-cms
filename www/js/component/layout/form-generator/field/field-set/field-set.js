@@ -2,7 +2,7 @@
 
 import React, {type Node} from 'react';
 
-import type {FieldSetWrapperDataType} from '../../type';
+import type {FieldSetWrapperDataType} from '../../form-generator-type';
 
 type PropsType = FieldSetWrapperDataType;
 

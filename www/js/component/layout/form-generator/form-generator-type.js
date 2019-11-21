@@ -83,3 +83,5 @@ export type FieldSetDataType = {|
 export type FormGeneratorConfigType = {|
     +fieldSetList: Array<FieldSetDataType>,
 |};
+
+export type FormGeneratorImportedFieldDataType = {[key: string]: $Shape<FieldDataType>};

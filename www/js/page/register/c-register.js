@@ -9,7 +9,10 @@ import Typography from '@material-ui/core/Typography/Typography';
 
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.scss';
 import {FormGenerator} from '../../component/layout/form-generator/form-generator';
-import type {FormGeneratorConfigType, FormGeneratorFormDataType} from '../../component/layout/form-generator/type';
+import type {
+    FormGeneratorConfigType,
+    FormGeneratorFormDataType,
+} from '../../component/layout/form-generator/form-generator-type';
 import {isError} from '../../lib/is';
 import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../component/layout/form-button/c-form-button';

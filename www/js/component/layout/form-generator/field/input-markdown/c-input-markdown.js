@@ -3,7 +3,7 @@
 import React, {Component, type Node} from 'react';
 import classNames from 'classnames';
 
-import type {InputComponentPropsType} from '../../type';
+import type {InputComponentPropsType} from '../../form-generator-type';
 import {Markdown} from '../../../markdown/c-markdown';
 import inputTextAreaStyle from '../input-text-area/input-text-area.scss';
 import fieldStyle from '../field.scss';

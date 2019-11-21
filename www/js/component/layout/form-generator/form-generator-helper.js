@@ -2,9 +2,7 @@
 
 import {hasProperty} from '../../../lib/is';
 
-import type {FieldDataType} from './type';
-
-type FormGeneratorImportedFieldDataType = {[key: string]: $Shape<FieldDataType>};
+import type {FieldDataType, FormGeneratorImportedFieldDataType} from './form-generator-type';
 
 export function extendFieldList(
     fieldList: Array<FieldDataType>,

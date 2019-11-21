@@ -13,7 +13,10 @@ import {FormButton} from '../../component/layout/form-button/c-form-button';
 import type {MongoDocumentType} from '../../../../server/src/db/type';
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.scss';
 import {isError} from '../../lib/is';
-import type {FormGeneratorConfigType, FormGeneratorFormDataType} from '../../component/layout/form-generator/type';
+import type {
+    FormGeneratorConfigType,
+    FormGeneratorFormDataType,
+} from '../../component/layout/form-generator/form-generator-type';
 import type {SnackbarContextType} from '../../provider/snackbar/snackbar-context-type';
 import {routePathMap} from '../../component/app/routes-path-map';
 
