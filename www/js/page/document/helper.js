@@ -17,7 +17,7 @@ import {InputIntNumber} from '../../component/layout/form-generator/field/input-
 import {InputCheckbox} from '../../component/layout/form-generator/field/input-checkbox/c-input-checkbox';
 import {FieldSet} from '../../component/layout/form-generator/field/field-set/field-set';
 import {typeConverter} from '../../lib/type';
-import type {MongoDocumentType, MongoDocumentTypeType} from '../../../../server/src/db/type';
+import type {MongoDocumentType} from '../../../../server/src/db/type';
 import {mongoDocumentTypeMap} from '../../../../server/src/db/type';
 import {getSlug, stringToUniqArray} from '../../lib/string';
 import {InputUploadImage} from '../../component/layout/form-generator/field/input-upload-image/c-input-upload-image';
@@ -26,20 +26,7 @@ import {uploadImage, uploadImageList} from '../image/image-api';
 import {promiseCatch} from '../../lib/promise';
 import {fileApiConst} from '../../../../server/src/api/file-const';
 
-export type FormDataMongoDocumentType = {
-    +slug: string,
-    +titleImage: string | File | null,
-    +type: MongoDocumentTypeType,
-    +title: string,
-    +content: string,
-    // +createdDate: number,
-    // +updatedDate: number,
-    +subDocumentList: string, // list of slug
-    +tagList: string,
-    +rating: number,
-    +isActive: boolean,
-    +imageList: Array<string>,
-};
+import type {FormDataMongoDocumentType} from './document-type';
 
 function extractImage(inputValue: FromGeneratorInputValueType): Promise<Error | string> {
     if (isString(inputValue)) {
