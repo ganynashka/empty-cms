@@ -18,7 +18,7 @@ import type {SnackbarContextType} from '../../provider/snackbar/snackbar-context
 import {routePathMap} from '../../component/app/routes-path-map';
 
 import {createDocument} from './document-api';
-import {formDataToMongoDocument, getDocumentFormConfig} from './helper';
+import {formDataToMongoDocument, getDocumentFormConfig} from './document-helper';
 
 type PropsType = {
     +snackbarPortalContext: SnackbarContextType,

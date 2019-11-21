@@ -2,7 +2,7 @@
 
 import {cleanText} from '../component/layout/form-generator/field/input-text/input-text-helper';
 
-import {hasProperty} from './is';
+import {hasProperty, isString} from './is';
 
 const cyrillicToLatinMap = {
     /* eslint-disable id-length, id-match */
@@ -124,4 +124,20 @@ export function getHashFileName(startFileName: string, md5: string): string {
 
 export function getNoHashFileName(startFileName: string): string {
     return startFileName.replace(/--hash__[\S\s]+__--/, '');
+}
+
+export function extractUniqueArrayString(inputValue: mixed): Array<string> {
+    const arrayString: Array<string> = [];
+
+    if (!Array.isArray(inputValue)) {
+        return arrayString;
+    }
+
+    inputValue.forEach((value: mixed) => {
+        if (isString(value) && !arrayString.includes(value)) {
+            arrayString.push(value);
+        }
+    });
+
+    return arrayString;
 }

@@ -18,9 +18,10 @@ import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 import {Spinner} from '../../component/layout/spinner/c-spinner';
 import type {SnackbarContextType} from '../../provider/snackbar/snackbar-context-type';
 import {routePathMap} from '../../component/app/routes-path-map';
+import {extractUniqueArrayString} from '../../lib/string';
 
 import {documentSearchExact, getDocumentParentList, updateDocument} from './document-api';
-import {extractUniqueArrayString, formDataToMongoDocument, getDocumentFormConfig} from './helper';
+import {formDataToMongoDocument, getDocumentFormConfig} from './document-helper';
 
 type PropsType = {
     +match: MatchType | null,

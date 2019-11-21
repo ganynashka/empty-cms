@@ -19,7 +19,7 @@ import {FieldSet} from '../../component/layout/form-generator/field/field-set/fi
 import {typeConverter} from '../../lib/type';
 import type {MongoDocumentType} from '../../../../server/src/db/type';
 import {mongoDocumentTypeMap} from '../../../../server/src/db/type';
-import {getSlug, stringToUniqArray} from '../../lib/string';
+import {getSlug, stringToUniqArray, extractUniqueArrayString} from '../../lib/string';
 import {InputUploadImage} from '../../component/layout/form-generator/field/input-upload-image/c-input-upload-image';
 import {isError, isFile, isNull, isString} from '../../lib/is';
 import {uploadImage, uploadImageList} from '../image/image-api';
@@ -54,22 +54,6 @@ function extractImage(inputValue: FromGeneratorInputValueType): Promise<Error | 
             return uploadResult[0];
         })
         .catch(promiseCatch);
-}
-
-export function extractUniqueArrayString(inputValue: mixed): Array<string> {
-    const arrayString: Array<string> = [];
-
-    if (!Array.isArray(inputValue)) {
-        return arrayString;
-    }
-
-    inputValue.forEach((value: mixed) => {
-        if (isString(value) && !arrayString.includes(value)) {
-            arrayString.push(value);
-        }
-    });
-
-    return arrayString;
 }
 
 export async function formDataToMongoDocument(formData: FormGeneratorFormDataType): Promise<Error | MongoDocumentType> {

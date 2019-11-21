@@ -6,7 +6,7 @@ import type {InputComponentOnChangeType, InputComponentPropsType, FromGeneratorI
 import {InputUploadImage} from '../input-upload-image/c-input-upload-image';
 import {isFile, isString} from '../../../../../lib/is';
 import fieldStyle from '../field.scss';
-import {extractUniqueArrayString} from '../../../../../page/document/helper';
+import {extractUniqueArrayString} from '../../../../../lib/string';
 
 import inputUploadImageListStyle from './input-upload-image-list.scss';
 
