@@ -10,7 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import {FormGenerator} from '../../component/layout/form-generator/form-generator';
 import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../component/layout/form-button/c-form-button';
-import type {MongoDocumentType} from '../../../../server/src/db/type';
+import type {MongoDocumentType} from '../../../../server/src/database/database-type';
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.scss';
 import {isError} from '../../lib/is';
 import type {

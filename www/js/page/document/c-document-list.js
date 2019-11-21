@@ -3,7 +3,7 @@
 import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
-import type {MongoDocumentType} from '../../../../server/src/db/type';
+import type {MongoDocumentType} from '../../../../server/src/database/database-type';
 import {EnhancedTable} from '../../component/layout/table/enhanced-table/c-enhanced-table';
 import {timeToHumanString} from '../../../../server/src/util/time';
 import {routePathMap} from '../../component/app/routes-path-map';

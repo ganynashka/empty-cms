@@ -10,7 +10,7 @@ import imageminPngquant from 'imagemin-pngquant';
 import imageminJpegtran from 'imagemin-jpegtran';
 
 import {isError, isObject} from '../../../www/js/lib/is';
-import {fileApiConst} from '../api/file-const';
+import {fileApiConst} from '../api/part/file-api-const';
 import {cwd} from '../../../webpack/config';
 import {promiseCatch} from '../../../www/js/lib/promise';
 import {getHashFileName} from '../../../www/js/lib/string';

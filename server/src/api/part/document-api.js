@@ -2,15 +2,15 @@
 
 import {type $Application, type $Request, type $Response} from 'express';
 
-import {typeConverter} from '../../../www/js/lib/type';
-import {getCollection} from '../db/util';
-import type {MongoDocumentType} from '../db/type';
-import {dataBaseConst} from '../db/const';
-import {getTime} from '../util/time';
-import {isError} from '../../../www/js/lib/is';
+import {typeConverter} from '../../../../www/js/lib/type';
+import {getCollection} from '../../database/database-helper';
+import type {MongoDocumentType} from '../../database/database-type';
+import {dataBaseConst} from '../../database/database-const';
+import {getTime} from '../../util/time';
+import {isError} from '../../../../www/js/lib/is';
 
-import {getListParameters, getSearchExactParameters, streamOptionsArray} from './helper';
-import {documentApiRouteMap} from './route-map';
+import {getListParameters, getSearchExactParameters, streamOptionsArray} from '../api-helper';
+import {documentApiRouteMap} from '../api-route-map';
 
 export function addDocumentApi(app: $Application) {
     app.get(documentApiRouteMap.getDocumentList, async (request: $Request, response: $Response) => {

@@ -1,6 +1,6 @@
 // @flow
 
-import type {MongoUserFrontType} from '../../../../server/src/db/type';
+import type {MongoUserFrontType} from '../../../../server/src/database/database-type';
 import type {MainServerApiResponseType} from '../../type/response';
 
 export type UserContextConsumerType = {|

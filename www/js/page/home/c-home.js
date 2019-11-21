@@ -2,7 +2,7 @@
 
 import React, {Component, type Node} from 'react';
 
-import {fileApiRouteMap} from '../../../../server/src/api/route-map';
+import {fileApiRouteMap} from '../../../../server/src/api/api-route-map';
 
 import homeStyle from './home.scss';
 

@@ -7,15 +7,16 @@ import sharp from 'sharp';
 import {type $Application, type $Request, type $Response} from 'express';
 import {type ExpressFormDataFileType} from 'express-fileupload';
 
-import {compressImage, getFormDataFileList, getIsFileExists, saveFile} from '../util/file';
-import {cwd} from '../../../webpack/config';
-import {promiseCatch} from '../../../www/js/lib/promise';
-import {isError, isString} from '../../../www/js/lib/is';
-import {getSlug} from '../../../www/js/lib/string';
+import {compressImage, getFormDataFileList, getIsFileExists, saveFile} from '../../util/file';
+import {cwd} from '../../../../webpack/config';
+import {promiseCatch} from '../../../../www/js/lib/promise';
+import {isError, isString} from '../../../../www/js/lib/is';
+import {getSlug} from '../../../../www/js/lib/string';
 
-import {fileApiConst} from './file-const';
-import {fileApiRouteMap} from './route-map';
-import {getImageResizeParameters} from './helper';
+import {fileApiRouteMap} from '../api-route-map';
+import {getImageResizeParameters} from '../api-helper';
+
+import {fileApiConst} from './file-api-const';
 
 export function addFileApi(app: $Application) {
     fileSystem.mkdir(path.join(cwd, fileApiConst.pathToUploadFiles), (): null => null);

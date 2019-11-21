@@ -2,8 +2,8 @@
 
 /* global window */
 
-import type {MongoUserFrontType} from '../../../../server/src/db/type';
-import {userApiRouteMap} from '../../../../server/src/api/route-map';
+import type {MongoUserFrontType} from '../../../../server/src/database/database-type';
+import {userApiRouteMap} from '../../../../server/src/api/api-route-map';
 import {promiseCatch} from '../../lib/promise';
 import type {MainServerApiResponseType} from '../../type/response';
 

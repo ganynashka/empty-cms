@@ -3,7 +3,7 @@
 import React, {Component, type Node} from 'react';
 import TreeItem from '@material-ui/lab/TreeItem';
 
-import type {MongoDocumentType} from '../../../../../server/src/db/type';
+import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
 import {documentSearchExact} from '../../../page/document/document-api';
 import {typeConverter} from '../../../lib/type';
 import {routePathMap} from '../../app/routes-path-map';

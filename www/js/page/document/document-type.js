@@ -1,6 +1,6 @@
 // @flow
 
-import type {MongoDocumentTypeType} from '../../../../server/src/db/type';
+import type {MongoDocumentTypeType} from '../../../../server/src/database/database-type';
 
 export type FormDataMongoDocumentType = {
     +slug: string,

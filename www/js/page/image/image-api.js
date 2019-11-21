@@ -2,8 +2,8 @@
 
 /* global FormData, window */
 
-import {fileApiRouteMap} from '../../../../server/src/api/route-map';
-import {fileApiConst} from '../../../../server/src/api/file-const';
+import {fileApiRouteMap} from '../../../../server/src/api/api-route-map';
+import {fileApiConst} from '../../../../server/src/api/part/file-api-const';
 import {promiseCatch} from '../../lib/promise';
 import type {MainServerApiResponseType} from '../../type/response';
 import {isError} from '../../lib/is';

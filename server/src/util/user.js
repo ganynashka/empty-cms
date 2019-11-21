@@ -2,9 +2,9 @@
 
 import crypto from 'crypto';
 
-import type {MongoUserType} from '../db/type';
-import {getCollection} from '../db/util';
-import {dataBaseConst} from '../db/const';
+import type {MongoUserType} from '../database/database-type';
+import {getCollection} from '../database/database-helper';
+import {dataBaseConst} from '../database/database-const';
 import {passwordKey} from '../../key';
 import {isError} from '../../../www/js/lib/is';
 

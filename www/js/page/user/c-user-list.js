@@ -2,7 +2,7 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {MongoUserType} from '../../../../server/src/db/type';
+import type {MongoUserType} from '../../../../server/src/database/database-type';
 import {EnhancedTable} from '../../component/layout/table/enhanced-table/c-enhanced-table';
 import {timeToHumanString} from '../../../../server/src/util/time';
 import type {

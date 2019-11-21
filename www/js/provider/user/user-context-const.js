@@ -1,7 +1,7 @@
 // @flow
 
-import type {MongoUserFrontType} from '../../../../server/src/db/type';
-import {mongoUserRoleMap} from '../../../../server/src/db/type';
+import type {MongoUserFrontType} from '../../../../server/src/database/database-type';
+import {mongoUserRoleMap} from '../../../../server/src/database/database-const';
 import type {MainServerApiResponseType} from '../../type/response';
 
 export const defaultUserFrontState: MongoUserFrontType = {

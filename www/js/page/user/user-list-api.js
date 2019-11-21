@@ -2,10 +2,10 @@
 
 /* global fetch */
 
-import type {MongoUserType} from '../../../../server/src/db/type';
+import type {MongoUserType} from '../../../../server/src/database/database-type';
 import type {SortDirectionType} from '../../component/layout/table/enhanced-table/enhanced-table-type';
 import {getLisParametersToUrl} from '../../lib/url';
-import {userApiRouteMap} from '../../../../server/src/api/route-map';
+import {userApiRouteMap} from '../../../../server/src/api/api-route-map';
 
 export async function getUserList(
     pageIndex: number,

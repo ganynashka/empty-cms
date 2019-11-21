@@ -1,7 +1,5 @@
 // @flow
 
-/* global URL */
-
 export const dataBaseConst = {
     url: 'mongodb://localhost:27001,localhost:27002,localhost:27003,localhost:27004?replicaSet=MyBestReplica',
     name: 'main-db',
@@ -9,4 +7,9 @@ export const dataBaseConst = {
         user: 'user',
         document: 'document',
     },
+};
+
+export const mongoUserRoleMap = {
+    user: 'user',
+    admin: 'admin',
 };

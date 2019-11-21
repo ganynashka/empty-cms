@@ -27,7 +27,7 @@ import type {RouterStaticContextType} from './c-initial-data-context';
 import {defaultInitialData, type InitialDataType} from './c-initial-data-context';
 import {staticFilesList, stringForReplace} from './config';
 import {addApiIntoApplication} from './api/api';
-import {fileApiConst} from './api/file-const';
+import {fileApiConst} from './api/part/file-api-const';
 
 const {pathToUploadFiles} = fileApiConst;
 const PORT: number = ssrServerPort;

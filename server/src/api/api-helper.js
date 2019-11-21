@@ -1,25 +1,14 @@
 // @flow
 
 import {type $Request} from 'express';
-import {type MongoSortDirectionType} from 'mongodb';
 import {fit as sharpFit, type SharpResizeConfigType} from 'sharp';
 
-import {getSortDirection} from '../db/util';
+import {getSortDirection} from '../database/database-helper';
 import {hasProperty} from '../../../www/js/lib/is';
 
+import type {GetSearchExactParameterType, GetListParameterType} from './api-type';
+
 export const streamOptionsArray = {transform: (item: {}): string => JSON.stringify(item) + ','};
-
-export type GetListParameterType = {|
-    +pageIndex: number,
-    +pageSize: number,
-    +sortParameter: string,
-    +sortDirection: MongoSortDirectionType,
-|};
-
-export type GeSearchExactParameterType = {|
-    +key: string,
-    +value: string,
-|};
 
 export function getListParameters(request: $Request): GetListParameterType {
     const pageIndex = parseInt(request.query['page-index'], 10) || 0;
@@ -35,7 +24,7 @@ export function getListParameters(request: $Request): GetListParameterType {
     };
 }
 
-export function getSearchExactParameters(request: $Request): GeSearchExactParameterType {
+export function getSearchExactParameters(request: $Request): GetSearchExactParameterType {
     const key = String(request.query.key || '');
     const value = String(request.query.value || '');
 

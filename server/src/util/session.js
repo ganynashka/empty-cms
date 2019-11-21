@@ -2,8 +2,8 @@
 
 import {type $Request} from 'express';
 
-import type {MongoUserRoleType} from '../db/type';
-import {mongoUserRoleMap} from '../db/type';
+import type {MongoUserRoleType} from '../database/database-type';
+import {mongoUserRoleMap} from '../database/database-const';
 
 export type SessionType = {
     +login?: string,

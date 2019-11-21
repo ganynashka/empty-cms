@@ -7,7 +7,7 @@ import type {NullableType} from '../../../www/js/lib/type';
 import {hasProperty, isError} from '../../../www/js/lib/is';
 import {promiseCatch} from '../../../www/js/lib/promise';
 
-import {dataBaseConst} from './const';
+import {dataBaseConst} from './database-const';
 
 const getDataBaseCache: {[key: string]: Promise<MongoDataBase>} = {};
 

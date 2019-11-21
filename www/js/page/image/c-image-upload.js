@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Paper from '@material-ui/core/Paper';
 
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.scss';
-import {fileApiConst} from '../../../../server/src/api/file-const';
+import {fileApiConst} from '../../../../server/src/api/part/file-api-const';
 import {FormGenerator} from '../../component/layout/form-generator/form-generator';
 import type {
     FormGeneratorConfigType,

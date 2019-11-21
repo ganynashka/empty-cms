@@ -2,20 +2,20 @@
 
 import {type $Application, type $Request, type $Response} from 'express';
 
-import {typeConverter} from '../../../www/js/lib/type';
-import {getSession} from '../util/session';
-import {getCollection} from '../db/util';
-import type {MongoUserFrontType, MongoUserType} from '../db/type';
-import {mongoUserRoleMap} from '../db/type';
-import {dataBaseConst} from '../db/const';
-import {getTime} from '../util/time';
-import type {UserLoginPasswordType} from '../util/user';
-import {getPasswordSha256, getUserByLogin} from '../util/user';
-import {defaultUserFrontState} from '../../../www/js/provider/user/user-context-const';
-import {isError, isFunction} from '../../../www/js/lib/is';
+import {typeConverter} from '../../../../www/js/lib/type';
+import {getSession} from '../../util/session';
+import {getCollection} from '../../database/database-helper';
+import type {MongoUserFrontType, MongoUserType} from '../../database/database-type';
+import {mongoUserRoleMap, dataBaseConst} from '../../database/database-const';
 
-import {getListParameters, streamOptionsArray} from './helper';
-import {userApiRouteMap} from './route-map';
+import {getTime} from '../../util/time';
+import type {UserLoginPasswordType} from '../../util/user';
+import {getPasswordSha256, getUserByLogin} from '../../util/user';
+import {defaultUserFrontState} from '../../../../www/js/provider/user/user-context-const';
+import {isError, isFunction} from '../../../../www/js/lib/is';
+
+import {getListParameters, streamOptionsArray} from '../api-helper';
+import {userApiRouteMap} from '../api-route-map';
 
 export function addUserApi(app: $Application) {
     app.get(userApiRouteMap.getCurrentUser, async (request: $Request, response: $Response) => {

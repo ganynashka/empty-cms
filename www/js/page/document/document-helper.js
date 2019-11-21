@@ -17,14 +17,14 @@ import {InputIntNumber} from '../../component/layout/form-generator/field/input-
 import {InputCheckbox} from '../../component/layout/form-generator/field/input-checkbox/c-input-checkbox';
 import {FieldSet} from '../../component/layout/form-generator/field/field-set/field-set';
 import {typeConverter} from '../../lib/type';
-import type {MongoDocumentType} from '../../../../server/src/db/type';
-import {mongoDocumentTypeMap} from '../../../../server/src/db/type';
+import type {MongoDocumentType} from '../../../../server/src/database/database-type';
+import {mongoDocumentTypeMap} from '../../../../server/src/database/database-type';
 import {getSlug, stringToUniqArray, extractUniqueArrayString} from '../../lib/string';
 import {InputUploadImage} from '../../component/layout/form-generator/field/input-upload-image/c-input-upload-image';
 import {isError, isFile, isNull, isString} from '../../lib/is';
 import {uploadImage, uploadImageList} from '../image/image-api';
 import {promiseCatch} from '../../lib/promise';
-import {fileApiConst} from '../../../../server/src/api/file-const';
+import {fileApiConst} from '../../../../server/src/api/part/file-api-const';
 
 import type {FormDataMongoDocumentType} from './document-type';
 

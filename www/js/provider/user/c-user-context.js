@@ -6,7 +6,7 @@ import React, {Component, type Node} from 'react';
 
 import {isError} from '../../lib/is';
 import type {MainServerApiResponseType} from '../../type/response';
-import type {MongoUserFrontType} from '../../../../server/src/db/type';
+import type {MongoUserFrontType} from '../../../../server/src/database/database-type';
 
 import type {UserContextConsumerType} from './user-context-type';
 import {getCurrentUser, login, register} from './user-context-api';
