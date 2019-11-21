@@ -23,6 +23,7 @@ import {FieldSet} from '../../component/layout/form-generator/field/field-set/fi
 import {InputText} from '../../component/layout/form-generator/field/input-text/c-input-text';
 import {InputPassword} from '../../component/layout/form-generator/field/input-password/c-input-text';
 import {routePathMap} from '../../component/app/routes-path-map';
+import type {RouterHistoryType} from '../../type/react-router-dom-v5-type-extract';
 
 export const loginPasswordFormConfig: FormGeneratorConfigType = {
     fieldSetList: [
@@ -57,6 +58,7 @@ export const loginPasswordFormConfig: FormGeneratorConfigType = {
 };
 
 type PropsType = {
+    +history: RouterHistoryType,
     +userContextData: UserContextConsumerType,
     +snackbarContext: SnackbarContextType,
 };
@@ -74,7 +76,7 @@ export class Register extends Component<PropsType, StateType> {
     handleFormSubmit = async (formData: FormGeneratorFormDataType) => {
         const {props} = this;
         const {login, password} = formData;
-        const {snackbarContext, userContextData} = props;
+        const {snackbarContext, userContextData, history} = props;
         const snackBarId = 'register-snack-bar-id-' + String(Date.now());
         const {showSnackbar} = snackbarContext;
 
@@ -97,9 +99,9 @@ export class Register extends Component<PropsType, StateType> {
             return;
         }
 
-        await showSnackbar({children: 'You register successfully!', variant: 'success'}, snackBarId);
+        history.push(routePathMap.home.path);
 
-        window.location.href = routePathMap.home.path;
+        await showSnackbar({children: 'You register successfully!', variant: 'success'}, snackBarId);
     };
 
     renderFormFooter(): Node {

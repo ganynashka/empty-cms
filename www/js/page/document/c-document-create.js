@@ -19,11 +19,13 @@ import type {
 } from '../../component/layout/form-generator/form-generator-type';
 import type {SnackbarContextType} from '../../provider/snackbar/snackbar-context-type';
 import {routePathMap} from '../../component/app/routes-path-map';
+import type {RouterHistoryType} from '../../type/react-router-dom-v5-type-extract';
 
 import {createDocument} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './document-helper';
 
 type PropsType = {
+    +history: RouterHistoryType,
     +snackbarContext: SnackbarContextType,
 };
 type StateType = null;
@@ -33,7 +35,7 @@ const formConfig: FormGeneratorConfigType = getDocumentFormConfig();
 export class DocumentCreate extends Component<PropsType, StateType> {
     handleFormSubmit = async (formData: FormGeneratorFormDataType) => {
         const {props} = this;
-        const {snackbarContext} = props;
+        const {snackbarContext, history} = props;
         const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());
         const {showSnackbar} = snackbarContext;
 
@@ -56,9 +58,7 @@ export class DocumentCreate extends Component<PropsType, StateType> {
             return;
         }
 
-        window.setTimeout(() => {
-            window.location.href = routePathMap.documentEdit.staticPartPath + '/' + endDocumentData.slug;
-        }, 3e3);
+        history.push(routePathMap.documentEdit.staticPartPath + '/' + endDocumentData.slug);
 
         await showSnackbar({children: 'Document has been created!', variant: 'success'}, snackBarId);
     };

@@ -4,7 +4,7 @@ import React, {type Node} from 'react';
 import {CSSTransition} from 'react-transition-group';
 import {Redirect, Route} from 'react-router-dom';
 
-import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
+import type {MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
 import {PageWrapper} from '../../page-wrapper/c-page-wrapper';
 import type {PopupContextType} from '../../../provider/popup/popup-context-type';
 import {PopupContextConsumer} from '../../../provider/popup/c-popup-context';
@@ -28,8 +28,8 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
 
     return (
         <Route exact key={path} path={path}>
-            {(contextRouterData: {match: MatchType | null}): Node => {
-                const {match} = contextRouterData;
+            {(contextRouterData: {match: MatchType | null, history: RouterHistoryType}): Node => {
+                const {match, history} = contextRouterData;
 
                 return (
                     <CSSTransition
@@ -50,6 +50,7 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                                                         return (
                                                             <PageWrapper>
                                                                 <PageComponent
+                                                                    history={history}
                                                                     match={match}
                                                                     popupContext={popupContextData}
                                                                     snackbarContext={snackbarContextData}

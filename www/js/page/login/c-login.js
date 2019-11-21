@@ -17,8 +17,10 @@ import type {UserContextConsumerType} from '../../provider/user/user-context-typ
 import type {SnackbarContextType} from '../../provider/snackbar/snackbar-context-type';
 import {loginPasswordFormConfig} from '../register/c-register';
 import {routePathMap} from '../../component/app/routes-path-map';
+import type {RouterHistoryType} from '../../type/react-router-dom-v5-type-extract';
 
 type PropsType = {
+    +history: RouterHistoryType,
     +userContextData: UserContextConsumerType,
     +snackbarContext: SnackbarContextType,
 };
@@ -35,8 +37,8 @@ export class Login extends Component<PropsType, StateType> {
 
     handleFormSubmit = async (formData: FormGeneratorFormDataType) => {
         const {props} = this;
+        const {snackbarContext, userContextData, history} = props;
         const {login, password} = formData;
-        const {snackbarContext, userContextData} = props;
         const snackBarId = 'login-snack-bar-id-' + String(Date.now());
         const {showSnackbar} = snackbarContext;
 
@@ -47,9 +49,9 @@ export class Login extends Component<PropsType, StateType> {
             return;
         }
 
-        await showSnackbar({children: 'You login successfully!', variant: 'success'}, snackBarId);
+        history.push(routePathMap.home.path);
 
-        window.location.href = routePathMap.home.path;
+        await showSnackbar({children: 'You login successfully!', variant: 'success'}, snackBarId);
     };
 
     renderFormFooter(): Node {

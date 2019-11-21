@@ -20,7 +20,7 @@ export type LocationShapeType = {
 export type HistoryActionType = 'PUSH' | 'REPLACE' | 'POP';
 
 export type RouterHistoryType = {
-    length: number | void, // WARNING: in original file -> "length: number",
+    length: number, // WARNING: in original file -> "length: number",
     location: LocationType,
     action: HistoryActionType,
     listen(callback: (location: LocationType, action: HistoryActionType) => void): () => void,
