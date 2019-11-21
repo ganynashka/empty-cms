@@ -5,18 +5,11 @@ import React, {Component, type Node} from 'react';
 import {isString} from '../../../lib/is';
 
 import buttonListWrapperStyle from './button-list-wrapper.scss';
-
-type DirectionType = 'center' | 'column' | 'left' | 'right';
-
-const directionClassNameMap: {+[key: DirectionType]: string} = {
-    center: buttonListWrapperStyle.button_list_wrapper__center,
-    column: buttonListWrapperStyle.button_list_wrapper__column,
-    left: buttonListWrapperStyle.button_list_wrapper__left,
-    right: buttonListWrapperStyle.button_list_wrapper__right,
-};
+import type {ButtonListDirectionType} from './button-list-wrapper-type';
+import {buttonWrapperDirectionClassNameMap} from './button-list-wrapper-const';
 
 type PropsType = {|
-    +direction: DirectionType,
+    +direction: ButtonListDirectionType,
     +children: Node,
     +className?: string,
 |};
@@ -24,18 +17,12 @@ type PropsType = {|
 type StateType = null;
 
 export class ButtonListWrapper extends Component<PropsType, StateType> {
-    constructor(props: PropsType) {
-        super(props);
-
-        this.state = null;
-    }
-
     getClassName(): string {
         const {props} = this;
         const {direction, className} = props;
 
         const defaultClassName = buttonListWrapperStyle.button_list_wrapper;
-        const directionClass = ' ' + directionClassNameMap[direction];
+        const directionClass = ' ' + buttonWrapperDirectionClassNameMap[direction];
         const additionalClassName = isString(className) ? ' ' + className : '';
 
         return defaultClassName + directionClass + additionalClassName;
