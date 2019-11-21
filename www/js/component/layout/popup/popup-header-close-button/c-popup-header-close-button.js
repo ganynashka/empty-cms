@@ -1,7 +1,6 @@
 // @flow
 
-import type {Node} from 'react';
-import React from 'react';
+import React, {type Node} from 'react';
 
 import popupHeaderCloseButtonStyle from './popup-header-close-button.style.scss';
 

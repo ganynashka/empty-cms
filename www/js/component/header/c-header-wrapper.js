@@ -1,6 +1,6 @@
 // @flow
 
-import React, {Component, type Node} from 'react';
+import React, {type Node} from 'react';
 
 import {UserContextConsumer} from '../user/c-user-context';
 import type {UserContextConsumerType} from '../user/type-user-context';

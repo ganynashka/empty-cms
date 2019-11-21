@@ -3,12 +3,10 @@
 import React, {Component, type Node} from 'react';
 
 import {hasProperty, isFunction} from '../../../lib/is';
-import {SnackbarPortalContextConsumer} from '../snackbar/snackbar-portal/c-snackbar-portal';
 import type {SnackbarPortalContextType} from '../snackbar/snackbar-portal/c-snackbar-portal';
-
-import {PopupPortalContextConsumer} from '../popup/popup-portal/c-popup-portal';
-
+import {SnackbarPortalContextConsumer} from '../snackbar/snackbar-portal/c-snackbar-portal';
 import type {PopupPortalContextType} from '../popup/popup-portal/c-popup-portal';
+import {PopupPortalContextConsumer} from '../popup/popup-portal/c-popup-portal';
 
 import fieldStyle from './field/field.style.scss';
 

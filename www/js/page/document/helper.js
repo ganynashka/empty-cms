@@ -8,7 +8,6 @@ import type {
     FormGeneratorConfigType,
     FormGeneratorFormDataType,
     InputValueType,
-    PrimitiveInputValueType,
 } from '../../component/layout/form-generator/type';
 import {InputText} from '../../component/layout/form-generator/field/input-text/c-input-text';
 import {getIsRequired, noValidate} from '../../component/layout/form-generator/validate/validate';

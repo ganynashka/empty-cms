@@ -12,14 +12,13 @@ import type {
     FormGeneratorConfigType,
     FormGeneratorFormDataType,
     InputValueType,
-    PrimitiveInputValueType,
 } from '../../component/layout/form-generator/type';
 import {getIsRequired} from '../../component/layout/form-generator/validate/validate';
 import {FieldSet} from '../../component/layout/form-generator/field/field-set/field-set';
 import {InputFileList} from '../../component/layout/form-generator/field/input-file-list/c-input-file-list';
 import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../component/layout/form-button/c-form-button';
-import {isError, isFile, isString} from '../../lib/is';
+import {isError, isFile} from '../../lib/is';
 import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
 
 import {uploadImageList} from './image-api';

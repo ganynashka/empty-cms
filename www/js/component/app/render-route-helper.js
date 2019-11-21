@@ -2,8 +2,7 @@
 
 /* eslint react/no-multi-comp: 0 */
 
-import type {Node} from 'react';
-import React from 'react';
+import React, {type Node} from 'react';
 import {CSSTransition} from 'react-transition-group';
 import {Link, Redirect, Route} from 'react-router-dom';
 

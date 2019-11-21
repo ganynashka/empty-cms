@@ -1,6 +1,6 @@
 // @flow
 
-import type {InputValueType, FormGeneratorFormDataType} from '../type';
+import type {FormGeneratorFormDataType, InputValueType} from '../type';
 import {isBoolean, isNull, isNumber, isString} from '../../../../lib/is';
 
 export function noValidate(name: string, value: InputValueType, formData: FormGeneratorFormDataType): Array<Error> {

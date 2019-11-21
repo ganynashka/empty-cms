@@ -1,7 +1,6 @@
 // @flow
 
-import type {Node} from 'react';
-import React, {Component} from 'react';
+import React, {Component, type Node} from 'react';
 
 type PassedPropsType = {|
     +load: () => Promise<Node | Array<Node>>,

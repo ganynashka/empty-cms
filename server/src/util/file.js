@@ -13,7 +13,6 @@ import {isError, isObject} from '../../../www/js/lib/is';
 import {fileApiConst} from '../api/file-const';
 import {cwd} from '../../../webpack/config';
 import {promiseCatch} from '../../../www/js/lib/promise';
-import {getSlug} from '../../../www/js/lib/string';
 
 import {getHashFileName} from './string';
 

@@ -2,7 +2,7 @@
 
 import {type $Request} from 'express';
 import {type MongoSortDirectionType} from 'mongodb';
-import {type SharpResizeConfigType, fit as sharpFit} from 'sharp';
+import {fit as sharpFit, type SharpResizeConfigType} from 'sharp';
 
 import {getSortDirection} from '../db/util';
 import {hasProperty} from '../../../www/js/lib/is';

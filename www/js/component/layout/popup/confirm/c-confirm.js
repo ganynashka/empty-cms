@@ -1,7 +1,6 @@
 // @flow
 
-import type {Node} from 'react';
-import React, {Component} from 'react';
+import React, {Component, type Node} from 'react';
 
 import type {PopupPortalContextType} from '../popup-portal/c-popup-portal';
 import {PopupPortalContextConsumer} from '../popup-portal/c-popup-portal';

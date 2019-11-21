@@ -1,13 +1,6 @@
 // @flow
 
-// import type {Node} from 'react';
-// import React, {Component} from 'react';
-
-// import type {PassedPopupHeaderPropsType} from '../popup-header/c-popup-header';
 import type {HidePopupByIdType} from '../popup-portal/c-popup-portal';
-// import {PopupHeader} from '../popup-header/c-popup-header';
-// import {PopupContent} from '../popup-content/c-popup-content';
-// import type {PassedPopupContentPropsType} from '../popup-content/c-popup-content';
 
 export function createHandler(
     handler: HidePopupByIdType,

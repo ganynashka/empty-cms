@@ -8,7 +8,6 @@ import {documentSearchExact} from '../../../page/document/document-api';
 import {typeConverter} from '../../../lib/type';
 import {routePathMap} from '../../app/routes-path-map';
 import {stopPropagation} from '../../../lib/event';
-
 import {isError} from '../../../lib/is';
 
 import documentTreeStyle from './document-tree.style.scss';
