@@ -2,8 +2,8 @@
 
 import React, {type Node} from 'react';
 
-import {UserContextConsumer} from '../user/c-user-context';
-import type {UserContextConsumerType} from '../user/type-user-context';
+import {UserContextConsumer} from '../../provider/user/c-user-context';
+import type {UserContextConsumerType} from '../../provider/user/user-context-type';
 
 import {Header} from './c-header';
 

@@ -2,18 +2,17 @@
 
 import React, {type Node} from 'react';
 
-import type {ValueMapType} from './locale-helper';
-import {getLocalizedString} from './locale-helper';
+import type {LocaleContextValueMapType, LocaleContextType} from './locale-context-type';
+import {getLocalizedString} from './locale-context-helper';
 import type {LangKeyType} from './translation/type';
-import type {LocaleContextType} from './c-locale-context';
 import {LocaleContextConsumer} from './c-locale-context';
 
-type LocalePropsType = {|
+type PropsType = {|
     +stringKey: LangKeyType,
-    +valueMap?: ValueMapType,
+    +valueMap?: LocaleContextValueMapType,
 |};
 
-export function Locale(props: LocalePropsType): Node {
+export function Locale(props: PropsType): Node {
     const {stringKey, valueMap} = props;
 
     return (

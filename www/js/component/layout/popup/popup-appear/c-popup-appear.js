@@ -5,8 +5,8 @@ import className from 'classnames';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 import type {PopupPropsType} from '../type';
-import {ScreenContextConsumer} from '../../../screen/c-screen-context';
-import type {ScreenContextType} from '../../../screen/screen-helper';
+import {ScreenContextConsumer} from '../../../../provider/screen/c-screen-context';
+import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
 
 import popupAppearStyle from './popup-appear.scss';
 

@@ -2,13 +2,9 @@
 
 /* global localStorage, navigator */
 
-import type {LocaleNameType} from './const';
-import {allLocalesData, localeConst, localeNameList} from './const';
+import {allLocalesData, localeConst, localeNameList} from './locale-context-const';
 import type {LangKeyType} from './translation/type';
-
-export type ValueMapType = {
-    [key: string]: string | number,
-};
+import type {LocaleNameType, LocaleContextValueMapType, LocaleContextType} from './locale-context-type';
 
 export function getLocaleName(): LocaleNameType {
     if (typeof localStorage === 'undefined' || typeof navigator === 'undefined') {
@@ -58,7 +54,7 @@ export function setLocaleName(localeName: LocaleNameType): LocaleNameType {
     return localeName;
 }
 
-function replacePlaceholderMap(rawString: string, valueMap: ValueMapType): string {
+function replacePlaceholderMap(rawString: string, valueMap: LocaleContextValueMapType): string {
     let resultString = rawString;
 
     Object.keys(valueMap).forEach((valueKey: string) => {
@@ -71,9 +67,17 @@ function replacePlaceholderMap(rawString: string, valueMap: ValueMapType): strin
 export function getLocalizedString(
     stringKey: LangKeyType,
     localeName: LocaleNameType,
-    valueMap?: ValueMapType
+    valueMap?: LocaleContextValueMapType
 ): string {
     const resultString = allLocalesData[localeName][stringKey];
 
     return valueMap ? replacePlaceholderMap(resultString, valueMap) : resultString;
+}
+
+export function getDefaultLocaleContextData(): LocaleContextType {
+    return {
+        name: getLocaleName(),
+        setName: (localeName: LocaleNameType): null => null,
+        getLocalizedString: (stringKey: LangKeyType, valueMap?: LocaleContextValueMapType): string => stringKey,
+    };
 }

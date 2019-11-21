@@ -2,19 +2,7 @@
 
 /* global document */
 
-export type ScreenWidthNameType = 'desktop' | 'tablet' | 'mobile';
-
-export type ScreenContextType = {|
-    +width: number,
-    +height: number,
-    +name: ScreenWidthNameType,
-    +isDesktop: boolean,
-    +isTablet: boolean,
-    +isMobile: boolean,
-    +littleThenList: Array<ScreenWidthNameType>,
-    +isLandscape: boolean,
-    +isPortrait: boolean,
-|};
+import type {ScreenWidthNameType, ScreenContextType} from './screen-context-type';
 
 const screenMinWidth: {[key: ScreenWidthNameType]: number} = {
     desktop: 1280,

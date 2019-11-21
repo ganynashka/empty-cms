@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import {routeItemMap} from '../app/routes';
-import type {UserContextConsumerType} from '../user/type-user-context';
+import type {UserContextConsumerType} from '../../provider/user/user-context-type';
 
 import headerStyle from './header.scss';
 

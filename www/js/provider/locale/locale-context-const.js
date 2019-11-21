@@ -4,8 +4,7 @@ import {enUs} from './translation/en-us/data';
 import {ruRu} from './translation/ru-ru/data';
 import {zhCn} from './translation/zh-cn/data';
 import {zhTw} from './translation/zh-tw/data';
-
-export type LocaleNameType = 'en-US' | 'ru-RU' | 'zh-CN' | 'zh-TW';
+import type {LocaleNameType} from './locale-context-type';
 
 export const localeNameReference = {
     enUs: 'en-US',

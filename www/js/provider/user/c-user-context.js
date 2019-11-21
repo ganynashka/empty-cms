@@ -8,20 +8,11 @@ import {isError} from '../../lib/is';
 import type {MainServerApiResponseType} from '../../type/response';
 import type {MongoUserFrontType} from '../../../../server/src/db/type';
 
-import type {UserContextConsumerType} from './type-user-context';
-import {getCurrentUser, login, register} from './api-user-context';
-import {defaultUserFrontState} from './const-user-context';
+import type {UserContextConsumerType} from './user-context-type';
+import {getCurrentUser, login, register} from './user-context-api';
+import {defaultUserContextData} from './user-context-const';
 
-const defaultContextData = {
-    user: defaultUserFrontState,
-    login: (userLogin: string, userPassword: string): Promise<MongoUserFrontType | Error> =>
-        Promise.resolve(defaultUserFrontState),
-    register: (userLogin: string, userPassword: string): Promise<MainServerApiResponseType | Error> =>
-        Promise.resolve(new Error('You should override this method')),
-};
-
-const userContext = React.createContext<UserContextConsumerType>(defaultContextData);
-
+const userContext = React.createContext<UserContextConsumerType>(defaultUserContextData);
 const UserContextProvider = userContext.Provider;
 
 export const UserContextConsumer = userContext.Consumer;
@@ -39,7 +30,7 @@ export class UserProvider extends Component<PropsType, StateType> {
         super(props);
 
         this.state = {
-            providedData: defaultContextData,
+            providedData: defaultUserContextData,
         };
     }
 

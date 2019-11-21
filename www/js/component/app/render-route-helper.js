@@ -13,8 +13,8 @@ import type {PopupPortalContextType} from '../layout/popup/popup-portal/c-popup-
 import {PopupPortalContextConsumer} from '../layout/popup/popup-portal/c-popup-portal';
 import type {SnackbarPortalContextType} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
 import {SnackbarPortalContextConsumer} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
-import type {UserContextConsumerType} from '../user/type-user-context';
-import {UserContextConsumer} from '../user/c-user-context';
+import type {UserContextConsumerType} from '../../provider/user/user-context-type';
+import {UserContextConsumer} from '../../provider/user/c-user-context';
 
 export type RouteItemType = {|
     +path: string,

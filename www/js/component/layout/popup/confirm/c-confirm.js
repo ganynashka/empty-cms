@@ -9,7 +9,7 @@ import {PopupHeader} from '../popup-header/c-popup-header';
 import type {PassedPopupContentPropsType} from '../popup-content/c-popup-content';
 import {PopupContent} from '../popup-content/c-popup-content';
 import {FormButton} from '../../form-button/c-form-button';
-import {Locale} from '../../../locale/c-locale';
+import {Locale} from '../../../../provider/locale/c-locale';
 import {ButtonListWrapper} from '../../button-list-wrapper/c-button-list-wrapper';
 import type {PopupPropsType} from '../type';
 

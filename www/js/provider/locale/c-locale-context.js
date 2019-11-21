@@ -4,27 +4,16 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {LocaleNameType} from './const';
-import type {ValueMapType} from './locale-helper';
-import {getLocaleName, getLocalizedString, setLocaleName} from './locale-helper';
+import type {LocaleNameType, LocaleContextValueMapType, LocaleContextType} from './locale-context-type';
+import {getDefaultLocaleContextData, getLocalizedString, setLocaleName} from './locale-context-helper';
 import type {LangKeyType} from './translation/type';
 
-export type LocaleContextType = {|
-    +name: LocaleNameType,
-    +setName: (localeName: LocaleNameType) => mixed,
-    +getLocalizedString: (stringKey: LangKeyType, valueMap?: ValueMapType) => string,
-|};
+const defaultLocaleContextData = getDefaultLocaleContextData();
 
-const defaultContextData = {
-    name: getLocaleName(),
-    setName: (localeName: LocaleNameType): null => null,
-    getLocalizedString: (stringKey: LangKeyType, valueMap?: ValueMapType): string => stringKey,
-};
-
-const LocaleContext = React.createContext<LocaleContextType>(defaultContextData);
+const LocaleContext = React.createContext<LocaleContextType>(defaultLocaleContextData);
 const LocaleContextProvider = LocaleContext.Provider;
 
-export const {Consumer: LocaleContextConsumer} = LocaleContext;
+export const LocaleContextConsumer = LocaleContext.Consumer;
 
 type PropsType = {|
     +children: Node,
@@ -38,7 +27,7 @@ export class LocaleProvider extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
-        this.state = {providedData: defaultContextData};
+        this.state = {providedData: defaultLocaleContextData};
     }
 
     setName = (localeName: LocaleNameType) => {
@@ -50,7 +39,7 @@ export class LocaleProvider extends Component<PropsType, StateType> {
         this.setState({providedData: {...providedData, name: localeName}});
     };
 
-    getLocalizedString = (stringKey: LangKeyType, valueMap?: ValueMapType): string => {
+    getLocalizedString = (stringKey: LangKeyType, valueMap?: LocaleContextValueMapType): string => {
         const {state} = this;
         const {providedData} = state;
         const {name} = providedData;

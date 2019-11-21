@@ -4,9 +4,9 @@ import React, {type Node} from 'react';
 import {Route, Switch} from 'react-router-dom';
 
 import {PageNotFound} from '../../page/page-not-found/c-page-not-found';
-import {LocaleProvider} from '../locale/c-locale-context';
-import {ScreenProvider} from '../screen/c-screen-context';
-import {UserProvider} from '../user/c-user-context';
+import {LocaleProvider} from '../../provider/locale/c-locale-context';
+import {ScreenProvider} from '../../provider/screen/c-screen-context';
+import {UserProvider} from '../../provider/user/c-user-context';
 import {PopupPortalProvider} from '../layout/popup/popup-portal/c-popup-portal';
 import {SnackbarPortalProvider} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
 import {MainWrapper} from '../main-wrapper/c-main-wrapper';

@@ -13,7 +13,7 @@ import type {FormGeneratorConfigType, FormGeneratorFormDataType} from '../../com
 import {isError} from '../../lib/is';
 import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../component/layout/form-button/c-form-button';
-import type {UserContextConsumerType} from '../../component/user/type-user-context';
+import type {UserContextConsumerType} from '../../provider/user/user-context-type';
 import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
 import {getIsRequired} from '../../component/layout/form-generator/validate/validate';
 import {FieldSet} from '../../component/layout/form-generator/field/field-set/field-set';

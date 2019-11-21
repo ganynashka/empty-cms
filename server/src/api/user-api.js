@@ -11,7 +11,7 @@ import {dataBaseConst} from '../db/const';
 import {getTime} from '../util/time';
 import type {UserLoginPasswordType} from '../util/user';
 import {getPasswordSha256, getUserByLogin} from '../util/user';
-import {defaultUserFrontState} from '../../../www/js/component/user/const-user-context';
+import {defaultUserFrontState} from '../../../www/js/provider/user/user-context-const';
 import {isError, isFunction} from '../../../www/js/lib/is';
 
 import {getListParameters, streamOptionsArray} from './helper';
