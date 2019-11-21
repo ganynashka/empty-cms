@@ -1,6 +1,6 @@
 // @flow
 
-import React, {Component, type Node} from 'react';
+import React, {type Node} from 'react';
 
 import pageWrapperStyle from './page-wrapper.scss';
 
@@ -8,13 +8,8 @@ type PropsType = {
     +children: Node,
 };
 
-type StateType = null;
+export function PageWrapper(props: PropsType): Node {
+    const {children} = props;
 
-// eslint-disable-next-line react/prefer-stateless-function
-export class PageWrapper extends Component<PropsType, StateType> {
-    render(): Node {
-        const {props} = this;
-
-        return <main className={pageWrapperStyle.page_wrapper}>{props.children}</main>;
-    }
+    return <main className={pageWrapperStyle.page_wrapper}>{children}</main>;
 }
