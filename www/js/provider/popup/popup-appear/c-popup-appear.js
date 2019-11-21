@@ -4,20 +4,14 @@ import React, {Component, type Node} from 'react';
 import className from 'classnames';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
-import type {PopupPropsType} from '../type';
-import {ScreenContextConsumer} from '../../../../provider/screen/c-screen-context';
-import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
+import type {PopupPropsType} from '../popup-context-type';
+import {ScreenContextConsumer} from '../../screen/c-screen-context';
+import type {ScreenContextType} from '../../screen/screen-context-type';
 
 import popupAppearStyle from './popup-appear.scss';
+import {popupAppearClassNames} from './popup-appear-const';
 
 const popupAppearTimeOut = 300;
-
-const popupAppearClassNames = {
-    enter: popupAppearStyle.popup_appear__enter,
-    enterActive: popupAppearStyle.popup_appear__enter__active,
-    enterDone: popupAppearStyle.popup_appear__enter__done,
-    exit: popupAppearStyle.popup_appear__exit,
-};
 
 export class PopupAppear extends Component<PopupPropsType> {
     renderContent(): Node {

@@ -2,31 +2,16 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {PopupPropsType} from '../type';
-import {Popup} from '../c-popup';
-import {isFunction} from '../../../../lib/is';
+import {isFunction} from '../../lib/is';
 
-export type ShowPopupType = (popupProps: PopupPropsType, id: string) => Promise<mixed>;
-export type HidePopupByIdType = (id: string, value: mixed) => mixed;
+import type {PopupPropsType, PopupContextType, PopupDataType} from './popup-context-type';
+import {Popup} from './popup/c-popup';
+import {defaultPopupContextData} from './popup-context-const';
 
-export type PopupPortalContextType = {
-    showPopup: ShowPopupType,
-    hidePopupById: HidePopupByIdType,
-};
+const popupContext = React.createContext<PopupContextType>(defaultPopupContextData);
+const PopupContextProvider = popupContext.Provider;
 
-export const defaultContextData: PopupPortalContextType = {
-    showPopup: (popupProps: PopupPropsType, id: string): Promise<mixed> => Promise.resolve(null),
-    hidePopupById: (id: string, value: mixed): null => null,
-};
-
-const popupPortalContext = React.createContext<PopupPortalContextType>(defaultContextData);
-const {Provider: PopupPortalContextProvider, Consumer: PopupPortalContextConsumer} = popupPortalContext;
-
-type PopupDataType = {|
-    +popupProps: PopupPropsType,
-    +resolve: (value: mixed) => mixed,
-    +id: string,
-|};
+export const PopupContextConsumer = popupContext.Consumer;
 
 type PropsType = {|
     +children: Node,
@@ -34,18 +19,14 @@ type PropsType = {|
 
 type StateType = {|
     +popupDataList: Array<PopupDataType>,
-    // +providedData: PopupPortalContextType,
 |};
 
-export {PopupPortalContextConsumer};
-
-export class PopupPortalProvider extends Component<PropsType, StateType> {
+export class PopupProvider extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
         this.state = {
             popupDataList: [],
-            // providedData: defaultContextData,
         };
     }
 
@@ -124,7 +105,7 @@ export class PopupPortalProvider extends Component<PropsType, StateType> {
         });
     };
 
-    getProviderValue(): PopupPortalContextType {
+    getProviderValue(): PopupContextType {
         return {
             showPopup: this.showPopup,
             hidePopupById: this.hidePopupById,
@@ -178,10 +159,10 @@ export class PopupPortalProvider extends Component<PropsType, StateType> {
         const {children} = props;
 
         return (
-            <PopupPortalContextProvider value={this.getProviderValue()}>
+            <PopupContextProvider value={this.getProviderValue()}>
                 {children}
                 {this.renderPopupList()}
-            </PopupPortalContextProvider>
+            </PopupContextProvider>
         );
     }
 }

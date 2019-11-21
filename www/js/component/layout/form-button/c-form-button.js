@@ -11,7 +11,7 @@ import formButtonStyle from './form-button.scss';
 
 type StateType = {};
 
-type PassedPropsType = {|
+type PropsType = {|
     // copied buttons props type
     +children: Node,
     +className?: string,
@@ -25,8 +25,8 @@ type PassedPropsType = {|
     +isDefault?: boolean,
 |};
 
-export class FormButton extends Component<PassedPropsType, StateType> {
-    constructor(props: PassedPropsType) {
+export class FormButton extends Component<PropsType, StateType> {
+    constructor(props: PropsType) {
         super(props);
 
         this.state = {};

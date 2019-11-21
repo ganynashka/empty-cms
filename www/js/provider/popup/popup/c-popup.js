@@ -6,11 +6,10 @@ import React, {type Node} from 'react';
 import ReactDOM from 'react-dom';
 
 import {selector} from '../../../const';
-
-import type {PopupPropsType} from './type';
-import {Fade} from './fade/c-fade';
-import {PopupAppear} from './popup-appear/c-popup-appear';
-import fadeStyle from './fade/fade.scss';
+import type {PopupPropsType} from '../popup-context-type';
+import {Fade} from '../fade/c-fade';
+import {PopupAppear} from '../popup-appear/c-popup-appear';
+import fadeStyle from '../fade/fade.scss';
 
 export function Popup({
     children,

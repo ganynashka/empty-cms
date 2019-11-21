@@ -9,8 +9,8 @@ import {Link, Redirect, Route} from 'react-router-dom';
 import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 import {PageWrapper} from '../page-wrapper/c-page-wrapper';
 import pageWrapperStyle from '../page-wrapper/page-wrapper.scss';
-import type {PopupPortalContextType} from '../layout/popup/popup-portal/c-popup-portal';
-import {PopupPortalContextConsumer} from '../layout/popup/popup-portal/c-popup-portal';
+import type {PopupContextType} from '../../provider/popup/popup-context-type';
+import {PopupContextConsumer} from '../../provider/popup/c-popup-context';
 import type {SnackbarContextType} from '../../provider/snackbar/snackbar-context-type';
 import {SnackbarContextConsumer} from '../../provider/snackbar/c-snackbar-context';
 import type {UserContextConsumerType} from '../../provider/user/user-context-type';
@@ -74,8 +74,8 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                                     <UserContextConsumer>
                                         {(userContextData: UserContextConsumerType): Node => {
                                             return (
-                                                <PopupPortalContextConsumer>
-                                                    {(popupPortalContextData: PopupPortalContextType): Node => {
+                                                <PopupContextConsumer>
+                                                    {(popupPortalContextData: PopupContextType): Node => {
                                                         return (
                                                             <PageWrapper>
                                                                 <PageComponent
@@ -87,7 +87,7 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                                                             </PageWrapper>
                                                         );
                                                     }}
-                                                </PopupPortalContextConsumer>
+                                                </PopupContextConsumer>
                                             );
                                         }}
                                     </UserContextConsumer>

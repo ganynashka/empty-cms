@@ -3,7 +3,7 @@
 import type {Node} from 'react';
 
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
-import type {PopupPortalContextType} from '../popup/popup-portal/c-popup-portal';
+import type {PopupContextType} from '../../../provider/popup/popup-context-type';
 
 export type FromGeneratorPrimitiveInputValueType = string | number | boolean | null | File;
 
@@ -45,7 +45,7 @@ export type InputComponentPropsType = {|
     +isMultiple?: boolean,
     +imagePathPrefix?: string,
     +snackbarPortalContext: SnackbarContextType,
-    +popupPortalContext: PopupPortalContextType,
+    +popupPortalContext: PopupContextType,
     +uploadFile?: (file: File) => Promise<Error | string>,
 |};
 

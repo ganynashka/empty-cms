@@ -5,8 +5,8 @@ import React, {Component, type Node} from 'react';
 import {hasProperty, isFunction} from '../../../lib/is';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import {SnackbarContextConsumer} from '../../../provider/snackbar/c-snackbar-context';
-import type {PopupPortalContextType} from '../popup/popup-portal/c-popup-portal';
-import {PopupPortalContextConsumer} from '../popup/popup-portal/c-popup-portal';
+import type {PopupContextType} from '../../../provider/popup/popup-context-type';
+import {PopupContextConsumer} from '../../../provider/popup/c-popup-context';
 
 import fieldStyle from './field/field.scss';
 
@@ -128,8 +128,8 @@ export class FormGenerator extends Component<PropsType, StateType> {
             <SnackbarContextConsumer key={name}>
                 {(snackbarPortalContextData: SnackbarContextType): Node => {
                     return (
-                        <PopupPortalContextConsumer>
-                            {(popupPortalContextData: PopupPortalContextType): Node => {
+                        <PopupContextConsumer>
+                            {(popupPortalContextData: PopupContextType): Node => {
                                 return (
                                     <FieldComponent
                                         accept={accept}
@@ -149,7 +149,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
                                     />
                                 );
                             }}
-                        </PopupPortalContextConsumer>
+                        </PopupContextConsumer>
                     );
                 }}
             </SnackbarContextConsumer>

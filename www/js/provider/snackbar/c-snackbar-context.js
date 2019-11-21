@@ -17,10 +17,10 @@ import {
     snackbarVariantIcon,
 } from './snackbar-context-const';
 
-const snackbarPortalContext = React.createContext<SnackbarContextType>(defaultSnackbarContextData);
-const SnackbarContextProvider = snackbarPortalContext.Provider;
+const snackbarContext = React.createContext<SnackbarContextType>(defaultSnackbarContextData);
+const SnackbarContextProvider = snackbarContext.Provider;
 
-export const SnackbarContextConsumer = snackbarPortalContext.Consumer;
+export const SnackbarContextConsumer = snackbarContext.Consumer;
 
 type PropsType = {|
     +children: Node,
@@ -28,7 +28,6 @@ type PropsType = {|
 
 type StateType = {|
     +snackbarDataList: Array<SnackbarDataType>,
-    // +providedData: SnackbarPortalContextType,
 |};
 
 export class SnackbarProvider extends Component<PropsType, StateType> {
@@ -37,7 +36,6 @@ export class SnackbarProvider extends Component<PropsType, StateType> {
 
         this.state = {
             snackbarDataList: [],
-            // providedData: defaultContextData,
         };
     }
 

@@ -4,13 +4,13 @@ import React, {type Node} from 'react';
 
 import popupHeaderCloseButtonStyle from './popup-header-close-button.scss';
 
-type PassedPropsType = {|
+type PropsType = {|
     +onClick: () => mixed,
 |};
 
-export type CloseButtonPropsType = PassedPropsType;
+export type CloseButtonPropsType = PropsType;
 
-export function PopupHeaderCloseButton(props: PassedPropsType): Node {
+export function PopupHeaderCloseButton(props: PropsType): Node {
     const {onClick} = props;
 
     return (

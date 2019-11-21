@@ -1,9 +1,9 @@
 // @flow
 
-import type {HidePopupByIdType} from '../popup-portal/c-popup-portal';
+import type {PopupContextHidePopupByIdType} from '../popup-context-type';
 
 export function createHandler(
-    handler: HidePopupByIdType,
+    handler: PopupContextHidePopupByIdType,
     confirmId: string,
     value: mixed
 ): (evt: SyntheticEvent<HTMLButtonElement>) => mixed {

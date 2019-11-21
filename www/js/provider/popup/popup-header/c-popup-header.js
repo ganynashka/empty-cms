@@ -7,16 +7,16 @@ import {PopupHeaderCloseButton} from '../popup-header-close-button/c-popup-heade
 
 import popupHeaderStyle from './popup-header.scss';
 
-type PassedPropsType = {|
+type PropsType = {|
     +closeButton?: CloseButtonPropsType,
     +children: Node,
 |};
 
-export type PassedPopupHeaderPropsType = PassedPropsType;
+export type PassedPopupHeaderPropsType = PropsType;
 
 type StateType = {};
 
-export class PopupHeader extends Component<PassedPropsType, StateType> {
+export class PopupHeader extends Component<PropsType, StateType> {
     renderCloseButton(): Node {
         const {props} = this;
         const {closeButton} = props;

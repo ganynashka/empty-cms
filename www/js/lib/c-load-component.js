@@ -2,11 +2,9 @@
 
 import React, {Component, type Node} from 'react';
 
-type PassedPropsType = {|
+type PropsType = {|
     +load: () => Promise<Node | Array<Node>>,
 |};
-
-type PropsType = PassedPropsType;
 
 type StateType = {|
     +component: Node | Array<Node>,

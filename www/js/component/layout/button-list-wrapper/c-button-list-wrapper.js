@@ -15,7 +15,7 @@ const directionClassNameMap: {+[key: DirectionType]: string} = {
     right: buttonListWrapperStyle.button_list_wrapper__right,
 };
 
-type PassedPropsType = {|
+type PropsType = {|
     +direction: DirectionType,
     +children: Node,
     +className?: string,
@@ -23,8 +23,8 @@ type PassedPropsType = {|
 
 type StateType = null;
 
-export class ButtonListWrapper extends Component<PassedPropsType, StateType> {
-    constructor(props: PassedPropsType) {
+export class ButtonListWrapper extends Component<PropsType, StateType> {
+    constructor(props: PropsType) {
         super(props);
 
         this.state = null;

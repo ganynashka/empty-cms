@@ -9,7 +9,7 @@ import buttonStyle from './button.scss';
 export type ButtonType = 'button' | 'submit' | 'reset';
 
 type StateType = {};
-type PassedPropsType = {|
+type PropsType = {|
     +children: Node,
     +className?: string,
     +accessKey?: string,
@@ -20,8 +20,8 @@ type PassedPropsType = {|
     +ariaLabel?: Node,
 |};
 
-export class Button extends Component<PassedPropsType, StateType> {
-    constructor(props: PassedPropsType) {
+export class Button extends Component<PropsType, StateType> {
+    constructor(props: PropsType) {
         super(props);
 
         this.state = {};

@@ -2,16 +2,15 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {PopupPortalContextType} from '../popup-portal/c-popup-portal';
-import {PopupPortalContextConsumer} from '../popup-portal/c-popup-portal';
+import type {PopupContextType, PopupPropsType} from '../popup-context-type';
+import {PopupContextConsumer} from '../c-popup-context';
 import type {PassedPopupHeaderPropsType} from '../popup-header/c-popup-header';
 import {PopupHeader} from '../popup-header/c-popup-header';
 import type {PassedPopupContentPropsType} from '../popup-content/c-popup-content';
 import {PopupContent} from '../popup-content/c-popup-content';
-import {FormButton} from '../../form-button/c-form-button';
-import {Locale} from '../../../../provider/locale/c-locale';
-import {ButtonListWrapper} from '../../button-list-wrapper/c-button-list-wrapper';
-import type {PopupPropsType} from '../type';
+import {FormButton} from '../../../component/layout/form-button/c-form-button';
+import {Locale} from '../../locale/c-locale';
+import {ButtonListWrapper} from '../../../component/layout/button-list-wrapper/c-button-list-wrapper';
 
 import {createHandler} from './confirm-helper';
 import confirmStyle from './confirm.scss';
@@ -38,7 +37,7 @@ export class Confirm extends Component<PropsType, StateType> {
         return [{isShow: false, children: popupChildren}, confirmId];
     }
 
-    renderHeader(popupPortalContextData: PopupPortalContextType): Node {
+    renderHeader(popupPortalContextData: PopupContextType): Node {
         const {props} = this;
         const {id, header} = props;
         const {hidePopupById} = popupPortalContextData;
@@ -71,7 +70,7 @@ export class Confirm extends Component<PropsType, StateType> {
         return <PopupContent>{children}</PopupContent>;
     }
 
-    renderButtonList(popupPortalContextData: PopupPortalContextType): Node {
+    renderButtonList(popupPortalContextData: PopupContextType): Node {
         const {props} = this;
         const {id} = props;
         const {hidePopupById} = popupPortalContextData;
@@ -94,8 +93,8 @@ export class Confirm extends Component<PropsType, StateType> {
 
     render(): Node {
         return (
-            <PopupPortalContextConsumer>
-                {(popupPortalContextData: PopupPortalContextType): Node => {
+            <PopupContextConsumer>
+                {(popupPortalContextData: PopupContextType): Node => {
                     return (
                         <>
                             {this.renderHeader(popupPortalContextData)}
@@ -104,7 +103,7 @@ export class Confirm extends Component<PropsType, StateType> {
                         </>
                     );
                 }}
-            </PopupPortalContextConsumer>
+            </PopupContextConsumer>
         );
     }
 }

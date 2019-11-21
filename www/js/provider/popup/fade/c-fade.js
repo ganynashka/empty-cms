@@ -3,17 +3,11 @@
 import React, {Component, type Node} from 'react';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
-import type {PopupPropsType} from '../type';
+import type {PopupPropsType} from '../popup-context-type';
 
-import fadeStyle from './fade.scss';
+import {fadeClassNames} from './fade-const';
 
 const fadeTimeOut = 300;
-
-const fadeClassNames = {
-    enter: fadeStyle.fade__enter,
-    enterActive: fadeStyle.fade__enter__active,
-    exit: fadeStyle.fade__exit,
-};
 
 export class Fade extends Component<PopupPropsType, null> {
     renderContent(): Node {

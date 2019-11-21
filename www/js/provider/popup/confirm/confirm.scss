@@ -1,5 +1,5 @@
 @import '../popup-content/popup-content';
-@import '../popup';
+@import '../popup/popup';
 
 .confirm__button_list_wrapper {
     @extend %popup-content;
