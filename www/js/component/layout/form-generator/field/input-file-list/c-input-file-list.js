@@ -3,7 +3,7 @@
 import React, {Component, type Node} from 'react';
 import classNames from 'classnames';
 
-import type {InputComponentPropsType, PrimitiveInputValueType} from '../../type';
+import type {InputComponentPropsType, FromGeneratorPrimitiveInputValueType} from '../../type';
 import fieldStyle from '../field.style.scss';
 import {isFile, isNull, isString} from '../../../../../lib/is';
 import serviceStyle from '../../../../../../css/service.scss';
@@ -28,7 +28,7 @@ export class InputFileList extends Component<PropsType, StateType> {
 
         const fileList: Array<File> = [];
 
-        [...files].forEach((value: PrimitiveInputValueType) => {
+        [...files].forEach((value: FromGeneratorPrimitiveInputValueType) => {
             if (isFile(value)) {
                 fileList.push(value);
             }
@@ -65,7 +65,7 @@ export class InputFileList extends Component<PropsType, StateType> {
 
         const fileNameHumanList
             = fileList
-                .map((file: PrimitiveInputValueType): string => {
+                .map((file: FromGeneratorPrimitiveInputValueType): string => {
                     if (isFile(file)) {
                         return file.name;
                     }

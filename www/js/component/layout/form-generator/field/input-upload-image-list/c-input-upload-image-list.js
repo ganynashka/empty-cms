@@ -2,7 +2,7 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {InputComponentOnChangeType, InputComponentPropsType, InputValueType} from '../../type';
+import type {InputComponentOnChangeType, InputComponentPropsType, FromGeneratorInputValueType} from '../../type';
 import {InputUploadImage} from '../input-upload-image/c-input-upload-image';
 import {isFile, isString} from '../../../../../lib/is';
 import fieldStyle from '../field.style.scss';
@@ -31,7 +31,7 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
         const {props} = this;
         const {onChange} = props;
 
-        return (value: InputValueType) => {
+        return (value: FromGeneratorInputValueType) => {
             const {state} = this;
             const {addItemIndex} = state;
             const valueList = [...state.valueList];

@@ -16,7 +16,7 @@ import type {
     FormGeneratorConfigType,
     FormGeneratorFormDataType,
     InputComponentOnChangeType,
-    InputValueType,
+    FromGeneratorInputValueType,
 } from './type';
 
 type PropsType = {|
@@ -63,7 +63,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
     }
 
     createOnChangeFieldHandler(fieldData: FieldDataType): InputComponentOnChangeType {
-        return (value: InputValueType) => {
+        return (value: FromGeneratorInputValueType) => {
             const {state} = this;
             const {name, validate} = fieldData;
             const formData = {...state.formData, [name]: value};
@@ -79,7 +79,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
     }
 
     createOnBlurFieldHandler(fieldData: FieldDataType): InputComponentOnChangeType {
-        return (value: InputValueType) => {
+        return (value: FromGeneratorInputValueType) => {
             const {name, validate} = fieldData;
             const {state} = this;
             const formData = {...state.formData, [name]: value};

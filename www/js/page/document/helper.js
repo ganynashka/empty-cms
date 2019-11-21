@@ -7,7 +7,7 @@ import {InputUploadImageList} from '../../component/layout/form-generator/field/
 import type {
     FormGeneratorConfigType,
     FormGeneratorFormDataType,
-    InputValueType,
+    FromGeneratorInputValueType,
 } from '../../component/layout/form-generator/type';
 import {InputText} from '../../component/layout/form-generator/field/input-text/c-input-text';
 import {getIsRequired, noValidate} from '../../component/layout/form-generator/validate/validate';
@@ -41,7 +41,7 @@ export type FormDataMongoDocumentType = {
     +imageList: Array<string>,
 };
 
-function extractImage(inputValue: InputValueType): Promise<Error | string> {
+function extractImage(inputValue: FromGeneratorInputValueType): Promise<Error | string> {
     if (isString(inputValue)) {
         return Promise.resolve(inputValue);
     }

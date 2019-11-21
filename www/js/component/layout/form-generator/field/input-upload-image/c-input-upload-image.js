@@ -5,7 +5,7 @@
 import React, {Component, type Node} from 'react';
 import classNames from 'classnames';
 
-import type {InputComponentPropsType, InputValueType} from '../../type';
+import type {InputComponentPropsType, FromGeneratorInputValueType} from '../../type';
 import fieldStyle from '../field.style.scss';
 import {getMarkdownResizedImage} from '../../../../../page/image/image-api';
 import {promiseCatch} from '../../../../../lib/promise';
@@ -18,7 +18,7 @@ type PropsType = InputComponentPropsType;
 type StateType = {
     file: File | null,
     isUploadInProgress: boolean,
-    defaultValue: InputValueType,
+    defaultValue: FromGeneratorInputValueType,
 };
 
 export class InputUploadImage extends Component<PropsType, StateType> {

@@ -11,7 +11,7 @@ import {FormGenerator} from '../../component/layout/form-generator/form-generato
 import type {
     FormGeneratorConfigType,
     FormGeneratorFormDataType,
-    InputValueType,
+    FromGeneratorInputValueType,
 } from '../../component/layout/form-generator/type';
 import {getIsRequired} from '../../component/layout/form-generator/validate/validate';
 import {FieldSet} from '../../component/layout/form-generator/field/field-set/field-set';
@@ -82,7 +82,7 @@ export class ImageUpload extends Component<PropsType, StateType> {
         const fileList: Array<File> = [];
 
         // $FlowFixMe
-        formFileList.forEach((value: InputValueType) => {
+        formFileList.forEach((value: FromGeneratorInputValueType) => {
             if (isFile(value)) {
                 fileList.push(value);
             }
