@@ -8,7 +8,7 @@ import {Link, Redirect, Route} from 'react-router-dom';
 
 import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 import {PageWrapper} from '../page-wrapper/c-page-wrapper';
-import pageWrapperStyle from '../page-wrapper/page-wrapper.style.scss';
+import pageWrapperStyle from '../page-wrapper/page-wrapper.scss';
 import type {PopupPortalContextType} from '../layout/popup/popup-portal/c-popup-portal';
 import {PopupPortalContextConsumer} from '../layout/popup/popup-portal/c-popup-portal';
 import type {SnackbarPortalContextType} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';

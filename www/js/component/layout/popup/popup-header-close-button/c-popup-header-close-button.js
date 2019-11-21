@@ -2,7 +2,7 @@
 
 import React, {type Node} from 'react';
 
-import popupHeaderCloseButtonStyle from './popup-header-close-button.style.scss';
+import popupHeaderCloseButtonStyle from './popup-header-close-button.scss';
 
 type PassedPropsType = {|
     +onClick: () => mixed,

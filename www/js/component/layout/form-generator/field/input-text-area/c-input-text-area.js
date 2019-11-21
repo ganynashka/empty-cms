@@ -4,10 +4,10 @@ import React, {type Node} from 'react';
 import classNames from 'classnames';
 
 import type {InputComponentPropsType} from '../../type';
-import fieldStyle from '../field.style.scss';
+import fieldStyle from '../field.scss';
 import {isString} from '../../../../../lib/is';
 
-import inputTextAreaStyle from './input-text-area.style.scss';
+import inputTextAreaStyle from './input-text-area.scss';
 
 type PropsType = InputComponentPropsType;
 

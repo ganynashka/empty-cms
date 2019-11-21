@@ -6,12 +6,12 @@ import React, {Component, type Node} from 'react';
 import classNames from 'classnames';
 
 import type {InputComponentPropsType, FromGeneratorInputValueType} from '../../type';
-import fieldStyle from '../field.style.scss';
+import fieldStyle from '../field.scss';
 import {getMarkdownResizedImage} from '../../../../../page/image/image-api';
 import {promiseCatch} from '../../../../../lib/promise';
 import {isError, isFunction, isNull, isString} from '../../../../../lib/is';
 
-import inputUploadImageStyle from './input-upload-image.style.scss';
+import inputUploadImageStyle from './input-upload-image.scss';
 
 type PropsType = InputComponentPropsType;
 

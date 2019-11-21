@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
 
-import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
+import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.scss';
 import serviceStyle from '../../../css/service.scss';
 import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
 import {promiseCatch} from '../../lib/promise';

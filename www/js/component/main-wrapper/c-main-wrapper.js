@@ -10,7 +10,7 @@ import {screenNameReference} from '../screen/screen-helper';
 import {ScreenContextConsumer} from '../screen/c-screen-context';
 import {localeNameReference} from '../locale/const';
 
-import mainWrapperStyle from './main-wrapper.style.scss';
+import mainWrapperStyle from './main-wrapper.scss';
 
 const mainWrapperClassName = {
     desktop: 'desktop',

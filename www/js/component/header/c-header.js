@@ -9,7 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import {routeItemMap} from '../app/routes';
 import type {UserContextConsumerType} from '../user/type-user-context';
 
-import headerStyle from './header.style.scss';
+import headerStyle from './header.scss';
 
 type PropsType = {
     +userContextData: UserContextConsumerType,

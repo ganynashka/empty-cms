@@ -5,7 +5,7 @@ import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 import type {PopupPropsType} from '../type';
 
-import fadeStyle from './fade.style.scss';
+import fadeStyle from './fade.scss';
 
 const fadeTimeOut = 300;
 

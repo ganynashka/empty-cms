@@ -3,7 +3,7 @@
 import React, {type Node} from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import spinnerStyle from './spinner.style.scss';
+import spinnerStyle from './spinner.scss';
 
 type PropsType = {|
     +isShow?: boolean,

@@ -4,7 +4,7 @@ import React, {type Node} from 'react';
 import classNames from 'classnames';
 
 import type {InputComponentPropsType} from '../../type';
-import fieldStyle from '../field.style.scss';
+import fieldStyle from '../field.scss';
 import {isString} from '../../../../../lib/is';
 
 type PropsType = InputComponentPropsType;

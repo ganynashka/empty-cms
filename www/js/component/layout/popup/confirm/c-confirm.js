@@ -14,7 +14,7 @@ import {ButtonListWrapper} from '../../button-list-wrapper/c-button-list-wrapper
 import type {PopupPropsType} from '../type';
 
 import {createHandler} from './confirm-helper';
-import confirmStyle from './confirm.style.scss';
+import confirmStyle from './confirm.scss';
 
 type PropsType = {|
     +header: PassedPopupHeaderPropsType,

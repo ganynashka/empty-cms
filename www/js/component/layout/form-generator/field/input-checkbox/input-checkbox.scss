@@ -1,6 +1,6 @@
 /* stylelint-disable selector-combinator-blacklist */
 
-@import './../field.style';
+@import '../field';
 
 .input_checkbox__input_state {
     @extend %form--input;

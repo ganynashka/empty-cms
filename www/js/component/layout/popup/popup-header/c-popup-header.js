@@ -5,7 +5,7 @@ import React, {Component, type Node} from 'react';
 import type {CloseButtonPropsType} from '../popup-header-close-button/c-popup-header-close-button';
 import {PopupHeaderCloseButton} from '../popup-header-close-button/c-popup-header-close-button';
 
-import popupHeaderStyle from './popup-header.style.scss';
+import popupHeaderStyle from './popup-header.scss';
 
 type PassedPropsType = {|
     +closeButton?: CloseButtonPropsType,

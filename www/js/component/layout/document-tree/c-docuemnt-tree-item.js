@@ -10,7 +10,7 @@ import {routePathMap} from '../../app/routes-path-map';
 import {stopPropagation} from '../../../lib/event';
 import {isError} from '../../../lib/is';
 
-import documentTreeStyle from './document-tree.style.scss';
+import documentTreeStyle from './document-tree.scss';
 
 type PropsType = {|
     +slug: string,

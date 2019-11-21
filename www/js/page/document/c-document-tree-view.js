@@ -3,7 +3,7 @@
 import React, {Component, type Node} from 'react';
 import Paper from '@material-ui/core/Paper';
 
-import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
+import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.scss';
 import {DocumentTree} from '../../component/layout/document-tree/c-document-tree';
 
 type PropsType = {};

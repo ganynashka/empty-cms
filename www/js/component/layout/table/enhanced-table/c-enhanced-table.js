@@ -14,7 +14,7 @@ import {EnhancedTableToolbar} from './c-enhanced-table-toolbar';
 import {EnhancedTableBody} from './c-enhanced-table-body';
 import {direction, getDefaultState, getSavedState, saveState} from './helper';
 import type {EnhancedTableBodyCellType, EnhancedTablePropsType, SortDirectionType} from './type';
-import style from './enhanced-table.style.scss';
+import style from './enhanced-table.scss';
 
 type PropsType = EnhancedTablePropsType;
 

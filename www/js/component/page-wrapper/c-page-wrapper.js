@@ -2,7 +2,7 @@
 
 import React, {Component, type Node} from 'react';
 
-import pageWrapperStyle from './page-wrapper.style.scss';
+import pageWrapperStyle from './page-wrapper.scss';
 
 type PropsType = {
     +children: Node,

@@ -1,7 +1,7 @@
 @import './../../../../../css/var';
 @import './../../../../../css/service';
-@import './../popup.style';
-@import './../popup-header-close-button/popup-header-close-button.style';
+@import '../popup';
+@import '../popup-header-close-button/popup-header-close-button';
 
 .popup_header {
     background-color: $form-main-background-color;

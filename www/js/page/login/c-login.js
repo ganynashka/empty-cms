@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
 
-import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
+import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.scss';
 import {FormGenerator} from '../../component/layout/form-generator/form-generator';
 import type {FormGeneratorFormDataType} from '../../component/layout/form-generator/type';
 import {isError} from '../../lib/is';

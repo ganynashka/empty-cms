@@ -2,7 +2,7 @@
 
 import React, {type Node} from 'react';
 
-import popupContentStyle from './popup-content.style.scss';
+import popupContentStyle from './popup-content.scss';
 
 type PassedPropsType = {|
     +children: Node,

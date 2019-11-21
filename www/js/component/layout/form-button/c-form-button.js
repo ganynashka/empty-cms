@@ -7,7 +7,7 @@ import {isString} from '../../../lib/is';
 import type {ButtonType} from '../button/c-button';
 import {Button} from '../button/c-button';
 
-import formButtonStyle from './form-button.style.scss';
+import formButtonStyle from './form-button.scss';
 
 type StateType = {};
 

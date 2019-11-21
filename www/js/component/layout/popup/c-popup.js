@@ -10,7 +10,7 @@ import {selector} from '../../../const';
 import type {PopupPropsType} from './type';
 import {Fade} from './fade/c-fade';
 import {PopupAppear} from './popup-appear/c-popup-appear';
-import fadeStyle from './fade/fade.style.scss';
+import fadeStyle from './fade/fade.scss';
 
 export function Popup({
     children,

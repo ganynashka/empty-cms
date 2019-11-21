@@ -4,7 +4,7 @@ import React, {Component, type Node} from 'react';
 
 import {fileApiRouteMap} from '../../../../server/src/api/route-map';
 
-import homeStyle from './home.style.scss';
+import homeStyle from './home.scss';
 
 type PropsType = {};
 type StateType = null;

@@ -2,7 +2,7 @@
 
 import React, {type Node} from 'react';
 
-import style from '../enhanced-table.style.scss';
+import style from '../enhanced-table.scss';
 
 type PropsType = {|
     +isChecked: boolean,

@@ -13,7 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import {isFunction} from '../../../../lib/is';
 import type {SnackbarPropsType} from '../type';
-import snackbarStyle from '../snackbar.style.scss';
+import snackbarStyle from '../snackbar.scss';
 
 const variantIcon = {
     success: CheckCircleIcon,

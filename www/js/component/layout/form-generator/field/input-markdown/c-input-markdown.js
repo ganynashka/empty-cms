@@ -5,11 +5,11 @@ import classNames from 'classnames';
 
 import type {InputComponentPropsType} from '../../type';
 import {Markdown} from '../../../markdown/c-markdown';
-import inputTextAreaStyle from '../input-text-area/input-text-area.style.scss';
-import fieldStyle from '../field.style.scss';
+import inputTextAreaStyle from '../input-text-area/input-text-area.scss';
+import fieldStyle from '../field.scss';
 import {isString} from '../../../../../lib/is';
 
-import inputMarkdownStyle from './input-markdown.style.scss';
+import inputMarkdownStyle from './input-markdown.scss';
 
 type PropsType = InputComponentPropsType;
 type StateType = {|

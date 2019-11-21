@@ -4,7 +4,7 @@ import React, {Component, type Node} from 'react';
 
 import {isString} from '../../../lib/is';
 
-import buttonStyle from './button.style.scss';
+import buttonStyle from './button.scss';
 
 export type ButtonType = 'button' | 'submit' | 'reset';
 

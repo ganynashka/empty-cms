@@ -11,7 +11,7 @@ import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-bu
 import {FormButton} from '../../component/layout/form-button/c-form-button';
 import type {MongoDocumentType} from '../../../../server/src/db/type';
 import {isError} from '../../lib/is';
-import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
+import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.scss';
 import {extendFieldList} from '../../component/layout/form-generator/form-generator-util';
 import {typeConverter} from '../../lib/type';
 import type {MatchType} from '../../type/react-router-dom-v5-type-extract';

@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import {getDocumentOrphanList} from '../../../page/document/document-api';
 import type {MongoDocumentType} from '../../../../../server/src/db/type';
 
-import documentTreeStyle from './document-tree.style.scss';
+import documentTreeStyle from './document-tree.scss';
 import {DocumentTreeItem} from './c-docuemnt-tree-item';
 
 type PropsType = {};

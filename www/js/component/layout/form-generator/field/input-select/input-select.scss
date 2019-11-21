@@ -1,5 +1,5 @@
 @import './../../../../../../css/var';
-@import './../field.style';
+@import '../field';
 
 .form__input__select {
     @extend %form--input;

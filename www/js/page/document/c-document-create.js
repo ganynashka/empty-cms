@@ -11,7 +11,7 @@ import {FormGenerator} from '../../component/layout/form-generator/form-generato
 import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../component/layout/form-button/c-form-button';
 import type {MongoDocumentType} from '../../../../server/src/db/type';
-import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.style.scss';
+import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.scss';
 import {isError} from '../../lib/is';
 import type {FormGeneratorConfigType, FormGeneratorFormDataType} from '../../component/layout/form-generator/type';
 import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';

@@ -8,7 +8,7 @@ import {SnackbarPortalContextConsumer} from '../snackbar/snackbar-portal/c-snack
 import type {PopupPortalContextType} from '../popup/popup-portal/c-popup-portal';
 import {PopupPortalContextConsumer} from '../popup/popup-portal/c-popup-portal';
 
-import fieldStyle from './field/field.style.scss';
+import fieldStyle from './field/field.scss';
 
 import type {
     FieldDataType,

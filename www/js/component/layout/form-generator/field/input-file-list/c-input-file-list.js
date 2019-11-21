@@ -4,11 +4,11 @@ import React, {Component, type Node} from 'react';
 import classNames from 'classnames';
 
 import type {InputComponentPropsType, FromGeneratorPrimitiveInputValueType} from '../../type';
-import fieldStyle from '../field.style.scss';
+import fieldStyle from '../field.scss';
 import {isFile, isNull, isString} from '../../../../../lib/is';
 import serviceStyle from '../../../../../../css/service.scss';
 
-import inputFileListStyle from './input-file-list.style.scss';
+import inputFileListStyle from './input-file-list.scss';
 
 type PropsType = InputComponentPropsType;
 type StateType = {fileList: Array<File>};

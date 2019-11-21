@@ -5,10 +5,10 @@ import React, {Component, type Node} from 'react';
 import type {InputComponentOnChangeType, InputComponentPropsType, FromGeneratorInputValueType} from '../../type';
 import {InputUploadImage} from '../input-upload-image/c-input-upload-image';
 import {isFile, isString} from '../../../../../lib/is';
-import fieldStyle from '../field.style.scss';
+import fieldStyle from '../field.scss';
 import {extractUniqueArrayString} from '../../../../../page/document/helper';
 
-import inputUploadImageListStyle from './input-upload-image-list.style.scss';
+import inputUploadImageListStyle from './input-upload-image-list.scss';
 
 type PropsType = InputComponentPropsType;
 

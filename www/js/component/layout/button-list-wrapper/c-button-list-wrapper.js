@@ -4,7 +4,7 @@ import React, {Component, type Node} from 'react';
 
 import {isString} from '../../../lib/is';
 
-import buttonListWrapperStyle from './button-list-wrapper.style.scss';
+import buttonListWrapperStyle from './button-list-wrapper.scss';
 
 type DirectionType = 'center' | 'column' | 'left' | 'right';
 

@@ -4,9 +4,9 @@ import React, {type Node} from 'react';
 import classNames from 'classnames';
 
 import type {InputComponentPropsType} from '../../type';
-import fieldStyle from '../field.style.scss';
+import fieldStyle from '../field.scss';
 
-import inputSelectStyle from './input-select.style.scss';
+import inputSelectStyle from './input-select.scss';
 
 type PropsType = InputComponentPropsType;
 

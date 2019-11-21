@@ -8,7 +8,7 @@ import type {PopupPropsType} from '../type';
 import {ScreenContextConsumer} from '../../../screen/c-screen-context';
 import type {ScreenContextType} from '../../../screen/screen-helper';
 
-import popupAppearStyle from './popup-appear.style.scss';
+import popupAppearStyle from './popup-appear.scss';
 
 const popupAppearTimeOut = 300;
 
