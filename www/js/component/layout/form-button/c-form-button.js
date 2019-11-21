@@ -1,7 +1,6 @@
 // @flow
 
-import type {Node} from 'react';
-import React, {Component} from 'react';
+import React, {Component, type Node} from 'react';
 
 import {isString} from '../../../lib/is';
 import type {ButtonType} from '../button/button-type';
@@ -9,7 +8,7 @@ import {Button} from '../button/c-button';
 
 import formButtonStyle from './form-button.scss';
 
-type StateType = {};
+type StateType = null;
 
 type PropsType = {|
     // copied buttons props type
@@ -26,12 +25,6 @@ type PropsType = {|
 |};
 
 export class FormButton extends Component<PropsType, StateType> {
-    constructor(props: PropsType) {
-        super(props);
-
-        this.state = {};
-    }
-
     getClassName(): string {
         const {props} = this;
         const {className, isDefault} = props;
