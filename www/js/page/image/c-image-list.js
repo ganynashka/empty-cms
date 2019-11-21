@@ -12,7 +12,7 @@ import serviceStyle from '../../../css/service.scss';
 import type {SnackbarContextType} from '../../provider/snackbar/snackbar-context-type';
 import {promiseCatch} from '../../lib/promise';
 import {isError} from '../../lib/is';
-import {getNoHashFileName} from '../../../../server/src/util/string';
+import {getNoHashFileName} from '../../lib/string';
 
 import {getImageList, getMarkdownResizedImage, getResizedImage} from './image-api';
 import imageStyle from './image.scss';

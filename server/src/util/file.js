@@ -13,8 +13,7 @@ import {isError, isObject} from '../../../www/js/lib/is';
 import {fileApiConst} from '../api/file-const';
 import {cwd} from '../../../webpack/config';
 import {promiseCatch} from '../../../www/js/lib/promise';
-
-import {getHashFileName} from './string';
+import {getHashFileName} from '../../../www/js/lib/string';
 
 export function getFormDataFileList(request: $Request): Array<ExpressFormDataFileType> {
     // $FlowFixMe
