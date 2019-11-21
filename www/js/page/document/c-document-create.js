@@ -24,7 +24,7 @@ import {createDocument} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './document-helper';
 
 type PropsType = {
-    +snackbarPortalContext: SnackbarContextType,
+    +snackbarContext: SnackbarContextType,
 };
 type StateType = null;
 
@@ -33,9 +33,9 @@ const formConfig: FormGeneratorConfigType = getDocumentFormConfig();
 export class DocumentCreate extends Component<PropsType, StateType> {
     handleFormSubmit = async (formData: FormGeneratorFormDataType) => {
         const {props} = this;
-        const {snackbarPortalContext} = props;
+        const {snackbarContext} = props;
         const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());
-        const {showSnackbar} = snackbarPortalContext;
+        const {showSnackbar} = snackbarContext;
 
         const endDocumentData: MongoDocumentType | Error = await formDataToMongoDocument(formData);
 
@@ -73,9 +73,9 @@ export class DocumentCreate extends Component<PropsType, StateType> {
 
     handleFormError = async (errorList: Array<Error>, formData: FormGeneratorFormDataType) => {
         const {props} = this;
-        const {snackbarPortalContext} = props;
+        const {snackbarContext} = props;
         const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());
-        const {showSnackbar} = snackbarPortalContext;
+        const {showSnackbar} = snackbarContext;
 
         console.log(formData);
 

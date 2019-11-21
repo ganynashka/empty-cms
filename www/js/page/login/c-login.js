@@ -20,7 +20,7 @@ import {routePathMap} from '../../component/app/routes-path-map';
 
 type PropsType = {
     +userContextData: UserContextConsumerType,
-    +snackbarPortalContext: SnackbarContextType,
+    +snackbarContext: SnackbarContextType,
 };
 
 type StateType = {};
@@ -36,9 +36,9 @@ export class Login extends Component<PropsType, StateType> {
     handleFormSubmit = async (formData: FormGeneratorFormDataType) => {
         const {props} = this;
         const {login, password} = formData;
-        const {snackbarPortalContext, userContextData} = props;
+        const {snackbarContext, userContextData} = props;
         const snackBarId = 'login-snack-bar-id-' + String(Date.now());
-        const {showSnackbar} = snackbarPortalContext;
+        const {showSnackbar} = snackbarContext;
 
         const loginResult = await userContextData.login(String(login), String(password));
 
@@ -62,9 +62,9 @@ export class Login extends Component<PropsType, StateType> {
 
     handleFormError = async (errorList: Array<Error>, formData: FormGeneratorFormDataType) => {
         const {props} = this;
-        const {snackbarPortalContext} = props;
+        const {snackbarContext} = props;
         const snackBarId = 'login-snack-bar-id-' + String(Date.now());
-        const {showSnackbar} = snackbarPortalContext;
+        const {showSnackbar} = snackbarContext;
 
         console.log('handleFormError', errorList);
         await showSnackbar({children: 'Fill all required fields properly!', variant: 'error'}, snackBarId);

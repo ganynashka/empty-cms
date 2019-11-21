@@ -18,7 +18,7 @@ import {getImageList, getMarkdownResizedImage, getResizedImage} from './image-ap
 import imageStyle from './image.scss';
 
 type PropsType = {
-    +snackbarPortalContext: SnackbarContextType,
+    +snackbarContext: SnackbarContextType,
 };
 
 type StateType = {|
@@ -52,9 +52,9 @@ export class ImageList extends Component<PropsType, StateType> {
 
     handleCopyImageSrc = async (evt: SyntheticEvent<HTMLElement>) => {
         const {props} = this;
-        const {snackbarPortalContext} = props;
+        const {snackbarContext} = props;
         const snackBarId = 'copy-image-markdown-snack-bar-id-' + String(Date.now());
-        const {showSnackbar} = snackbarPortalContext;
+        const {showSnackbar} = snackbarContext;
 
         if (!navigator.clipboard) {
             await showSnackbar(

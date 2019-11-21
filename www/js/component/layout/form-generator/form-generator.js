@@ -126,10 +126,10 @@ export class FormGenerator extends Component<PropsType, StateType> {
 
         return (
             <SnackbarContextConsumer key={name}>
-                {(snackbarPortalContextData: SnackbarContextType): Node => {
+                {(snackbarContextData: SnackbarContextType): Node => {
                     return (
                         <PopupContextConsumer>
-                            {(popupPortalContextData: PopupContextType): Node => {
+                            {(popupContextData: PopupContextType): Node => {
                                 return (
                                     <FieldComponent
                                         accept={accept}
@@ -143,8 +143,8 @@ export class FormGenerator extends Component<PropsType, StateType> {
                                         onBlur={onBlurFieldHandler}
                                         onChange={onChangeFieldHandler}
                                         placeholder={placeholder}
-                                        popupPortalContext={popupPortalContextData}
-                                        snackbarPortalContext={snackbarPortalContextData}
+                                        popupContext={popupContextData}
+                                        snackbarContext={snackbarContextData}
                                         uploadFile={uploadFile}
                                     />
                                 );

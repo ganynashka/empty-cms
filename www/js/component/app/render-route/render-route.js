@@ -40,19 +40,19 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                         unmountOnExit
                     >
                         <SnackbarContextConsumer>
-                            {(snackbarPortalContextData: SnackbarContextType): Node => {
+                            {(snackbarContextData: SnackbarContextType): Node => {
                                 return (
                                     <UserContextConsumer>
                                         {(userContextData: UserContextConsumerType): Node => {
                                             return (
                                                 <PopupContextConsumer>
-                                                    {(popupPortalContextData: PopupContextType): Node => {
+                                                    {(popupContextData: PopupContextType): Node => {
                                                         return (
                                                             <PageWrapper>
                                                                 <PageComponent
                                                                     match={match}
-                                                                    popupPortalContext={popupPortalContextData}
-                                                                    snackbarPortalContext={snackbarPortalContextData}
+                                                                    popupContext={popupContextData}
+                                                                    snackbarContext={snackbarContextData}
                                                                     userContextData={userContextData}
                                                                 />
                                                             </PageWrapper>

@@ -37,10 +37,10 @@ export class Confirm extends Component<PropsType, StateType> {
         return [{isShow: false, children: popupChildren}, confirmId];
     }
 
-    renderHeader(popupPortalContextData: PopupContextType): Node {
+    renderHeader(popupContextData: PopupContextType): Node {
         const {props} = this;
         const {id, header} = props;
-        const {hidePopupById} = popupPortalContextData;
+        const {hidePopupById} = popupContextData;
         const {children, closeButton} = header;
 
         if (closeButton) {
@@ -70,10 +70,10 @@ export class Confirm extends Component<PropsType, StateType> {
         return <PopupContent>{children}</PopupContent>;
     }
 
-    renderButtonList(popupPortalContextData: PopupContextType): Node {
+    renderButtonList(popupContextData: PopupContextType): Node {
         const {props} = this;
         const {id} = props;
-        const {hidePopupById} = popupPortalContextData;
+        const {hidePopupById} = popupContextData;
 
         return (
             <ButtonListWrapper className={confirmStyle.confirm__button_list_wrapper} direction="right">
@@ -94,12 +94,12 @@ export class Confirm extends Component<PropsType, StateType> {
     render(): Node {
         return (
             <PopupContextConsumer>
-                {(popupPortalContextData: PopupContextType): Node => {
+                {(popupContextData: PopupContextType): Node => {
                     return (
                         <>
-                            {this.renderHeader(popupPortalContextData)}
+                            {this.renderHeader(popupContextData)}
                             {this.renderContent()}
-                            {this.renderButtonList(popupPortalContextData)}
+                            {this.renderButtonList(popupContextData)}
                         </>
                     );
                 }}

@@ -73,16 +73,7 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
 
     renderValueItem = (inputValue: string, index: number): Node => {
         const {props} = this;
-        const {
-            name,
-            placeholder,
-            content,
-            accept,
-            imagePathPrefix,
-            uploadFile,
-            snackbarPortalContext,
-            popupPortalContext,
-        } = props;
+        const {name, placeholder, content, accept, imagePathPrefix, uploadFile, snackbarContext, popupContext} = props;
 
         const onChangeFieldHandler = this.createOnChangeFieldHandler(index);
 
@@ -100,8 +91,8 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
                 onBlur={onChangeFieldHandler}
                 onChange={onChangeFieldHandler}
                 placeholder={placeholder}
-                popupPortalContext={popupPortalContext}
-                snackbarPortalContext={snackbarPortalContext}
+                popupContext={popupContext}
+                snackbarContext={snackbarContext}
                 uploadFile={uploadFile}
             />
         );
@@ -109,15 +100,7 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
 
     renderAdditionalItem(): Node {
         const {props, state} = this;
-        const {
-            placeholder,
-            content,
-            accept,
-            imagePathPrefix,
-            uploadFile,
-            snackbarPortalContext,
-            popupPortalContext,
-        } = props;
+        const {placeholder, content, accept, imagePathPrefix, uploadFile, snackbarContext, popupContext} = props;
 
         const onChangeFieldHandler = this.createOnChangeFieldHandler(state.addItemIndex);
 
@@ -135,8 +118,8 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
                 onBlur={onChangeFieldHandler}
                 onChange={onChangeFieldHandler}
                 placeholder={placeholder}
-                popupPortalContext={popupPortalContext}
-                snackbarPortalContext={snackbarPortalContext}
+                popupContext={popupContext}
+                snackbarContext={snackbarContext}
                 uploadFile={uploadFile}
             />
         );

@@ -24,7 +24,7 @@ import type {SnackbarContextType} from '../../provider/snackbar/snackbar-context
 import {uploadImageList} from './image-api';
 
 type PropsType = {
-    +snackbarPortalContext: SnackbarContextType,
+    +snackbarContext: SnackbarContextType,
 };
 
 type StateType = {|
@@ -68,9 +68,9 @@ export class ImageUpload extends Component<PropsType, StateType> {
     handleFormSubmit = async (formData: FormGeneratorFormDataType) => {
         const {props, state} = this;
         const {formGeneratorKey} = state;
-        const {snackbarPortalContext} = props;
+        const {snackbarContext} = props;
         const snackBarId = 'file-list-snack-bar-id-' + String(Date.now());
-        const {showSnackbar} = snackbarPortalContext;
+        const {showSnackbar} = snackbarContext;
 
         const formFileList = formData[fileApiConst.fileListFormPropertyName];
 
@@ -110,9 +110,9 @@ export class ImageUpload extends Component<PropsType, StateType> {
 
     handleFormError = async (errorList: Array<Error>, formData: FormGeneratorFormDataType) => {
         const {props} = this;
-        const {snackbarPortalContext} = props;
+        const {snackbarContext} = props;
         const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());
-        const {showSnackbar} = snackbarPortalContext;
+        const {showSnackbar} = snackbarContext;
 
         console.log('handleFormError', errorList);
         await showSnackbar({children: 'Fill all required fields properly!', variant: 'error'}, snackBarId);

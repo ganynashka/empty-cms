@@ -44,8 +44,8 @@ export type InputComponentPropsType = {|
     +accept?: string,
     +isMultiple?: boolean,
     +imagePathPrefix?: string,
-    +snackbarPortalContext: SnackbarContextType,
-    +popupPortalContext: PopupContextType,
+    +snackbarContext: SnackbarContextType,
+    +popupContext: PopupContextType,
     +uploadFile?: (file: File) => Promise<Error | string>,
 |};
 

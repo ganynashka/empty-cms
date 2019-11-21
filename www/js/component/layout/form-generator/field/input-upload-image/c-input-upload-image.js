@@ -55,8 +55,8 @@ export class InputUploadImage extends Component<PropsType, StateType> {
 
     handleOnChange = (evt: SyntheticEvent<HTMLInputElement>) => {
         const {props} = this;
-        const {onChange, uploadFile, snackbarPortalContext} = props;
-        const {showSnackbar} = snackbarPortalContext;
+        const {onChange, uploadFile, snackbarContext} = props;
+        const {showSnackbar} = snackbarContext;
         const fileOrNull = this.getValue(evt);
 
         if (!isFunction(uploadFile)) {
@@ -152,10 +152,10 @@ export class InputUploadImage extends Component<PropsType, StateType> {
 
     handleCopyImageSrc = async () => {
         const {state, props} = this;
-        const {snackbarPortalContext} = props;
+        const {snackbarContext} = props;
         const {defaultValue} = state;
         const snackBarId = 'copy-image-markdown-snack-bar-id-' + String(Date.now());
-        const {showSnackbar} = snackbarPortalContext;
+        const {showSnackbar} = snackbarContext;
 
         if (!navigator.clipboard) {
             await showSnackbar(

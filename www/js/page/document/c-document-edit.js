@@ -28,7 +28,7 @@ import {formDataToMongoDocument, getDocumentFormConfig} from './document-helper'
 
 type PropsType = {
     +match: MatchType | null,
-    +snackbarPortalContext: SnackbarContextType,
+    +snackbarContext: SnackbarContextType,
 };
 
 type StateType = {|
@@ -52,8 +52,8 @@ export class DocumentEdit extends Component<PropsType, StateType> {
 
     async fetchDocument() {
         const {props} = this;
-        const {match, snackbarPortalContext} = props;
-        const {showSnackbar} = snackbarPortalContext;
+        const {match, snackbarContext} = props;
+        const {showSnackbar} = snackbarContext;
 
         if (match === null) {
             console.error('DocumentEdit props.match is not defined!');
@@ -85,14 +85,14 @@ export class DocumentEdit extends Component<PropsType, StateType> {
 
     handleFormSubmit = async (formData: FormGeneratorFormDataType) => {
         const {props} = this;
-        const {snackbarPortalContext, match} = props;
+        const {snackbarContext, match} = props;
 
         if (match === null) {
             console.error('DocumentEdit props.match is not defined!');
             return;
         }
 
-        const {showSnackbar} = snackbarPortalContext;
+        const {showSnackbar} = snackbarContext;
         const snackBarId = 'document-saved-snack-bar-id-' + String(Date.now());
         const endDocumentData: MongoDocumentType | Error = await formDataToMongoDocument(formData);
 
@@ -126,9 +126,9 @@ export class DocumentEdit extends Component<PropsType, StateType> {
 
     handleFormError = async (errorList: Array<Error>, formData: FormGeneratorFormDataType) => {
         const {props} = this;
-        const {snackbarPortalContext} = props;
+        const {snackbarContext} = props;
         const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());
-        const {showSnackbar} = snackbarPortalContext;
+        const {showSnackbar} = snackbarContext;
 
         console.log('handleFormError', errorList);
         await showSnackbar({children: 'Fill all required fields properly!', variant: 'error'}, snackBarId);
