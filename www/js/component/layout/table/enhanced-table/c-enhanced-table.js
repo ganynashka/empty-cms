@@ -12,9 +12,10 @@ import {Spinner} from '../../spinner/c-spinner';
 import {EnhancedTableHead} from './c-enhanced-table-head';
 import {EnhancedTableToolbar} from './c-enhanced-table-toolbar';
 import {EnhancedTableBody} from './c-enhanced-table-body';
-import {direction, getDefaultState, getSavedState, saveState} from './helper';
-import type {EnhancedTableBodyCellType, EnhancedTablePropsType, SortDirectionType} from './type';
+import {getDefaultState, getSavedState, saveState} from './enhanced-table-helper';
+import type {EnhancedTableBodyCellType, EnhancedTablePropsType, SortDirectionType} from './enhanced-table-type';
 import style from './enhanced-table.scss';
+import {enhancedTableRowsPerPageOptions, enhancedTableDirection} from './enhanced-table-const';
 
 type PropsType = EnhancedTablePropsType;
 
@@ -61,7 +62,10 @@ export class EnhancedTable extends Component<PropsType, StateType> {
 
     handleRequestSort = (event: SyntheticEvent<HTMLElement>, orderBy: string) => {
         const {orderBy: oldOrderBy, order: oldOrder} = this.state;
-        const order = oldOrderBy === orderBy && oldOrder === direction.desc ? direction.asc : direction.desc;
+        const order
+            = oldOrderBy === orderBy && oldOrder === enhancedTableDirection.desc
+                ? enhancedTableDirection.asc
+                : enhancedTableDirection.desc;
 
         this.setState({order, orderBy}, this.fetchData);
     };
@@ -115,20 +119,16 @@ export class EnhancedTable extends Component<PropsType, StateType> {
                 <EnhancedTableBody header={header} table={{rowList: list}}/>
             </Table>,
             <TablePagination
-                backIconButtonProps={{
-                    'aria-label': 'Previous Page',
-                }}
+                backIconButtonProps={{'aria-label': 'Previous Page'}}
                 component="div"
                 count={allElementsNumber}
                 key="table-pagination"
-                nextIconButtonProps={{
-                    'aria-label': 'Next Page',
-                }}
+                nextIconButtonProps={{'aria-label': 'Next Page'}}
                 onChangePage={this.handleChangePage}
                 onChangeRowsPerPage={this.handleChangeRowsPerPage}
                 page={pageIndex}
                 rowsPerPage={rowsPerPage}
-                rowsPerPageOptions={[5, 10, 25, 50, 100, 1e3, 5e3, 10e3]}
+                rowsPerPageOptions={enhancedTableRowsPerPageOptions}
             />,
         ];
     }

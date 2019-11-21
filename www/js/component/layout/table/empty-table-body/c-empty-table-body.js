@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 import {isString} from '../../../../lib/is';
 
-const defaultEmptyTest = '[ Empty ]';
+const defaultEmptyText = '[ Empty ]';
 
 type PropsType = {|
     +colSpan: number,
@@ -23,17 +23,10 @@ export function EmptyTableBody(props: PropsType): Node {
             <TableRow>
                 <TableCell colSpan={colSpan}>
                     <Typography align="center" variant="h6">
-                        {isString(text) ? text : defaultEmptyTest}
+                        {isString(text) ? text : defaultEmptyText}
                     </Typography>
                 </TableCell>
             </TableRow>
         </TableBody>
     );
 }
-
-/*
-EmptyTableBody.propTypes = {
-    colSpan: PropTypes.number.isRequired,
-    text: PropTypes.string,
-};
-*/

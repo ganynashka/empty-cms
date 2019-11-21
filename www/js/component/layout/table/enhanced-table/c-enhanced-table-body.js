@@ -8,13 +8,12 @@ import TableCell from '@material-ui/core/TableCell/TableCell';
 import {isBoolean} from '../../../../lib/is';
 
 import {EnhancedTableCheckbox} from './ui/c-enhanced-table-checkbox';
-
 import type {
     EnhancedTableBodyCellType,
     EnhancedTableBodyType,
     EnhancedTableHeaderCellType,
     EnhancedTableHeaderType,
-} from './type';
+} from './enhanced-table-type';
 
 type PropsType = {
     +header: EnhancedTableHeaderType,

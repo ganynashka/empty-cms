@@ -6,7 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Typography from '@material-ui/core/Typography';
 
-const defaultEmptyTest = '[ Empty ]';
+const defaultEmptyText = '[ Empty ]';
 
 type PropsType = {|
     +colSpan: number,
@@ -20,16 +20,10 @@ export function EmptyTableFooter(props: PropsType): Node {
             <TableRow>
                 <TableCell colSpan={colSpan}>
                     <Typography align="center" variant="h6">
-                        {defaultEmptyTest}
+                        {defaultEmptyText}
                     </Typography>
                 </TableCell>
             </TableRow>
         </TableFooter>
     );
 }
-
-/*
-EmptyTableFooter.propTypes = {
-    colSpan: PropTypes.number.isRequired,
-};
-*/

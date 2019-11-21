@@ -4,6 +4,12 @@ import {type Node} from 'react';
 
 export type SortDirectionType = 'asc' | 'desc';
 
+export type EnhancedTableSavedStateType = {|
+    +order: SortDirectionType,
+    +orderBy: string,
+    +rowsPerPage: number,
+|};
+
 export type EnhancedTableCellAlignType = 'inherit' | 'left' | 'center' | 'right' | 'justify';
 
 export type EnhancedTableHeaderCellType = {|

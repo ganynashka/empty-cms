@@ -1,7 +1,7 @@
 // @flow
 
-import type {SortDirectionType} from '../component/layout/table/enhanced-table/type';
-import {direction} from '../component/layout/table/enhanced-table/helper';
+import type {SortDirectionType} from '../component/layout/table/enhanced-table/enhanced-table-type';
+import {enhancedTableDirection} from '../component/layout/table/enhanced-table/enhanced-table-const';
 
 export function getLisParametersToUrl(
     url: string,
@@ -14,7 +14,7 @@ export function getLisParametersToUrl(
         `page-index=${pageIndex}`,
         `page-size=${rowsPerPage}`,
         `sort-parameter=${orderBy}`,
-        `sort-direction=${order === direction.asc ? 1 : -1}`,
+        `sort-direction=${order === enhancedTableDirection.asc ? 1 : -1}`,
     ].join('&');
 
     return url + '?' + urlParameters;

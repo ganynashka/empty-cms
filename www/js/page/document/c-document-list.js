@@ -11,7 +11,7 @@ import type {
     EnhancedTableBodyCellType,
     EnhancedTableGetDataResultType,
     SortDirectionType,
-} from '../../component/layout/table/enhanced-table/type';
+} from '../../component/layout/table/enhanced-table/enhanced-table-type';
 
 import {getDocumentList, getDocumentListSize} from './document-api';
 

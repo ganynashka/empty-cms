@@ -4,24 +4,19 @@
 
 import {isNumber, isString} from '../../../../lib/is';
 
-import type {EnhancedTableHeaderCellType, EnhancedTablePropsType, SortDirectionType} from './type';
+import {defaultRowPerPage, enhancedTableDirection} from './enhanced-table-const';
 
-export const direction = {
-    asc: 'asc',
-    desc: 'desc',
-};
-
-export type EnhancedTableSavedStateType = {|
-    +order: SortDirectionType,
-    +orderBy: string,
-    +rowsPerPage: number,
-|};
+import type {
+    EnhancedTableHeaderCellType,
+    EnhancedTablePropsType,
+    EnhancedTableSavedStateType,
+} from './enhanced-table-type';
 
 export function getDefaultState(props: EnhancedTablePropsType): EnhancedTableSavedStateType {
     return {
-        order: direction.asc,
+        order: enhancedTableDirection.asc,
         orderBy: props.header.rowList[0].id,
-        rowsPerPage: 100,
+        rowsPerPage: defaultRowPerPage,
     };
 }
 
@@ -37,9 +32,9 @@ export function getSavedState(props: EnhancedTablePropsType): EnhancedTableSaved
     const {order, orderBy, rowsPerPage} = JSON.parse(localStorage.getItem(tableKey) || '{}');
 
     return {
-        order: order === direction.desc ? direction.desc : direction.asc,
+        order: order === enhancedTableDirection.desc ? enhancedTableDirection.desc : enhancedTableDirection.asc,
         orderBy: isString(orderBy) ? orderBy : props.header.rowList[0].id,
-        rowsPerPage: isNumber(rowsPerPage) ? rowsPerPage : 10,
+        rowsPerPage: isNumber(rowsPerPage) ? rowsPerPage : defaultRowPerPage,
     };
 }
 
