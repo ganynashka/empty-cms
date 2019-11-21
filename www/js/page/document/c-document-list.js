@@ -49,9 +49,9 @@ async function enhancedTableGetDocumentList(
 const enhancedTableHeader = {
     header: 'Document list',
     rowList: [
+        {id: 'title', align: 'left', label: 'Title', hasSort: true},
         {id: 'slug', align: 'left', label: 'Slug', hasSort: true},
         {id: 'type', align: 'left', label: 'Type', hasSort: true},
-        {id: 'title', align: 'left', label: 'Title', hasSort: true},
         {id: 'rating', align: 'left', label: 'Rating', hasSort: true},
         {id: 'isActive', align: 'left', label: 'Is active', hasSort: true},
         {id: 'createdDate', align: 'left', label: 'Created Date (UTC 0)', hasSort: true},
