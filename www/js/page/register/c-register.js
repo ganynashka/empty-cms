@@ -14,7 +14,7 @@ import {isError} from '../../lib/is';
 import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../component/layout/form-button/c-form-button';
 import type {UserContextConsumerType} from '../../provider/user/user-context-type';
-import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
+import type {SnackbarContextType} from '../../provider/snackbar/snackbar-context-type';
 import {getIsRequired} from '../../component/layout/form-generator/validate/validate';
 import {FieldSet} from '../../component/layout/form-generator/field/field-set/field-set';
 import {InputText} from '../../component/layout/form-generator/field/input-text/c-input-text';
@@ -55,7 +55,7 @@ export const loginPasswordFormConfig: FormGeneratorConfigType = {
 
 type PropsType = {
     +userContextData: UserContextConsumerType,
-    +snackbarPortalContext: SnackbarPortalContextType,
+    +snackbarPortalContext: SnackbarContextType,
 };
 
 type StateType = {};

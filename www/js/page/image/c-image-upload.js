@@ -19,12 +19,12 @@ import {InputFileList} from '../../component/layout/form-generator/field/input-f
 import {ButtonListWrapper} from '../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../component/layout/form-button/c-form-button';
 import {isError, isFile} from '../../lib/is';
-import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
+import type {SnackbarContextType} from '../../provider/snackbar/snackbar-context-type';
 
 import {uploadImageList} from './image-api';
 
 type PropsType = {
-    +snackbarPortalContext: SnackbarPortalContextType,
+    +snackbarPortalContext: SnackbarContextType,
 };
 
 type StateType = {|

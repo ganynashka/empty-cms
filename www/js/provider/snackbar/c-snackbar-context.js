@@ -5,51 +5,22 @@ import React, {Component, type Node} from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
-import WarningIcon from '@material-ui/icons/Warning';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ErrorIcon from '@material-ui/icons/Error';
-import InfoIcon from '@material-ui/icons/Info';
 import CloseIcon from '@material-ui/icons/Close';
 
-import {isFunction} from '../../../../lib/is';
-import type {SnackbarPropsType} from '../type';
-import snackbarStyle from '../snackbar.scss';
+import {isFunction} from '../../lib/is';
 
-const variantIcon = {
-    success: CheckCircleIcon,
-    warning: WarningIcon,
-    error: ErrorIcon,
-    info: InfoIcon,
-};
+import type {SnackbarPropsType, SnackbarContextType, SnackbarDataType} from './snackbar-context-type';
+import snackbarStyle from './snackbar.scss';
+import {
+    defaultSnackbarContextData,
+    snackbarContentVariantCssClass,
+    snackbarVariantIcon,
+} from './snackbar-context-const';
 
-const snackbarContentVariantCssClass = {
-    success: snackbarStyle.snackbar__color__success,
-    warning: snackbarStyle.snackbar__color__warning,
-    error: snackbarStyle.snackbar__color__error,
-    info: snackbarStyle.snackbar__color__info,
-};
+const snackbarPortalContext = React.createContext<SnackbarContextType>(defaultSnackbarContextData);
+const SnackbarContextProvider = snackbarPortalContext.Provider;
 
-export type ShowSnackbarType = (snackbarProps: SnackbarPropsType, id: string) => Promise<mixed>;
-export type HideSnackbarByIdType = (id: string, value: mixed) => mixed;
-
-export type SnackbarPortalContextType = {
-    showSnackbar: ShowSnackbarType,
-    hideSnackbarById: HideSnackbarByIdType,
-};
-
-export const defaultContextData: SnackbarPortalContextType = {
-    showSnackbar: (snackbarProps: SnackbarPropsType, id: string): Promise<mixed> => Promise.resolve(null),
-    hideSnackbarById: (id: string, value: mixed): null => null,
-};
-
-const snackbarPortalContext = React.createContext<SnackbarPortalContextType>(defaultContextData);
-const {Provider: SnackbarPortalContextProvider, Consumer: SnackbarPortalContextConsumer} = snackbarPortalContext;
-
-type SnackbarDataType = {|
-    +snackbarProps: SnackbarPropsType,
-    +resolve: (value: mixed) => mixed,
-    +id: string,
-|};
+export const SnackbarContextConsumer = snackbarPortalContext.Consumer;
 
 type PropsType = {|
     +children: Node,
@@ -60,9 +31,7 @@ type StateType = {|
     // +providedData: SnackbarPortalContextType,
 |};
 
-export {SnackbarPortalContextConsumer};
-
-export class SnackbarPortalProvider extends Component<PropsType, StateType> {
+export class SnackbarProvider extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
@@ -163,7 +132,7 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
         });
     };
 
-    getProviderValue(): SnackbarPortalContextType {
+    getProviderValue(): SnackbarContextType {
         return {
             showSnackbar: this.showSnackbar,
             hideSnackbarById: this.hideSnackbarById,
@@ -205,7 +174,7 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
     renderSnackbar = (snackbarData: SnackbarDataType): Node => {
         const {snackbarProps, id} = snackbarData;
         const {isShow, children, variant} = snackbarProps;
-        const Icon = variantIcon[variant];
+        const Icon = snackbarVariantIcon[variant];
 
         const handleClose = this.createOnExitedHandler(id);
 
@@ -250,10 +219,10 @@ export class SnackbarPortalProvider extends Component<PropsType, StateType> {
         const {children} = props;
 
         return (
-            <SnackbarPortalContextProvider value={this.getProviderValue()}>
+            <SnackbarContextProvider value={this.getProviderValue()}>
                 {children}
                 {this.renderSnackbarList()}
-            </SnackbarPortalContextProvider>
+            </SnackbarContextProvider>
         );
     }
 }

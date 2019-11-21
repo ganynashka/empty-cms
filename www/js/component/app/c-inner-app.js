@@ -8,7 +8,7 @@ import {LocaleProvider} from '../../provider/locale/c-locale-context';
 import {ScreenProvider} from '../../provider/screen/c-screen-context';
 import {UserProvider} from '../../provider/user/c-user-context';
 import {PopupPortalProvider} from '../layout/popup/popup-portal/c-popup-portal';
-import {SnackbarPortalProvider} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
+import {SnackbarProvider} from '../../provider/snackbar/c-snackbar-context';
 import {MainWrapper} from '../main-wrapper/c-main-wrapper';
 import type {InitialDataType} from '../../../../server/src/c-initial-data-context';
 import {InitialDataProvider} from '../../../../server/src/c-initial-data-context';
@@ -18,14 +18,7 @@ import {routeItemMap} from './routes';
 import {redderEmptyRoute, redderRoute} from './render-route-helper';
 import {renderWrapperList} from './wrapper-list';
 
-const wrapperList = [
-    LocaleProvider,
-    ScreenProvider,
-    UserProvider,
-    PopupPortalProvider,
-    SnackbarPortalProvider,
-    MainWrapper,
-];
+const wrapperList = [LocaleProvider, ScreenProvider, UserProvider, PopupPortalProvider, SnackbarProvider, MainWrapper];
 
 const routeItemKeyList = Object.keys(routeItemMap);
 

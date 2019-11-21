@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography/Typography';
 
 import mainWrapperStyle from '../../component/main-wrapper/main-wrapper.scss';
 import serviceStyle from '../../../css/service.scss';
-import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
+import type {SnackbarContextType} from '../../provider/snackbar/snackbar-context-type';
 import {promiseCatch} from '../../lib/promise';
 import {isError} from '../../lib/is';
 import {getNoHashFileName} from '../../../../server/src/util/string';
@@ -18,7 +18,7 @@ import {getImageList, getMarkdownResizedImage, getResizedImage} from './image-ap
 import imageStyle from './image.scss';
 
 type PropsType = {
-    +snackbarPortalContext: SnackbarPortalContextType,
+    +snackbarPortalContext: SnackbarContextType,
 };
 
 type StateType = {|

@@ -16,7 +16,7 @@ import {extendFieldList} from '../../component/layout/form-generator/form-genera
 import {typeConverter} from '../../lib/type';
 import type {MatchType} from '../../type/react-router-dom-v5-type-extract';
 import {Spinner} from '../../component/layout/spinner/c-spinner';
-import type {SnackbarPortalContextType} from '../../component/layout/snackbar/snackbar-portal/c-snackbar-portal';
+import type {SnackbarContextType} from '../../provider/snackbar/snackbar-context-type';
 import {routePathMap} from '../../component/app/routes-path-map';
 
 import {documentSearchExact, getDocumentParentList, updateDocument} from './document-api';
@@ -24,7 +24,7 @@ import {extractUniqueArrayString, formDataToMongoDocument, getDocumentFormConfig
 
 type PropsType = {
     +match: MatchType | null,
-    +snackbarPortalContext: SnackbarPortalContextType,
+    +snackbarPortalContext: SnackbarContextType,
 };
 
 type StateType = {|

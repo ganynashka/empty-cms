@@ -3,8 +3,8 @@
 import React, {Component, type Node} from 'react';
 
 import {hasProperty, isFunction} from '../../../lib/is';
-import type {SnackbarPortalContextType} from '../snackbar/snackbar-portal/c-snackbar-portal';
-import {SnackbarPortalContextConsumer} from '../snackbar/snackbar-portal/c-snackbar-portal';
+import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
+import {SnackbarContextConsumer} from '../../../provider/snackbar/c-snackbar-context';
 import type {PopupPortalContextType} from '../popup/popup-portal/c-popup-portal';
 import {PopupPortalContextConsumer} from '../popup/popup-portal/c-popup-portal';
 
@@ -125,8 +125,8 @@ export class FormGenerator extends Component<PropsType, StateType> {
         const errorList = hasProperty(formValidation, name) ? formValidation[name] : [];
 
         return (
-            <SnackbarPortalContextConsumer key={name}>
-                {(snackbarPortalContextData: SnackbarPortalContextType): Node => {
+            <SnackbarContextConsumer key={name}>
+                {(snackbarPortalContextData: SnackbarContextType): Node => {
                     return (
                         <PopupPortalContextConsumer>
                             {(popupPortalContextData: PopupPortalContextType): Node => {
@@ -152,7 +152,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
                         </PopupPortalContextConsumer>
                     );
                 }}
-            </SnackbarPortalContextConsumer>
+            </SnackbarContextConsumer>
         );
     }
 

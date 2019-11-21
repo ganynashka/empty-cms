@@ -11,8 +11,8 @@ import {PageWrapper} from '../page-wrapper/c-page-wrapper';
 import pageWrapperStyle from '../page-wrapper/page-wrapper.scss';
 import type {PopupPortalContextType} from '../layout/popup/popup-portal/c-popup-portal';
 import {PopupPortalContextConsumer} from '../layout/popup/popup-portal/c-popup-portal';
-import type {SnackbarPortalContextType} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
-import {SnackbarPortalContextConsumer} from '../layout/snackbar/snackbar-portal/c-snackbar-portal';
+import type {SnackbarContextType} from '../../provider/snackbar/snackbar-context-type';
+import {SnackbarContextConsumer} from '../../provider/snackbar/c-snackbar-context';
 import type {UserContextConsumerType} from '../../provider/user/user-context-type';
 import {UserContextConsumer} from '../../provider/user/c-user-context';
 
@@ -68,8 +68,8 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                         timeout={300}
                         unmountOnExit
                     >
-                        <SnackbarPortalContextConsumer>
-                            {(snackbarPortalContextData: SnackbarPortalContextType): Node => {
+                        <SnackbarContextConsumer>
+                            {(snackbarPortalContextData: SnackbarContextType): Node => {
                                 return (
                                     <UserContextConsumer>
                                         {(userContextData: UserContextConsumerType): Node => {
@@ -93,7 +93,7 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                                     </UserContextConsumer>
                                 );
                             }}
-                        </SnackbarPortalContextConsumer>
+                        </SnackbarContextConsumer>
                     </CSSTransition>
                 );
             }}
