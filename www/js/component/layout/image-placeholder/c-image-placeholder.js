@@ -10,8 +10,6 @@ type PropsType = {|
     +className?: string,
 |};
 
-type StateType = null;
-
 export function ImagePlaceholder(props: PropsType): Node {
     const {width, height, className} = props;
 
