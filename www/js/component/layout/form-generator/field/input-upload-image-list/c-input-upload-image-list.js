@@ -6,10 +6,9 @@ import type {
     InputComponentOnChangeType,
     InputComponentPropsType,
     InputValueType,
-    PrimitiveInputValueType,
 } from '../../type';
 import {InputUploadImage} from '../input-upload-image/c-input-upload-image';
-import {isFile, isNull, isNumber, isString} from '../../../../../lib/is';
+import {isFile, isString} from '../../../../../lib/is';
 import fieldStyle from '../field.style.scss';
 import {extractUniqueArrayString} from '../../../../../page/document/helper';
 
@@ -24,59 +23,52 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
-        const {defaultValue} = props;
-
-        const valueList = extractUniqueArrayString(defaultValue);
-
         this.state = {
-            valueList,
-            addItemIndex: -valueList.length,
+            valueList: extractUniqueArrayString(props.defaultValue),
+            addItemIndex: 0,
         };
     }
 
-
-    // TODO: REMOVE ALL ITEMS BY VALUE, NO INDEX
     createOnChangeFieldHandler(index: number): InputComponentOnChangeType {
         const {props} = this;
         const {onChange} = props;
 
         return (value: InputValueType) => {
             const {state} = this;
-            const {valueList, addItemIndex} = state;
+            const {addItemIndex} = state;
+            const valueList = [...state.valueList];
 
-            if (Array.isArray(value)) {
-                console.error('here should be PrimitiveInputValueType');
+            if (!value) {
+                valueList.splice(index, 1);
+
+                const decreasedValueList = extractUniqueArrayString(valueList);
+
+                // eslint-disable-next-line react/no-set-state
+                this.setState({valueList: decreasedValueList}, () => {
+                    onChange(decreasedValueList);
+                });
+
                 return;
             }
 
             if (isString(value) && value.length > 0) {
-                const increasedValueList = extractUniqueArrayString([...valueList, value].filter(Boolean));
+                valueList.push(value);
+                const increasedValueList = extractUniqueArrayString(valueList);
 
-                onChange(increasedValueList);
                 // eslint-disable-next-line react/no-set-state
-                this.setState({valueList: increasedValueList, addItemIndex: addItemIndex - 1});
+                this.setState({valueList: increasedValueList, addItemIndex: addItemIndex + 1}, () => {
+                    onChange(increasedValueList);
+                });
                 return;
             }
 
             if (isFile(value)) {
-                // do not pass file to InputUploadImage, it support string or null only
+                console.log('Not need action for file');
                 return;
             }
 
-            valueList[index] = '';
-
-            const decreasedValueList = extractUniqueArrayString(valueList.filter(Boolean));
-
-            onChange(decreasedValueList);
-            // eslint-disable-next-line react/no-set-state
-            this.setState({valueList: decreasedValueList});
-
-            onChange(decreasedValueList);
+            console.error('This value is not support', value);
         };
-    }
-
-    createOnBlurFieldHandler(index: number): InputComponentOnChangeType {
-        return this.createOnChangeFieldHandler(index);
     }
 
     renderValueItem = (inputValue: string, index: number): Node => {
@@ -93,7 +85,6 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
         } = props;
 
         const onChangeFieldHandler = this.createOnChangeFieldHandler(index);
-        const onBlurFieldHandler = this.createOnBlurFieldHandler(index);
 
         return (
             <InputUploadImage
@@ -106,7 +97,7 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
                 key={inputValue}
                 labelText=""
                 name={name + '[' + index + ']'}
-                onBlur={onBlurFieldHandler}
+                onBlur={onChangeFieldHandler}
                 onChange={onChangeFieldHandler}
                 placeholder={placeholder}
                 popupPortalContext={popupPortalContext}
@@ -116,11 +107,44 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
         );
     };
 
-    renderAdditionalItem() {}
+    renderAdditionalItem(): Node {
+        const {props, state} = this;
+        const {
+            placeholder,
+            content,
+            accept,
+            imagePathPrefix,
+            uploadFile,
+            snackbarPortalContext,
+            popupPortalContext,
+        } = props;
+
+        const onChangeFieldHandler = this.createOnChangeFieldHandler(state.addItemIndex);
+
+        return (
+            <InputUploadImage
+                accept={accept}
+                content={content}
+                defaultValue={null}
+                errorList={[]}
+                imagePathPrefix={imagePathPrefix}
+                isMultiple={false}
+                key={state.addItemIndex}
+                labelText=""
+                name="add-item"
+                onBlur={onChangeFieldHandler}
+                onChange={onChangeFieldHandler}
+                placeholder={placeholder}
+                popupPortalContext={popupPortalContext}
+                snackbarPortalContext={snackbarPortalContext}
+                uploadFile={uploadFile}
+            />
+        );
+    }
 
     render(): Node {
         const {props, state} = this;
-        const {valueList, addItemIndex} = state;
+        const {valueList} = state;
         const {labelText} = props;
 
         if (!Array.isArray(props.defaultValue)) {
@@ -131,8 +155,8 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
         return (
             <div className={fieldStyle.form__label_wrapper}>
                 <span className={fieldStyle.form__label_description}>{labelText}</span>
-                <div key="list">{valueList.map(this.renderValueItem)}</div>
-                {/* <div key="add-new-item">{this.renderValueItem(null, addItemIndex)}</div>*/}
+                {valueList.map(this.renderValueItem)}
+                {this.renderAdditionalItem()}
             </div>
         );
     }
