@@ -6,7 +6,7 @@ export type LocationType = {
     hash: string,
     state?: mixed,
     key?: string,
-    ...,
+    ...
 };
 
 export type LocationShapeType = {
@@ -14,7 +14,7 @@ export type LocationShapeType = {
     search?: string,
     hash?: string,
     state?: mixed,
-    ...,
+    ...
 };
 
 export type HistoryActionType = 'PUSH' | 'REPLACE' | 'POP';
@@ -34,7 +34,7 @@ export type RouterHistoryType = {
     // createMemoryHistory
     index?: number,
     entries?: Array<LocationType>,
-    ...,
+    ...
 };
 
 export type MatchType = {
@@ -42,7 +42,7 @@ export type MatchType = {
     isExact: boolean,
     path: string,
     url: string,
-    ...,
+    ...
 };
 
 export type StaticRouterContextType = {url?: string, ...};
