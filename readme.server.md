@@ -1,13 +1,20 @@
 ### Server dependencies:
 
 ```
-- express
-    - express-session
+- express // main api
     - body-parser
     - compression
     - cors
+    - express-fileupload
+    - express-session
 
-- mongodb
+- mongodb // datebse
+
+- imagemin // compress image
+    - imagemin-jpegtran
+    - imagemin-pngquant
+
+- sharp // resize image
 ```
 
 ### Server scripts:
