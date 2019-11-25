@@ -66,7 +66,9 @@ export class DocumentCreate extends Component<PropsType, StateType> {
     renderFormFooter(): Node {
         return (
             <ButtonListWrapper direction="right">
-                <FormButton type="submit">Create</FormButton>
+                <FormButton accessKey="s" type="submit">
+                    Create [S]
+                </FormButton>
             </ButtonListWrapper>
         );
     }

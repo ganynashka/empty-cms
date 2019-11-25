@@ -20,7 +20,6 @@ type PropsType = {|
     +type?: ButtonType,
     +isWide?: boolean,
     +ariaLabel?: Node,
-
     +isDefault?: boolean,
 |};
 

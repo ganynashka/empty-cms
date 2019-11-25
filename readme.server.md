@@ -40,24 +40,24 @@
 
 2.3. Make backup
 
-> $ ~/soft/mongo/bin/mongodump --port=27017 --out=db/backup/001
+> $ ~/soft/mongo/bin/mongodump --port=27001 --out=db/backup/001
 
 or
 
-> $ ~/soft/mongo/bin/mongodump --port=27017 --archive=db/backup/db-dump-\`date +%Y-%m-%d-%H-%M-%S\`.zip
+> $ ~/soft/mongo/bin/mongodump --port=27001 --archive=db/backup/db-dump-\`date +%Y-%m-%d-%H-%M-%S\`.zip
 
 2.4. Restore backup
 
 Clean folder db/data if needed.
 
-> $ ~/soft/mongo/bin/mongorestore db/backup/001 --port=27017
+> $ ~/soft/mongo/bin/mongorestore db/backup/001 --port=27001
 
 or
 
-> $ ~/soft/mongo/bin/mongorestore --port=27017 --archive=db/backup/001.zip
+> $ ~/soft/mongo/bin/mongorestore --port=27001 --archive=db/back-0001.zip
 
 2.5. Some commands in mongodb console/client (~/soft/mongo/bin/mongo):
-> $ ~/soft/mongo/bin/mongo --port=27017 --host=127.0.0.1 // run client  
+> $ ~/soft/mongo/bin/mongo --port=27001 --host=127.0.0.1 // run client  
 > $ show databases // show all data bases name  
 > $ use \<data base name\> // switched to db \<data base name\>  
 > $ show collections // show all collection in current db  

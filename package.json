@@ -15,7 +15,7 @@
   "homepage": "https://github.com/webbestmaster/empty-cms#readme",
   "scripts": {
     "start": "webpack-dev-server --progress --no-inline",
-    "start:hot-css": "webpack-dev-server --progress --hot",
+    "start:hot": "webpack-dev-server --progress --hot",
     "start-dev-server:build": "cross-env NODE_ENV=production IS_BUILD_SERVER=YES webpack-dev-server --mode=production --progress",
     "start-ssr-server:dev": "babel-node server/src/server.js  --config-file ./server/.babelrc",
     "start-ssr-server:prod": "cross-env NODE_ENV=production babel-node server/src/server.js  --config-file ./server/.babelrc",

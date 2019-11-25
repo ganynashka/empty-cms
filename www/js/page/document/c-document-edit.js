@@ -119,7 +119,9 @@ export class DocumentEdit extends Component<PropsType, StateType> {
     renderFormFooter(): Node {
         return (
             <ButtonListWrapper direction="right">
-                <FormButton type="submit">Save</FormButton>
+                <FormButton accessKey="s" type="submit">
+                    Save [S]
+                </FormButton>
             </ButtonListWrapper>
         );
     }
