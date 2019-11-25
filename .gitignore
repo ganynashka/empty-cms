@@ -21,7 +21,7 @@ package-lock.json
 /flow-coverage
 
 # data base
-#/db
+/db
 
 # other
 .DS_Store
