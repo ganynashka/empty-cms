@@ -2,8 +2,7 @@
 
 import React, {Component, type Node} from 'react';
 
-import {fileApiRouteMap} from '../../../../server/src/api/api-route-map';
-
+import imageLogo from './image/empty.jpg';
 import homeStyle from './home.scss';
 
 type PropsType = {};
@@ -18,7 +17,7 @@ export class Home extends Component<PropsType, StateType> {
         return (
             <>
                 <div className={homeStyle.home__wrapper}>Welcome to the Empty CMS!</div>
-                <img alt="" src={fileApiRouteMap.getResizedImage + '/frontend-backend.png?width=505&height=200'}/>
+                <img alt="" className={homeStyle.home__title_image} src={imageLogo}/>
             </>
         );
     }
