@@ -23,7 +23,11 @@ const wrapperList = [LocaleProvider, ScreenProvider, UserProvider, PopupProvider
 
 const routeItemKeyList = Object.keys(routeItemMap);
 
-export function InnerApp(props: {|+initialData: InitialDataType|}): Node {
+type PropsType = {|
+    +initialData: InitialDataType,
+|};
+
+export function InnerApp(props: PropsType): Node {
     const {initialData} = props;
 
     return (
