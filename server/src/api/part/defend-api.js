@@ -39,6 +39,6 @@ export function addDefendApi(app: $Application) {
             return;
         }
 
-        response.redirect('/login');
+        response.redirect(routePathMap.login.path);
     });
 }
