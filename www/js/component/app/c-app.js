@@ -7,12 +7,12 @@ import {BrowserRouter} from 'react-router-dom';
 
 import {defaultInitialData} from '../../../../server/src/c-initial-data-context';
 
-import {InnerApp} from './c-inner-app';
+import {ClientApp} from './c-client-app.js';
 
 export function App(): Node {
     return (
         <BrowserRouter>
-            <InnerApp initialData={window.initialData || defaultInitialData}/>
+            <ClientApp initialData={window.initialData || defaultInitialData}/>
         </BrowserRouter>
     );
 }

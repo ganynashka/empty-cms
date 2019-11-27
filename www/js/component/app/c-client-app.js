@@ -27,7 +27,7 @@ type PropsType = {|
     +initialData: InitialDataType,
 |};
 
-export function InnerApp(props: PropsType): Node {
+export function ClientApp(props: PropsType): Node {
     const {initialData} = props;
 
     return (

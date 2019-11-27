@@ -12,7 +12,7 @@ import ReactDOMServer from 'react-dom/server';
 import {StaticRouter} from 'react-router-dom';
 import express, {type $Application, type $Request, type $Response} from 'express';
 
-import {InnerApp} from '../../www/js/component/app/c-inner-app';
+import {ClientApp} from '../../www/js/component/app/c-client-app';
 import {ssrServerPort} from '../../webpack/config';
 
 import {getIndexHtmlTemplate} from './static-files';
@@ -34,7 +34,7 @@ app.get('*', async (request: $Request, response: $Response) => {
     const staticContext: RouterStaticContextType = {is404: false};
     const result = ReactDOMServer.renderToString(
         <StaticRouter context={staticContext} location={request.url}>
-            <InnerApp initialData={initialData}/>
+            <ClientApp initialData={initialData}/>
             <script dangerouslySetInnerHTML={{__html: `window.initialData = ${JSON.stringify(initialData)}`}}/>
         </StaticRouter>
     );
