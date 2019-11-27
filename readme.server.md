@@ -57,29 +57,29 @@ or
 > $ ~/soft/mongo/bin/mongorestore --port=27001 --archive=db/back-0001.zip
 
 2.5. Some commands in mongodb console/client (~/soft/mongo/bin/mongo):
-> $ ~/soft/mongo/bin/mongo --port=27001 --host=127.0.0.1 // run client
-> $ show databases // show all data bases name
-> $ use \<data base name\> // switched to db \<data base name\>
-> $ show collections // show all collection in current db
-> $ db.getCollectionNames() // the same: show collections
-> $ db.\<collection name\>.find() // show all documents of collection
+> $ ~/soft/mongo/bin/mongo --port=27001 --host=127.0.0.1 // run client \
+> $ show databases // show all data bases name \
+> $ use \<data base name\> // switched to db \<data base name\> \
+> $ show collections // show all collection in current db \
+> $ db.getCollectionNames() // the same: show collections \
+> $ db.\<collection name\>.find() // show all documents of collection \
 > $ db.shutdownServer() // shutdown server
 
 ### DB replication
 
-> $ mongod --config ./mongodb-1.config // primary
-> about to fork child process, waiting until server is ready for connections.
-> forked process: 22066
-> child process started successfully, parent exiting
-> $ mongod --config ./mongodb-2.config  // arbiter
-> $ mongod --config ./mongodb-3.config  // slave
+> $ mongod --config ./mongodb-1.config // primary \
+> about to fork child process, waiting until server is ready for connections. \
+> forked process: 22066 \
+> child process started successfully, parent exiting \
+> $ mongod --config ./mongodb-2.config  // arbiter \
+> $ mongod --config ./mongodb-3.config  // slave \
 > $ mongod --config ./mongodb-4.config  // slave
 
 
-> $ mongo --port 27001
-> MongoDB shell version v4.2.0
-> connecting to: mongodb://127.0.0.1:27001/?compressors=disabled&gssapiServiceName=mongodb
-> Implicit session: session { "id" : UUID("11c98e9f-aff2-41f8-80cf-a7c0f06b40a4") }
+> $ mongo --port 27001 \
+> MongoDB shell version v4.2.0 \
+> connecting to: mongodb://127.0.0.1:27001/?compressors=disabled&gssapiServiceName=mongodb \
+> Implicit session: session { "id" : UUID("11c98e9f-aff2-41f8-80cf-a7c0f06b40a4") } \
 > MongoDB server version: 4.2.0
 
 > rs.status()
