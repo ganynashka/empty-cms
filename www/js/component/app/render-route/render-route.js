@@ -12,6 +12,9 @@ import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-cont
 import {SnackbarContextConsumer} from '../../../provider/snackbar/c-snackbar-context';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 import {UserContextConsumer} from '../../../provider/user/c-user-context';
+import {LoadComponent} from '../../../lib/c-load-component';
+import {isFunction} from '../../../lib/is';
+import {canNotLoadComponent} from '../../../lib/can-not-load-component';
 
 import type {RedirectItemType, RouteItemType} from './render-route-type';
 import {routeCssTransitionClassNameMap} from './render-route-const';
@@ -24,7 +27,7 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
         return <Redirect from={routeItem.from} key={routeItem.from + path} to={path}/>;
     }
 
-    const {component: PageComponent} = routeItem;
+    const {component: PageComponent, asyncLoad} = routeItem;
 
     return (
         <Route exact key={path} path={path}>
@@ -47,16 +50,46 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                                             return (
                                                 <PopupContextConsumer>
                                                     {(popupContextData: PopupContextType): Node => {
+                                                        if (!isFunction(asyncLoad)) {
+                                                            return (
+                                                                <PageWrapper>
+                                                                    <PageComponent
+                                                                        history={history}
+                                                                        location={location}
+                                                                        match={match}
+                                                                        popupContext={popupContextData}
+                                                                        snackbarContext={snackbarContextData}
+                                                                        userContextData={userContextData}
+                                                                    />
+                                                                </PageWrapper>
+                                                            );
+                                                        }
+
+                                                        function loadAsyncPageComponent(): Promise<Node> {
+                                                            return asyncLoad()
+                                                                .then(
+                                                                    (
+                                                                        // eslint-disable-next-line id-match
+                                                                        AsyncPageComponent: React$ComponentType<*>
+                                                                    ): Node => {
+                                                                        return (
+                                                                            <AsyncPageComponent
+                                                                                history={history}
+                                                                                location={location}
+                                                                                match={match}
+                                                                                popupContext={popupContextData}
+                                                                                snackbarContext={snackbarContextData}
+                                                                                userContextData={userContextData}
+                                                                            />
+                                                                        );
+                                                                    }
+                                                                )
+                                                                .catch(canNotLoadComponent);
+                                                        }
+
                                                         return (
                                                             <PageWrapper>
-                                                                <PageComponent
-                                                                    history={history}
-                                                                    location={location}
-                                                                    match={match}
-                                                                    popupContext={popupContextData}
-                                                                    snackbarContext={snackbarContextData}
-                                                                    userContextData={userContextData}
-                                                                />
+                                                                <LoadComponent load={loadAsyncPageComponent}/>
                                                             </PageWrapper>
                                                         );
                                                     }}

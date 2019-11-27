@@ -5,6 +5,8 @@ export type RouteItemType = {|
     +staticPartPath?: string,
     // eslint-disable-next-line id-match
     +component: React$ComponentType<*>,
+    // eslint-disable-next-line id-match
+    +asyncLoad?: () => Promise<React$ComponentType<*>>,
     +type: 'route',
 |};
 

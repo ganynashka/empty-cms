@@ -4,32 +4,34 @@ export const routePathMap = {
     home: {
         path: '/',
     },
+
+    // cms
     userList: {
-        path: '/user-list',
+        path: '/cms/user-list',
     },
     documentList: {
-        path: '/document-list',
+        path: '/cms/document-list',
     },
     documentTree: {
-        path: '/document-tree',
+        path: '/cms/document-tree',
     },
     documentCreate: {
-        path: '/document-create',
+        path: '/cms/document-create',
     },
     documentEdit: {
-        path: '/document-edit/:slug',
-        staticPartPath: '/document-edit',
+        path: '/cms/document-edit/:slug',
+        staticPartPath: '/cms/document-edit',
     },
     login: {
-        path: '/login',
+        path: '/cms/login',
     },
     register: {
-        path: '/register',
+        path: '/cms/register',
     },
     imageUpload: {
-        path: '/image-upload',
+        path: '/cms/image-upload',
     },
     imageList: {
-        path: '/image-list',
+        path: '/cms/image-list',
     },
 };
