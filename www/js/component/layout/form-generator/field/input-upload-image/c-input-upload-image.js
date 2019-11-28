@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import type {InputComponentPropsType, FromGeneratorInputValueType} from '../../form-generator-type';
 import fieldStyle from '../field.scss';
-import {getMarkdownResizedImage} from '../../../../../page/image/image-api';
+import {getMarkdownResizedImage} from '../../../../../page/cms/image/image-api';
 import {promiseCatch} from '../../../../../lib/promise';
 import {isError, isFunction, isNull, isString} from '../../../../../lib/is';
 

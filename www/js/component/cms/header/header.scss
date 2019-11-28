@@ -1,0 +1,8 @@
+@import '../../../../css/var';
+
+.header {
+    display: block;
+    height: $header-height;
+    //position: relative;
+    z-index: 1;
+}

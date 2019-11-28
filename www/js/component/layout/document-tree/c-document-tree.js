@@ -6,7 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Typography from '@material-ui/core/Typography';
 
-import {getDocumentOrphanList} from '../../../page/document/document-api';
+import {getDocumentOrphanList} from '../../../page/cms/document/document-api';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
 
 import documentTreeStyle from './document-tree.scss';

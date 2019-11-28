@@ -3,7 +3,7 @@
 import React, {type Node} from 'react';
 import {Route, Switch} from 'react-router-dom';
 
-import {PageNotFound} from '../../page/page-not-found/c-page-not-found';
+import {PageNotFound} from '../../page/cms/page-not-found/c-page-not-found';
 import {LocaleProvider} from '../../provider/locale/c-locale-context';
 import {ScreenProvider} from '../../provider/screen/c-screen-context';
 import {UserProvider} from '../../provider/user/c-user-context';
@@ -12,7 +12,7 @@ import {SnackbarProvider} from '../../provider/snackbar/c-snackbar-context';
 import {MainWrapper} from '../main-wrapper/c-main-wrapper';
 import type {InitialDataType} from '../../../../server/src/c-initial-data-context';
 import {InitialDataProvider} from '../../../../server/src/c-initial-data-context';
-import {HeaderWrapper} from '../header/c-header-wrapper';
+import {HeaderWrapper} from '../cms/header/c-header-wrapper';
 
 import {routeItemMap} from './routes';
 import {redderEmptyRoute} from './render-route/render-route-helper';

@@ -1,13 +1,20 @@
 // @flow
 
-import {Home} from '../../page/home/c-home';
-
 import {routePathMap} from './routes-path-map';
 
 export const routeItemMap = {
-    home: {
-        path: routePathMap.home.path,
-        component: Home,
+    // cms
+    cmsEnter: {
+        path: routePathMap.cmsEnter.path,
+        component: (): null => null,
+        // eslint-disable-next-line id-match
+        asyncLoad: (): Promise<React$ComponentType<*>> => {
+            return (
+                import(/* webpackChunkName: 'async-user-cms-home' */ '../../page/cms/home/c-home')
+                    // eslint-disable-next-line id-match
+                    .then((data: {Home: React$ComponentType<*>}): React$ComponentType<*> => data.Home)
+            );
+        },
         type: 'route',
     },
     userList: {
@@ -16,7 +23,7 @@ export const routeItemMap = {
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
-                import(/* webpackChunkName: 'async-user-list' */ '../../page/user/c-user-list')
+                import(/* webpackChunkName: 'async-user-list' */ '../../page/cms/user/c-user-list')
                     // eslint-disable-next-line id-match
                     .then((data: {UserList: React$ComponentType<*>}): React$ComponentType<*> => data.UserList)
             );
@@ -29,7 +36,7 @@ export const routeItemMap = {
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
-                import(/* webpackChunkName: 'async-document-list' */ '../../page/document/c-document-list')
+                import(/* webpackChunkName: 'async-document-list' */ '../../page/cms/document/c-document-list')
                     // eslint-disable-next-line id-match
                     .then((data: {DocumentList: React$ComponentType<*>}): React$ComponentType<*> => data.DocumentList)
             );
@@ -42,7 +49,7 @@ export const routeItemMap = {
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return import(
-                /* webpackChunkName: 'async-document-tree-view' */ '../../page/document/c-document-tree-view'
+                /* webpackChunkName: 'async-document-tree-view' */ '../../page/cms/document/c-document-tree-view'
             ).then(
                 // eslint-disable-next-line id-match
                 (data: {DocumentTreeView: React$ComponentType<*>}): React$ComponentType<*> => data.DocumentTreeView
@@ -55,7 +62,9 @@ export const routeItemMap = {
         component: (): null => null,
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
-            return import(/* webpackChunkName: 'async-document-create' */ '../../page/document/c-document-create').then(
+            return import(
+                /* webpackChunkName: 'async-document-create' */ '../../page/cms/document/c-document-create'
+            ).then(
                 // eslint-disable-next-line id-match
                 (data: {DocumentCreate: React$ComponentType<*>}): React$ComponentType<*> => data.DocumentCreate
             );
@@ -69,7 +78,7 @@ export const routeItemMap = {
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
-                import(/* webpackChunkName: 'async-document-edit' */ '../../page/document/c-document-edit')
+                import(/* webpackChunkName: 'async-document-edit' */ '../../page/cms/document/c-document-edit')
                     // eslint-disable-next-line id-match
                     .then((data: {DocumentEdit: React$ComponentType<*>}): React$ComponentType<*> => data.DocumentEdit)
             );
@@ -82,7 +91,7 @@ export const routeItemMap = {
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
-                import(/* webpackChunkName: 'async-login' */ '../../page/login/c-login')
+                import(/* webpackChunkName: 'async-login' */ '../../page/cms/login/c-login')
                     // eslint-disable-next-line id-match
                     .then((data: {Login: React$ComponentType<*>}): React$ComponentType<*> => data.Login)
             );
@@ -95,7 +104,7 @@ export const routeItemMap = {
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
-                import(/* webpackChunkName: 'async-register' */ '../../page/register/c-register')
+                import(/* webpackChunkName: 'async-register' */ '../../page/cms/register/c-register')
                     // eslint-disable-next-line id-match
                     .then((data: {Register: React$ComponentType<*>}): React$ComponentType<*> => data.Register)
             );
@@ -108,7 +117,7 @@ export const routeItemMap = {
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
-                import(/* webpackChunkName: 'async-image-upload' */ '../../page/image/c-image-upload')
+                import(/* webpackChunkName: 'async-image-upload' */ '../../page/cms/image/c-image-upload')
                     // eslint-disable-next-line id-match
                     .then((data: {ImageUpload: React$ComponentType<*>}): React$ComponentType<*> => data.ImageUpload)
             );
@@ -121,7 +130,7 @@ export const routeItemMap = {
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
-                import(/* webpackChunkName: 'async-image-list' */ '../../page/image/c-image-list')
+                import(/* webpackChunkName: 'async-image-list' */ '../../page/cms/image/c-image-list')
                     // eslint-disable-next-line id-match
                     .then((data: {ImageList: React$ComponentType<*>}): React$ComponentType<*> => data.ImageList)
             );
