@@ -52,7 +52,7 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                                                     {(popupContextData: PopupContextType): Node => {
                                                         if (!isFunction(asyncLoad)) {
                                                             return (
-                                                                <PageWrapper>
+                                                                <PageWrapper location={location}>
                                                                     <PageComponent
                                                                         history={history}
                                                                         location={location}
@@ -88,7 +88,7 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                                                         }
 
                                                         return (
-                                                            <PageWrapper>
+                                                            <PageWrapper location={location}>
                                                                 <LoadComponent load={loadAsyncPageComponent}/>
                                                             </PageWrapper>
                                                         );

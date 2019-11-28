@@ -5,11 +5,14 @@ $page-transition-time: 300ms;
 .page_wrapper {
     box-sizing: border-box;
     height: 100%;
-    padding-top: $header-height;
     position: absolute;
     top: 0;
     width: 100%;
     z-index: 0;
+
+    &.page_wrapper__cms {
+        padding-top: $header-height;
+    }
 }
 
 .transition_enter {

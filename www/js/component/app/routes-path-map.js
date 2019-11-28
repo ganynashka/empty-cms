@@ -1,9 +1,9 @@
 // @flow
 
 export const routePathMap = {
-    // home: {
-    //     path: '/',
-    // },
+    siteEnter: {
+        path: '/',
+    },
 
     // cms
     cmsEnter: {

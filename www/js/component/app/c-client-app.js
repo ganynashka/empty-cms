@@ -12,7 +12,7 @@ import {SnackbarProvider} from '../../provider/snackbar/c-snackbar-context';
 import {MainWrapper} from '../main-wrapper/c-main-wrapper';
 import type {InitialDataType} from '../../../../server/src/c-initial-data-context';
 import {InitialDataProvider} from '../../../../server/src/c-initial-data-context';
-import {HeaderWrapper} from '../cms/header/c-header-wrapper';
+import {CMSHeaderWrapper} from '../cms/header/c-cms-header-wrapper';
 
 import {routeItemMap} from './routes';
 import {redderEmptyRoute} from './render-route/render-route-helper';
@@ -33,7 +33,7 @@ export function ClientApp(props: PropsType): Node {
     return (
         <InitialDataProvider value={initialData}>
             {renderWrapperList(wrapperList, [
-                <Route component={HeaderWrapper} key="header"/>,
+                <Route component={CMSHeaderWrapper} key="cms-header"/>,
                 routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key])),
                 <Switch key="switch">
                     {routeItemKeyList.map((key: string): Node => redderEmptyRoute(routeItemMap[key]))}

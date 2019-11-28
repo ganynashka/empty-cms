@@ -13,6 +13,8 @@ export function addDefendApi(app: $Application) {
         userApiRouteMap.getCurrentUser,
         routePathMap.login.path,
         routePathMap.register.path,
+
+        routePathMap.siteEnter.path,
     ];
 
     app.use((request: $Request, response: $Response, next: () => mixed) => {
@@ -29,12 +31,12 @@ export function addDefendApi(app: $Application) {
     app.use((request: $Request, response: $Response, next: (error?: ?Error) => mixed) => {
         const {url} = request;
 
-        if (isAdmin(request)) {
+        if (publicPathList.includes(url)) {
             next();
             return;
         }
 
-        if (publicPathList.includes(url)) {
+        if (isAdmin(request)) {
             next();
             return;
         }

@@ -2,6 +2,8 @@
 
 import type {SortDirectionType} from '../component/layout/table/enhanced-table/enhanced-table-type';
 import {enhancedTableDirection} from '../component/layout/table/enhanced-table/enhanced-table-const';
+import type {LocationType} from '../type/react-router-dom-v5-type-extract';
+import {routePathMap} from '../component/app/routes-path-map';
 
 export function getLisParametersToUrl(
     url: string,
@@ -24,4 +26,10 @@ export function getSearchExactParametersToUrl(url: string, key: string, value: s
     const urlParameters = [`key=${key}`, `value=${value}`].join('&');
 
     return url + '?' + urlParameters;
+}
+
+export function isCMS(location: LocationType): boolean {
+    const {pathname} = location;
+
+    return pathname.startsWith(routePathMap.cmsEnter.path);
 }

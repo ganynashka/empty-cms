@@ -1,8 +1,17 @@
 // @flow
 
+import {Home} from '../../page/client/home/c-home';
+
 import {routePathMap} from './routes-path-map';
 
 export const routeItemMap = {
+    // client
+    siteEnter: {
+        path: routePathMap.siteEnter.path,
+        component: Home,
+        type: 'route',
+    },
+
     // cms
     cmsEnter: {
         path: routePathMap.cmsEnter.path,
