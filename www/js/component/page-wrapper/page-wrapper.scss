@@ -5,6 +5,7 @@ $page-transition-time: 300ms;
 .page_wrapper {
     box-sizing: border-box;
     height: 100%;
+    padding-top: $header-height / 2;
     position: absolute;
     top: 0;
     width: 100%;

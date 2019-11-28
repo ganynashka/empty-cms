@@ -13,6 +13,7 @@ import {MainWrapper} from '../main-wrapper/c-main-wrapper';
 import type {InitialDataType} from '../../../../server/src/c-initial-data-context';
 import {InitialDataProvider} from '../../../../server/src/c-initial-data-context';
 import {CMSHeaderWrapper} from '../cms/header/c-cms-header-wrapper';
+import {Header} from '../client/header/c-header';
 
 import {routeItemMap} from './routes';
 import {redderEmptyRoute} from './render-route/render-route-helper';
@@ -34,6 +35,7 @@ export function ClientApp(props: PropsType): Node {
         <InitialDataProvider value={initialData}>
             {renderWrapperList(wrapperList, [
                 <Route component={CMSHeaderWrapper} key="cms-header"/>,
+                <Route component={Header} key="client-header"/>,
                 routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key])),
                 <Switch key="switch">
                     {routeItemKeyList.map((key: string): Node => redderEmptyRoute(routeItemMap[key]))}
