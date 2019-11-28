@@ -36,6 +36,7 @@ module.exports.optimization = isDevelopment
         },
     }
     : {
+        minimize: true,
         minimizer: [
             new TerserPlugin({
                 terserOptions: {
