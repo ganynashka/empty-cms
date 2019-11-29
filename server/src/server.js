@@ -16,10 +16,9 @@ import {ClientApp} from '../../www/js/component/app/c-client-app';
 import {ssrServerPort} from '../../webpack/config';
 
 import {getIndexHtmlTemplate} from './static-files';
-// import type {RouterStaticContextType} from './c-initial-data-context';
-import {getInitialData} from './c-initial-data-context';
 import {stringForReplaceContent, stringForReplaceTitle, stringForReplaceDescription} from './config';
 import {addApiIntoApplication} from './api/api';
+import {getInitialData} from './intial-data/intial-data-helper';
 
 const PORT: number = ssrServerPort;
 const app: $Application = express();

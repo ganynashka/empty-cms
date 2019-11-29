@@ -2,7 +2,7 @@
 
 import React, {Component, type Node} from 'react';
 
-// import type {RouterStaticContextType} from '../../../../../server/src/c-initial-data-context';
+// import type {RouterStaticContextType} from '../../../../../server/src/initial-data/initial-data-type';
 
 type PropsType = {
     // +staticContext?: RouterStaticContextType,
