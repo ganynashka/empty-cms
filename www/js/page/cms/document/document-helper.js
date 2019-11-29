@@ -78,6 +78,7 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         titleImage: String(documentFormData.titleImage || ''),
         type: documentFormData.type,
         title: documentFormData.title,
+        description: documentFormData.description,
         content: documentFormData.content,
         createdDate: 0,
         updatedDate: 0,
@@ -138,6 +139,14 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: '',
                         placeholder: 'Title',
                         labelText: 'Title',
+                    },
+                    {
+                        name: 'description',
+                        fieldComponent: InputText,
+                        validate: noValidate,
+                        defaultValue: '',
+                        placeholder: 'Description',
+                        labelText: 'Description (SEO)',
                     },
                     {
                         name: 'createdDate',
