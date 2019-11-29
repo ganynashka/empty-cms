@@ -12,7 +12,7 @@ import {ClientApp} from './c-client-app.js';
 export function App(): Node {
     return (
         <BrowserRouter>
-            <ClientApp initialData={window.initialData || defaultInitialData}/>
+            <ClientApp initialData={window.initialData || {...defaultInitialData}}/>
         </BrowserRouter>
     );
 }

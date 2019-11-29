@@ -54,7 +54,7 @@ export function addDefendApi(app: $Application) {
             return;
         }
 
-        // actually show 404 page
+        response.status(404);
         next();
     });
 }

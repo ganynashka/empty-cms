@@ -2,10 +2,10 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {RouterStaticContextType} from '../../../../../server/src/c-initial-data-context';
+// import type {RouterStaticContextType} from '../../../../../server/src/c-initial-data-context';
 
 type PropsType = {
-    +staticContext?: RouterStaticContextType,
+    // +staticContext?: RouterStaticContextType,
 };
 
 type StateType = null;
@@ -15,7 +15,7 @@ export class PageNotFound extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
-        Object.assign(props.staticContext || {}, {is404: true});
+        // Object.assign(props.staticContext || {}, {is404: true});
     }
 
     render(): Node {
