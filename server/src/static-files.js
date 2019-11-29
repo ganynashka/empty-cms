@@ -6,9 +6,9 @@ import path from 'path';
 import {pathToDist} from '../../webpack/config';
 import {promiseCatch} from '../../www/js/lib/promise';
 
-import {stringForReplace} from './config';
+import {stringForReplaceContent} from './config';
 
-let indexHtmlTemplate: string = stringForReplace;
+let indexHtmlTemplate: string = stringForReplaceContent;
 
 fsPromises
     .readFile(path.join('.', pathToDist, 'index.html'), 'utf8')

@@ -8,11 +8,13 @@ export type RouterStaticContextType = {
 };
 
 export type InitialDataType = {|
-    +apiData: null,
+    +title: string,
+    +description: string,
 |};
 
 export const defaultInitialData: InitialDataType = {
-    apiData: null,
+    title: 'the title',
+    description: 'the description',
 };
 
 const initialDataContext = React.createContext<InitialDataType>(defaultInitialData);

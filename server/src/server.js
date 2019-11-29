@@ -18,7 +18,7 @@ import {ssrServerPort} from '../../webpack/config';
 import {getIndexHtmlTemplate} from './static-files';
 import type {RouterStaticContextType} from './c-initial-data-context';
 import {defaultInitialData, type InitialDataType} from './c-initial-data-context';
-import {stringForReplace} from './config';
+import {stringForReplaceContent, stringForReplaceTitle, stringForReplaceDescription} from './config';
 import {addApiIntoApplication} from './api/api';
 const PORT: number = ssrServerPort;
 const app: $Application = express();
@@ -30,9 +30,9 @@ addApiIntoApplication(app);
 
 // *.html
 app.get('*', async (request: $Request, response: $Response) => {
-    const initialData: InitialDataType = {...defaultInitialData, apiData: null};
+    const initialData: InitialDataType = {...defaultInitialData};
     const staticContext: RouterStaticContextType = {is404: false};
-    const result = ReactDOMServer.renderToString(
+    const reactResult = ReactDOMServer.renderToString(
         <StaticRouter context={staticContext} location={request.url}>
             <ClientApp initialData={initialData}/>
             <script dangerouslySetInnerHTML={{__html: `window.initialData = ${JSON.stringify(initialData)}`}}/>
@@ -45,7 +45,12 @@ app.get('*', async (request: $Request, response: $Response) => {
 
     const htmlTemplate = getIndexHtmlTemplate();
 
-    response.send(htmlTemplate.replace(stringForReplace, result));
+    const htmlResult = htmlTemplate
+        .replace(stringForReplaceTitle, initialData.title)
+        .replace(stringForReplaceDescription, initialData.description)
+        .replace(stringForReplaceContent, reactResult);
+
+    response.send(htmlResult);
 });
 
 /*
