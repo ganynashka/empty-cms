@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 import {getDocumentOrphanList} from '../../../page/cms/document/document-api';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
+import {rootDocumentSlug} from '../../../../../server/src/api/part/document-api-const';
 
 import documentTreeStyle from './document-tree.scss';
 import {DocumentTreeItem} from './c-docuemnt-tree-item';
@@ -45,7 +46,7 @@ export class DocumentTree extends Component<PropsType, StateType> {
                 <Typography variant="h5">Documents tree:</Typography>
                 <hr/>
                 <TreeView defaultCollapseIcon={<ExpandMoreIcon/>} defaultExpandIcon={<ChevronRightIcon/>}>
-                    <DocumentTreeItem deep={10} slug="root"/>
+                    <DocumentTreeItem deep={10} slug={rootDocumentSlug}/>
                 </TreeView>
                 <hr/>
                 <Typography variant="h5">Orphan documents:</Typography>

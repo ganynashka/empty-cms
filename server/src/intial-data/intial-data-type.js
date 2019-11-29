@@ -1,8 +1,17 @@
 // @flow
 
+import type {MongoDocumentType} from '../database/database-type';
+
+export type InitialRootDataType = {|
+    +rootDocument: MongoDocumentType,
+    +subDocumentList: Array<MongoDocumentType>,
+|};
+
 export type InitialDataType = {|
     +title: string,
     +description: string,
+    +is404: boolean,
+    +rootPathData: InitialRootDataType | null,
 |};
 
 /*

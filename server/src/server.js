@@ -41,6 +41,10 @@ app.get('*', async (request: $Request, response: $Response) => {
         </StaticRouter>
     );
 
+    if (initialData.is404) {
+        response.status(404);
+    }
+
     const html404Result = htmlTemplate
         .replace(stringForReplaceTitle, initialData.title)
         .replace(stringForReplaceDescription, initialData.description)
