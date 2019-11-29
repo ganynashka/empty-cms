@@ -2,26 +2,26 @@
 
 import {type $Application, type $Request, type $Response} from 'express';
 
-import {getSession, isAdmin} from '../../util/session';
+import {getSession, isAdmin as getIsAdmin} from '../../util/session';
 import {routePathMap} from '../../../../www/js/component/app/routes-path-map';
 import {userApiRouteMap} from '../api-route-map';
 
 export function addDefendApi(app: $Application) {
-    const publicPathList = [
+    const publicPathList = [routePathMap.login.path, routePathMap.register.path, routePathMap.siteEnter.path];
+
+    const publicApiList = [
         userApiRouteMap.login,
+        userApiRouteMap.unLogin,
         userApiRouteMap.register,
         userApiRouteMap.getCurrentUser,
-        routePathMap.login.path,
-        routePathMap.register.path,
-
-        routePathMap.siteEnter.path,
     ];
 
     app.use((request: $Request, response: $Response, next: () => mixed) => {
         const userSession = getSession(request);
 
         console.log('---> Defend API:');
-        console.log('--->     URL:', request.url);
+        console.log('--->     url:', request.url);
+        console.log('--->     path:', request.path);
         console.log('--->     Session.login:', String(userSession.login));
         console.log('--->     Session.role:', String(userSession.role));
 
@@ -29,18 +29,32 @@ export function addDefendApi(app: $Application) {
     });
 
     app.use((request: $Request, response: $Response, next: (error?: ?Error) => mixed) => {
-        const {url} = request;
+        const {path} = request;
 
-        if (publicPathList.includes(url)) {
+        const isAdmin = getIsAdmin(request);
+
+        if (isAdmin) {
             next();
             return;
         }
 
-        if (isAdmin(request)) {
+        if (publicPathList.includes(path)) {
             next();
             return;
         }
 
-        response.redirect(routePathMap.login.path);
+        if (publicApiList.includes(path)) {
+            next();
+            return;
+        }
+
+        // check cms
+        if (path.startsWith(routePathMap.cmsEnter.path)) {
+            response.redirect(routePathMap.login.path);
+            return;
+        }
+
+        // actually show 404 page
+        next();
     });
 }
