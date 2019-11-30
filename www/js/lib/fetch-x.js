@@ -3,6 +3,7 @@
 /* global window, fetch */
 
 import {hasProperty} from './is';
+import {promiseCatch} from './promise';
 
 const promiseCache = {};
 
@@ -35,11 +36,7 @@ export function fetchX<ExpectedResponseType>(
     promiseCache[cacheProperty] = window
         .fetch(url, options)
         .then((rawResult: Response): Promise<ExpectedResponseType> => rawResult.json())
-        .catch((error: Error): Error => {
-            console.error('can not fetch url:', url);
-            console.error(error);
-            return error;
-        });
+        .catch(promiseCatch);
 
     return promiseCache[cacheProperty];
 }
