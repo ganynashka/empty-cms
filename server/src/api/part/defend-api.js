@@ -45,14 +45,20 @@ export function addDefendApi(app: $Application) {
             return;
         }
 
+        if (publicApiList.includes(path)) {
+            next();
+            return;
+        }
+
         // check resized image
         if (path.startsWith(fileApiRouteMap.getResizedImage)) {
             next();
             return;
         }
 
-        if (publicApiList.includes(path)) {
-            next();
+        if (path.startsWith('/api/')) {
+            response.status(403);
+            next(new Error('Not admin'));
             return;
         }
 
@@ -68,7 +74,7 @@ export function addDefendApi(app: $Application) {
             return;
         }
 
-        response.status(402);
+        response.status(404);
         next();
     });
 }
