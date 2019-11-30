@@ -4,7 +4,7 @@ import {type $Application, type $Request, type $Response} from 'express';
 
 import {getSession, isAdmin as getIsAdmin} from '../../util/session';
 import {routePathMap} from '../../../../www/js/component/app/routes-path-map';
-import {userApiRouteMap} from '../api-route-map';
+import {initialDataApiRouteMap, userApiRouteMap} from '../api-route-map';
 
 export function addDefendApi(app: $Application) {
     const publicPathList = [routePathMap.login.path, routePathMap.register.path, routePathMap.siteEnter.path];
@@ -14,6 +14,7 @@ export function addDefendApi(app: $Application) {
         userApiRouteMap.unLogin,
         userApiRouteMap.register,
         userApiRouteMap.getCurrentUser,
+        initialDataApiRouteMap.getInitialData,
     ];
 
     app.use((request: $Request, response: $Response, next: () => mixed) => {
@@ -54,7 +55,7 @@ export function addDefendApi(app: $Application) {
             return;
         }
 
-        response.status(404);
+        response.status(403);
         next();
     });
 }

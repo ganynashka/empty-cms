@@ -14,6 +14,7 @@ import {addDocumentApi} from './part/document-api';
 import {addDefendApi} from './part/defend-api';
 import {addFileApi} from './part/file-api';
 import {addStaticApi} from './part/static-api';
+import {initialDataApi} from './part/initial-data-api';
 
 export function addApiIntoApplication(app: $Application) {
     app.use(cors());
@@ -37,6 +38,7 @@ export function addApiIntoApplication(app: $Application) {
 
     addStaticApi(app);
     addDefendApi(app);
+    initialDataApi(app);
     addUserApi(app);
     addDocumentApi(app);
     addFileApi(app);

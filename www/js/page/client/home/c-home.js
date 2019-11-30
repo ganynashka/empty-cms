@@ -2,13 +2,20 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {RenderPageInputDataType} from '../../../component/app/render-route/render-route-type';
+// import type {RenderPageInputDataType} from '../../../component/app/render-route/render-route-type';
 import type {InitialDataType} from '../../../../../server/src/intial-data/intial-data-type';
 
-import imageLogo from './image/empty.jpg';
-import homeStyle from './home.scss';
+import {getInitialData} from '../../../component/app/render-route/render-route-helper';
+import {routePathMap} from '../../../component/app/routes-path-map';
+import {isError} from '../../../lib/is';
 
-type PropsType = RenderPageInputDataType;
+import homeStyle from './home.scss';
+import imageLogo from './image/empty.jpg';
+
+type PropsType = {
+    +initialContextData: InitialDataType,
+};
+
 type StateType = {|
     +initialContextData: InitialDataType,
 |};
@@ -17,21 +24,35 @@ export class Home extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
+        console.log(props);
+
         this.state = {
             initialContextData: props.initialContextData,
         };
     }
 
     componentDidMount() {
-        const {state} = this;
-
-        if (!state.initialContextData.rootPathData) {
-            return;
-        }
+        this.fetchInitialContextData();
 
         // fetch initialContextData
 
         console.log('---> Component Home did mount');
+    }
+
+    async fetchInitialContextData() {
+        const {state} = this;
+
+        if (state.initialContextData.rootPathData) {
+            return;
+        }
+
+        const initialContextData = await getInitialData(routePathMap.siteEnter.path);
+
+        if (isError(initialContextData)) {
+            return;
+        }
+
+        this.setState({initialContextData});
     }
 
     /*

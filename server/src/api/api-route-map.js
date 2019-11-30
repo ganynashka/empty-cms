@@ -24,3 +24,7 @@ export const fileApiRouteMap = {
     getFileList: '/api/get-file-list',
     getResizedImage: '/api/get-resized-image',
 };
+
+export const initialDataApiRouteMap = {
+    getInitialData: '/api/get-initial-data',
+};

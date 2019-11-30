@@ -29,18 +29,12 @@ async function getRootData(collection: MongoCollection<MongoDocumentType>): Prom
     return {rootDocument, subDocumentList: subDocumentList.filter(Boolean)};
 }
 
-export async function getInitialData(request: $Request, response: $Response): Promise<InitialDataType> {
+export async function getInitialDataByPath(path: string): Promise<InitialDataType> {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
 
     if (isError(collection)) {
         return {...page404InitialData};
     }
-
-    if (String(response.statusCode) === '404') {
-        return {...page404InitialData};
-    }
-
-    const {path} = request;
 
     // check cms
     if (path.startsWith(routePathMap.cmsEnter.path)) {
@@ -58,4 +52,14 @@ export async function getInitialData(request: $Request, response: $Response): Pr
     console.log(path);
 
     return {...page404InitialData};
+}
+
+export async function getInitialData(request: $Request, response: $Response): Promise<InitialDataType> {
+    if (String(response.statusCode) === '404') {
+        return {...page404InitialData};
+    }
+
+    const {path} = request;
+
+    return getInitialDataByPath(path);
 }
