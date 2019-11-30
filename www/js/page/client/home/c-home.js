@@ -2,10 +2,12 @@
 
 import React, {Component, type Node} from 'react';
 
+import type {RenderPageInputDataType} from '../../../component/app/render-route/render-route-type';
+
 import imageLogo from './image/empty.jpg';
 import homeStyle from './home.scss';
 
-type PropsType = {};
+type PropsType = RenderPageInputDataType;
 type StateType = null;
 
 export class Home extends Component<PropsType, StateType> {
@@ -25,6 +27,14 @@ export class Home extends Component<PropsType, StateType> {
 */
 
     render(): Node {
-        return <h1>Skazki</h1>;
+        const {props} = this;
+        const {initialContextData} = props;
+
+        return (
+            <div>
+                <h1>Skazki</h1>
+                <p>{JSON.stringify(initialContextData.rootPathData)}</p>
+            </div>
+        );
     }
 }
