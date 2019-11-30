@@ -29,6 +29,7 @@ export function addDefendApi(app: $Application) {
         next();
     });
 
+    // eslint-disable-next-line complexity
     app.use((request: $Request, response: $Response, next: (error?: ?Error) => mixed) => {
         const {path} = request;
 
@@ -45,6 +46,12 @@ export function addDefendApi(app: $Application) {
         }
 
         if (publicApiList.includes(path)) {
+            next();
+            return;
+        }
+
+        // article
+        if (path.startsWith(routePathMap.article.staticPartPath)) {
             next();
             return;
         }

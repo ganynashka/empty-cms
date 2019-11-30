@@ -19,4 +19,5 @@ export const page404InitialData: InitialDataType = {
     ...defaultInitialData,
     title: '404',
     description: '404',
+    is404: true,
 };

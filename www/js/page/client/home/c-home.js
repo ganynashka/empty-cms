@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom';
 
 // import type {RenderPageInputDataType} from '../../../component/app/render-route/render-route-type';
 import type {InitialDataType} from '../../../../../server/src/intial-data/intial-data-type';
-
 import {routePathMap} from '../../../component/app/routes-path-map';
 import {getInitialClientData} from '../../../component/app/client-app-helper';
 import {isError} from '../../../lib/is';
@@ -36,8 +35,6 @@ export class Home extends Component<PropsType, StateType> {
 
     componentDidMount() {
         this.fetchInitialContextData();
-
-        // fetch initialContextData
 
         console.log('---> Component Home did mount');
     }
@@ -82,7 +79,7 @@ export class Home extends Component<PropsType, StateType> {
             <div>
                 {rootPathData.subDocumentList.map((article: MongoDocumentType): Node => {
                     return (
-                        <Link key={article.slug} to={article.slug}>
+                        <Link key={article.slug} to={routePathMap.article.staticPartPath + '/' + article.slug}>
                             {article.title}
                         </Link>
                     );

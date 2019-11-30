@@ -64,20 +64,15 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
     if (path.startsWith(routePathMap.article.staticPartPath)) {
         const articlePathData = await getArticleData(collection, path);
 
-        if (articlePathData) {
-            return {
+        return articlePathData
+            ? {
                 ...defaultInitialData,
                 title: articlePathData.title,
                 description: articlePathData.description,
                 articlePathData,
-            };
-        }
-
-        // no article here
-        return {...page404InitialData};
+            }
+            : {...page404InitialData};
     }
-
-    console.log(path);
 
     return {...page404InitialData};
 }
