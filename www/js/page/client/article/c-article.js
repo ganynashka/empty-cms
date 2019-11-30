@@ -58,6 +58,7 @@ export class Article extends Component<PropsType, StateType> {
         }
 
         if (!initialContextData.articlePathData) {
+            console.log('---> show 404 here if you want.');
             history.push(routePathMap.siteEnter.path);
             return;
         }
