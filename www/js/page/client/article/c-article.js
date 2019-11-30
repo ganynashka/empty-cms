@@ -5,15 +5,12 @@ import React, {Component, type Node} from 'react';
 import type {RenderPageInputDataType} from '../../../component/app/render-route/render-route-type';
 import type {InitialDataType} from '../../../../../server/src/intial-data/intial-data-type';
 
-import imageLogo from './image/empty.jpg';
-import homeStyle from './home.scss';
-
 type PropsType = RenderPageInputDataType;
 type StateType = {|
     +initialContextData: InitialDataType,
 |};
 
-export class Home extends Component<PropsType, StateType> {
+export class Article extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
@@ -31,7 +28,7 @@ export class Home extends Component<PropsType, StateType> {
 
         // fetch initialContextData
 
-        console.log('---> Component Home did mount');
+        console.log('---> Component Article did mount');
     }
 
     /*
@@ -51,7 +48,7 @@ export class Home extends Component<PropsType, StateType> {
 
         return (
             <div>
-                <h1>Skazki</h1>
+                <h1>Skazki pro kogoto</h1>
                 <p>{JSON.stringify(initialContextData.rootPathData)}</p>
             </div>
         );
