@@ -2,6 +2,8 @@
 
 import React, {Component, type Node} from 'react';
 
+import {setMeta} from '../../../lib/meta';
+
 import imageLogo from './image/empty.jpg';
 import homeStyle from './home.scss';
 
@@ -10,6 +12,10 @@ type StateType = null;
 
 export class Home extends Component<PropsType, StateType> {
     componentDidMount() {
+        setMeta({
+            title: '',
+            description: '',
+        });
         console.log('---> Component Home did mount');
     }
 

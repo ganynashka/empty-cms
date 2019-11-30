@@ -24,6 +24,7 @@ import {InputText} from '../../../component/layout/form-generator/field/input-te
 import {InputPassword} from '../../../component/layout/form-generator/field/input-password/c-input-text';
 import {routePathMap} from '../../../component/app/routes-path-map';
 import type {RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
+import {setMeta} from '../../../lib/meta';
 
 export const loginPasswordFormConfig: FormGeneratorConfigType = {
     fieldSetList: [
@@ -71,6 +72,14 @@ export class Register extends Component<PropsType, StateType> {
         super(props);
 
         this.state = {};
+    }
+
+    componentDidMount() {
+        setMeta({
+            title: '',
+            description: '',
+        });
+        console.log('---> Component Register did mount');
     }
 
     handleFormSubmit = async (formData: FormGeneratorFormDataType) => {

@@ -8,8 +8,9 @@ import type {InitialDataType} from '../../../../../server/src/intial-data/intial
 import {routePathMap} from '../../../component/app/routes-path-map';
 import {getInitialClientData} from '../../../component/app/client-app-helper';
 import {isError} from '../../../lib/is';
-
+import {rootPathMetaData} from '../../../../../server/src/intial-data/intial-data-const';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
+import {setMeta} from '../../../lib/meta';
 
 import homeStyle from './home.scss';
 import imageLogo from './image/empty.jpg';
@@ -43,15 +44,27 @@ export class Home extends Component<PropsType, StateType> {
         const {state} = this;
 
         if (state.initialContextData.rootPathData) {
+            setMeta({
+                title: state.initialContextData.title,
+                description: state.initialContextData.description,
+            });
             return;
         }
 
         const initialContextData = await getInitialClientData(routePathMap.siteEnter.path);
 
         if (isError(initialContextData)) {
+            setMeta({
+                title: rootPathMetaData.title,
+                description: rootPathMetaData.description,
+            });
             return;
         }
 
+        setMeta({
+            title: initialContextData.title,
+            description: initialContextData.description,
+        });
         this.setState({initialContextData});
     }
 
@@ -79,9 +92,9 @@ export class Home extends Component<PropsType, StateType> {
             <div>
                 {rootPathData.subDocumentList.map((article: MongoDocumentType): Node => {
                     return (
-                        <Link key={article.slug} to={routePathMap.article.staticPartPath + '/' + article.slug}>
-                            {article.title}
-                        </Link>
+                        <p key={article.slug}>
+                            <Link to={routePathMap.article.staticPartPath + '/' + article.slug}>{article.title}</Link>
+                        </p>
                     );
                 })}
             </div>

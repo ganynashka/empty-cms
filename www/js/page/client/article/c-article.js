@@ -8,6 +8,8 @@ import {getInitialClientData} from '../../../component/app/client-app-helper';
 import {routePathMap} from '../../../component/app/routes-path-map';
 import {isError} from '../../../lib/is';
 import type {MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
+import {setMeta} from '../../../lib/meta';
+import {rootPathMetaData} from '../../../../../server/src/intial-data/intial-data-const';
 
 type PropsType = {
     +initialContextData: InitialDataType,
@@ -54,6 +56,10 @@ export class Article extends Component<PropsType, StateType> {
         const initialContextData = await getInitialClientData(routePathMap.article.staticPartPath + '/' + slug);
 
         if (isError(initialContextData)) {
+            setMeta({
+                title: rootPathMetaData.title,
+                description: rootPathMetaData.description,
+            });
             return;
         }
 
@@ -63,6 +69,10 @@ export class Article extends Component<PropsType, StateType> {
             return;
         }
 
+        setMeta({
+            title: initialContextData.title,
+            description: initialContextData.description,
+        });
         this.setState({initialContextData});
     }
 

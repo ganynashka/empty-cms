@@ -10,8 +10,6 @@ export function initialDataApi(app: $Application) {
     app.get(initialDataApiRouteMap.getInitialData, async (request: $Request, response: $Response) => {
         const url = String(request.query.url || routePathMap.siteEnter.path);
 
-        console.log('initialDataApi:', request.query.url, url);
-
         const data = await getInitialDataByPath(url);
 
         response.json(data);
