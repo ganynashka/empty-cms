@@ -15,15 +15,23 @@ declare module 'imagemin' {
 }
 
 declare module 'imagemin-jpegtran' {
-    declare export default function imageminJpegtran(): ImageminConfigResultType;
+    // progressive: true, arithmetic: true
+    declare type ImageminJpegtranConfigType = {
+        +progressive?: boolean,
+        +arithmetic?: boolean,
+    };
+
+    declare export default function imageminJpegtran(
+        jpegtranConfig?: ImageminJpegtranConfigType,
+    ): ImageminConfigResultType;
 }
 
 declare module 'imagemin-pngquant' {
-    declare type ImageminJpegtranConfigType = {
+    declare type ImageminPngquantConfigType = {
         +quality: [number, number],
     };
 
     declare export default function imageminPngquant(
-        imageminJpegtranConfig: ImageminJpegtranConfigType,
+        pngquantConfig: ImageminPngquantConfigType,
     ): ImageminConfigResultType;
 }

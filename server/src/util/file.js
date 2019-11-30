@@ -53,7 +53,7 @@ export function getIsFileExists(pathToFile: string): Promise<boolean> {
 export function compressImage(pathToFile: string, pathToFolder: string): Promise<null | Error> {
     return imagemin([pathToFile], {
         destination: pathToFolder,
-        plugins: [imageminJpegtran(), imageminPngquant({quality: [0.6, 0.8]})],
+        plugins: [imageminJpegtran({progressive: true}), imageminPngquant({quality: [0.6, 0.8]})],
     })
         .then((): null => null)
         .catch(promiseCatch);
