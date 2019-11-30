@@ -56,7 +56,7 @@ export function getResizedImage(
     src: string,
     width: number,
     height: number,
-    fit?: SharpFitResizeNameType = sharpFitResizeNameMap.inside
+    fit: SharpFitResizeNameType = sharpFitResizeNameMap.inside
 ): string {
     return `${fileApiRouteMap.getResizedImage}/${src}?width=${width}&height=${height}&fit=${fit}`;
 }
