@@ -5,20 +5,19 @@ import {CSSTransition} from 'react-transition-group';
 import {Redirect, Route} from 'react-router-dom';
 
 import type {ContextRouterType} from '../../../type/react-router-dom-v5-type-extract';
-import {PageWrapper} from '../../page-wrapper/c-page-wrapper';
+import type {InitialDataType} from '../../../../../server/src/intial-data/intial-data-type';
 import type {PopupContextType} from '../../../provider/popup/popup-context-type';
 import {PopupContextConsumer} from '../../../provider/popup/c-popup-context';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import {SnackbarContextConsumer} from '../../../provider/snackbar/c-snackbar-context';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 import {UserContextConsumer} from '../../../provider/user/c-user-context';
-import {LoadComponent} from '../../../lib/c-load-component';
-import {isFunction} from '../../../lib/is';
-import {canNotLoadComponent} from '../../../lib/can-not-load-component';
+import {InitialDataConsumer} from '../../../../../server/src/intial-data/c-initial-data-context';
 
-import type {RedirectItemType, RouteItemType} from './render-route-type';
+import type {RedirectItemType, RenderPageInputDataType, RouteItemType} from './render-route-type';
 import {routeCssTransitionClassNameMap} from './render-route-const';
 import {isRedirect} from './render-route-helper';
+import {renderPage} from './render-route-page';
 
 export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
     const {path} = routeItem;
@@ -26,8 +25,6 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
     if (isRedirect(routeItem)) {
         return <Redirect from={routeItem.from} key={routeItem.from + path} to={path}/>;
     }
-
-    const {component: PageComponent, asyncLoad} = routeItem;
 
     return (
         <Route exact key={path} path={path}>
@@ -42,64 +39,39 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                         timeout={300}
                         unmountOnExit
                     >
-                        <SnackbarContextConsumer>
-                            {(snackbarContextData: SnackbarContextType): Node => {
+                        <InitialDataConsumer>
+                            {(initialContextData: InitialDataType): Node => {
                                 return (
-                                    <UserContextConsumer>
-                                        {(userContextData: UserContextConsumerType): Node => {
+                                    <SnackbarContextConsumer>
+                                        {(snackbarContextData: SnackbarContextType): Node => {
                                             return (
-                                                <PopupContextConsumer>
-                                                    {(popupContextData: PopupContextType): Node => {
-                                                        if (!isFunction(asyncLoad)) {
-                                                            return (
-                                                                <PageWrapper location={location}>
-                                                                    <PageComponent
-                                                                        history={history}
-                                                                        location={location}
-                                                                        match={match}
-                                                                        popupContext={popupContextData}
-                                                                        snackbarContext={snackbarContextData}
-                                                                        userContextData={userContextData}
-                                                                    />
-                                                                </PageWrapper>
-                                                            );
-                                                        }
-
-                                                        function loadAsyncPageComponent(): Promise<Node> {
-                                                            return asyncLoad()
-                                                                .then(
-                                                                    (
-                                                                        // eslint-disable-next-line id-match
-                                                                        AsyncPageComponent: React$ComponentType<*>
-                                                                    ): Node => {
-                                                                        return (
-                                                                            <AsyncPageComponent
-                                                                                history={history}
-                                                                                location={location}
-                                                                                match={match}
-                                                                                popupContext={popupContextData}
-                                                                                snackbarContext={snackbarContextData}
-                                                                                userContextData={userContextData}
-                                                                            />
-                                                                        );
-                                                                    }
-                                                                )
-                                                                .catch(canNotLoadComponent);
-                                                        }
-
+                                                <UserContextConsumer>
+                                                    {(userContextData: UserContextConsumerType): Node => {
                                                         return (
-                                                            <PageWrapper location={location}>
-                                                                <LoadComponent load={loadAsyncPageComponent}/>
-                                                            </PageWrapper>
+                                                            <PopupContextConsumer>
+                                                                {(popupContextData: PopupContextType): Node => {
+                                                                    const pageInputData: RenderPageInputDataType = {
+                                                                        location,
+                                                                        history,
+                                                                        match,
+                                                                        initialContextData,
+                                                                        popupContextData,
+                                                                        snackbarContextData,
+                                                                        userContextData,
+                                                                    };
+
+                                                                    return renderPage(pageInputData, routeItem);
+                                                                }}
+                                                            </PopupContextConsumer>
                                                         );
                                                     }}
-                                                </PopupContextConsumer>
+                                                </UserContextConsumer>
                                             );
                                         }}
-                                    </UserContextConsumer>
+                                    </SnackbarContextConsumer>
                                 );
                             }}
-                        </SnackbarContextConsumer>
+                        </InitialDataConsumer>
                     </CSSTransition>
                 );
             }}
