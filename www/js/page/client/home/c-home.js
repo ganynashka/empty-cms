@@ -5,8 +5,8 @@ import React, {Component, type Node} from 'react';
 // import type {RenderPageInputDataType} from '../../../component/app/render-route/render-route-type';
 import type {InitialDataType} from '../../../../../server/src/intial-data/intial-data-type';
 
-import {getInitialData} from '../../../component/app/render-route/render-route-helper';
 import {routePathMap} from '../../../component/app/routes-path-map';
+import {getInitialClientData} from '../../../component/app/client-app-helper';
 import {isError} from '../../../lib/is';
 
 import homeStyle from './home.scss';
@@ -46,7 +46,7 @@ export class Home extends Component<PropsType, StateType> {
             return;
         }
 
-        const initialContextData = await getInitialData(routePathMap.siteEnter.path);
+        const initialContextData = await getInitialClientData(routePathMap.siteEnter.path);
 
         if (isError(initialContextData)) {
             return;
