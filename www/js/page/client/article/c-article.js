@@ -10,6 +10,7 @@ import {isError} from '../../../lib/is';
 import type {MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
 import {setMeta} from '../../../lib/meta';
 import {rootPathMetaData} from '../../../../../server/src/intial-data/intial-data-const';
+import {Markdown} from '../../../component/layout/markdown/c-markdown';
 
 type PropsType = {
     +initialContextData: InitialDataType,
@@ -87,14 +88,31 @@ export class Article extends Component<PropsType, StateType> {
     };
 */
 
-    render(): Node {
-        const {state} = this;
-        const {initialContextData} = state;
+    renderContent(): Node {
+        const {props, state} = this;
+        const {articlePathData} = state.initialContextData;
+        const {match} = props;
 
+        if (match === null) {
+            console.error('DocumentEdit props.match is not defined!');
+            return null;
+        }
+
+        const slug = match.params.slug || '';
+
+        if (!articlePathData || articlePathData.slug !== slug) {
+            return null;
+        }
+
+        return <Markdown text={articlePathData.content}/>;
+    }
+
+    render(): Node {
         return (
             <div>
                 <h1>Skazki pro kogoto</h1>
-                <p>{JSON.stringify(initialContextData)}</p>
+                <hr/>
+                {this.renderContent()}
             </div>
         );
     }
