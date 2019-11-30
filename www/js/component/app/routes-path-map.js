@@ -4,6 +4,10 @@ export const routePathMap = {
     siteEnter: {
         path: '/',
     },
+    article: {
+        path: '/article/:slug',
+        staticPartPath: '/article',
+    },
 
     // cms
     cmsEnter: {

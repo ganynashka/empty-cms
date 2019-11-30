@@ -1,6 +1,7 @@
 // @flow
 
 import {Home} from '../../page/client/home/c-home';
+import {Article} from '../../page/client/article/c-article';
 
 import {routePathMap} from './routes-path-map';
 
@@ -9,6 +10,11 @@ export const routeItemMap = {
     siteEnter: {
         path: routePathMap.siteEnter.path,
         component: Home,
+        type: 'route',
+    },
+    article: {
+        path: routePathMap.article.path,
+        component: Article,
         type: 'route',
     },
 

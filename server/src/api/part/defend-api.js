@@ -55,7 +55,7 @@ export function addDefendApi(app: $Application) {
             return;
         }
 
-        response.status(403);
+        response.status(404);
         next();
     });
 }

@@ -12,6 +12,7 @@ export type InitialDataType = {|
     +description: string,
     +is404: boolean,
     +rootPathData: InitialRootDataType | null,
+    +articlePathData: MongoDocumentType | null,
 |};
 
 /*

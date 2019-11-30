@@ -12,6 +12,7 @@ export const defaultInitialData: InitialDataType = {
     description: '',
     is404: false,
     rootPathData: null,
+    articlePathData: null,
 };
 
 export const page404InitialData: InitialDataType = {

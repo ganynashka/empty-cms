@@ -29,6 +29,16 @@ async function getRootData(collection: MongoCollection<MongoDocumentType>): Prom
     return {rootDocument, subDocumentList: subDocumentList.filter(Boolean)};
 }
 
+function getArticleData(
+    collection: MongoCollection<MongoDocumentType>,
+    path: string
+): Promise<MongoDocumentType | null> {
+    const slug = path.replace(routePathMap.article.staticPartPath + '/', '');
+
+    return collection.findOne({slug});
+}
+
+// eslint-disable-next-line complexity
 export async function getInitialDataByPath(path: string): Promise<InitialDataType> {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
 
@@ -41,12 +51,30 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
         return {...defaultInitialData};
     }
 
+    // root
     if (path === routePathMap.siteEnter.path) {
         return {
             ...defaultInitialData,
             ...rootPathMetaData,
             rootPathData: await getRootData(collection),
         };
+    }
+
+    // article
+    if (path.startsWith(routePathMap.article.staticPartPath)) {
+        const articlePathData = await getArticleData(collection, path);
+
+        if (articlePathData) {
+            return {
+                ...defaultInitialData,
+                title: articlePathData.title,
+                description: articlePathData.description,
+                articlePathData,
+            };
+        }
+
+        // no article here
+        return {...page404InitialData};
     }
 
     console.log(path);
