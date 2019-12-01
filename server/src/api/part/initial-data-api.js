@@ -10,8 +10,12 @@ export function initialDataApi(app: $Application) {
     app.get(initialDataApiRouteMap.getInitialData, async (request: $Request, response: $Response) => {
         const url = String(request.query.url || routePathMap.siteEnter.path);
 
-        const data = await getInitialDataByPath(url);
+        const initialData = await getInitialDataByPath(url);
 
-        response.json(data);
+        if (initialData.is404) {
+            response.status(404);
+        }
+
+        response.json(initialData);
     });
 }

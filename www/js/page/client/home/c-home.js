@@ -93,8 +93,10 @@ export class Home extends Component<PropsType, StateType> {
                 {rootPathData.subDocumentList.map((article: MongoDocumentType): Node => {
                     return (
                         <p key={article.slug}>
+                            <Link to={routePathMap.article.staticPartPath + '/' + article.slug}>{article.title}</Link>
+                            <br/>
                             <Link to={routePathMap.article.staticPartPath + '/' + article.slug + '1'}>
-                                {article.title}
+                                {article.title} wrong
                             </Link>
                         </p>
                     );
