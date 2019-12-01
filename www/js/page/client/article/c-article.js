@@ -20,6 +20,7 @@ type PropsType = {
 
 type StateType = {|
     +initialContextData: InitialDataType,
+    +is404: boolean,
 |};
 
 export class Article extends Component<PropsType, StateType> {
@@ -28,6 +29,7 @@ export class Article extends Component<PropsType, StateType> {
 
         this.state = {
             initialContextData: props.initialContextData,
+            is404: false,
         };
     }
 
@@ -61,6 +63,7 @@ export class Article extends Component<PropsType, StateType> {
                 title: rootPathMetaData.title,
                 description: rootPathMetaData.description,
             });
+            this.setState({is404: true});
             console.error('---> Can not get initial data!');
             return;
         }
@@ -70,6 +73,7 @@ export class Article extends Component<PropsType, StateType> {
                 title: page404InitialData.title,
                 description: page404InitialData.description,
             });
+            this.setState({is404: true});
             console.error('---> Article is not exists!');
             return;
         }
@@ -79,6 +83,7 @@ export class Article extends Component<PropsType, StateType> {
                 title: page404InitialData.title,
                 description: page404InitialData.description,
             });
+            this.setState({is404: true});
             console.error('---> Can not get article data!');
             return;
         }
@@ -121,9 +126,20 @@ export class Article extends Component<PropsType, StateType> {
     }
 
     render(): Node {
+        const {state} = this;
+        const {is404} = state;
+
+        if (is404) {
+            return (
+                <div>
+                    <h1>here is no skazka, sorry :(</h1>
+                </div>
+            );
+        }
+
         return (
             <div>
-                <h1>Skazki pro kogoto</h1>
+                <h1>Skazka pro kogoto</h1>
                 <hr/>
                 {this.renderContent()}
             </div>
