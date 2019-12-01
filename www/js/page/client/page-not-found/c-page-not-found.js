@@ -1,11 +1,13 @@
 // @flow
 
 import React, {Component, type Node} from 'react';
+import {Link} from 'react-router-dom';
 
-// import type {RouterStaticContextType} from '../../../../../server/src/initial-data/initial-data-type';
+import type {InitialDataType} from '../../../../../server/src/intial-data/intial-data-type';
+import {routePathMap} from '../../../component/app/routes-path-map';
 
 type PropsType = {
-    // +staticContext?: RouterStaticContextType,
+    +initialContextData: InitialDataType,
 };
 
 type StateType = null;
@@ -19,6 +21,27 @@ export class PageNotFound extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        return <h1>Page Not Found, Sorry :(</h1>;
+        const {props} = this;
+        const {initialContextData} = props;
+
+        console.log(this.props);
+
+        if (initialContextData.is404) {
+            return (
+                <div>
+                    <span>Page Not Found, Sorry on server :(</span>
+                    <br/>
+                    <a href={routePathMap.siteEnter.path}>to home with reload page</a>
+                </div>
+            );
+        }
+
+        return (
+            <div>
+                <span>Page Not Found, Sorry on server :(</span>
+                <br/>
+                <Link to={routePathMap.siteEnter.path}>to home without reload page</Link>
+            </div>
+        );
     }
 }

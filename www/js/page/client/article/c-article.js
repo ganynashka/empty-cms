@@ -9,7 +9,7 @@ import {routePathMap} from '../../../component/app/routes-path-map';
 import {isError} from '../../../lib/is';
 import type {MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
 import {setMeta} from '../../../lib/meta';
-import {rootPathMetaData} from '../../../../../server/src/intial-data/intial-data-const';
+import {rootPathMetaData, page404InitialData} from '../../../../../server/src/intial-data/intial-data-const';
 import {Markdown} from '../../../component/layout/markdown/c-markdown';
 
 type PropsType = {
@@ -37,7 +37,7 @@ export class Article extends Component<PropsType, StateType> {
         console.log('---> Component Article did mount');
     }
 
-    // eslint-disable-next-line complexity
+    // eslint-disable-next-line complexity, max-statements
     async fetchInitialContextData() {
         const {props, state} = this;
         const {articlePathData} = state.initialContextData;
@@ -61,12 +61,25 @@ export class Article extends Component<PropsType, StateType> {
                 title: rootPathMetaData.title,
                 description: rootPathMetaData.description,
             });
+            console.error('---> Can not get initial data!');
+            return;
+        }
+
+        if (initialContextData.is404) {
+            setMeta({
+                title: page404InitialData.title,
+                description: page404InitialData.description,
+            });
+            console.error('---> Article is not exists!');
             return;
         }
 
         if (!initialContextData.articlePathData) {
-            console.log('---> show 404 here if you want.');
-            history.push(routePathMap.siteEnter.path);
+            setMeta({
+                title: page404InitialData.title,
+                description: page404InitialData.description,
+            });
+            console.error('---> Can not get article data!');
             return;
         }
 

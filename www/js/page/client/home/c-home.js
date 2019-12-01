@@ -93,7 +93,9 @@ export class Home extends Component<PropsType, StateType> {
                 {rootPathData.subDocumentList.map((article: MongoDocumentType): Node => {
                     return (
                         <p key={article.slug}>
-                            <Link to={routePathMap.article.staticPartPath + '/' + article.slug}>{article.title}</Link>
+                            <Link to={routePathMap.article.staticPartPath + '/' + article.slug + '1'}>
+                                {article.title}
+                            </Link>
                         </p>
                     );
                 })}
@@ -110,6 +112,8 @@ export class Home extends Component<PropsType, StateType> {
                 <h1>Skazki</h1>
                 <hr/>
                 {this.renderArticleLinkList()}
+                <hr/>
+                <Link to="/qweqeqwe/s">Not me</Link>
                 <hr/>
                 <p>{JSON.stringify(initialContextData.rootPathData)}</p>
             </div>

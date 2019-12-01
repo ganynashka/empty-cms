@@ -33,19 +33,12 @@ export function addDefendApi(app: $Application) {
     app.use((request: $Request, response: $Response, next: (error?: ?Error) => mixed) => {
         const {path} = request;
 
-        const isAdmin = getIsAdmin(request);
-
-        if (isAdmin) {
+        if (publicApiList.includes(path)) {
             next();
             return;
         }
 
         if (publicPathList.includes(path)) {
-            next();
-            return;
-        }
-
-        if (publicApiList.includes(path)) {
             next();
             return;
         }
@@ -56,20 +49,32 @@ export function addDefendApi(app: $Application) {
             return;
         }
 
-        if (path.startsWith('/api/')) {
-            response.status(403);
-            next(new Error('Not admin'));
-            return;
-        }
-
         // article
         if (path.startsWith(routePathMap.article.staticPartPath)) {
             next();
             return;
         }
 
+        const isAdmin = getIsAdmin(request);
+
+        if (path.startsWith('/api/')) {
+            if (isAdmin) {
+                next();
+                return;
+            }
+
+            response.status(403);
+            next(new Error('You are not admin.'));
+            return;
+        }
+
         // check cms
         if (path.startsWith(routePathMap.cmsEnter.path)) {
+            if (isAdmin) {
+                next();
+                return;
+            }
+
             response.redirect(routePathMap.login.path);
             return;
         }

@@ -15,7 +15,7 @@ import {InitialDataProvider} from '../../../../server/src/intial-data/c-initial-
 import {CMSHeaderWrapper} from '../cms/header/c-cms-header-wrapper';
 import {Header} from '../client/header/c-header';
 
-import {routeItemMap} from './routes';
+import {routeItemMap, routeItemPage404} from './routes';
 import {redderEmptyRoute} from './render-route/render-route-helper';
 import {redderRoute} from './render-route/render-route';
 import {renderWrapperList} from './wrapper-list';
@@ -31,6 +31,14 @@ type PropsType = {|
 export function ClientApp(props: PropsType): Node {
     const {initialData} = props;
 
+    if (initialData.is404) {
+        return (
+            <InitialDataProvider value={initialData}>
+                {renderWrapperList(wrapperList, [redderRoute(routeItemPage404)])}
+            </InitialDataProvider>
+        );
+    }
+
     return (
         <InitialDataProvider value={initialData}>
             {renderWrapperList(wrapperList, [
@@ -39,7 +47,7 @@ export function ClientApp(props: PropsType): Node {
                 routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key])),
                 <Switch key="switch">
                     {routeItemKeyList.map((key: string): Node => redderEmptyRoute(routeItemMap[key]))}
-                    <Route component={PageNotFound}/>
+                    {redderRoute(routeItemPage404)}
                 </Switch>,
             ])}
         </InitialDataProvider>

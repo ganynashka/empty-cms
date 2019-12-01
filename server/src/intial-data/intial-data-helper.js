@@ -38,17 +38,12 @@ function getArticleData(
     return collection.findOne({slug});
 }
 
-// eslint-disable-next-line complexity
+// eslint-disable-next-line complexity, max-statements
 export async function getInitialDataByPath(path: string): Promise<InitialDataType> {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
 
     if (isError(collection)) {
         return {...page404InitialData};
-    }
-
-    // check cms
-    if (path.startsWith(routePathMap.cmsEnter.path)) {
-        return {...defaultInitialData};
     }
 
     // root
@@ -64,7 +59,7 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
     if (path.startsWith(routePathMap.article.staticPartPath)) {
         const articlePathData = await getArticleData(collection, path);
 
-        return articlePathData
+        return articlePathData && articlePathData.isActive
             ? {
                 ...defaultInitialData,
                 title: articlePathData.title,
@@ -72,6 +67,11 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
                 articlePathData,
             }
             : {...page404InitialData};
+    }
+
+    // check cms
+    if (path.startsWith(routePathMap.cmsEnter.path)) {
+        return {...defaultInitialData};
     }
 
     return {...page404InitialData};
