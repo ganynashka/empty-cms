@@ -19,6 +19,7 @@ export function renderPage(pageInputData: RenderPageInputDataType, routeItem: Ro
         popupContextData,
         snackbarContextData,
         userContextData,
+        staticContext,
     } = pageInputData;
 
     const {component: PageComponent, asyncLoad} = routeItem;
@@ -33,6 +34,7 @@ export function renderPage(pageInputData: RenderPageInputDataType, routeItem: Ro
                     match={match}
                     popupContext={popupContextData}
                     snackbarContext={snackbarContextData}
+                    staticContext={staticContext}
                     userContextData={userContextData}
                 />
             </PageWrapper>

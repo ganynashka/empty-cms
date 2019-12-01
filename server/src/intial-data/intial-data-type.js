@@ -15,9 +15,7 @@ export type InitialDataType = {|
     +articlePathData: MongoDocumentType | null,
 |};
 
-/*
 export type RouterStaticContextType = {
     url?: string,
     is404: boolean,
 };
-*/

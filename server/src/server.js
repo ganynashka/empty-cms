@@ -19,6 +19,7 @@ import {getIndexHtmlTemplate} from './static-files';
 import {stringForReplaceContent, stringForReplaceTitle, stringForReplaceDescription} from './config';
 import {addApiIntoApplication} from './api/api';
 import {getInitialData} from './intial-data/intial-data-helper';
+import type {RouterStaticContextType} from './intial-data/intial-data-type';
 
 const PORT: number = ssrServerPort;
 const app: $Application = express();
@@ -31,26 +32,46 @@ addApiIntoApplication(app);
 // *.html
 app.get('*', async (request: $Request, response: $Response) => {
     const htmlTemplate = getIndexHtmlTemplate();
-    // const staticContext: RouterStaticContextType = {is404: false};
     const initialData = await getInitialData(request, response);
+    // staticContext.is404 will rewrite by page404
+    const staticContext: RouterStaticContextType = {is404: false};
 
     const reactResult = ReactDOMServer.renderToString(
-        <StaticRouter context={{}} location={request.url}>
+        <StaticRouter context={staticContext} location={request.url}>
             <ClientApp initialData={initialData}/>
             <script dangerouslySetInnerHTML={{__html: `window.initialData = ${JSON.stringify(initialData)}`}}/>
         </StaticRouter>
     );
 
+    if (staticContext.is404 && !initialData.is404) {
+        response.status(404);
+        const initialData404 = {...initialData, is404: true};
+        const reactResult404 = ReactDOMServer.renderToString(
+            <StaticRouter context={staticContext} location={request.url}>
+                <ClientApp initialData={initialData404}/>
+                <script dangerouslySetInnerHTML={{__html: `window.initialData = ${JSON.stringify(initialData404)}`}}/>
+            </StaticRouter>
+        );
+
+        const htmlResult404 = htmlTemplate
+            .replace(stringForReplaceTitle, initialData.title)
+            .replace(stringForReplaceDescription, initialData.description)
+            .replace(stringForReplaceContent, reactResult404);
+
+        response.send(htmlResult404);
+        return;
+    }
+
     if (initialData.is404) {
         response.status(404);
     }
 
-    const html404Result = htmlTemplate
+    const htmlResult = htmlTemplate
         .replace(stringForReplaceTitle, initialData.title)
         .replace(stringForReplaceDescription, initialData.description)
         .replace(stringForReplaceContent, reactResult);
 
-    response.send(html404Result);
+    response.send(htmlResult);
 });
 
 /*

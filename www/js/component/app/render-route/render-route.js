@@ -29,7 +29,7 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
     return (
         <Route exact key={path} path={path}>
             {(contextRouterData: ContextRouterType): Node => {
-                const {match, history, location} = contextRouterData;
+                const {match, history, location, staticContext} = contextRouterData;
 
                 return (
                     <CSSTransition
@@ -58,6 +58,7 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                                                                         popupContextData,
                                                                         snackbarContextData,
                                                                         userContextData,
+                                                                        staticContext,
                                                                     };
 
                                                                     return renderPage(pageInputData, routeItem);

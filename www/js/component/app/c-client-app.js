@@ -3,7 +3,6 @@
 import React, {type Node} from 'react';
 import {Route, Switch} from 'react-router-dom';
 
-import {PageNotFound} from '../../page/client/page-not-found/c-page-not-found';
 import {LocaleProvider} from '../../provider/locale/c-locale-context';
 import {ScreenProvider} from '../../provider/screen/c-screen-context';
 import {UserProvider} from '../../provider/user/c-user-context';

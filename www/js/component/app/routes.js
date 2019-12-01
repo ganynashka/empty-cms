@@ -2,7 +2,6 @@
 
 import {Home} from '../../page/client/home/c-home';
 import {Article} from '../../page/client/article/c-article';
-
 import {PageNotFound} from '../../page/client/page-not-found/c-page-not-found';
 
 import {routePathMap} from './routes-path-map';

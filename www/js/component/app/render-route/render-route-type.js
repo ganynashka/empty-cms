@@ -1,6 +1,11 @@
 // @flow
 
-import type {LocationType, MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
+import type {
+    LocationType,
+    MatchType,
+    RouterHistoryType,
+    StaticRouterContextType,
+} from '../../../type/react-router-dom-v5-type-extract';
 import type {InitialDataType} from '../../../../../server/src/intial-data/intial-data-type';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
@@ -31,4 +36,5 @@ export type RenderPageInputDataType = {|
     +snackbarContextData: SnackbarContextType,
     +userContextData: UserContextConsumerType,
     +popupContextData: PopupContextType,
+    staticContext?: StaticRouterContextType,
 |};

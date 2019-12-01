@@ -5,13 +5,14 @@
 import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
-import type {InitialDataType} from '../../../../../server/src/intial-data/intial-data-type';
+import type {InitialDataType, RouterStaticContextType} from '../../../../../server/src/intial-data/intial-data-type';
 import {routePathMap} from '../../../component/app/routes-path-map';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 
 type PropsType = {
     +initialContextData: InitialDataType,
     +location: LocationType,
+    +staticContext?: RouterStaticContextType,
 };
 
 type StateType = null;
@@ -21,7 +22,7 @@ export class PageNotFound extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
-        // Object.assign(props.staticContext || {}, {is404: true});
+        Object.assign(props.staticContext || {}, {is404: true});
     }
 
     componentDidUpdate(prevProps: PropsType, prevState: StateType, prevContext: *): * {

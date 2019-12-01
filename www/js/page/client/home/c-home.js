@@ -27,8 +27,6 @@ export class Home extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
-        console.log(props);
-
         this.state = {
             initialContextData: props.initialContextData,
         };
