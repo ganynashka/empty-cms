@@ -6,7 +6,7 @@ import {allLocalesData, localeConst, localeNameList} from './locale-context-cons
 import type {LangKeyType} from './translation/type';
 import type {LocaleNameType, LocaleContextValueMapType, LocaleContextType} from './locale-context-type';
 
-export function getLocaleName(): LocaleNameType {
+function getSavedLocaleName(): LocaleNameType {
     if (typeof localStorage === 'undefined' || typeof navigator === 'undefined') {
         return localeConst.defaults.localeName;
     }
@@ -76,7 +76,7 @@ export function getLocalizedString(
 
 export function getDefaultLocaleContextData(): LocaleContextType {
     return {
-        name: getLocaleName(),
+        name: getSavedLocaleName(),
         setName: (localeName: LocaleNameType): null => null,
         getLocalizedString: (stringKey: LangKeyType, valueMap?: LocaleContextValueMapType): string => stringKey,
     };

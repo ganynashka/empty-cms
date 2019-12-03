@@ -6,10 +6,14 @@ import {UserContextConsumer} from '../../../provider/user/c-user-context';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 import {LoadComponent} from '../../../lib/c-load-component';
 import {canNotLoadComponent} from '../../../lib/can-not-load-component';
-import type {ContextRouterType} from '../../../type/react-router-dom-v5-type-extract';
+import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 import {isCMS} from '../../../lib/url';
 
-export function CMSHeaderWrapper(props: ContextRouterType): Node {
+type PropsType = {
+    +location: LocationType,
+};
+
+export function CMSHeaderWrapper(props: PropsType): Node {
     const {location} = props;
 
     if (!isCMS(location)) {

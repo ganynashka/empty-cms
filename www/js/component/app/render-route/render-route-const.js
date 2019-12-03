@@ -8,3 +8,5 @@ export const routeCssTransitionClassNameMap = {
     exit: pageWrapperStyle.transition_exit,
     exitActive: pageWrapperStyle.transition_exit_active,
 };
+
+export const starPath = '*';

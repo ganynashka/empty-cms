@@ -3,6 +3,7 @@
 import React, {type Node} from 'react';
 import {Route, Switch} from 'react-router-dom';
 
+import {ThemeProvider} from '../../provider/theme/c-theme-context';
 import {LocaleProvider} from '../../provider/locale/c-locale-context';
 import {ScreenProvider} from '../../provider/screen/c-screen-context';
 import {UserProvider} from '../../provider/user/c-user-context';
@@ -11,15 +12,21 @@ import {SnackbarProvider} from '../../provider/snackbar/c-snackbar-context';
 import {MainWrapper} from '../main-wrapper/c-main-wrapper';
 import {type InitialDataType} from '../../../../server/src/intial-data/intial-data-type';
 import {InitialDataProvider} from '../../../../server/src/intial-data/c-initial-data-context';
-import {CMSHeaderWrapper} from '../cms/header/c-cms-header-wrapper';
-import {Header} from '../client/header/c-header';
 
-import {routeItemMap, routeItemPage404} from './routes';
+import {routeItemClientHeader, routeItemCmsHeader, routeItemMap, routeItemPage404} from './routes';
 import {redderEmptyRoute} from './render-route/render-route-helper';
 import {redderRoute} from './render-route/render-route';
 import {renderWrapperList} from './wrapper-list';
 
-const wrapperList = [LocaleProvider, ScreenProvider, UserProvider, PopupProvider, SnackbarProvider, MainWrapper];
+const wrapperList = [
+    ThemeProvider,
+    LocaleProvider,
+    ScreenProvider,
+    UserProvider,
+    PopupProvider,
+    SnackbarProvider,
+    MainWrapper,
+];
 
 const routeItemKeyList = Object.keys(routeItemMap);
 
@@ -41,8 +48,8 @@ export function ClientApp(props: PropsType): Node {
     return (
         <InitialDataProvider value={initialData}>
             {renderWrapperList(wrapperList, [
-                <Route component={CMSHeaderWrapper} key="cms-header"/>,
-                <Route component={Header} key="client-header"/>,
+                redderRoute(routeItemClientHeader),
+                redderRoute(routeItemCmsHeader),
                 routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key])),
                 <Switch key="switch">
                     {routeItemKeyList.map((key: string): Node => redderEmptyRoute(routeItemMap[key]))}

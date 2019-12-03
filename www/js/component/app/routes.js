@@ -3,13 +3,35 @@
 import {Home} from '../../page/client/home/c-home';
 import {Article} from '../../page/client/article/c-article';
 import {PageNotFound} from '../../page/client/page-not-found/c-page-not-found';
+import {Header as ClientHeader} from '../client/header/c-header';
+import {CMSHeaderWrapper} from '../cms/header/c-cms-header-wrapper';
+import {PageWrapper} from '../page-wrapper/c-page-wrapper';
 
 import {routePathMap} from './routes-path-map';
+import {starPath} from './render-route/render-route-const';
 
 export const routeItemPage404 = {
-    path: '*',
+    path: starPath,
     component: PageNotFound,
     type: 'route',
+    id: 'page-404',
+    pageWrapper: null,
+};
+
+export const routeItemClientHeader = {
+    path: starPath,
+    component: ClientHeader,
+    type: 'route',
+    id: 'client-header',
+    pageWrapper: null,
+};
+
+export const routeItemCmsHeader = {
+    path: starPath,
+    component: CMSHeaderWrapper,
+    type: 'route',
+    id: 'cms-header',
+    pageWrapper: null,
 };
 
 export const routeItemMap = {
@@ -18,11 +40,13 @@ export const routeItemMap = {
         path: routePathMap.siteEnter.path,
         component: Home,
         type: 'route',
+        pageWrapper: PageWrapper,
     },
     article: {
         path: routePathMap.article.path,
         component: Article,
         type: 'route',
+        pageWrapper: PageWrapper,
     },
 
     // cms
@@ -38,6 +62,7 @@ export const routeItemMap = {
             );
         },
         type: 'route',
+        pageWrapper: PageWrapper,
     },
     userList: {
         path: routePathMap.userList.path,
@@ -51,6 +76,7 @@ export const routeItemMap = {
             );
         },
         type: 'route',
+        pageWrapper: PageWrapper,
     },
     documentList: {
         path: routePathMap.documentList.path,
@@ -64,6 +90,7 @@ export const routeItemMap = {
             );
         },
         type: 'route',
+        pageWrapper: PageWrapper,
     },
     documentTree: {
         path: routePathMap.documentTree.path,
@@ -78,6 +105,7 @@ export const routeItemMap = {
             );
         },
         type: 'route',
+        pageWrapper: PageWrapper,
     },
     documentCreate: {
         path: routePathMap.documentCreate.path,
@@ -92,6 +120,7 @@ export const routeItemMap = {
             );
         },
         type: 'route',
+        pageWrapper: PageWrapper,
     },
     documentEdit: {
         path: routePathMap.documentEdit.path,
@@ -106,6 +135,7 @@ export const routeItemMap = {
             );
         },
         type: 'route',
+        pageWrapper: PageWrapper,
     },
     login: {
         path: routePathMap.login.path,
@@ -119,6 +149,7 @@ export const routeItemMap = {
             );
         },
         type: 'route',
+        pageWrapper: PageWrapper,
     },
     register: {
         path: routePathMap.register.path,
@@ -132,6 +163,7 @@ export const routeItemMap = {
             );
         },
         type: 'route',
+        pageWrapper: PageWrapper,
     },
     imageUpload: {
         path: routePathMap.imageUpload.path,
@@ -145,6 +177,7 @@ export const routeItemMap = {
             );
         },
         type: 'route',
+        pageWrapper: PageWrapper,
     },
     imageList: {
         path: routePathMap.imageList.path,
@@ -158,5 +191,6 @@ export const routeItemMap = {
             );
         },
         type: 'route',
+        pageWrapper: PageWrapper,
     },
 };

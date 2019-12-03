@@ -3,42 +3,21 @@
 import React, {type Node} from 'react';
 
 import {isFunction} from '../../../lib/is';
-import {PageWrapper} from '../../page-wrapper/c-page-wrapper';
 import {canNotLoadComponent} from '../../../lib/can-not-load-component';
 import {LoadComponent} from '../../../lib/c-load-component';
 
 import type {RenderPageInputDataType, RouteItemType} from './render-route-type';
+import {renderPageComponent} from './render-route-helper';
 
-// eslint-disable-next-line id-match
 export function renderPage(pageInputData: RenderPageInputDataType, routeItem: RouteItemType): Node {
-    const {
-        location,
-        history,
-        match,
-        initialContextData,
-        popupContextData,
-        snackbarContextData,
-        userContextData,
-        staticContext,
-    } = pageInputData;
+    const {location} = pageInputData;
 
-    const {component: PageComponent, asyncLoad} = routeItem;
+    const {asyncLoad, pageWrapper: PageWrapper} = routeItem;
 
     if (!isFunction(asyncLoad)) {
-        return (
-            <PageWrapper location={location}>
-                <PageComponent
-                    history={history}
-                    initialContextData={initialContextData}
-                    location={location}
-                    match={match}
-                    popupContext={popupContextData}
-                    snackbarContext={snackbarContextData}
-                    staticContext={staticContext}
-                    userContextData={userContextData}
-                />
-            </PageWrapper>
-        );
+        const pageComponent = renderPageComponent(pageInputData, routeItem);
+
+        return PageWrapper ? <PageWrapper location={location}>{pageComponent}</PageWrapper> : pageComponent;
     }
 
     function loadAsyncPageComponent(): Promise<Node> {
@@ -51,6 +30,7 @@ export function renderPage(pageInputData: RenderPageInputDataType, routeItem: Ro
                         staticPartPath: routeItem.staticPartPath,
                         component: AsyncPageComponent,
                         type: routeItem.type,
+                        pageWrapper: routeItem.pageWrapper,
                     };
 
                     return renderPage(pageInputData, syncRouteItem);

@@ -5,7 +5,7 @@
 import React, {type Node} from 'react';
 import {Link, Redirect, Route} from 'react-router-dom';
 
-import type {RedirectItemType, RouteItemType} from './render-route-type';
+import type {RedirectItemType, RenderPageInputDataType, RouteItemType} from './render-route-type';
 
 export function isRoute(routeItem: RouteItemType | RedirectItemType): boolean %checks {
     return routeItem.type === 'route';
@@ -32,5 +32,35 @@ export function redderLink(routeItem: RouteItemType): Node {
         <Link key={path} to={path}>
             {path}
         </Link>
+    );
+}
+
+export function renderPageComponent(pageInputData: RenderPageInputDataType, routeItem: RouteItemType): Node {
+    const {
+        location,
+        history,
+        match,
+        initialContextData,
+        popupContextData,
+        snackbarContextData,
+        userContextData,
+        staticContext,
+        themeContextData,
+    } = pageInputData;
+
+    const {component: PageComponent} = routeItem;
+
+    return (
+        <PageComponent
+            history={history}
+            initialContextData={initialContextData}
+            location={location}
+            match={match}
+            popupContext={popupContextData}
+            snackbarContext={snackbarContextData}
+            staticContext={staticContext}
+            themeContextData={themeContextData}
+            userContextData={userContextData}
+        />
     );
 }
