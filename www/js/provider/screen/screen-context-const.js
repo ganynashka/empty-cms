@@ -1,5 +1,13 @@
 // @flow
 
-import {getScreenState} from './screen-context-helper';
+export const screenMinWidth = {
+    desktop: 1280,
+    tablet: 768,
+    mobile: 320,
+};
 
-export const defaultScreenContextData = getScreenState();
+export const screenNameReference = {
+    desktop: 'desktop',
+    tablet: 'tablet',
+    mobile: 'mobile',
+};

@@ -6,7 +6,8 @@ import React, {Component, type Node} from 'react';
 
 import type {ScreenContextType} from './screen-context-type';
 import {getScreenState} from './screen-context-helper';
-import {defaultScreenContextData} from './screen-context-const';
+
+const defaultScreenContextData = getScreenState();
 
 const screenContext = React.createContext<ScreenContextType>(defaultScreenContextData);
 const ScreenContextProvider = screenContext.Provider;

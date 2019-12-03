@@ -6,8 +6,8 @@ import classNames from 'classnames';
 import type {LocaleContextType} from '../../provider/locale/locale-context-type';
 import {LocaleContextConsumer} from '../../provider/locale/c-locale-context';
 import type {ScreenContextType} from '../../provider/screen/screen-context-type';
-import {screenNameReference} from '../../provider/screen/screen-context-helper';
 import {ScreenContextConsumer} from '../../provider/screen/c-screen-context';
+import {screenNameReference} from '../../provider/screen/screen-context-const';
 import {localeNameReference} from '../../provider/locale/locale-context-const';
 
 import mainWrapperStyle from './main-wrapper.scss';

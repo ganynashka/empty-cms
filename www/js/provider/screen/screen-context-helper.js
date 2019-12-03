@@ -3,18 +3,7 @@
 /* global document */
 
 import type {ScreenWidthNameType, ScreenContextType} from './screen-context-type';
-
-const screenMinWidth: {[key: ScreenWidthNameType]: number} = {
-    desktop: 1280,
-    tablet: 768,
-    mobile: 320,
-};
-
-export const screenNameReference: {[key: ScreenWidthNameType]: ScreenWidthNameType} = {
-    desktop: 'desktop',
-    tablet: 'tablet',
-    mobile: 'mobile',
-};
+import {screenMinWidth, screenNameReference} from './screen-context-const';
 
 function getScreenName(screenWidth: number): ScreenWidthNameType {
     let screenName = 'mobile';
