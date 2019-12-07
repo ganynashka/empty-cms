@@ -8,6 +8,8 @@ import {isCMS} from '../../../lib/url';
 import {routePathMap} from '../../app/routes-path-map';
 import type {ThemeContextType} from '../../../provider/theme/theme-context-type';
 
+import headerStyle from './header.scss';
+
 type PropsType = {
     +location: LocationType,
     +themeContextData: ThemeContextType,
@@ -23,18 +25,12 @@ export function Header(props: PropsType): Node {
     }
 
     return (
-        <div>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+        <header className={headerStyle.header__wrapper}>
             <Link to={routePathMap.siteEnter.path}>Home page</Link>
 
             <div>theme: {themeContextData.name}</div>
 
             <h1>Skazki header</h1>
-        </div>
+        </header>
     );
 }

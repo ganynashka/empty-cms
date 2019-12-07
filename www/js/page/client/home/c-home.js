@@ -115,7 +115,7 @@ export class Home extends Component<PropsType, StateType> {
                 <hr/>
                 <Link to="/qweqeqwe/s">Not me</Link>
                 <hr/>
-                <p>{JSON.stringify(initialContextData.rootPathData)}</p>
+                <p style={{wordBreak: 'break-all'}}>{JSON.stringify(initialContextData.rootPathData)}</p>
             </div>
         );
     }

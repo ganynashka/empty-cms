@@ -4,5 +4,5 @@
     display: block;
     height: $header-height;
     //position: relative;
-    z-index: 1;
+    z-index: $z-index-header;
 }

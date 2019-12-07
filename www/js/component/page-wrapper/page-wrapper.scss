@@ -3,13 +3,15 @@
 $page-transition-time: 300ms;
 
 .page_wrapper {
+    background-color: #c00;
     box-sizing: border-box;
     height: 100%;
+    overflow: auto;
     padding-top: $header-height / 2;
     position: absolute;
     top: 0;
     width: 100%;
-    z-index: 0;
+    z-index: $z-index-page-wrapper;
 
     &.page_wrapper__cms {
         padding-top: $header-height;
