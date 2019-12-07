@@ -1,6 +1,6 @@
 // @flow
 
-import type {MongoDocumentType} from '../database/database-type';
+import type {MongoDocumentTreeNodeType, MongoDocumentType} from '../../../../server/src/database/database-type';
 
 export type InitialRootDataType = {|
     +rootDocument: MongoDocumentType,
@@ -13,7 +13,11 @@ export type InitialDataType = {|
     +is404: boolean,
     +rootPathData: InitialRootDataType | null,
     +articlePathData: MongoDocumentType | null,
+    +documentNodeTree: MongoDocumentTreeNodeType | null,
+    +setInitialData: SetInitialDataType | null,
 |};
+
+type SetInitialDataType = (initialData: InitialDataType) => mixed;
 
 export type RouterStaticContextType = {
     url?: string,

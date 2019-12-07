@@ -3,12 +3,17 @@
 import {type $Request, type $Response} from 'express';
 import {MongoCollection} from 'mongodb';
 
-import type {MongoDocumentType} from '../database/database-type';
-import {getCollection} from '../database/database-helper';
-import {dataBaseConst} from '../database/database-const';
-import {isError} from '../../../www/js/lib/is';
-import {routePathMap} from '../../../www/js/component/app/routes-path-map';
-import {rootDocumentSlug} from '../api/part/document-api-const';
+import type {
+    MongoDocumentTreeNodeType as MongoDTNType,
+    MongoDocumentType,
+} from '../../../../server/src/database/database-type';
+import {getCollection} from '../../../../server/src/database/database-helper';
+import {dataBaseConst} from '../../../../server/src/database/database-const';
+import {isError} from '../../lib/is';
+import {routePathMap} from '../../component/app/routes-path-map';
+import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from '../../../../server/src/api/part/document-api-const';
+
+import {getDocumentTree} from '../../../../server/src/api/part/document-api-helper';
 
 import {defaultInitialData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType, InitialRootDataType} from './intial-data-type';
@@ -20,7 +25,7 @@ async function getRootData(collection: MongoCollection<MongoDocumentType>): Prom
         return null;
     }
 
-    const subDocumentSlugList = rootDocument.subDocumentList;
+    const subDocumentSlugList = rootDocument.subDocumentSlugList;
 
     const subDocumentList: Array<MongoDocumentType | null> = await Promise.all(
         subDocumentSlugList.map((slug: string): Promise<MongoDocumentType | null> => collection.findOne({slug}))
@@ -41,8 +46,9 @@ function getArticleData(
 // eslint-disable-next-line complexity, max-statements
 export async function getInitialDataByPath(path: string): Promise<InitialDataType> {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
+    const documentNodeTree = await getDocumentTree(rootDocumentSlug, rootDocumentTreeDefaultDeep);
 
-    if (isError(collection)) {
+    if (isError(collection) || isError(documentNodeTree)) {
         return {...page404InitialData};
     }
 
@@ -52,6 +58,7 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
             ...defaultInitialData,
             ...rootPathMetaData,
             rootPathData: await getRootData(collection),
+            documentNodeTree,
         };
     }
 
@@ -65,6 +72,7 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
                 title: articlePathData.title,
                 description: articlePathData.description,
                 articlePathData,
+                documentNodeTree,
             }
             : {...page404InitialData};
     }

@@ -3,7 +3,7 @@
 import {type $Application, type $Request, type $Response} from 'express';
 
 import {initialDataApiRouteMap} from '../api-route-map';
-import {getInitialDataByPath} from '../../intial-data/intial-data-helper';
+import {getInitialDataByPath} from '../../../../www/js/provider/intial-data/intial-data-helper';
 import {routePathMap} from '../../../../www/js/component/app/routes-path-map';
 
 export function initialDataApi(app: $Application) {

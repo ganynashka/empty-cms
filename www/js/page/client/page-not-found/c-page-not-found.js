@@ -5,7 +5,7 @@
 import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
-import type {InitialDataType, RouterStaticContextType} from '../../../../../server/src/intial-data/intial-data-type';
+import type {InitialDataType, RouterStaticContextType} from '../../../provider/intial-data/intial-data-type';
 import {routePathMap} from '../../../component/app/routes-path-map';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 

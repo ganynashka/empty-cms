@@ -13,3 +13,8 @@ export type GetSearchExactParameterType = {|
     +key: string,
     +value: string,
 |};
+
+export type GetDocumentTreeParameterType = {|
+    +slug: string,
+    +deep: number,
+|};

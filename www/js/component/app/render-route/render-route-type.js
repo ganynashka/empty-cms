@@ -7,7 +7,7 @@ import type {
     StaticRouterContextType,
 } from '../../../type/react-router-dom-v5-type-extract';
 import type {ThemeContextType} from '../../../provider/theme/theme-context-type';
-import type {InitialDataType} from '../../../../../server/src/intial-data/intial-data-type';
+import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 import type {PopupContextType} from '../../../provider/popup/popup-context-type';

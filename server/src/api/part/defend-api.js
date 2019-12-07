@@ -4,7 +4,7 @@ import {type $Application, type $Request, type $Response} from 'express';
 
 import {getSession, isAdmin as getIsAdmin} from '../../util/session';
 import {routePathMap} from '../../../../www/js/component/app/routes-path-map';
-import {fileApiRouteMap, initialDataApiRouteMap, userApiRouteMap} from '../api-route-map';
+import {documentApiRouteMap, fileApiRouteMap, initialDataApiRouteMap, userApiRouteMap} from '../api-route-map';
 
 export function addDefendApi(app: $Application) {
     const publicPathList = [routePathMap.login.path, routePathMap.register.path, routePathMap.siteEnter.path];
@@ -15,6 +15,7 @@ export function addDefendApi(app: $Application) {
         userApiRouteMap.register,
         userApiRouteMap.getCurrentUser,
         initialDataApiRouteMap.getInitialData,
+        documentApiRouteMap.getDocumentTree,
     ];
 
     app.use((request: $Request, response: $Response, next: () => mixed) => {

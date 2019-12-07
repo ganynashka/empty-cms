@@ -4,11 +4,11 @@ import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
 // import type {RenderPageInputDataType} from '../../../component/app/render-route/render-route-type';
-import type {InitialDataType} from '../../../../../server/src/intial-data/intial-data-type';
+import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 import {routePathMap} from '../../../component/app/routes-path-map';
 import {getInitialClientData} from '../../../component/app/client-app-helper';
 import {isError} from '../../../lib/is';
-import {rootPathMetaData} from '../../../../../server/src/intial-data/intial-data-const';
+import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
 import {setMeta} from '../../../lib/meta';
 

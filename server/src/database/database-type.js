@@ -36,9 +36,38 @@ export type MongoDocumentType = {|
     +content: string,
     +createdDate: number,
     +updatedDate: number,
-    +subDocumentList: Array<string>, // list of slug
+    +subDocumentSlugList: Array<string>,
     +tagList: Array<string>,
     +rating: number,
     +isActive: boolean,
     +imageList: Array<string>,
 |};
+
+export type MongoDocumentTreeNodeType = {|
+    +slug: string,
+    +titleImage: string,
+    +type: MongoDocumentTypeType,
+    +title: string,
+    +subNodeList: Array<MongoDocumentTreeNodeType>,
+    +subDocumentSlugList: Array<string>,
+    +isActive: boolean,
+|};
+
+/*
+export type MongoDocumentTreeType = {|
+    +_id?: mixed,
+    +slug: string,
+    +titleImage: string,
+    +type: MongoDocumentTypeType,
+    +title: string,
+    +description: string,
+    +content: string,
+    +createdDate: number,
+    +updatedDate: number,
+    +subDocumentSlugList: Array<MongoDocumentType>,
+    +tagList: Array<string>,
+    +rating: number,
+    +isActive: boolean,
+    +imageList: Array<string>,
+|}
+*/

@@ -7,8 +7,8 @@ import React, {type Node} from 'react';
 import type {ContextRouterType} from '../../../type/react-router-dom-v5-type-extract';
 import {ThemeContextConsumer} from '../../../provider/theme/c-theme-context';
 import type {ThemeContextType} from '../../../provider/theme/theme-context-type';
-import {InitialDataConsumer} from '../../../../../server/src/intial-data/c-initial-data-context';
-import type {InitialDataType} from '../../../../../server/src/intial-data/intial-data-type';
+import {InitialDataContextConsumer} from '../../../provider/intial-data/c-initial-data-context';
+import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 import {SnackbarContextConsumer} from '../../../provider/snackbar/c-snackbar-context';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import {UserContextConsumer} from '../../../provider/user/c-user-context';
@@ -31,7 +31,7 @@ export function renderConsumerPyramid(routeItem: RouteItemType, contextRouterDat
                     <ThemeContextConsumer>
                         {(themeContextData: ThemeContextType): Node => {
                             return (
-                                <InitialDataConsumer>
+                                <InitialDataContextConsumer>
                                     {(initialContextData: InitialDataType): Node => {
                                         return (
                                             <SnackbarContextConsumer>
@@ -66,7 +66,7 @@ export function renderConsumerPyramid(routeItem: RouteItemType, contextRouterDat
                                             </SnackbarContextConsumer>
                                         );
                                     }}
-                                </InitialDataConsumer>
+                                </InitialDataContextConsumer>
                             );
                         }}
                     </ThemeContextConsumer>

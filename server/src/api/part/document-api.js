@@ -9,8 +9,15 @@ import {dataBaseConst} from '../../database/database-const';
 import {getTime} from '../../util/time';
 import {isError} from '../../../../www/js/lib/is';
 
-import {getListParameters, getSearchExactParameters, streamOptionsArray} from '../api-helper';
+import {
+    getDocumentTreeParameters,
+    getListParameters,
+    getSearchExactParameters,
+    streamOptionsArray,
+} from '../api-helper';
 import {documentApiRouteMap} from '../api-route-map';
+
+import {getDocumentTree} from './document-api-helper';
 
 export function addDocumentApi(app: $Application) {
     app.get(documentApiRouteMap.getDocumentList, async (request: $Request, response: $Response) => {
@@ -37,6 +44,19 @@ export function addDocumentApi(app: $Application) {
             .limit(pageSize)
             .stream(streamOptionsArray)
             .pipe(response);
+    });
+
+    app.get(documentApiRouteMap.getDocumentTree, async (request: $Request, response: $Response) => {
+        const {slug, deep} = getDocumentTreeParameters(request);
+        const tree = await getDocumentTree(slug, deep);
+
+        if (isError(tree)) {
+            response.status(400);
+            response.json({slug, deep});
+            return;
+        }
+
+        response.json(tree);
     });
 
     app.get(documentApiRouteMap.getDocumentListSize, async (request: $Request, response: $Response) => {
@@ -188,7 +208,7 @@ export function addDocumentApi(app: $Application) {
 
         collection
             // $FlowFixMe
-            .find({subDocumentList: String(request.query.slug)})
+            .find({subDocumentSlugList: String(request.query.slug)})
             .stream(streamOptionsArray)
             .pipe(response);
     });
@@ -220,7 +240,7 @@ export function addDocumentApi(app: $Application) {
 
             const orphanList = documentList.filter((orphanDocument: MongoDocumentType): boolean => {
                 return documentList.every((mongoDocument: MongoDocumentType): boolean => {
-                    return !mongoDocument.subDocumentList.includes(orphanDocument.slug);
+                    return !mongoDocument.subDocumentSlugList.includes(orphanDocument.slug);
                 });
             });
 

@@ -3,13 +3,13 @@
 import React, {Component, type Node} from 'react';
 
 import type {RenderPageInputDataType} from '../../../component/app/render-route/render-route-type';
-import type {InitialDataType} from '../../../../../server/src/intial-data/intial-data-type';
+import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 import {getInitialClientData} from '../../../component/app/client-app-helper';
 import {routePathMap} from '../../../component/app/routes-path-map';
 import {isError} from '../../../lib/is';
 import type {MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
 import {setMeta} from '../../../lib/meta';
-import {rootPathMetaData, page404InitialData} from '../../../../../server/src/intial-data/intial-data-const';
+import {rootPathMetaData, page404InitialData} from '../../../provider/intial-data/intial-data-const';
 import {Markdown} from '../../../component/layout/markdown/c-markdown';
 
 type PropsType = {
@@ -46,7 +46,7 @@ export class Article extends Component<PropsType, StateType> {
         const {match, history} = props;
 
         if (match === null) {
-            console.error('DocumentEdit props.match is not defined!');
+            console.error('Article props.match is not defined!');
             return;
         }
 
@@ -112,7 +112,7 @@ export class Article extends Component<PropsType, StateType> {
         const {match} = props;
 
         if (match === null) {
-            console.error('DocumentEdit props.match is not defined!');
+            console.error('Article props.match is not defined!');
             return null;
         }
 

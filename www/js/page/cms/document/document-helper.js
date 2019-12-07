@@ -66,11 +66,11 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         return titleImage;
     }
 
-    const subDocumentList = stringToUniqArray(documentFormData.subDocumentList, ',');
+    const subDocumentSlugList = stringToUniqArray(documentFormData.subDocumentSlugList, ',');
     const slug = getSlug(documentFormData.title);
 
-    if (subDocumentList.includes(slug)) {
-        subDocumentList.splice(subDocumentList.indexOf(slug), 1);
+    if (subDocumentSlugList.includes(slug)) {
+        subDocumentSlugList.splice(subDocumentSlugList.indexOf(slug), 1);
     }
 
     return {
@@ -84,7 +84,7 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         updatedDate: 0,
         rating: documentFormData.rating,
         tagList: stringToUniqArray(documentFormData.tagList, ','),
-        subDocumentList,
+        subDocumentSlugList,
         isActive: documentFormData.isActive,
         imageList: extractUniqueArrayString(documentFormData.imageList),
     };
@@ -183,12 +183,12 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         labelText: 'Is active',
                     },
                     {
-                        name: 'subDocumentList',
+                        name: 'subDocumentSlugList',
                         fieldComponent: InputText,
                         validate: noValidate,
                         defaultValue: '',
                         placeholder: 'doc-1, doc-2, the-article',
-                        labelText: 'Sub-document list',
+                        labelText: 'Sub-document slug list',
                     },
                     {
                         name: 'rating',

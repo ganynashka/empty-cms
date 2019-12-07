@@ -15,11 +15,13 @@ import express, {type $Application, type $Request, type $Response} from 'express
 import {ClientApp} from '../../www/js/component/app/c-client-app';
 import {ssrServerPort} from '../../webpack/config';
 
+import {getInitialData} from '../../www/js/provider/intial-data/intial-data-helper';
+
+import type {RouterStaticContextType} from '../../www/js/provider/intial-data/intial-data-type';
+
 import {getIndexHtmlTemplate} from './static-files';
 import {stringForReplaceContent, stringForReplaceTitle, stringForReplaceDescription} from './config';
 import {addApiIntoApplication} from './api/api';
-import {getInitialData} from './intial-data/intial-data-helper';
-import type {RouterStaticContextType} from './intial-data/intial-data-type';
 
 const PORT: number = ssrServerPort;
 const app: $Application = express();

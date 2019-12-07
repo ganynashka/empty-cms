@@ -69,7 +69,7 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
             return [];
         }
 
-        return mongoDocument.subDocumentList.map((subDocumentSlug: string): Node => {
+        return mongoDocument.subDocumentSlugList.map((subDocumentSlug: string): Node => {
             return <DocumentTreeItem deep={deep - 1} key={subDocumentSlug} slug={subDocumentSlug}/>;
         });
     }
@@ -122,7 +122,7 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
             return <TreeItem label="Loading..." nodeId={slug}/>;
         }
 
-        if (mongoDocument.subDocumentList.length === 0) {
+        if (mongoDocument.subDocumentSlugList.length === 0) {
             return <TreeItem label={this.renderLabel()} nodeId={slug}/>;
         }
 

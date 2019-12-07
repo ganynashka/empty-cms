@@ -5,7 +5,7 @@
 import React, {type Node} from 'react';
 import {BrowserRouter} from 'react-router-dom';
 
-import {defaultInitialData} from '../../../../server/src/intial-data/intial-data-const';
+import {defaultInitialData} from '../../provider/intial-data/intial-data-const';
 
 import {ClientApp} from './c-client-app.js';
 

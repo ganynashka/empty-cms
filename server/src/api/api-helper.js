@@ -6,7 +6,8 @@ import {fit as sharpFit, type SharpResizeConfigType} from 'sharp';
 import {getSortDirection} from '../database/database-helper';
 import {hasProperty} from '../../../www/js/lib/is';
 
-import type {GetSearchExactParameterType, GetListParameterType} from './api-type';
+import type {GetSearchExactParameterType, GetListParameterType, GetDocumentTreeParameterType} from './api-type';
+import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from './part/document-api-const';
 
 export const streamOptionsArray = {transform: (item: {}): string => JSON.stringify(item) + ','};
 
@@ -38,4 +39,11 @@ export function getImageResizeParameters(request: $Request): SharpResizeConfigTy
     const fit = hasProperty(sharpFit, requestFitType) ? sharpFit[requestFitType] : sharpFit.inside;
 
     return {width, height, fit, withoutEnlargement: true};
+}
+
+export function getDocumentTreeParameters(request: $Request): GetDocumentTreeParameterType {
+    const slug = String(request.query.slug || rootDocumentSlug);
+    const deep = parseInt(request.query.deep, 10) || rootDocumentTreeDefaultDeep;
+
+    return {slug, deep};
 }

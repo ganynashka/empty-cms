@@ -10,8 +10,8 @@ import {UserProvider} from '../../provider/user/c-user-context';
 import {PopupProvider} from '../../provider/popup/c-popup-context';
 import {SnackbarProvider} from '../../provider/snackbar/c-snackbar-context';
 import {MainWrapper} from '../main-wrapper/c-main-wrapper';
-import {type InitialDataType} from '../../../../server/src/intial-data/intial-data-type';
-import {InitialDataProvider} from '../../../../server/src/intial-data/c-initial-data-context';
+import {type InitialDataType} from '../../provider/intial-data/intial-data-type';
+import {InitialDataProvider} from '../../provider/intial-data/c-initial-data-context';
 
 import {routeItemClientHeader, routeItemCmsHeader, routeItemMap, routeItemPage404} from './routes';
 import {redderEmptyRoute} from './render-route/render-route-helper';
@@ -39,14 +39,14 @@ export function ClientApp(props: PropsType): Node {
 
     if (initialData.is404) {
         return (
-            <InitialDataProvider value={initialData}>
+            <InitialDataProvider defaultValue={initialData}>
                 {renderWrapperList(wrapperList, [redderRoute(routeItemPage404)])}
             </InitialDataProvider>
         );
     }
 
     return (
-        <InitialDataProvider value={initialData}>
+        <InitialDataProvider defaultValue={initialData}>
             {renderWrapperList(wrapperList, [
                 redderRoute(routeItemClientHeader),
                 redderRoute(routeItemCmsHeader),
