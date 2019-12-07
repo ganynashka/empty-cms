@@ -46,6 +46,7 @@ export function renderPageComponent(pageInputData: RenderPageInputDataType, rout
         userContextData,
         staticContext,
         themeContextData,
+        screenContextData,
     } = pageInputData;
 
     const {component: PageComponent} = routeItem;
@@ -57,6 +58,7 @@ export function renderPageComponent(pageInputData: RenderPageInputDataType, rout
             location={location}
             match={match}
             popupContext={popupContextData}
+            screenContextData={screenContextData}
             snackbarContext={snackbarContextData}
             staticContext={staticContext}
             themeContextData={themeContextData}

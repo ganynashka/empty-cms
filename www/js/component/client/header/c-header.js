@@ -7,30 +7,72 @@ import type {LocationType} from '../../../type/react-router-dom-v5-type-extract'
 import {isCMS} from '../../../lib/url';
 import {routePathMap} from '../../app/routes-path-map';
 import type {ThemeContextType} from '../../../provider/theme/theme-context-type';
+import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 
 import headerStyle from './header.scss';
 
 type PropsType = {
     +location: LocationType,
     +themeContextData: ThemeContextType,
+    +screenContextData: ScreenContextType,
 };
 
-export function Header(props: PropsType): Node {
-    const {location, themeContextData} = props;
+type StateType = {};
 
-    console.log(props);
-
-    if (isCMS(location)) {
-        return null;
+export class Header extends Component<PropsType, StateType> {
+    constructor(props: PropsType) {
+        super(props);
+        this.state = {};
     }
 
-    return (
-        <header className={headerStyle.header__wrapper}>
-            <Link to={routePathMap.siteEnter.path}>Home page</Link>
+    renderMobile(): Node {
+        const {props} = this;
+        const {location, themeContextData} = props;
 
-            <div>theme: {themeContextData.name}</div>
+        console.log(props);
 
-            <h1>Skazki header</h1>
-        </header>
-    );
+        return (
+            <>
+                <Link to={routePathMap.siteEnter.path}>Home page</Link>
+
+                <div>theme: {themeContextData.name}</div>
+
+                <h1>renderMobile Skazki header</h1>
+            </>
+        );
+    }
+
+    renderDesktop(): Node {
+        const {props} = this;
+        const {location, themeContextData} = props;
+
+        console.log(props);
+
+        return (
+            <>
+                <Link to={routePathMap.siteEnter.path}>Home page</Link>
+
+                <div>theme: {themeContextData.name}</div>
+
+                <h1>renderDesktop Skazki header</h1>
+            </>
+        );
+    }
+
+    render(): Node {
+        const {props} = this;
+        const {location, themeContextData, screenContextData} = props;
+
+        console.log(props);
+
+        if (isCMS(location)) {
+            return null;
+        }
+
+        return (
+            <header className={headerStyle.header__wrapper}>
+                {screenContextData.isDesktop ? this.renderDesktop() : this.renderMobile()}
+            </header>
+        );
+    }
 }

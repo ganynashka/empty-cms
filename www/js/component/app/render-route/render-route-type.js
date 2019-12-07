@@ -11,6 +11,7 @@ import type {InitialDataType} from '../../../../../server/src/intial-data/intial
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 import type {PopupContextType} from '../../../provider/popup/popup-context-type';
+import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 
 export type RouteItemType = {|
     +path: string,
@@ -44,5 +45,6 @@ export type RenderPageInputDataType = {|
     +userContextData: UserContextConsumerType,
     +popupContextData: PopupContextType,
     +themeContextData: ThemeContextType,
+    +screenContextData: ScreenContextType,
     staticContext?: StaticRouterContextType,
 |};
