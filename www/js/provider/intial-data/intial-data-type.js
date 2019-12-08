@@ -7,6 +7,19 @@ export type InitialRootDataType = {|
     +subDocumentList: Array<MongoDocumentType>,
 |};
 
+// eslint-disable-next-line no-use-before-define
+type SetInitialDataType = (initialData: SetInitialDataArgumentType) => mixed;
+
+export type SetInitialDataArgumentType = {|
+    +title?: string,
+    +description?: string,
+    +is404?: boolean,
+    +rootPathData?: InitialRootDataType | null,
+    +articlePathData?: MongoDocumentType | null,
+    +documentNodeTree?: MongoDocumentTreeNodeType | null,
+    +setInitialData?: SetInitialDataType | null,
+|};
+
 export type InitialDataType = {|
     +title: string,
     +description: string,
@@ -16,8 +29,6 @@ export type InitialDataType = {|
     +documentNodeTree: MongoDocumentTreeNodeType | null,
     +setInitialData: SetInitialDataType | null,
 |};
-
-type SetInitialDataType = (initialData: InitialDataType) => mixed;
 
 export type RouterStaticContextType = {
     url?: string,

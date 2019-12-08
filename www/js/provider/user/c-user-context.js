@@ -49,7 +49,7 @@ export class UserProvider extends Component<PropsType, StateType> {
         }
 
         if (user.login === '') {
-            console.error('You are not login.');
+            console.log('===> You are not login.');
             return;
         }
 

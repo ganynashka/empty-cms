@@ -9,10 +9,9 @@ import {routePathMap} from '../../app/routes-path-map';
 import type {ThemeContextType} from '../../../provider/theme/theme-context-type';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
-
 import {setMeta} from '../../../lib/meta';
 import {getInitialClientData} from '../../app/client-app-helper';
-import {isError} from '../../../lib/is';
+import {isError, isFunction} from '../../../lib/is';
 import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
 
 import headerStyle from './header.scss';
@@ -24,41 +23,33 @@ type PropsType = {
     +initialContextData: InitialDataType,
 };
 
-type StateType = {|
-    +initialContextData: InitialDataType,
-|};
+type StateType = null;
 
 export class Header extends Component<PropsType, StateType> {
-    constructor(props: PropsType) {
-        super(props);
-
-        this.state = {
-            initialContextData: props.initialContextData,
-        };
-    }
-
-    componentDidUpdate() {
-        console.log('header update');
-    }
-
     componentDidMount() {
         this.fetchInitialContextData();
 
         console.log('---> Header Home did mount');
     }
 
-    async fetchInitialContextData() {
-        const {state} = this;
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
+        const {props} = this;
 
-        if (state.initialContextData.rootPathData) {
-            setMeta({
-                title: state.initialContextData.title,
-                description: state.initialContextData.description,
-            });
+        if (props.location.pathname !== prevProps.location.pathname) {
+            this.fetchInitialContextData();
+        }
+    }
+
+    async fetchInitialContextData() {
+        const {props} = this;
+        const {location} = props;
+        const {setInitialData} = props.initialContextData;
+
+        if (isCMS(location)) {
             return;
         }
 
-        const initialContextData = await getInitialClientData(routePathMap.siteEnter.path);
+        const initialContextData = await getInitialClientData(props.location.pathname);
 
         if (isError(initialContextData)) {
             setMeta({
@@ -72,7 +63,10 @@ export class Header extends Component<PropsType, StateType> {
             title: initialContextData.title,
             description: initialContextData.description,
         });
-        this.setState({initialContextData});
+
+        if (isFunction(setInitialData)) {
+            setInitialData(initialContextData);
+        }
     }
 
     renderLinkList(): Node {

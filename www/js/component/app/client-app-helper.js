@@ -1,7 +1,5 @@
 // @flow
 
-/* global fetch */
-
 import type {InitialDataType} from '../../provider/intial-data/intial-data-type';
 import {initialDataApiRouteMap} from '../../../../server/src/api/api-route-map';
 import {fetchX} from '../../lib/fetch-x';

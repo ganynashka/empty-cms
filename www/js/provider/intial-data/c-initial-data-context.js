@@ -2,7 +2,7 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {InitialDataType} from './intial-data-type';
+import type {InitialDataType, SetInitialDataArgumentType} from './intial-data-type';
 import {defaultInitialData} from './intial-data-const';
 
 const InitialDataContext = React.createContext<InitialDataType>(defaultInitialData);
@@ -26,8 +26,11 @@ export class InitialDataProvider extends Component<PropsType, StateType> {
         this.state = {providedData: props.defaultValue};
     }
 
-    setInitialData = (initialData: InitialDataType) => {
-        this.setInitialData(initialData);
+    setInitialData = (partInitialData: SetInitialDataArgumentType) => {
+        const {state} = this;
+        const providedData: InitialDataType = {...state.providedData, ...partInitialData};
+
+        this.setState({providedData});
     };
 
     getProviderValue(): InitialDataType {

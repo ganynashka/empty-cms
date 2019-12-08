@@ -3,14 +3,9 @@
 import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
-// import type {RenderPageInputDataType} from '../../../component/app/render-route/render-route-type';
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 import {routePathMap} from '../../../component/app/routes-path-map';
-import {getInitialClientData} from '../../../component/app/client-app-helper';
-import {isError} from '../../../lib/is';
-import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
-import {setMeta} from '../../../lib/meta';
 
 import homeStyle from './home.scss';
 import imageLogo from './image/empty.jpg';
@@ -19,67 +14,18 @@ type PropsType = {
     +initialContextData: InitialDataType,
 };
 
-type StateType = {|
-    +initialContextData: InitialDataType,
-|};
+type StateType = null;
 
 export class Home extends Component<PropsType, StateType> {
-    constructor(props: PropsType) {
-        super(props);
-
-        this.state = {
-            initialContextData: props.initialContextData,
-        };
-    }
-
     componentDidMount() {
-        this.fetchInitialContextData();
+        // this.fetchInitialContextData();
 
         console.log('---> Component Home did mount');
     }
 
-    async fetchInitialContextData() {
-        const {state} = this;
-
-        if (state.initialContextData.rootPathData) {
-            setMeta({
-                title: state.initialContextData.title,
-                description: state.initialContextData.description,
-            });
-            return;
-        }
-
-        const initialContextData = await getInitialClientData(routePathMap.siteEnter.path);
-
-        if (isError(initialContextData)) {
-            setMeta({
-                title: rootPathMetaData.title,
-                description: rootPathMetaData.description,
-            });
-            return;
-        }
-
-        setMeta({
-            title: initialContextData.title,
-            description: initialContextData.description,
-        });
-        this.setState({initialContextData});
-    }
-
-    /*
-    loadAsyncLoadTestComponent = async (): Promise<Node> => {
-        const {AsyncLoadTest} = await import(
-            /!* webpackChunkName: 'async-load-test' *!/ '../../component/test/c-async-load-test'
-        );
-
-        return <AsyncLoadTest/>;
-        <LoadComponent load={this.loadAsyncLoadTestComponent}/>
-    };
-*/
-
     renderArticleLinkList(): Node {
-        const {state} = this;
-        const {initialContextData} = state;
+        const {props} = this;
+        const {initialContextData} = props;
         const {rootPathData} = initialContextData;
 
         if (!rootPathData) {
@@ -104,8 +50,8 @@ export class Home extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        const {state} = this;
-        const {initialContextData} = state;
+        const {props} = this;
+        const {initialContextData} = props;
 
         return (
             <div>
