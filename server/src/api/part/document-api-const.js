@@ -1,4 +1,4 @@
 // @flow
 
 export const rootDocumentSlug = 'root';
-export const rootDocumentTreeDefaultDeep = 5;
+export const rootDocumentTreeDefaultDeep = 1;

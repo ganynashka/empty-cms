@@ -46,10 +46,11 @@ function getArticleData(
 // eslint-disable-next-line complexity, max-statements
 export async function getInitialDataByPath(path: string): Promise<InitialDataType> {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
-    const documentNodeTree = await getDocumentTree(rootDocumentSlug, rootDocumentTreeDefaultDeep);
+    const mayBeDocumentNodeTree = await getDocumentTree(rootDocumentSlug, rootDocumentTreeDefaultDeep);
+    const documentNodeTree = isError(mayBeDocumentNodeTree) ? null : mayBeDocumentNodeTree;
 
-    if (isError(collection) || isError(documentNodeTree)) {
-        return {...page404InitialData};
+    if (isError(collection)) {
+        return {...page404InitialData, documentNodeTree};
     }
 
     // root
@@ -74,15 +75,15 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
                 articlePathData,
                 documentNodeTree,
             }
-            : {...page404InitialData};
+            : {...page404InitialData, documentNodeTree};
     }
 
     // check cms
     if (path.startsWith(routePathMap.cmsEnter.path)) {
-        return {...defaultInitialData};
+        return {...defaultInitialData, documentNodeTree};
     }
 
-    return {...page404InitialData};
+    return {...page404InitialData, documentNodeTree};
 }
 
 export async function getInitialData(request: $Request, response: $Response): Promise<InitialDataType> {

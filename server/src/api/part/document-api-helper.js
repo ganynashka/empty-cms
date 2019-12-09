@@ -2,16 +2,11 @@
 
 import {type MongoCollection} from 'mongodb';
 
-import type {
-    MongoDocumentTreeNodeType as MongoDTNType,
-    MongoDocumentType,
-    MongoDocumentTypeType,
-} from '../../database/database-type';
+import type {MongoDocumentTreeNodeType as MongoDTNType, MongoDocumentType} from '../../database/database-type';
 import {getCollection} from '../../database/database-helper';
 import {dataBaseConst} from '../../database/database-const';
 import {promiseCatch} from '../../../../www/js/lib/promise';
 import {isError, isNull} from '../../../../www/js/lib/is';
-import {mongoDocumentTypeMap} from '../../database/database-type';
 
 type MayBeDocumentType = MongoDocumentType | Error | null;
 

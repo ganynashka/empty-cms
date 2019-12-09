@@ -6,7 +6,7 @@ import {fit as sharpFit, type SharpResizeConfigType} from 'sharp';
 import {getSortDirection} from '../database/database-helper';
 import {hasProperty} from '../../../www/js/lib/is';
 
-import type {GetSearchExactParameterType, GetListParameterType, GetDocumentTreeParameterType} from './api-type';
+import type {GetDocumentTreeParameterType, GetListParameterType, GetSearchExactParameterType} from './api-type';
 import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from './part/document-api-const';
 
 export const streamOptionsArray = {transform: (item: {}): string => JSON.stringify(item) + ','};

@@ -20,7 +20,7 @@ import {getInitialData} from '../../www/js/provider/intial-data/intial-data-help
 import type {RouterStaticContextType} from '../../www/js/provider/intial-data/intial-data-type';
 
 import {getIndexHtmlTemplate} from './static-files';
-import {stringForReplaceContent, stringForReplaceTitle, stringForReplaceDescription} from './config';
+import {stringForReplaceContent, stringForReplaceDescription, stringForReplaceTitle} from './config';
 import {addApiIntoApplication} from './api/api';
 
 const PORT: number = ssrServerPort;
