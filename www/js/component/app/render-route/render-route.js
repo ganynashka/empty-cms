@@ -31,7 +31,7 @@ export function redderRoute(routeItem: RouteItemType | RedirectItemType): Node {
                         classNames={routeCssTransitionClassNameMap}
                         in={match !== null}
                         // see ../page-wrapper/page-wrapper.style.scss to use the same transition duration
-                        timeout={300}
+                        timeout={3000}
                         unmountOnExit
                     >
                         {renderConsumerPyramid(routeItem, contextRouterData)}

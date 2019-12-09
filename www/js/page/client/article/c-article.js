@@ -19,6 +19,12 @@ export class Article extends Component<PropsType, StateType> {
         console.log('---> Component Article did mount');
     }
 
+    shouldComponentUpdate(nextProps: PropsType, nextState: StateType, nextContext: mixed): boolean {
+        const {props} = this;
+
+        return Boolean(props.match && nextProps.match);
+    }
+
     renderContent(): Node {
         const {props} = this;
         const {articlePathData} = props.initialContextData;

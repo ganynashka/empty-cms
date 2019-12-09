@@ -1,11 +1,8 @@
 // @flow
 
-/* global window, fetch */
+/* global window */
 
-import {hasProperty} from './is';
 import {promiseCatch} from './promise';
-
-const promiseCache = {};
 
 type OptionsType = {|
     +method?: 'GET' | 'POST', // GET, POST, PUT, DELETE, etc. (default: GET)
@@ -22,21 +19,28 @@ type OptionsType = {|
     +body?: FormData | string, // body data type must match "Content-Type" header
 |};
 
+const promiseCache = {};
+
 export function fetchX<ExpectedResponseType>(
     url: string,
     options?: OptionsType
 ): Promise<ExpectedResponseType | Error> {
     const cacheProperty = url + ' - ' + (JSON.stringify(options) || '');
 
-    if (hasProperty(promiseCache, cacheProperty)) {
+    const savedPromise = promiseCache[cacheProperty];
+
+    if (savedPromise) {
         console.log(`fetchX - url: ${url}, options: ${JSON.stringify(options || {})} - get from cache`);
-        return promiseCache[cacheProperty];
+        return savedPromise;
     }
 
     promiseCache[cacheProperty] = window
         .fetch(url, options)
         .then((rawResult: Response): Promise<ExpectedResponseType> => rawResult.json())
-        .catch(promiseCatch);
+        .catch((error: Error): Error => {
+            promiseCache[cacheProperty] = null;
+            return promiseCatch(error);
+        });
 
     return promiseCache[cacheProperty];
 }

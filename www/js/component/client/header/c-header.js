@@ -13,6 +13,7 @@ import {setMeta} from '../../../lib/meta';
 import {getInitialClientData} from '../../app/client-app-helper';
 import {isError, isFunction} from '../../../lib/is';
 import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
+import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database/database-type';
 
 import headerStyle from './header.scss';
 
@@ -66,11 +67,31 @@ export class Header extends Component<PropsType, StateType> {
 
         if (isFunction(setInitialData)) {
             setInitialData(initialContextData);
+        } else {
+            console.error('initialContextData.setInitialData should be the function!');
         }
     }
 
     renderLinkList(): Node {
-        return null;
+        const {props} = this;
+        const {initialContextData} = props;
+        const {documentNodeTree} = initialContextData;
+
+        if (!documentNodeTree) {
+            return null;
+        }
+
+        return <div>{documentNodeTree.subNodeList.map(this.renderLinkInList)}</div>;
+    }
+
+    renderLinkInList(linkData: MongoDocumentTreeNodeType): Node {
+        const {slug, title} = linkData;
+
+        return (
+            <Link key={slug} to={routePathMap.article.staticPartPath + '/' + slug}>
+                {title}
+            </Link>
+        );
     }
 
     renderMobile(): Node {
