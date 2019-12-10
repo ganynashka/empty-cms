@@ -64,6 +64,7 @@ or
 > $ db.getCollectionNames() // the same: show collections \
 > $ db.\<collection name\>.find() // show all documents of collection \
 > $ db.shutdownServer() // shutdown server
+> $ db.\<collection name\>.stats() // show collection info
 
 ### DB replication
 
