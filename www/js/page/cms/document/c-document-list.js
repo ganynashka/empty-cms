@@ -13,10 +13,10 @@ import type {
     SortDirectionType,
 } from '../../../component/layout/table/enhanced-table/enhanced-table-type';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
-
 import {isError} from '../../../lib/is';
 
 import {getDocumentList, getDocumentListSize} from './document-api';
+import {RemoveDocument} from './c-document-remove-button';
 
 type PropsType = {
     +userContextData: UserContextConsumerType,
@@ -53,6 +53,7 @@ async function enhancedTableGetDocumentList(
                 isActive,
                 createdDate: timeToHumanString(createdDate),
                 updatedDate: timeToHumanString(updatedDate),
+                remove: <RemoveDocument slug={slug}/>,
             };
         }),
         allElementsNumber: fullListSize,
@@ -69,6 +70,7 @@ const enhancedTableHeader = {
         {id: 'isActive', align: 'left', label: 'Is active', hasSort: true},
         {id: 'createdDate', align: 'left', label: 'Created Date (UTC 0)', hasSort: true},
         {id: 'updatedDate', align: 'left', label: 'Updated Date (UTC 0)', hasSort: true},
+        {id: 'remove', align: 'right', label: 'Remove', hasSort: false},
     ],
 };
 

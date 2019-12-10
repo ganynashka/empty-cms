@@ -32,6 +32,7 @@ export async function createDocument(data: MongoDocumentType): Promise<MainServe
     const response = await fetch(documentApiRouteMap.createDocument, {
         method: 'POST',
         headers: {
+            // eslint-disable-next-line sonarjs/no-duplicate-string
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
@@ -46,6 +47,7 @@ export async function updateDocument(data: MongoDocumentType): Promise<MainServe
     const response = await fetch(documentApiRouteMap.updateDocument, {
         method: 'POST',
         headers: {
+            // eslint-disable-next-line sonarjs/no-duplicate-string
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
@@ -79,4 +81,17 @@ export async function getDocumentOrphanList(): Promise<Array<MongoDocumentType>>
     const rawFetchedData = await fetch(url);
 
     return rawFetchedData.json();
+}
+
+export function removeDocument(slug: string): Promise<MainServerApiResponseType | Error> {
+    return fetch(documentApiRouteMap.removeDocument, {
+        method: 'POST',
+        headers: {
+            // eslint-disable-next-line sonarjs/no-duplicate-string
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({slug}),
+    })
+        .then((response: Response): Promise<MainServerApiResponseType | Error> => response.json())
+        .catch(promiseCatch);
 }

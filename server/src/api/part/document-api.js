@@ -11,7 +11,8 @@ import {isError} from '../../../../www/js/lib/is';
 import {getDocumentTreeParameters, getListParameters, getSearchExactParameters} from '../api-helper';
 import {documentApiRouteMap} from '../api-route-map';
 
-import {getDocumentTree} from './document-api-helper';
+import {getDocumentBySlug, getDocumentParentListBySlug, getDocumentTree, getOrphanList} from './document-api-helper';
+import {rootDocumentSlug} from './document-api-const';
 
 export function addDocumentApi(app: $Application) {
     app.get(documentApiRouteMap.getDocumentList, async (request: $Request, response: $Response) => {
@@ -210,24 +211,49 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        collection
-            // $FlowFixMe
-            .find({subDocumentSlugList: String(request.query.slug)})
-            .toArray((error: Error | null, documentList: Array<MongoDocumentType> | null) => {
-                if (error || !Array.isArray(documentList)) {
-                    response.status(400);
-                    response.json({
-                        isSuccessful: false,
-                        errorList: [documentApiRouteMap.getParentList + ': Can not read document collection!'],
-                    });
-                    return;
-                }
+        const documentParentList = await getDocumentParentListBySlug(String(request.query.slug));
 
-                response.json(documentList);
+        if (isError(documentParentList)) {
+            response.status(400);
+            response.json({
+                isSuccessful: false,
+                errorList: [documentParentList.message],
             });
+            return;
+        }
+
+        response.json(documentParentList);
     });
 
     app.get(documentApiRouteMap.getOrphanList, async (request: $Request, response: $Response) => {
+        const orphanList = await getOrphanList();
+
+        if (isError(orphanList)) {
+            response.status(400);
+            response.json({
+                isSuccessful: false,
+                errorList: [`Can not get collection: ${dataBaseConst.collection.document}`],
+            });
+            return;
+        }
+
+        response.json(orphanList);
+    });
+
+    // eslint-disable-next-line complexity, max-statements
+    app.post(documentApiRouteMap.removeDocument, async (request: $Request, response: $Response) => {
+        const removeData: {slug: string} = typeConverter<{slug: string}>(request.body);
+
+        const {slug} = removeData;
+
+        if (slug === rootDocumentSlug) {
+            response.json({
+                isSuccessful: false,
+                errorList: ['Can not delete root document'],
+            });
+            return;
+        }
+
         const collection = await getCollection<MongoDocumentType>(
             dataBaseConst.name,
             dataBaseConst.collection.document
@@ -242,23 +268,71 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        collection.find({}).toArray((error: Error | null, documentList: Array<MongoDocumentType> | null) => {
-            if (error || !Array.isArray(documentList)) {
-                response.status(400);
-                response.json({
-                    isSuccessful: false,
-                    errorList: ['Can not read collection!'],
-                });
-                return;
-            }
+        const mongoDocument = await getDocumentBySlug(slug);
 
-            const orphanList = documentList.filter((orphanDocument: MongoDocumentType): boolean => {
-                return documentList.every((mongoDocument: MongoDocumentType): boolean => {
-                    return !mongoDocument.subDocumentSlugList.includes(orphanDocument.slug);
-                });
+        if (!mongoDocument) {
+            response.status(404);
+            response.json({
+                isSuccessful: false,
+                errorList: [`Can not find a document with slug: ${slug}`],
+            });
+            return;
+        }
+
+        if (isError(mongoDocument)) {
+            response.status(404);
+            response.json({
+                isSuccessful: false,
+                errorList: [mongoDocument.message],
+            });
+            return;
+        }
+
+        const {titleImage, description, content, subDocumentSlugList, tagList, imageList} = mongoDocument;
+
+        if (
+            titleImage
+            || description
+            || content
+            || subDocumentSlugList.length > 0
+            || tagList.length > 0
+            || imageList.length > 0
+        ) {
+            response.json({
+                isSuccessful: false,
+                errorList: ['Document should be totally empty (no titleImage, no content ...)'],
+            });
+            return;
+        }
+
+        const documentParentList = await getDocumentParentListBySlug(slug);
+
+        if (isError(documentParentList)) {
+            response.status(400);
+            response.json({
+                isSuccessful: false,
+                errorList: [documentParentList.message],
+            });
+            return;
+        }
+
+        if (documentParentList.length > 0) {
+            const parentSlugList = documentParentList.map((parent: MongoDocumentType): string => {
+                return parent.slug;
             });
 
-            response.send(JSON.stringify(orphanList));
+            response.json({
+                isSuccessful: false,
+                errorList: [`Document has parents: ${parentSlugList.join(', ')}.`],
+            });
+            return;
+        }
+
+        await collection.deleteOne({slug}, {});
+
+        response.json({
+            isSuccessful: true,
+            errorList: [],
         });
     });
 }
