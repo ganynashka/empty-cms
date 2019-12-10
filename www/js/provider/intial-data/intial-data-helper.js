@@ -1,12 +1,9 @@
 // @flow
 
 import {type $Request, type $Response} from 'express';
-import {MongoCollection} from 'mongodb';
+import {type MongoCollection} from 'mongodb';
 
-import type {
-    MongoDocumentTreeNodeType as MongoDTNType,
-    MongoDocumentType,
-} from '../../../../server/src/database/database-type';
+import type {MongoDocumentType} from '../../../../server/src/database/database-type';
 import {getCollection} from '../../../../server/src/database/database-helper';
 import {dataBaseConst} from '../../../../server/src/database/database-const';
 import {isError} from '../../lib/is';
@@ -27,11 +24,19 @@ async function getRootData(collection: MongoCollection<MongoDocumentType>): Prom
 
     const subDocumentSlugList = rootDocument.subDocumentSlugList;
 
-    const subDocumentList: Array<MongoDocumentType | null> = await Promise.all(
+    const rawSubDocumentList: Array<MongoDocumentType | null> = await Promise.all(
         subDocumentSlugList.map((slug: string): Promise<MongoDocumentType | null> => collection.findOne({slug}))
     );
 
-    return {rootDocument, subDocumentList: subDocumentList.filter(Boolean)};
+    const subDocumentList: Array<MongoDocumentType> = [];
+
+    rawSubDocumentList.forEach((mongoDocument: MongoDocumentType | null) => {
+        if (mongoDocument && mongoDocument.isActive) {
+            subDocumentList.push(mongoDocument);
+        }
+    });
+
+    return {rootDocument, subDocumentList};
 }
 
 function getArticleData(
@@ -40,7 +45,15 @@ function getArticleData(
 ): Promise<MongoDocumentType | null> {
     const slug = path.replace(routePathMap.article.staticPartPath + '/', '');
 
-    return collection.findOne({slug});
+    return collection
+        .findOne({slug})
+        .then((mayBeDocument: MongoDocumentType | null): MongoDocumentType | null => {
+            return mayBeDocument && mayBeDocument.isActive ? mayBeDocument : null;
+        })
+        .catch((error: Error): null => {
+            console.log(`Can not find document with slug: ${slug}`);
+            return null;
+        });
 }
 
 // eslint-disable-next-line complexity, max-statements

@@ -15,7 +15,6 @@ export function addDefendApi(app: $Application) {
         userApiRouteMap.register,
         userApiRouteMap.getCurrentUser,
         initialDataApiRouteMap.getInitialData,
-        documentApiRouteMap.getDocumentTree,
     ];
 
     app.use((request: $Request, response: $Response, next: () => mixed) => {

@@ -24,7 +24,7 @@ export function getDocumentBySlug(slug: string): Promise<MayBeDocumentType> {
 
 export function getDocumentTree(slug: string, deep: number): Promise<MongoDTNType | Error> {
     return getDocumentBySlug(slug).then((mongoDocument: MayBeDocumentType): Promise<MongoDTNType | Error> => {
-        if (isError(mongoDocument) || isNull(mongoDocument)) {
+        if (isError(mongoDocument) || isNull(mongoDocument) || !mongoDocument.isActive) {
             console.error('Can not get document tree');
             console.error(mongoDocument);
 
@@ -68,6 +68,11 @@ function getDocumentTreeRecursively(
                 if (isError(documentOrError) || isNull(documentOrError)) {
                     console.error('can not get document');
                     console.error(documentOrError);
+                    return;
+                }
+
+                if (documentOrError && !documentOrError.isActive) {
+                    console.log('document is not active');
                     return;
                 }
 
