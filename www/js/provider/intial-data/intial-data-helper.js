@@ -9,7 +9,6 @@ import {dataBaseConst} from '../../../../server/src/database/database-const';
 import {isError} from '../../lib/is';
 import {routePathMap} from '../../component/app/routes-path-map';
 import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from '../../../../server/src/api/part/document-api-const';
-
 import {getDocumentTree} from '../../../../server/src/api/part/document-api-helper';
 
 import {defaultInitialData, page404InitialData, rootPathMetaData} from './intial-data-const';
@@ -80,7 +79,7 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
     if (path.startsWith(routePathMap.article.staticPartPath)) {
         const articlePathData = await getArticleData(collection, path);
 
-        return articlePathData && articlePathData.isActive
+        return articlePathData
             ? {
                 ...defaultInitialData,
                 title: articlePathData.title,
