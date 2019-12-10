@@ -3,11 +3,15 @@
 import React, {Component, type Node} from 'react';
 
 import {setMeta} from '../../../lib/meta';
+import {isAdmin} from '../../../provider/user/user-context-helper';
+import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 
 import imageLogo from './image/empty.jpg';
 import homeStyle from './home.scss';
 
-type PropsType = {};
+type PropsType = {
+    +userContextData: UserContextConsumerType,
+};
 type StateType = null;
 
 export class Home extends Component<PropsType, StateType> {
@@ -31,6 +35,15 @@ export class Home extends Component<PropsType, StateType> {
 */
 
     render(): Node {
+        const {props} = this;
+        const {userContextData} = props;
+
+        /*
+        if (!isAdmin(userContextData)) {
+            return null;
+        }
+*/
+
         return (
             <>
                 <div className={homeStyle.home__wrapper}>Welcome to the Empty CMS!</div>

@@ -20,11 +20,14 @@ import {ButtonListWrapper} from '../../../component/layout/button-list-wrapper/c
 import {FormButton} from '../../../component/layout/form-button/c-form-button';
 import {isError, isFile} from '../../../lib/is';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
+import {isAdmin} from '../../../provider/user/user-context-helper';
+import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 
 import {uploadImageList} from './image-api';
 
 type PropsType = {
     +snackbarContext: SnackbarContextType,
+    +userContextData: UserContextConsumerType,
 };
 
 type StateType = {|
@@ -119,7 +122,14 @@ export class ImageUpload extends Component<PropsType, StateType> {
     };
 
     render(): Node {
-        const {state} = this;
+        const {state, props} = this;
+        const {userContextData} = props;
+
+        /*
+        if (!isAdmin(userContextData)) {
+            return null;
+        }
+*/
 
         return (
             <Paper className={mainWrapperStyle.paper_wrapper}>

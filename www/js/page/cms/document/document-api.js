@@ -9,25 +9,23 @@ import {getLisParametersToUrl, getSearchExactParametersToUrl} from '../../../lib
 import type {MainServerApiResponseType} from '../../../type/response';
 import {typeConverter} from '../../../lib/type';
 import {promiseCatch} from '../../../lib/promise';
+import {fetchNumber} from '../../../lib/fetch-x';
 
-export async function getDocumentList(
+export function getDocumentList(
     pageIndex: number,
     rowsPerPage: number,
     orderBy: string,
     order: SortDirectionType
-): Promise<Array<MongoDocumentType>> {
+): Promise<Array<MongoDocumentType> | Error> {
     const url = getLisParametersToUrl(documentApiRouteMap.getDocumentList, pageIndex, rowsPerPage, orderBy, order);
-    const rawFetchedData = await fetch(url);
-    const rawList: string = await rawFetchedData.text();
 
-    return JSON.parse('[' + rawList.replace(/,$/, '') + ']');
+    return fetch(url)
+        .then((response: Response): Promise<Array<MongoDocumentType> | Error> => response.json())
+        .catch(promiseCatch);
 }
 
-export async function getDocumentListSize(): Promise<number> {
-    const rawFetchedData = await fetch(documentApiRouteMap.getDocumentListSize);
-    const rawSize: string = await rawFetchedData.text();
-
-    return parseInt(rawSize, 10);
+export function getDocumentListSize(): Promise<number | Error> {
+    return fetchNumber(documentApiRouteMap.getDocumentListSize);
 }
 
 export async function createDocument(data: MongoDocumentType): Promise<MainServerApiResponseType> {
@@ -58,24 +56,22 @@ export async function updateDocument(data: MongoDocumentType): Promise<MainServe
     return typeConverter<MainServerApiResponseType>(responseJson);
 }
 
-export function documentSearchExact(
-    key: string,
-    value: string
-): Promise<MainServerApiResponseType | MongoDocumentType | Error> {
+type DocumentSearchExactResultType = MainServerApiResponseType | MongoDocumentType | Error;
+
+export function documentSearchExact(key: string, value: string): Promise<DocumentSearchExactResultType> {
     const url = getSearchExactParametersToUrl(documentApiRouteMap.documentSearchExact, key, value);
 
     return fetch(url)
-        .then((response: Response): Promise<MainServerApiResponseType | MongoDocumentType | Error> => response.json())
+        .then((response: Response): Promise<DocumentSearchExactResultType> => response.json())
         .catch(promiseCatch);
 }
 
-export async function getDocumentParentList(slug: string): Promise<Array<MongoDocumentType>> {
+export function getDocumentParentList(slug: string): Promise<Array<MongoDocumentType> | Error> {
     const url = `${documentApiRouteMap.getParentList}?slug=${slug}`;
-    const rawFetchedData = await fetch(url);
 
-    const rawList: string = await rawFetchedData.text();
-
-    return JSON.parse('[' + rawList.replace(/,$/, '') + ']');
+    return fetch(url)
+        .then((response: Response): Promise<Array<MongoDocumentType> | Error> => response.json())
+        .catch(promiseCatch);
 }
 
 export async function getDocumentOrphanList(): Promise<Array<MongoDocumentType>> {

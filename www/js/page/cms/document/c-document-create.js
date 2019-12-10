@@ -20,6 +20,7 @@ import type {
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import {routePathMap} from '../../../component/app/routes-path-map';
 import type {RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
+import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 
 import {createDocument} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './document-helper';
@@ -27,6 +28,7 @@ import {formDataToMongoDocument, getDocumentFormConfig} from './document-helper'
 type PropsType = {
     +history: RouterHistoryType,
     +snackbarContext: SnackbarContextType,
+    +userContextData: UserContextConsumerType,
 };
 type StateType = null;
 
@@ -86,6 +88,15 @@ export class DocumentCreate extends Component<PropsType, StateType> {
     };
 
     render(): Node {
+        const {props} = this;
+        const {userContextData} = props;
+
+        /*
+        if (!isAdmin(userContextData)) {
+            return null;
+        }
+*/
+
         return (
             <Paper className={mainWrapperStyle.paper_wrapper}>
                 <Toolbar>

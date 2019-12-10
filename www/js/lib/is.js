@@ -31,7 +31,7 @@ export function isNumber(value: mixed): boolean %checks {
 }
 
 export function isNotNumber(value: mixed): boolean %checks {
-    return typeof value !== 'number';
+    return typeof value !== 'number' || Number.isNaN(value);
 }
 
 export function isString(value: mixed): boolean %checks {

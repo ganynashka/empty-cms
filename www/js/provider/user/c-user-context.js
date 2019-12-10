@@ -98,6 +98,8 @@ export class UserProvider extends Component<PropsType, StateType> {
         const {props} = this;
         const {children} = props;
 
-        return <UserContextProvider value={this.getProviderValue()}>{children}</UserContextProvider>;
+        const providedData = this.getProviderValue();
+
+        return <UserContextProvider value={providedData}>{children}</UserContextProvider>;
     }
 }

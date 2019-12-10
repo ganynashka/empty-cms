@@ -4,17 +4,12 @@ import {type $Application, type $Request, type $Response} from 'express';
 
 import {typeConverter} from '../../../../www/js/lib/type';
 import {getCollection} from '../../database/database-helper';
-import type {MongoDocumentType} from '../../database/database-type';
+import type {MongoDocumentType, MongoUserType} from '../../database/database-type';
 import {dataBaseConst} from '../../database/database-const';
 import {getTime} from '../../util/time';
 import {isError} from '../../../../www/js/lib/is';
 
-import {
-    getDocumentTreeParameters,
-    getListParameters,
-    getSearchExactParameters,
-    streamOptionsArray,
-} from '../api-helper';
+import {getDocumentTreeParameters, getListParameters, getSearchExactParameters} from '../api-helper';
 import {documentApiRouteMap} from '../api-route-map';
 
 import {getDocumentTree} from './document-api-helper';
@@ -42,8 +37,18 @@ export function addDocumentApi(app: $Application) {
             .sort({[sortParameter]: sortDirection})
             .skip(pageSize * pageIndex)
             .limit(pageSize)
-            .stream(streamOptionsArray)
-            .pipe(response);
+            .toArray((error: Error | null, documentList: Array<MongoDocumentType> | null) => {
+                if (error || !Array.isArray(documentList)) {
+                    response.status(400);
+                    response.json({
+                        isSuccessful: false,
+                        errorList: [documentApiRouteMap.getDocumentList + ': Can not read document collection!'],
+                    });
+                    return;
+                }
+
+                response.json(documentList);
+            });
     });
 
     app.get(documentApiRouteMap.getDocumentTree, async (request: $Request, response: $Response) => {
@@ -209,8 +214,18 @@ export function addDocumentApi(app: $Application) {
         collection
             // $FlowFixMe
             .find({subDocumentSlugList: String(request.query.slug)})
-            .stream(streamOptionsArray)
-            .pipe(response);
+            .toArray((error: Error | null, documentList: Array<MongoDocumentType> | null) => {
+                if (error || !Array.isArray(documentList)) {
+                    response.status(400);
+                    response.json({
+                        isSuccessful: false,
+                        errorList: [documentApiRouteMap.getParentList + ': Can not read document collection!'],
+                    });
+                    return;
+                }
+
+                response.json(documentList);
+            });
     });
 
     app.get(documentApiRouteMap.getOrphanList, async (request: $Request, response: $Response) => {

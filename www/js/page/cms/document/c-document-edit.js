@@ -23,12 +23,15 @@ import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-cont
 import {routePathMap} from '../../../component/app/routes-path-map';
 import {extractUniqueArrayString} from '../../../lib/string';
 
+import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
+
 import {documentSearchExact, getDocumentParentList, updateDocument} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './document-helper';
 
 type PropsType = {
     +match: MatchType | null,
     +snackbarContext: SnackbarContextType,
+    +userContextData: UserContextConsumerType,
 };
 
 type StateType = {|
@@ -50,6 +53,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
         this.fetchDocument();
     }
 
+    // eslint-disable-next-line complexity, max-statements
     async fetchDocument() {
         const {props} = this;
         const {match, snackbarContext} = props;
@@ -64,7 +68,12 @@ export class DocumentEdit extends Component<PropsType, StateType> {
 
         const mayBeDocumentPromise = await documentSearchExact('slug', String(slug));
         const mayBeDocument = await mayBeDocumentPromise;
-        const parentList = await getDocumentParentList(String(slug));
+        const mayBeParentList = await getDocumentParentList(String(slug));
+
+        if (isError(mayBeParentList)) {
+            await showSnackbar({children: mayBeParentList.message, variant: 'error'}, mayBeParentList.message);
+            return;
+        }
 
         if (isError(mayBeDocument)) {
             await showSnackbar({children: mayBeDocument.message, variant: 'error'}, mayBeDocument.message);
@@ -80,7 +89,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
 
         const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(mayBeDocument);
 
-        this.setState({mongoDocument, parentList});
+        this.setState({mongoDocument, parentList: mayBeParentList});
     }
 
     handleFormSubmit = async (formData: FormGeneratorFormDataType) => {
@@ -202,8 +211,15 @@ export class DocumentEdit extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        const {state} = this;
+        const {state, props} = this;
         const {mongoDocument} = state;
+        const {userContextData} = props;
+
+        /*
+        if (!isAdmin(userContextData)) {
+            return null;
+        }
+*/
 
         if (mongoDocument === null) {
             return (

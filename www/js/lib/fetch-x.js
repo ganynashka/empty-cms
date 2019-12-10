@@ -1,8 +1,11 @@
 // @flow
 
-/* global window */
+/* global window, fetch */
+
+import {documentApiRouteMap} from '../../../server/src/api/api-route-map';
 
 import {promiseCatch} from './promise';
+import {isNumber, isString} from './is';
 
 type OptionsType = {|
     +method?: 'GET' | 'POST', // GET, POST, PUT, DELETE, etc. (default: GET)
@@ -43,4 +46,24 @@ export function fetchX<ExpectedResponseType>(
         });
 
     return promiseCache[cacheProperty];
+}
+
+export function fetchNumber(url: string): Promise<number | Error> {
+    return fetch(url)
+        .then((response: Response): Promise<string | Error> => response.text())
+        .then((responseText: string | Error): number | Error => {
+            if (!isString(responseText)) {
+                console.error(responseText);
+                return new Error('Bad response');
+            }
+
+            const size = parseInt(responseText, 10);
+
+            if (isNumber(size)) {
+                return size;
+            }
+
+            return new Error('Response is not a number');
+        })
+        .catch(promiseCatch);
 }

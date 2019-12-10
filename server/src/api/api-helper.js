@@ -9,7 +9,7 @@ import {hasProperty} from '../../../www/js/lib/is';
 import type {GetDocumentTreeParameterType, GetListParameterType, GetSearchExactParameterType} from './api-type';
 import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from './part/document-api-const';
 
-export const streamOptionsArray = {transform: (item: {}): string => JSON.stringify(item) + ','};
+// export const streamOptionsArray = {transform: (item: {}): string => JSON.stringify(item) + ','};
 
 export function getListParameters(request: $Request): GetListParameterType {
     const pageIndex = parseInt(request.query['page-index'], 10) || 0;

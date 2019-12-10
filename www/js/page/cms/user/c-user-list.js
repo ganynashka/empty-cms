@@ -10,10 +10,17 @@ import type {
     EnhancedTableGetDataResultType,
     SortDirectionType,
 } from '../../../component/layout/table/enhanced-table/enhanced-table-type';
+import {isError} from '../../../lib/is';
+
+import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 
 import {getUserList, getUserListSize} from './user-list-api';
+// import {isAdmin} from '../../../provider/user/user-context-helper';
 
-type PropsType = {};
+type PropsType = {
+    +userContextData: UserContextConsumerType,
+};
+
 type StateType = {};
 
 async function enhancedTableGetUserList(
@@ -24,6 +31,14 @@ async function enhancedTableGetUserList(
 ): Promise<EnhancedTableGetDataResultType> {
     const list = await getUserList(pageIndex, rowsPerPage, orderBy, order);
     const fullListSize = await getUserListSize();
+
+    if (isError(list) || isError(fullListSize)) {
+        console.error('list or fullListSize is error');
+        return {
+            list: [],
+            allElementsNumber: 0,
+        };
+    }
 
     return {
         list: list.map((userData: MongoUserType): EnhancedTableBodyCellType => {
@@ -59,6 +74,15 @@ export class UserList extends Component<PropsType, StateType> {
     }
 
     render(): Node {
+        // const {props} = this;
+        // const {userContextData} = props;
+
+        /*
+        if (!isAdmin(userContextData)) {
+            return null;
+        }
+*/
+
         return <EnhancedTable getData={enhancedTableGetUserList} header={enhancedTableHeader}/>;
     }
 }

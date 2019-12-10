@@ -13,12 +13,15 @@ import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-cont
 import {promiseCatch} from '../../../lib/promise';
 import {isError} from '../../../lib/is';
 import {getNoHashFileName} from '../../../lib/string';
+import {isAdmin} from '../../../provider/user/user-context-helper';
+import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 
 import {getImageList, getMarkdownResizedImage, getResizedImage} from './image-api';
 import imageStyle from './image.scss';
 
 type PropsType = {
     +snackbarContext: SnackbarContextType,
+    +userContextData: UserContextConsumerType,
 };
 
 type StateType = {|
@@ -98,6 +101,14 @@ export class ImageList extends Component<PropsType, StateType> {
     render(): Node {
         const {state} = this;
         const {imageList} = state;
+
+        /*
+        const {userContextData} = props;
+
+        if (!isAdmin(userContextData)) {
+            return null;
+        }
+*/
 
         return (
             <Paper className={mainWrapperStyle.paper_wrapper}>

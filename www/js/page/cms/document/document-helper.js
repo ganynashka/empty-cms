@@ -19,7 +19,7 @@ import {FieldSet} from '../../../component/layout/form-generator/field/field-set
 import {typeConverter} from '../../../lib/type';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
 import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-type';
-import {getSlug, stringToUniqArray, extractUniqueArrayString} from '../../../lib/string';
+import {extractUniqueArrayString, getSlug, stringToUniqArray} from '../../../lib/string';
 import {InputUploadImage} from '../../../component/layout/form-generator/field/input-upload-image/c-input-upload-image';
 import {isError, isFile, isNull, isString} from '../../../lib/is';
 import {uploadImage, uploadImageList} from '../image/image-api';

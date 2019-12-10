@@ -12,10 +12,15 @@ import type {
     EnhancedTableGetDataResultType,
     SortDirectionType,
 } from '../../../component/layout/table/enhanced-table/enhanced-table-type';
+import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
+
+import {isError} from '../../../lib/is';
 
 import {getDocumentList, getDocumentListSize} from './document-api';
 
-type PropsType = {};
+type PropsType = {
+    +userContextData: UserContextConsumerType,
+};
 type StateType = {};
 
 async function enhancedTableGetDocumentList(
@@ -27,6 +32,14 @@ async function enhancedTableGetDocumentList(
     const list = await getDocumentList(pageIndex, rowsPerPage, orderBy, order);
     const fullListSize = await getDocumentListSize();
     const staticPartPath = String(routePathMap.documentEdit.staticPartPath);
+
+    if (isError(list) || isError(fullListSize)) {
+        console.error('list or fullListSize is error');
+        return {
+            list: [],
+            allElementsNumber: 0,
+        };
+    }
 
     return {
         list: list.map((documentData: MongoDocumentType): EnhancedTableBodyCellType => {
@@ -66,6 +79,15 @@ export class DocumentList extends Component<PropsType, StateType> {
     }
 
     render(): Node {
+        const {props} = this;
+        const {userContextData} = props;
+
+        /*
+        if (!isAdmin(userContextData)) {
+            return null;
+        }
+*/
+
         return <EnhancedTable getData={enhancedTableGetDocumentList} header={enhancedTableHeader}/>;
     }
 }

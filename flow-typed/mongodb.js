@@ -40,8 +40,8 @@ declare module 'mongodb' {
     declare export class MongoCollection<ItemType> {
         insertOne: (item: ItemType) => Promise<MongoCollectionActionResultType>,
         insertMany: (itemList: Array<ItemType>) => Promise<MongoCollectionActionResultType>,
-        find: (item: $Shape<ItemType>, options?: MongoCollectionFindOption) => MongoCollectionCursor<ItemType>,
-        findOne: (item: $Shape<ItemType>) => Promise<ItemType | null>,
+        find: (filter: $Shape<ItemType>, options?: MongoCollectionFindOption) => MongoCollectionCursor<ItemType>,
+        findOne: (filter: $Shape<ItemType>) => Promise<ItemType | null>,
         updateMany: (
             filter: $Shape<ItemType>,
             update: {},
@@ -53,6 +53,7 @@ declare module 'mongodb' {
             options: {},
         ) => Promise<Error | MongoCollectionActionResultType>,
         countDocuments: () => Promise<number>,
+        remove: (filter: $Shape<ItemType>, options: {}) => Promise<mixed>,
     }
 
     declare export class MongoDataBase {
