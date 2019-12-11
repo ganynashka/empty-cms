@@ -126,7 +126,7 @@ export class FileList extends Component<PropsType, StateType> {
             return this.renderVideo(src);
         }
 
-        return this.renderDefaultFile(src, mimeType);
+        return this.renderDefaultFile(src);
     };
 
     renderImage = (src: string): Node => {
@@ -188,7 +188,9 @@ export class FileList extends Component<PropsType, StateType> {
         );
     };
 
-    renderDefaultFile(src: string, mimeType: string): Node {
+    renderDefaultFile(src: string): Node {
+        const mimeType = String(mime.lookup(src) || 'N/A');
+
         return (
             <button
                 className={fileStyle.file_wrapper}
