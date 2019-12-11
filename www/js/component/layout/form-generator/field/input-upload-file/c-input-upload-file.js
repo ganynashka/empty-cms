@@ -7,11 +7,11 @@ import classNames from 'classnames';
 
 import type {InputComponentPropsType, FromGeneratorInputValueType} from '../../form-generator-type';
 import fieldStyle from '../field.scss';
-import {getMarkdownResizedImage} from '../../../../../page/cms/file/file-api';
-import {promiseCatch} from '../../../../../lib/promise';
 import {isError, isFunction, isNull, isString} from '../../../../../lib/is';
 
+import spinnerImage from './image/spinner.gif';
 import inputUploadFileStyle from './input-upload-file.scss';
+import {FilePreview} from './file-preview/c-file-preview';
 
 type PropsType = InputComponentPropsType;
 
@@ -113,7 +113,7 @@ export class InputUploadFile extends Component<PropsType, StateType> {
         this.setState(this.getDefaultState());
     };
 
-    renderImageInput(): Node {
+    renderFileInput(): Node {
         const {props} = this;
         const {accept} = props;
 
@@ -130,7 +130,7 @@ export class InputUploadFile extends Component<PropsType, StateType> {
         );
     }
 
-    renderUploadedImage(): Node {
+    renderUploadedFile(): Node {
         const {state} = this;
         const {file} = state;
 
@@ -140,47 +140,20 @@ export class InputUploadFile extends Component<PropsType, StateType> {
         }
 
         return (
-            <div className={inputUploadFileStyle.input_upload_file__full_wrapper}>
-                <img
-                    alt=""
-                    className={inputUploadFileStyle.input_upload_file__uploaded_file}
-                    src={URL.createObjectURL(file)}
-                />
-            </div>
+            <span className={inputUploadFileStyle.input_upload_file__spinner__wrapper}>
+                <img alt="" className={inputUploadFileStyle.input_upload_file__spinner} src={spinnerImage}/>
+            </span>
         );
     }
 
-    handleCopyImageSrc = async () => {
-        const {state, props} = this;
-        const {snackbarContext} = props;
+    renderDefaultFile(): Node {
+        const {state} = this;
         const {defaultValue} = state;
-        const snackBarId = 'copy-image-markdown-snack-bar-id-' + String(Date.now());
-        const {showSnackbar} = snackbarContext;
 
-        if (!navigator.clipboard) {
-            await showSnackbar(
-                {children: 'Your browser DO NOT support \'navigator.clipboard\'!', variant: 'error'},
-                snackBarId
-            );
-            return;
+        if (!isString(defaultValue)) {
+            console.error('defaultValue should be a string!');
+            return null;
         }
-
-        const imageMarkdown = getMarkdownResizedImage(String(defaultValue));
-
-        const copyResult = await navigator.clipboard.writeText(imageMarkdown).catch(promiseCatch);
-
-        if (isError(copyResult)) {
-            await showSnackbar({children: 'can not copy image markdown!', variant: 'error'}, snackBarId);
-            return;
-        }
-
-        await showSnackbar({children: 'Copy as markdown!', variant: 'success'}, snackBarId);
-    };
-
-    renderDefaultImage(): Node {
-        const {state, props} = this;
-        const {defaultValue} = state;
-        const src = String(props.filePathPrefix || '') + '/' + String(defaultValue);
 
         return (
             <>
@@ -191,27 +164,21 @@ export class InputUploadFile extends Component<PropsType, StateType> {
                 >
                     &#10005;
                 </button>
-                <button
-                    className={inputUploadFileStyle.input_upload_file__full_button}
-                    onClick={this.handleCopyImageSrc}
-                    type="button"
-                >
-                    <img alt="" className={inputUploadFileStyle.input_upload_file__uploaded_file} src={src}/>
-                </button>
+                <FilePreview src={defaultValue}/>
             </>
         );
     }
 
     renderContent(): Node {
         if (this.hasFile()) {
-            return this.renderUploadedImage();
+            return this.renderUploadedFile();
         }
 
         if (this.hasDefaultValue()) {
-            return this.renderDefaultImage();
+            return this.renderDefaultFile();
         }
 
-        return this.renderImageInput();
+        return this.renderFileInput();
     }
 
     hasFile(): boolean {

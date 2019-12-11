@@ -1,5 +1,11 @@
+@import '../../../../css/var';
+
 .file_list_wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+
+    button {
+        margin: $ui-unit;
+    }
 }

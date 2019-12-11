@@ -1,14 +1,16 @@
 @import '../../../../../../../css/var';
 
+$file-preview-width: 256px;
+$file-preview-height: 256px;
+
 .file_wrapper {
     background-color: #777;
     border-radius: $ui-unit;
     display: block;
-    height: 256px;
-    margin: $ui-unit * 3;
+    height: $file-preview-height;
     overflow: hidden;
     position: relative;
-    width: 256px;
+    width: $file-preview-width;
 }
 
 .file_name {
