@@ -13,7 +13,7 @@ type PropsType = {|
 |};
 
 const defaultConfig: MarkdownItConfigType = {
-    html: false,
+    html: true,
     xhtmlOut: true,
     breaks: true,
     langPrefix: 'markdown-lang-prefix--',
