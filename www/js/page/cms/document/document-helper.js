@@ -22,7 +22,7 @@ import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-
 import {extractUniqueArrayString, getSlug, stringToUniqArray} from '../../../lib/string';
 import {InputUploadImage} from '../../../component/layout/form-generator/field/input-upload-image/c-input-upload-image';
 import {isError, isFile, isNull, isString} from '../../../lib/is';
-import {uploadImage, uploadImageList} from '../image/image-api';
+import {uploadFile, uploadFileList} from '../file/file-api';
 import {promiseCatch} from '../../../lib/promise';
 import {fileApiConst} from '../../../../../server/src/api/part/file-api-const';
 
@@ -41,7 +41,7 @@ function extractImage(inputValue: FromGeneratorInputValueType): Promise<Error | 
         return Promise.resolve(new Error('invalid input data, should be: String | File | Null'));
     }
 
-    return uploadImageList([inputValue])
+    return uploadFileList([inputValue])
         .then((uploadResult: Error | Array<string>): Error | string => {
             if (isError(uploadResult)) {
                 return uploadResult;
@@ -113,7 +113,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         placeholder: 'title-image',
                         labelText: 'Title image',
                         accept: 'image/png, image/jpg, image/jpeg',
-                        uploadFile: uploadImage,
+                        uploadFile,
                         imagePathPrefix: fileApiConst.pathToUploadFiles,
                     },
                     {
@@ -207,7 +207,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         placeholder: 'Image List',
                         labelText: 'Image List',
                         accept: 'image/png, image/jpg, image/jpeg',
-                        uploadFile: uploadImage,
+                        uploadFile,
                         imagePathPrefix: fileApiConst.pathToUploadFiles,
                     },
                     {

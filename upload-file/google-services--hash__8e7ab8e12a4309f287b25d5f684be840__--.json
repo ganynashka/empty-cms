@@ -1,0 +1,805 @@
+{
+  "project_info": {
+    "project_number": "865815619207",
+    "firebase_url": "https://dating-1292.firebaseio.com",
+    "project_id": "dating-1292",
+    "storage_bucket": "dating-1292.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:886cb29087be9d64",
+        "android_client_info": {
+          "package_name": "com.amolatina"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-3aiuok6hqmammhv8m8vd8qrohf0jrfq6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.amolatina",
+            "certificate_hash": "844cad78098250e06db6ab66b7d613ba73bb0610"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:9090f9aa8720f0fd",
+        "android_client_info": {
+          "package_name": "com.arabiandate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-m7harmd4bfdv6tfero73rg35lgmmaak9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arabiandate",
+            "certificate_hash": "8a3755a9d6f56bc3f7bea969e5b80ee71309e50f"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:c7a22d141feabfd8",
+        "android_client_info": {
+          "package_name": "com.asiandate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:43c01558efd4238d",
+        "android_client_info": {
+          "package_name": "com.chinalove"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-dv22gfc5mnonvki3vk1ffj5ivd8jec0v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chinalove",
+            "certificate_hash": "30219502f1f58c19cf3f28f696b8f8ed41706ba4"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:4f2f5cf117e4da2b",
+        "android_client_info": {
+          "package_name": "com.datemyage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-qiru2lkeougbgrpp53k6rbgceks78ved.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.datemyage",
+            "certificate_hash": "37ddd87e66a8b69a9bf3ffb4cb2e3baded13b7c4"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:d955d562bc648110",
+        "android_client_info": {
+          "package_name": "com.dating.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-lppv15gdlgblrkb0432o8adc3k0677d2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dating.android",
+            "certificate_hash": "29fe97440c235e5414c03d2e5769a5bd4bfc0340"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:438d7229425a43ef",
+        "android_client_info": {
+          "package_name": "com.eurodate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-1kkb4gegvuua76e1g0ds2bchogetecip.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eurodate",
+            "certificate_hash": "2e08e592a84366d11cc18a8d78636c2a48cfecac"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:bb81d958f6197f93",
+        "android_client_info": {
+          "package_name": "com.flirtwith"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-njnsqkj3rp7kfpnc0r5nmgq7ee28m2n5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flirtwith",
+            "certificate_hash": "0905a3980a19fa208aa82fc89f9e15c231db7f5d"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:d50226974df6659b1cba22",
+        "android_client_info": {
+          "package_name": "com.kaadhal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:8adc60780610229d",
+        "android_client_info": {
+          "package_name": "com.kissxin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-rfkl4ugcerlevu51d4lr0etv6fcqd0vm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kissxin",
+            "certificate_hash": "2e807da255c27df1e3ab1442b0d96a5075d0ccf3"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:53b751638a89655e",
+        "android_client_info": {
+          "package_name": "com.lovinga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-31ie6f2mcp402ilt2vu0sddvoaue376n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lovinga",
+            "certificate_hash": "7d0f1e65dda539e94c42f692c3cf801fd5d8d9bc"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:d8b88862870e39eb",
+        "android_client_info": {
+          "package_name": "com.russianbrides"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-i7hfblc2u6s0kogr76tgq0lk0uenpi6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.russianbrides",
+            "certificate_hash": "c55bbe5c8ed0c515f11a7719394de8737e3b33eb"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:f10e6e6edc05a55d",
+        "android_client_info": {
+          "package_name": "com.sharekalomre"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:645513aecbf91738",
+        "android_client_info": {
+          "package_name": "com.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:0fab271c052dbb08",
+        "android_client_info": {
+          "package_name": "com.tubit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-hilmik30gvmdvc85ov54bl4pahl14mgp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tubit",
+            "certificate_hash": "aba855a16e78374ddb5476bf1426005b52d7d41b"
+          }
+        },
+        {
+          "client_id": "865815619207-vomopq9msov1f1tco4n8vq9h07bio0fn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tubit",
+            "certificate_hash": "297fc9a6d8cc51dbbd8daee6f9ea04774e0c97a5"
+          }
+        },
+        {
+          "client_id": "865815619207-cr3b21qbbcamcop11degpm0jjepicsfr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tubit",
+            "certificate_hash": "842c4ccc66a5bd1d0ceca58b63934f5bb5a1690a"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:e3e159b46c940a8c",
+        "android_client_info": {
+          "package_name": "com.udates"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-odlubcf6edjkabmt63hddmkfkltv812u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.udates",
+            "certificate_hash": "f599a95e384cebd304c585f760107566fce40aad"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:6c1e9f96ecfe3e56",
+        "android_client_info": {
+          "package_name": "com.yourchristiandate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-9ktaao8fsvmm8buau2173hfpjbdpi650.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yourchristiandate",
+            "certificate_hash": "4bab05bfb337095d6c6b75e699ce778ba0a5ffe0"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865815619207:android:8cb97e99ff6752d8",
+        "android_client_info": {
+          "package_name": "com.yourtravelmates"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865815619207-magfpmmd69dg4rcq6e47r9a2lgr9al52.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yourtravelmates",
+            "certificate_hash": "c93b6e53b6cc8c14d02f7076cce6c74ee44282ba"
+          }
+        },
+        {
+          "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9CPcdbep0htZ0hWyZW577RRUkpJlIZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865815619207-ep28ev3o09muafido58pd6qdv7vuv7qm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865815619207-0okv9fdl3s4dm3uqf01dlq71v1ccgglh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flirtwith.ios",
+                "app_store_id": "1269653005"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

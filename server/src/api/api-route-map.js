@@ -22,7 +22,7 @@ export const userApiRouteMap = {
 };
 
 export const fileApiRouteMap = {
-    uploadImageList: '/api/upload-image-list',
+    uploadFileList: '/api/upload-file-list',
     getFileList: '/api/get-file-list',
     getResizedImage: '/api/get-resized-image',
 };

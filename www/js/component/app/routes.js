@@ -165,29 +165,29 @@ export const routeItemMap = {
         type: 'route',
         pageWrapper: PageWrapper,
     },
-    imageUpload: {
-        path: routePathMap.imageUpload.path,
+    fileUpload: {
+        path: routePathMap.fileUpload.path,
         component: (): null => null,
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
-                import(/* webpackChunkName: 'async-image-upload' */ '../../page/cms/image/c-image-upload')
+                import(/* webpackChunkName: 'async-file-upload' */ '../../page/cms/file/c-file-upload')
                     // eslint-disable-next-line id-match
-                    .then((data: {ImageUpload: React$ComponentType<*>}): React$ComponentType<*> => data.ImageUpload)
+                    .then((data: {FileUpload: React$ComponentType<*>}): React$ComponentType<*> => data.FileUpload)
             );
         },
         type: 'route',
         pageWrapper: PageWrapper,
     },
-    imageList: {
-        path: routePathMap.imageList.path,
+    fileList: {
+        path: routePathMap.fileList.path,
         component: (): null => null,
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
-                import(/* webpackChunkName: 'async-image-list' */ '../../page/cms/image/c-image-list')
+                import(/* webpackChunkName: 'async-file-list' */ '../../page/cms/file/c-file-list')
                     // eslint-disable-next-line id-match
-                    .then((data: {ImageList: React$ComponentType<*>}): React$ComponentType<*> => data.ImageList)
+                    .then((data: {FileList: React$ComponentType<*>}): React$ComponentType<*> => data.FileList)
             );
         },
         type: 'route',

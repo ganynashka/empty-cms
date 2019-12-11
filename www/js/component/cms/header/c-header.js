@@ -78,12 +78,12 @@ export class Header extends Component<PropsType, StateType> {
                     Doc: create
                 </Button>
                 &nbsp;|&nbsp;
-                <Button component={Link} size="large" to={routeItemMap.imageList.path} variant="contained">
-                    Img: List
+                <Button component={Link} size="large" to={routeItemMap.fileList.path} variant="contained">
+                    File: List
                 </Button>
                 &nbsp;|&nbsp;
-                <Button component={Link} size="large" to={routeItemMap.imageUpload.path} variant="contained">
-                    Img: Upload
+                <Button component={Link} size="large" to={routeItemMap.fileUpload.path} variant="contained">
+                    File: Upload
                 </Button>
             </>
         );

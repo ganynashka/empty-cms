@@ -23,7 +23,7 @@ export function addFileApi(app: $Application) {
     fileSystem.mkdir(path.join(cwd, fileApiConst.pathToUploadFilesCache), (): null => null);
     fileSystem.mkdir(path.join(cwd, fileApiConst.pathToUploadFilesTemp), (): null => null);
 
-    app.post(fileApiRouteMap.uploadImageList, async (request: $Request, response: $Response) => {
+    app.post(fileApiRouteMap.uploadFileList, async (request: $Request, response: $Response) => {
         const fileDataList: Array<ExpressFormDataFileType> = getFormDataFileList(request);
         const saveFileResultList: Array<string | Error> = await Promise.all(fileDataList.map(saveFile));
 
