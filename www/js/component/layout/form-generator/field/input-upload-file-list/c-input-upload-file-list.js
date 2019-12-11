@@ -7,12 +7,12 @@ import type {
     InputComponentPropsType,
     FromGeneratorInputValueType,
 } from '../../form-generator-type';
-import {InputUploadImage} from '../input-upload-image/c-input-upload-image';
+import {InputUploadFile} from '../input-upload-file/c-input-upload-file';
 import {isFile, isString} from '../../../../../lib/is';
 import fieldStyle from '../field.scss';
 import {extractUniqueArrayString} from '../../../../../lib/string';
 
-import inputUploadImageListStyle from './input-upload-image-list.scss';
+import inputUploadImageListStyle from './input-upload-file-list.scss';
 
 type PropsType = InputComponentPropsType;
 
@@ -21,7 +21,7 @@ type StateType = {|
     +addItemIndex: number,
 |};
 
-export class InputUploadImageList extends Component<PropsType, StateType> {
+export class InputUploadFileList extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
@@ -73,17 +73,17 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
 
     renderValueItem = (inputValue: string, index: number): Node => {
         const {props} = this;
-        const {name, placeholder, content, accept, imagePathPrefix, uploadFile, snackbarContext, popupContext} = props;
+        const {name, placeholder, content, accept, filePathPrefix, uploadFile, snackbarContext, popupContext} = props;
 
         const onChangeFieldHandler = this.createOnChangeFieldHandler(index);
 
         return (
-            <InputUploadImage
+            <InputUploadFile
                 accept={accept}
                 content={content}
                 defaultValue={inputValue}
                 errorList={[]}
-                imagePathPrefix={imagePathPrefix}
+                filePathPrefix={filePathPrefix}
                 isMultiple={false}
                 key={inputValue}
                 labelText=""
@@ -100,17 +100,17 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
 
     renderAdditionalItem(): Node {
         const {props, state} = this;
-        const {placeholder, content, accept, imagePathPrefix, uploadFile, snackbarContext, popupContext} = props;
+        const {placeholder, content, accept, filePathPrefix, uploadFile, snackbarContext, popupContext} = props;
 
         const onChangeFieldHandler = this.createOnChangeFieldHandler(state.addItemIndex);
 
         return (
-            <InputUploadImage
+            <InputUploadFile
                 accept={accept}
                 content={content}
                 defaultValue={null}
                 errorList={[]}
-                imagePathPrefix={imagePathPrefix}
+                filePathPrefix={filePathPrefix}
                 isMultiple={false}
                 key={state.addItemIndex}
                 labelText=""
@@ -131,7 +131,7 @@ export class InputUploadImageList extends Component<PropsType, StateType> {
         const {labelText} = props;
 
         if (!Array.isArray(props.defaultValue)) {
-            console.error('InputUploadImageList: Array support only');
+            console.error('InputUploadFileList: Array support only');
             return null;
         }
 

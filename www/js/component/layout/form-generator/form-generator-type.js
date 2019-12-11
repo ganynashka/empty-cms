@@ -43,7 +43,7 @@ export type InputComponentPropsType = {|
     +content?: Node,
     +accept?: string,
     +isMultiple?: boolean,
-    +imagePathPrefix?: string,
+    +filePathPrefix?: string,
     +snackbarContext: SnackbarContextType,
     +popupContext: PopupContextType,
     +uploadFile?: (file: File) => Promise<Error | string>,
@@ -61,7 +61,7 @@ export type FieldDataType = {|
     +isHidden?: boolean,
     +accept?: string,
     +isMultiple?: boolean,
-    +imagePathPrefix?: string,
+    +filePathPrefix?: string,
     +uploadFile?: (file: File) => Promise<Error | string>,
 |};
 

@@ -116,7 +116,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
             content,
             accept,
             isMultiple,
-            imagePathPrefix,
+            filePathPrefix,
             uploadFile,
         } = fieldData;
 
@@ -136,7 +136,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
                                         content={content}
                                         defaultValue={defaultValue}
                                         errorList={errorList}
-                                        imagePathPrefix={imagePathPrefix}
+                                        filePathPrefix={filePathPrefix}
                                         isMultiple={isMultiple}
                                         labelText={labelText}
                                         name={name}

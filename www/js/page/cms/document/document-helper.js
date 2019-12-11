@@ -3,7 +3,7 @@
 import React from 'react';
 
 // eslint-disable-next-line max-len
-import {InputUploadImageList} from '../../../component/layout/form-generator/field/input-upload-image-list/c-input-upload-image-list';
+import {InputUploadFileList} from '../../../component/layout/form-generator/field/input-upload-file-list/c-input-upload-file-list';
 import type {
     FormGeneratorConfigType,
     FormGeneratorFormDataType,
@@ -20,7 +20,7 @@ import {typeConverter} from '../../../lib/type';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
 import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-type';
 import {extractUniqueArrayString, getSlug, stringToUniqArray} from '../../../lib/string';
-import {InputUploadImage} from '../../../component/layout/form-generator/field/input-upload-image/c-input-upload-image';
+import {InputUploadFile} from '../../../component/layout/form-generator/field/input-upload-file/c-input-upload-file';
 import {isError, isFile, isNull, isString} from '../../../lib/is';
 import {uploadFile, uploadFileList} from '../file/file-api';
 import {promiseCatch} from '../../../lib/promise';
@@ -107,14 +107,14 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                     },
                     {
                         name: 'titleImage',
-                        fieldComponent: InputUploadImage,
+                        fieldComponent: InputUploadFile,
                         validate: noValidate,
                         defaultValue: null,
                         placeholder: 'title-image',
                         labelText: 'Title image',
                         accept: 'image/png, image/jpg, image/jpeg',
                         uploadFile,
-                        imagePathPrefix: fileApiConst.pathToUploadFiles,
+                        filePathPrefix: fileApiConst.pathToUploadFiles,
                     },
                     {
                         name: 'type',
@@ -201,14 +201,14 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                     },
                     {
                         name: 'imageList',
-                        fieldComponent: InputUploadImageList,
+                        fieldComponent: InputUploadFileList,
                         validate: noValidate,
                         defaultValue: new Array<string>(0),
-                        placeholder: 'Image List',
-                        labelText: 'Image List',
-                        accept: 'image/png, image/jpg, image/jpeg',
+                        placeholder: 'File List',
+                        labelText: 'File List',
+                        accept: '*',
                         uploadFile,
-                        imagePathPrefix: fileApiConst.pathToUploadFiles,
+                        filePathPrefix: fileApiConst.pathToUploadFiles,
                     },
                     {
                         name: 'content',

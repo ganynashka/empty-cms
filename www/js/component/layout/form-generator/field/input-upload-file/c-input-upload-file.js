@@ -11,7 +11,7 @@ import {getMarkdownResizedImage} from '../../../../../page/cms/file/file-api';
 import {promiseCatch} from '../../../../../lib/promise';
 import {isError, isFunction, isNull, isString} from '../../../../../lib/is';
 
-import inputUploadImageStyle from './input-upload-image.scss';
+import inputUploadFileStyle from './input-upload-file.scss';
 
 type PropsType = InputComponentPropsType;
 
@@ -21,7 +21,7 @@ type StateType = {
     defaultValue: FromGeneratorInputValueType,
 };
 
-export class InputUploadImage extends Component<PropsType, StateType> {
+export class InputUploadFile extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
@@ -60,7 +60,7 @@ export class InputUploadImage extends Component<PropsType, StateType> {
         const fileOrNull = this.getValue(evt);
 
         if (!isFunction(uploadFile)) {
-            console.error('InputUploadImage: uploadFile should be a function');
+            console.error('InputUploadFile: uploadFile should be a function');
             return;
         }
 
@@ -76,7 +76,7 @@ export class InputUploadImage extends Component<PropsType, StateType> {
         uploadFile(fileOrNull)
             .then(async (uploadResult: Error | string): Promise<Error | string> => {
                 if (isError(uploadResult)) {
-                    console.error('Can not upload image');
+                    console.error('Can not upload file');
                     console.error(uploadResult);
 
                     onChange(null);
@@ -99,7 +99,7 @@ export class InputUploadImage extends Component<PropsType, StateType> {
 
                 await showSnackbar({children: 'Error while upload file!', variant: 'error'}, 'can-not-upload-file');
 
-                console.error('Can not upload image');
+                console.error('Can not upload file');
                 console.error(error);
                 return error;
             });
@@ -119,10 +119,10 @@ export class InputUploadImage extends Component<PropsType, StateType> {
 
         return (
             <>
-                <div className={inputUploadImageStyle.input_upload_image__placeholder}/>
+                <div className={inputUploadFileStyle.input_upload_file__placeholder}/>
                 <input
                     accept={accept}
-                    className={inputUploadImageStyle.input_upload_image__input_image}
+                    className={inputUploadFileStyle.input_upload_file__input_file}
                     onChange={this.handleOnChange}
                     type="file"
                 />
@@ -140,10 +140,10 @@ export class InputUploadImage extends Component<PropsType, StateType> {
         }
 
         return (
-            <div className={inputUploadImageStyle.input_upload_image__full_wrapper}>
+            <div className={inputUploadFileStyle.input_upload_file__full_wrapper}>
                 <img
                     alt=""
-                    className={inputUploadImageStyle.input_upload_image__uploaded_file}
+                    className={inputUploadFileStyle.input_upload_file__uploaded_file}
                     src={URL.createObjectURL(file)}
                 />
             </div>
@@ -180,23 +180,23 @@ export class InputUploadImage extends Component<PropsType, StateType> {
     renderDefaultImage(): Node {
         const {state, props} = this;
         const {defaultValue} = state;
-        const src = String(props.imagePathPrefix || '') + '/' + String(defaultValue);
+        const src = String(props.filePathPrefix || '') + '/' + String(defaultValue);
 
         return (
             <>
                 <button
-                    className={inputUploadImageStyle.input_upload_image__remove_file}
+                    className={inputUploadFileStyle.input_upload_file__remove_file}
                     onClick={this.handleRemoveImage}
                     type="button"
                 >
                     &#10005;
                 </button>
                 <button
-                    className={inputUploadImageStyle.input_upload_image__full_button}
+                    className={inputUploadFileStyle.input_upload_file__full_button}
                     onClick={this.handleCopyImageSrc}
                     type="button"
                 >
-                    <img alt="" className={inputUploadImageStyle.input_upload_image__uploaded_file} src={src}/>
+                    <img alt="" className={inputUploadFileStyle.input_upload_file__uploaded_file} src={src}/>
                 </button>
             </>
         );
@@ -233,10 +233,10 @@ export class InputUploadImage extends Component<PropsType, StateType> {
         const {isUploadInProgress} = state;
         const {errorList} = props;
 
-        return classNames(inputUploadImageStyle.input_upload_image__wrapper, {
-            [inputUploadImageStyle.input_upload_image__wrapper__with_image]: this.hasFile() || this.hasDefaultValue(),
+        return classNames(inputUploadFileStyle.input_upload_file__wrapper, {
+            [inputUploadFileStyle.input_upload_file__wrapper__with_file]: this.hasFile() || this.hasDefaultValue(),
             [fieldStyle.form__input__invalid]: errorList.length > 0,
-            [inputUploadImageStyle.input_upload_image__wrapper__upload_in_progress]: isUploadInProgress,
+            [inputUploadFileStyle.input_upload_file__wrapper__upload_in_progress]: isUploadInProgress,
         });
     }
 
@@ -245,17 +245,17 @@ export class InputUploadImage extends Component<PropsType, StateType> {
         const {labelText, defaultValue, uploadFile} = props;
 
         if (!isString(defaultValue) && !isNull(defaultValue)) {
-            console.error('InputUploadImage: String or Null Support Only');
+            console.error('InputUploadFile: String or Null Support Only');
             return null;
         }
 
         if (!isFunction(uploadFile)) {
-            console.error('InputUploadImage: uploadFile should be a function');
+            console.error('InputUploadFile: uploadFile should be a function');
             return null;
         }
 
         return (
-            <div className={inputUploadImageStyle.input_upload_image__label_wrapper}>
+            <div className={inputUploadFileStyle.input_upload_file__label_wrapper}>
                 {labelText ? <span className={fieldStyle.form__label_description}>{labelText}</span> : null}
                 <div className={this.getWrapperClassName()}>{this.renderContent()}</div>
             </div>
