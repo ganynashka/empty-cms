@@ -7,6 +7,7 @@ import type {InitialDataType} from '../../../provider/intial-data/intial-data-ty
 import {routePathMap} from '../../../component/app/routes-path-map';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
 import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
+import serviceStyle from '../../../../css/service.scss';
 
 import homeStyle from './home.scss';
 import imageLogo from './image/empty.jpg';
@@ -62,8 +63,7 @@ export class Home extends Component<PropsType, StateType> {
         const {initialContextData} = props;
 
         return (
-            <div>
-                <h1>Skazki</h1>
+            <div className={serviceStyle.width_limit}>
                 <hr/>
                 {this.renderArticleLinkList()}
                 <hr/>

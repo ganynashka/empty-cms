@@ -16,6 +16,18 @@
     padding-right: $ui-unit;
 }
 
+%link,
+.link {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding-top: 1px;
+    text-decoration: none;
+
+    &:hover {
+        border-bottom-color: transparent;
+    }
+}
+
 /*
 .disabled {
     opacity: 0.5;

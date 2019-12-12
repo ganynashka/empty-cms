@@ -72,7 +72,49 @@ export class Header extends Component<PropsType, StateType> {
         }
     }
 
-    renderLinkList(): Node {
+    renderMobile(): Node {
+        const {props} = this;
+        const {location, themeContextData} = props;
+
+        return (
+            <div className={headerStyle.header__desktop__menu_line__wrapper}>
+                <nav className={headerStyle.header__desktop__menu_line}>
+                    <Link className={headerStyle.header__desktop__menu_line__link} to={routePathMap.siteEnter.path}>
+                        Сказки детям
+                    </Link>
+                </nav>
+            </div>
+        );
+    }
+
+    renderMobileMenu(): Node {
+        return (
+            <div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <h1>i am mobile menu</h1>
+            </div>
+        );
+    }
+
+    renderDesktopLink(linkData: MongoDocumentTreeNodeType): Node {
+        const {slug, title} = linkData;
+
+        return (
+            <Link
+                className={headerStyle.header__desktop__menu_line__link}
+                key={slug}
+                to={routePathMap.article.staticPartPath + '/' + slug}
+            >
+                {title}
+            </Link>
+        );
+    }
+
+    renderDesktopLinkList(): Array<Node> | null {
         const {props} = this;
         const {initialContextData} = props;
         const {documentNodeTree} = initialContextData;
@@ -81,37 +123,10 @@ export class Header extends Component<PropsType, StateType> {
             return null;
         }
 
-        return <div>{documentNodeTree.subNodeList.map(this.renderLinkInList)}</div>;
-    }
-
-    renderLinkInList(linkData: MongoDocumentTreeNodeType): Node {
-        const {slug, title} = linkData;
-
-        return (
-            <Link key={slug} to={routePathMap.article.staticPartPath + '/' + slug}>
-                {title}
-            </Link>
-        );
-    }
-
-    renderMobile(): Node {
-        const {props} = this;
-        const {location, themeContextData} = props;
-
-        return (
-            <>
-                <Link to={routePathMap.siteEnter.path}>Home page</Link>
-                <div>theme: {themeContextData.name}</div>
-                <h1>renderMobile Skazki header</h1>
-                <h2>{this.renderLinkList()}</h2>
-            </>
-        );
+        return documentNodeTree.subNodeList.map(this.renderDesktopLink);
     }
 
     renderDesktop(): Node {
-        const {props} = this;
-        const {location, themeContextData} = props;
-
         return (
             <>
                 <div className={headerStyle.header__desktop__top_line}>
@@ -121,15 +136,8 @@ export class Header extends Component<PropsType, StateType> {
                     <input className={headerStyle.header__desktop__search_input} placeholder="Поиск" type="text"/>
                 </div>
                 <div className={headerStyle.header__desktop__menu_line__wrapper}>
-                    <div className={headerStyle.header__desktop__menu_line}>categorise top line</div>
+                    <nav className={headerStyle.header__desktop__menu_line}>{this.renderDesktopLinkList()}</nav>
                 </div>
-
-                {/*
-                <Link to={routePathMap.siteEnter.path}>Home page</Link>
-                <div>theme: {themeContextData.name}</div>
-                <h1>renderDesktop Skazki header</h1>
-                <h2>{this.renderLinkList()}</h2>
-*/}
             </>
         );
     }
@@ -143,9 +151,12 @@ export class Header extends Component<PropsType, StateType> {
         }
 
         return (
-            <header className={headerStyle.header__wrapper}>
-                {screenContextData.isDesktop ? this.renderDesktop() : this.renderMobile()}
-            </header>
+            <>
+                <header className={headerStyle.header__wrapper}>
+                    {screenContextData.isDesktop ? this.renderDesktop() : this.renderMobile()}
+                </header>
+                {screenContextData.isDesktop ? null : this.renderMobileMenu()}
+            </>
         );
     }
 }

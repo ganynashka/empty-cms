@@ -76,5 +76,18 @@
 .header__desktop__menu_line {
     @extend %width-limit;
 
-    height: 60px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    justify-content: flex-start;
+}
+
+.header__desktop__menu_line__link {
+    @extend %link;
+
+    color: $main-text-color;
+    display: block;
+    font-size: 16px;
+    margin-right: $ui-unit * 4;
 }
