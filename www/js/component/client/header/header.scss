@@ -1,9 +1,80 @@
-@import './../../../../css/var';
+/* stylelint-disable selector-pseudo-class-no-unknown, max-nesting-depth, selector-max-compound-selectors */
 
+@import './../../../../css/var';
+@import './../../../../css/service';
+
+// header wrapper
 .header__wrapper {
-    height: $client-header-height;
+    height: $client-desktop-header-height;
     left: 0;
     position: absolute;
     width: 100%;
     z-index: $z-index-header;
+}
+
+:global .desktop {
+    :local {
+        .header__wrapper {
+            height: $client-desktop-header-height;
+        }
+    }
+}
+
+:global .tablet {
+    :local {
+        .header__wrapper {
+            height: $client-tablet-header-height;
+        }
+    }
+}
+
+:global .mobile {
+    :local {
+        .header__wrapper {
+            height: $client-mobile-header-height;
+        }
+    }
+}
+
+// top line
+.header__desktop__top_line {
+    @extend %width-limit;
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    justify-content: space-between;
+}
+
+.header__desktop__logo {
+    color: $main-text-color;
+    display: block;
+    font-size: 22px;
+    padding: 10px 10px 10px 0;
+    text-decoration: none;
+}
+
+.header__desktop__search_input {
+    background-image: url('./image/searh-icon.svg');
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: auto 60%;
+    border: 1px solid $color-border;
+    box-sizing: border-box;
+    display: block;
+    font-size: 14px;
+    padding: 10px 40px 10px 10px;
+    width: 240px;
+}
+
+// menu line
+.header__desktop__menu_line__wrapper {
+    background-image: linear-gradient(90deg, $color-yellow 0, $color-orange 100%);
+}
+
+.header__desktop__menu_line {
+    @extend %width-limit;
+
+    height: 60px;
 }

@@ -114,19 +114,29 @@ export class Header extends Component<PropsType, StateType> {
 
         return (
             <>
+                <div className={headerStyle.header__desktop__top_line}>
+                    <Link className={headerStyle.header__desktop__logo} to={routePathMap.siteEnter.path}>
+                        Сказки детям
+                    </Link>
+                    <input className={headerStyle.header__desktop__search_input} placeholder="Поиск" type="text"/>
+                </div>
+                <div className={headerStyle.header__desktop__menu_line__wrapper}>
+                    <div className={headerStyle.header__desktop__menu_line}>categorise top line</div>
+                </div>
+
+                {/*
                 <Link to={routePathMap.siteEnter.path}>Home page</Link>
                 <div>theme: {themeContextData.name}</div>
                 <h1>renderDesktop Skazki header</h1>
                 <h2>{this.renderLinkList()}</h2>
+*/}
             </>
         );
     }
 
     render(): Node {
         const {props} = this;
-        const {location, themeContextData, screenContextData} = props;
-
-        console.log(props);
+        const {location, screenContextData} = props;
 
         if (isCMS(location)) {
             return null;

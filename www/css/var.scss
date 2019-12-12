@@ -1,5 +1,5 @@
-//$main-font-family: 'MS Trebuchet', sans-serif;
-$main-font-family: 'Lucida Console', Monaco, monospace;
+$main-font-family: Helvetica, 'MS Trebuchet', sans-serif;
+//$main-font-family: 'Lucida Console', Monaco, monospace;
 $main-font-size: 14px;
 $main-line-height: 1.25;
 $main-text-color: #333;
@@ -11,6 +11,14 @@ $z-index-popup-wrapper: 200;
 $z-index-popup: 201;
 
 $ui-unit: 8px; // actually $mui-unit: 8px;
-$client-header-height: 164px;
+$client-desktop-header-height: 120px;
+$client-tablet-header-height: 120px;
+$client-mobile-header-height: 120px;
 $cms-header-height: 64px;
 $form-main-background-color: #0c72ed;
+
+$max-width: 1280px;
+
+$color-yellow: #f8e668;
+$color-orange: #f8d88b;
+$color-border: #444;

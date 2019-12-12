@@ -1,8 +1,19 @@
 /* stylelint-disable selector-pseudo-class-no-unknown, max-nesting-depth */
+
 @import './var';
 
 .hidden {
     display: none !important;
+}
+
+%width-limit,
+.width_limit {
+    box-sizing: border-box;
+    display: block;
+    margin: 0 auto;
+    max-width: $max-width;
+    padding-left: $ui-unit;
+    padding-right: $ui-unit;
 }
 
 /*
