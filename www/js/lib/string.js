@@ -118,14 +118,18 @@ function getFileNamePartList(fullFleName: string): [string, string] {
     return [fileName, fileExtension];
 }
 
+const hashStringLength = 5;
+
 export function getHashFileName(startFileName: string, md5: string): string {
     const [fileName, fileExtension] = getFileNamePartList(startFileName);
 
-    return `${getSlug(fileName)}--hash__${md5}__--${fileExtension}`;
+    return `${getSlug(fileName)}-${md5.slice(0, hashStringLength)}${fileExtension}`;
 }
 
 export function getNoHashFileName(startFileName: string): string {
-    return startFileName.replace(/--hash__[\S\s]+__--/, '');
+    const [fileName, fileExtension] = getFileNamePartList(startFileName);
+
+    return `${fileName.slice(0, -hashStringLength - 1)}${fileExtension}`;
 }
 
 export function extractUniqueArrayString(inputValue: mixed): Array<string> {

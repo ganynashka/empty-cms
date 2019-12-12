@@ -122,7 +122,7 @@
     "stylelint-config-sass-guidelines": "^6.2.0",
     "stylelint-config-standard": "^19.0.0",
     "stylelint-scss": "^3.13.0",
-    "terser-webpack-plugin": "^2.2.2",
+    "terser-webpack-plugin": "^2.2.3",
     "unused-files-webpack-plugin": "^3.4.0",
     "webpack": "^4.41.2",
     "webpack-bundle-analyzer": "^3.6.0",
