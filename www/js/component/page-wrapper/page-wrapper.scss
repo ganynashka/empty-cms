@@ -4,15 +4,16 @@ $page-transition-time: 1000ms;
 
 .page_wrapper {
     box-sizing: border-box;
-    height: calc(100% - #{$header-height});
+    height: calc(100% - #{$client-header-height});
     overflow: auto;
     position: absolute;
-    top: $header-height;
+    top: $client-header-height;
     width: 100%;
     z-index: $z-index-page-wrapper;
 
     &.page_wrapper__cms {
-        display: block;
+        height: calc(100% - #{$cms-header-height});
+        top: $cms-header-height;
     }
 }
 
