@@ -2,6 +2,7 @@
 
 import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
+import classNames from 'classnames';
 
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 import {isCMS} from '../../../lib/url';
@@ -14,6 +15,7 @@ import {getInitialClientData} from '../../app/client-app-helper';
 import {isError, isFunction} from '../../../lib/is';
 import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
 import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database/database-type';
+import {PageWrapper} from '../../page-wrapper/c-page-wrapper';
 
 import headerStyle from './header.scss';
 
@@ -24,9 +26,19 @@ type PropsType = {
     +initialContextData: InitialDataType,
 };
 
-type StateType = null;
+type StateType = {|
+    +isNavigationMenuOpen: boolean,
+|};
 
 export class Header extends Component<PropsType, StateType> {
+    constructor(props: PropsType) {
+        super(props);
+
+        this.state = {
+            isNavigationMenuOpen: false,
+        };
+    }
+
     componentDidMount() {
         this.fetchInitialContextData();
 
@@ -38,8 +50,16 @@ export class Header extends Component<PropsType, StateType> {
 
         if (props.location.pathname !== prevProps.location.pathname) {
             this.fetchInitialContextData();
+            this.handleToggleNavigationMenuOpenState();
         }
     }
+
+    handleToggleNavigationMenuOpenState = () => {
+        const {state} = this;
+        const {isNavigationMenuOpen} = state;
+
+        this.setState({isNavigationMenuOpen: !isNavigationMenuOpen});
+    };
 
     async fetchInitialContextData() {
         const {props} = this;
@@ -73,30 +93,37 @@ export class Header extends Component<PropsType, StateType> {
     }
 
     renderMobile(): Node {
-        const {props} = this;
+        const {props, state} = this;
         const {location, themeContextData} = props;
+        const {isNavigationMenuOpen} = state;
 
         return (
             <div className={headerStyle.header__desktop__menu_line__wrapper}>
-                <nav className={headerStyle.header__desktop__menu_line}>
+                <nav className={headerStyle.header__mobile__top_line}>
+                    <button
+                        className={classNames(headerStyle.header__mobile__button__menu, {
+                            [headerStyle.header__mobile__button__menu__close]: isNavigationMenuOpen,
+                        })}
+                        onClick={this.handleToggleNavigationMenuOpenState}
+                        title="Меню"
+                        type="button"
+                    />
                     <Link className={headerStyle.header__desktop__menu_line__link} to={routePathMap.siteEnter.path}>
                         Сказки детям
                     </Link>
+                    <button className={headerStyle.header__mobile__button__search} title="Поиск" type="button"/>
                 </nav>
             </div>
         );
     }
 
     renderMobileMenu(): Node {
+        const {props} = this;
+
         return (
-            <div>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <h1>i am mobile menu</h1>
-            </div>
+            <PageWrapper additionalClassName={headerStyle.header__mobile__navigation_wrapper} location={props.location}>
+                {this.renderDesktopLinkList()}
+            </PageWrapper>
         );
     }
 
@@ -143,8 +170,9 @@ export class Header extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        const {props} = this;
+        const {props, state} = this;
         const {location, screenContextData} = props;
+        const {isNavigationMenuOpen} = state;
 
         if (isCMS(location)) {
             return null;
@@ -155,7 +183,7 @@ export class Header extends Component<PropsType, StateType> {
                 <header className={headerStyle.header__wrapper}>
                     {screenContextData.isDesktop ? this.renderDesktop() : this.renderMobile()}
                 </header>
-                {screenContextData.isDesktop ? null : this.renderMobileMenu()}
+                {!screenContextData.isDesktop && isNavigationMenuOpen ? this.renderMobileMenu() : null}
             </>
         );
     }

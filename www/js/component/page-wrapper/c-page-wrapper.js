@@ -11,13 +11,15 @@ import pageWrapperStyle from './page-wrapper.scss';
 type PropsType = {
     +children: Node,
     +location: LocationType,
+    +additionalClassName?: string,
 };
 
 export function PageWrapper(props: PropsType): Node {
-    const {children, location} = props;
+    const {children, location, additionalClassName} = props;
 
     const className = classNames(pageWrapperStyle.page_wrapper, {
         [pageWrapperStyle.page_wrapper__cms]: isCMS(location),
+        [String(additionalClassName)]: Boolean(additionalClassName),
     });
 
     return <main className={className}>{children}</main>;

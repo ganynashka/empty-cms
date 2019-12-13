@@ -1,7 +1,7 @@
 // @flow
 
 export const screenMinWidth = {
-    desktop: 1280,
+    desktop: 980,
     tablet: 768,
     mobile: 320,
 };
