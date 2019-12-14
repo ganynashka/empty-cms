@@ -34,7 +34,7 @@ export class Home extends Component<PropsType, StateType> {
         return (
             <>
                 <div className={serviceStyle.width_limit}>
-                    <div style={{height: '1000px'}}>home page</div>
+                    <div>home page</div>
                 </div>
                 <Footer/>
             </>

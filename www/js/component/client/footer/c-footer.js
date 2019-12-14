@@ -9,13 +9,13 @@ export function Footer(): Node {
     return (
         <footer className={footerStyle.footer_wrapper}>
             <Link className={footerStyle.footer__link} to="#">
-                1
+                Правообладателям
             </Link>
             <Link className={footerStyle.footer__link} to="#">
-                1
+                Обратная связь
             </Link>
             <Link className={footerStyle.footer__link} to="#">
-                1
+                Политика конфиденциальности
             </Link>
         </footer>
     );

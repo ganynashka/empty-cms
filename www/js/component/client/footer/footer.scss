@@ -7,6 +7,7 @@
     border-top: 1px solid $gray;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     padding: $ui-unit;
 }
@@ -16,18 +17,7 @@
 
     display: block;
     font-size: 16px;
-    margin-left: $ui-unit * 2;
-    margin-right: $ui-unit * 2;
+    margin-left: $ui-unit;
+    margin-right: $ui-unit;
     position: relative;
-
-    &:before {
-        background-color: rgba(0, 0, 0, 0.5);
-        content: '';
-        height: calc(100% + #{$ui-unit * 2});
-        left: -$ui-unit;
-        position: absolute;
-        top: -$ui-unit;
-        width: calc(100% + #{$ui-unit * 2});
-        z-index: 0;
-    }
 }
