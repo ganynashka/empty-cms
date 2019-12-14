@@ -29,9 +29,11 @@ export class Home extends Component<PropsType, StateType> {
     }
 
     renderCategoryLink(documentData: MongoDocumentType): Node {
+        const {slug} = documentData;
+
         return (
-            <Link className={homeStyle.home__category_link__wrapper} to="#">
-                {documentData.slug}
+            <Link className={homeStyle.home__category_link__wrapper} key={slug} to="#">
+                {slug}
             </Link>
         );
     }
@@ -46,6 +48,8 @@ export class Home extends Component<PropsType, StateType> {
         }
         return (
             <div className={homeStyle.home__category_list}>
+                {rootPathData.subDocumentList.map(this.renderCategoryLink)}
+                {rootPathData.subDocumentList.map(this.renderCategoryLink)}
                 {rootPathData.subDocumentList.map(this.renderCategoryLink)}
             </div>
         );
