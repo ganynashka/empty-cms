@@ -10,6 +10,7 @@ import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
 import serviceStyle from '../../../../css/service.scss';
 import {Footer} from '../../../component/client/footer/c-footer';
 import {Markdown} from '../../../component/layout/markdown/c-markdown';
+import {fileApiRouteMap} from '../../../../../server/src/api/api-route-map';
 
 import homeStyle from './home.scss';
 import imageLogo from './image/empty.jpg';
@@ -29,11 +30,15 @@ export class Home extends Component<PropsType, StateType> {
     }
 
     renderCategoryLink(documentData: MongoDocumentType): Node {
-        const {slug} = documentData;
+        const {slug, imageList, titleImage} = documentData;
+        const icon = imageList[0] || '';
+        const titleImageSrc = `${fileApiRouteMap.getResizedImage}/${titleImage}?width=1024&height=1024&fit=inside'`;
 
         return (
             <Link className={homeStyle.home__category_link__wrapper} key={slug} to="#">
-                {slug}
+                <img alt="" src={fileApiRouteMap.getResizedImage + '/' + icon}/>
+                <img alt="" src={titleImageSrc}/>
+                <h2>{slug}</h2>
             </Link>
         );
     }
@@ -46,6 +51,7 @@ export class Home extends Component<PropsType, StateType> {
         if (!rootPathData) {
             return null;
         }
+
         return (
             <div className={homeStyle.home__category_list}>
                 {rootPathData.subDocumentList.map(this.renderCategoryLink)}
