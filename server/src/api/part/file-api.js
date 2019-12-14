@@ -53,20 +53,25 @@ export function addFileApi(app: $Application) {
     // eslint-disable-next-line max-statements
     app.get(fileApiRouteMap.getResizedImage + '/*', async (request: $Request, response: $Response) => {
         const imageName = String(request.params['0']);
-        const resizeConfig = getImageResizeParameters(request);
-        const configId = getSlug(JSON.stringify(resizeConfig));
-        const endFileName = configId + '--' + imageName;
-        const pathToFile = path.join(cwd, fileApiConst.pathToUploadFilesCache, endFileName);
 
-        const isFileExists = await getIsFileExists(pathToFile);
-
-        if (isFileExists) {
-            console.log('get file from cache', pathToFile);
-            response.sendFile(pathToFile);
+        if (imageName.endsWith('.svg')) {
+            response.sendFile(path.join(cwd, fileApiConst.pathToUploadFiles, imageName));
             return;
         }
 
-        console.log('make new file and send', pathToFile);
+        const resizeConfig = getImageResizeParameters(request);
+        const configId = getSlug(JSON.stringify(resizeConfig));
+        const endFileName = configId + '--' + imageName;
+        const pathToCachedFile = path.join(cwd, fileApiConst.pathToUploadFilesCache, endFileName);
+        const isFileExists = await getIsFileExists(pathToCachedFile);
+
+        if (isFileExists) {
+            console.log('get file from cache', pathToCachedFile);
+            response.sendFile(pathToCachedFile);
+            return;
+        }
+
+        console.log('make new file and send', pathToCachedFile);
 
         const pathToTemporaryFile = path.join(cwd, fileApiConst.pathToUploadFilesTemp, endFileName);
 
@@ -94,6 +99,6 @@ export function addFileApi(app: $Application) {
             return;
         }
 
-        response.sendFile(pathToFile);
+        response.sendFile(pathToCachedFile);
     });
 }
