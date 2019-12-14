@@ -9,6 +9,7 @@ import type {MongoDocumentType} from '../../../../../server/src/database/databas
 import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
 import serviceStyle from '../../../../css/service.scss';
 import {Footer} from '../../../component/client/footer/c-footer';
+import {Markdown} from '../../../component/layout/markdown/c-markdown';
 
 import homeStyle from './home.scss';
 import imageLogo from './image/empty.jpg';
@@ -27,6 +28,41 @@ export class Home extends Component<PropsType, StateType> {
         console.log('---> Component Home did mount');
     }
 
+    renderCategoryLink(documentData: MongoDocumentType): Node {
+        return (
+            <Link className={homeStyle.home__category_link__wrapper} to="#">
+                {documentData.slug}
+            </Link>
+        );
+    }
+
+    renderCategoryLinkList(): Node {
+        const {props} = this;
+        const {initialContextData} = props;
+        const {rootPathData} = initialContextData;
+
+        if (!rootPathData) {
+            return null;
+        }
+        return (
+            <div className={homeStyle.home__category_list}>
+                {rootPathData.subDocumentList.map(this.renderCategoryLink)}
+            </div>
+        );
+    }
+
+    renderRootDocument(): Node {
+        const {props} = this;
+        const {initialContextData} = props;
+        const {rootPathData} = initialContextData;
+
+        if (!rootPathData) {
+            return null;
+        }
+
+        return <Markdown text={rootPathData.rootDocument.content}/>;
+    }
+
     render(): Node {
         const {props} = this;
         const {initialContextData} = props;
@@ -34,7 +70,8 @@ export class Home extends Component<PropsType, StateType> {
         return (
             <>
                 <div className={serviceStyle.width_limit}>
-                    <div>home page</div>
+                    {this.renderRootDocument()}
+                    {this.renderCategoryLinkList()}
                 </div>
                 <Footer/>
             </>
