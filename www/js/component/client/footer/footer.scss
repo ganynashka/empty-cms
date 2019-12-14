@@ -1,0 +1,33 @@
+@import './../../../../css/service';
+@import './../../../../css/var';
+
+.footer_wrapper {
+    align-items: center;
+    background-color: $light-gray;
+    border-top: 1px solid $gray;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: $ui-unit;
+}
+
+.footer__link {
+    @extend %link;
+
+    display: block;
+    font-size: 16px;
+    margin-left: $ui-unit * 2;
+    margin-right: $ui-unit * 2;
+    position: relative;
+
+    &:before {
+        background-color: rgba(0, 0, 0, 0.5);
+        content: '';
+        height: calc(100% + #{$ui-unit * 2});
+        left: -$ui-unit;
+        position: absolute;
+        top: -$ui-unit;
+        width: calc(100% + #{$ui-unit * 2});
+        z-index: 0;
+    }
+}

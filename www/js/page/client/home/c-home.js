@@ -8,6 +8,7 @@ import {routePathMap} from '../../../component/app/routes-path-map';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
 import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
 import serviceStyle from '../../../../css/service.scss';
+import {Footer} from '../../../component/client/footer/c-footer';
 
 import homeStyle from './home.scss';
 import imageLogo from './image/empty.jpg';
@@ -26,51 +27,17 @@ export class Home extends Component<PropsType, StateType> {
         console.log('---> Component Home did mount');
     }
 
-    shouldComponentUpdate(nextProps: PropsType, nextState: StateType, nextContext: mixed): boolean {
-        const {props} = this;
-
-        return Boolean(props.match && nextProps.match);
-    }
-
-    renderArticleLinkList(): Node {
-        const {props} = this;
-        const {initialContextData} = props;
-        const {rootPathData} = initialContextData;
-
-        if (!rootPathData) {
-            return null;
-        }
-
-        return (
-            <div>
-                {rootPathData.subDocumentList.map((article: MongoDocumentType): Node => {
-                    return (
-                        <p key={article.slug}>
-                            <Link to={routePathMap.article.staticPartPath + '/' + article.slug}>{article.title}</Link>
-                            <br/>
-                            <Link to={routePathMap.article.staticPartPath + '/' + article.slug + '1'}>
-                                {article.title} wrong
-                            </Link>
-                        </p>
-                    );
-                })}
-            </div>
-        );
-    }
-
     render(): Node {
         const {props} = this;
         const {initialContextData} = props;
 
         return (
-            <div className={serviceStyle.width_limit}>
-                <hr/>
-                {this.renderArticleLinkList()}
-                <hr/>
-                <Link to="/qweqeqwe/s">Not me</Link>
-                <hr/>
-                <p style={{wordBreak: 'break-all'}}>{JSON.stringify(initialContextData.rootPathData)}</p>
-            </div>
+            <>
+                <div className={serviceStyle.width_limit}>
+                    <div style={{height: '1000px'}}>home page</div>
+                </div>
+                <Footer/>
+            </>
         );
     }
 }
