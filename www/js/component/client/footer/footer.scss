@@ -12,11 +12,20 @@
     padding: $ui-unit;
 }
 
-.footer__link {
-    @extend %link;
-
+%footer-text-item {
     display: block;
     font-size: 16px;
     margin: $ui-unit / 2 $ui-unit;
     position: relative;
+}
+
+.footer__copy_right {
+    @extend %footer-text-item;
+
+    color: $main-text-color;
+}
+
+.footer__link {
+    @extend %link;
+    @extend %footer-text-item;
 }

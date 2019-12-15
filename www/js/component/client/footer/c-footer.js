@@ -8,6 +8,7 @@ import footerStyle from './footer.scss';
 export function Footer(): Node {
     return (
         <footer className={footerStyle.footer_wrapper}>
+            <p>&copy; Сказки детям 2020-{new Date().getFullYear()}</p>
             <Link className={footerStyle.footer__link} to="#">
                 Правообладателям
             </Link>

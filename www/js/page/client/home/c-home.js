@@ -13,7 +13,6 @@ import {Markdown} from '../../../component/layout/markdown/c-markdown';
 import {fileApiRouteMap} from '../../../../../server/src/api/api-route-map';
 
 import homeStyle from './home.scss';
-import imageLogo from './image/empty.jpg';
 
 type PropsType = {
     +initialContextData: InitialDataType,
@@ -30,15 +29,22 @@ export class Home extends Component<PropsType, StateType> {
     }
 
     renderCategoryLink(documentData: MongoDocumentType): Node {
-        const {slug, imageList, titleImage} = documentData;
+        const {slug, imageList, titleImage, title} = documentData;
         const icon = imageList[0] || '';
-        const titleImageSrc = `${fileApiRouteMap.getResizedImage}/${titleImage}?width=1024&height=1024&fit=inside'`;
+        const titleImageSrc = `${fileApiRouteMap.getResizedImage}/${titleImage}?width=1024&height=1024&fit=inside`;
 
         return (
             <Link className={homeStyle.home__category_link__wrapper} key={slug} to="#">
-                <img alt="" src={fileApiRouteMap.getResizedImage + '/' + icon}/>
-                <img alt="" src={titleImageSrc}/>
-                <h2>{slug}</h2>
+                <img
+                    alt={title}
+                    className={homeStyle.home__category_link__icon}
+                    src={fileApiRouteMap.getResizedImage + '/' + icon}
+                />
+                <h2 className={homeStyle.home__category_link__title}>{title}</h2>
+                <span
+                    className={homeStyle.home__category_link__background}
+                    style={{backgroundImage: 'url(' + titleImageSrc + ')'}}
+                />
             </Link>
         );
     }
@@ -54,6 +60,7 @@ export class Home extends Component<PropsType, StateType> {
 
         return (
             <div className={homeStyle.home__category_list}>
+                {rootPathData.subDocumentList.map(this.renderCategoryLink)}
                 {rootPathData.subDocumentList.map(this.renderCategoryLink)}
                 {rootPathData.subDocumentList.map(this.renderCategoryLink)}
                 {rootPathData.subDocumentList.map(this.renderCategoryLink)}
