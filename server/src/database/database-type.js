@@ -48,9 +48,11 @@ export type MongoDocumentTreeNodeType = {|
     +titleImage: string,
     +type: MongoDocumentTypeType,
     +title: string,
+    +content: string,
     +subNodeList: Array<MongoDocumentTreeNodeType>,
     +subDocumentSlugList: Array<string>,
     +isActive: boolean,
+    +imageList: Array<string>,
 |};
 
 /*

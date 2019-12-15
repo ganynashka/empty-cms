@@ -77,7 +77,9 @@ export function getDocumentTree(slug: string, deep: number): Promise<MongoDTNTyp
             titleImage: mongoDocument.titleImage,
             type: mongoDocument.type,
             title: mongoDocument.title,
+            content: mongoDocument.content,
             isActive: mongoDocument.isActive,
+            imageList: mongoDocument.imageList,
         };
 
         return getDocumentTreeRecursively(rootDocumentTreeNode, deep);
@@ -121,7 +123,9 @@ function getDocumentTreeRecursively(
                     titleImage: documentOrError.titleImage,
                     type: documentOrError.type,
                     title: documentOrError.title,
+                    content: documentOrError.content,
                     isActive: documentOrError.isActive,
+                    imageList: documentOrError.imageList,
                 });
             });
 
