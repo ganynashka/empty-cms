@@ -165,6 +165,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                         type: {defaultValue: mongoDocument.type},
                         title: {defaultValue: mongoDocument.title},
                         description: {defaultValue: mongoDocument.description},
+                        shortDescription: {defaultValue: mongoDocument.shortDescription},
                         content: {defaultValue: mongoDocument.content},
                         subDocumentSlugList: {defaultValue: mongoDocument.subDocumentSlugList.join(', ')},
                         tagList: {defaultValue: mongoDocument.tagList.join(', ')},

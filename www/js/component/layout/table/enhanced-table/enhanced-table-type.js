@@ -44,6 +44,7 @@ export type EnhancedTableGetDataType = (
     rowsPerPage: number,
     orderBy: string,
     order: SortDirectionType,
+    refreshTable: () => Promise<mixed>,
 ) => Promise<EnhancedTableGetDataResultType>;
 
 export type EnhancedTablePropsType = {

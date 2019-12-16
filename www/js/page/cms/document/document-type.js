@@ -8,6 +8,7 @@ export type FormDataMongoDocumentType = {
     +type: MongoDocumentTypeType,
     +title: string,
     +description: string,
+    +shortDescription: string,
     +content: string,
     // +createdDate: number,
     // +updatedDate: number,

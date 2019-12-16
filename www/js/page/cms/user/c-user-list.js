@@ -27,7 +27,8 @@ async function enhancedTableGetUserList(
     pageIndex: number,
     rowsPerPage: number,
     orderBy: string,
-    order: SortDirectionType
+    order: SortDirectionType,
+    refreshTable: () => Promise<mixed>
 ): Promise<EnhancedTableGetDataResultType> {
     const list = await getUserList(pageIndex, rowsPerPage, orderBy, order);
     const fullListSize = await getUserListSize();

@@ -53,7 +53,7 @@ export class EnhancedTable extends Component<PropsType, StateType> {
         const {state, props} = this;
         const {pageIndex, rowsPerPage, orderBy, order} = state;
 
-        const {list, allElementsNumber} = await props.getData(pageIndex, rowsPerPage, orderBy, order);
+        const {list, allElementsNumber} = await props.getData(pageIndex, rowsPerPage, orderBy, order, this.fetchData);
 
         this.setState({list, allElementsNumber, isInProgress: false});
 

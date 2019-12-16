@@ -288,11 +288,20 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        const {titleImage, description, content, subDocumentSlugList, tagList, imageList} = mongoDocument;
+        const {
+            titleImage,
+            description,
+            content,
+            subDocumentSlugList,
+            tagList,
+            imageList,
+            shortDescription,
+        } = mongoDocument;
 
         if (
             titleImage
             || description
+            || shortDescription
             || content
             || subDocumentSlugList.length > 0
             || tagList.length > 0

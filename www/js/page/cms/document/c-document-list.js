@@ -27,7 +27,8 @@ async function enhancedTableGetDocumentList(
     pageIndex: number,
     rowsPerPage: number,
     orderBy: string,
-    order: SortDirectionType
+    order: SortDirectionType,
+    refreshTable: () => Promise<mixed>
 ): Promise<EnhancedTableGetDataResultType> {
     const list = await getDocumentList(pageIndex, rowsPerPage, orderBy, order);
     const fullListSize = await getDocumentListSize();
@@ -53,7 +54,7 @@ async function enhancedTableGetDocumentList(
                 isActive,
                 createdDate: timeToHumanString(createdDate),
                 updatedDate: timeToHumanString(updatedDate),
-                remove: <RemoveDocument slug={slug}/>,
+                remove: <RemoveDocument onSuccess={refreshTable} slug={slug}/>,
             };
         }),
         allElementsNumber: fullListSize,

@@ -1,7 +1,5 @@
 // @flow
 
-/* global window */
-
 import React, {Component, type Node} from 'react';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
@@ -13,6 +11,7 @@ import {removeDocument} from './document-api';
 
 type PropsType = {|
     +slug: string,
+    +onSuccess: () => Promise<mixed>,
 |};
 
 export function RemoveDocument(props: PropsType): Node {
@@ -20,7 +19,8 @@ export function RemoveDocument(props: PropsType): Node {
         <SnackbarContextConsumer>
             {(snackbarContext: SnackbarContextType): Node => {
                 async function handleOnClick() {
-                    const removeResult = await removeDocument(props.slug);
+                    const {slug, onSuccess} = props;
+                    const removeResult = await removeDocument(slug);
                     const {showSnackbar} = snackbarContext;
 
                     if (isError(removeResult)) {
@@ -39,9 +39,9 @@ export function RemoveDocument(props: PropsType): Node {
                         return;
                     }
 
-                    await showSnackbar({children: 'Document has been removed', variant: 'success'}, 'document-removed');
+                    await onSuccess();
 
-                    window.location.reload();
+                    await showSnackbar({children: `${slug} has been removed`, variant: 'success'}, 'document-removed');
                 }
 
                 return (
