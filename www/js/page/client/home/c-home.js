@@ -29,24 +29,49 @@ export class Home extends Component<PropsType, StateType> {
     }
 
     renderCategoryLink(documentData: MongoDocumentTreeNodeType): Node {
-        const {slug, imageList, titleImage, title} = documentData;
+        const {slug, imageList, titleImage, title, shortDescription} = documentData;
         const icon = imageList[0] || '';
         const titleImageSrc = `${fileApiRouteMap.getResizedImage}/${titleImage}?width=1024&height=1024&fit=inside`;
 
         return (
             <Link className={homeStyle.home__category_link__wrapper} key={slug} to="#">
-                <img
-                    alt={title}
-                    className={homeStyle.home__category_link__icon}
-                    src={fileApiRouteMap.getResizedImage + '/' + icon}
-                />
-                <h2 className={homeStyle.home__category_link__title}>{title}</h2>
-                <span
-                    className={homeStyle.home__category_link__background}
-                    style={{backgroundImage: 'url(' + titleImageSrc + ')'}}
-                />
+                <div className={homeStyle.home__category_link__image_wrapper}>
+                    <span
+                        className={homeStyle.home__category_link__background}
+                        style={{backgroundImage: 'url(' + titleImageSrc + ')'}}
+                    />
+                    <img
+                        alt={title}
+                        className={homeStyle.home__category_link__icon}
+                        src={fileApiRouteMap.getResizedImage + '/' + icon}
+                    />
+                </div>
+                <div className={homeStyle.home__category_link__text_content}>
+                    <h2 className={homeStyle.home__category_link__title}>{title}</h2>
+                    <Markdown
+                        additionalClassName={homeStyle.home__category_link__short_description}
+                        text={shortDescription}
+                    />
+                </div>
             </Link>
         );
+
+        /*
+                return (
+                    <Link className={homeStyle.home__category_link__wrapper} key={slug} to="#">
+                        <img
+                            alt={title}
+                            className={homeStyle.home__category_link__icon}
+                            src={fileApiRouteMap.getResizedImage + '/' + icon}
+                        />
+                        <h2 className={homeStyle.home__category_link__title}>{title}</h2>
+                        <span
+                            className={homeStyle.home__category_link__background}
+                            style={{backgroundImage: 'url(' + titleImageSrc + ')'}}
+                        />
+                    </Link>
+                );
+        */
     }
 
     renderCategoryLinkList(): Node {
