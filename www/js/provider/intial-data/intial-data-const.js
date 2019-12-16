@@ -11,7 +11,6 @@ export const defaultInitialData: InitialDataType = {
     title: '',
     description: '',
     is404: false,
-    rootPathData: null,
     articlePathData: null,
     documentNodeTree: null,
     setInitialData: null,

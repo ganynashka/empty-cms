@@ -12,31 +12,7 @@ import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from '../../../../server/
 import {getDocumentTree} from '../../../../server/src/api/part/document-api-helper';
 
 import {defaultInitialData, page404InitialData, rootPathMetaData} from './intial-data-const';
-import type {InitialDataType, InitialRootDataType} from './intial-data-type';
-
-async function getRootData(collection: MongoCollection<MongoDocumentType>): Promise<InitialRootDataType | null> {
-    const rootDocument = await collection.findOne({slug: rootDocumentSlug});
-
-    if (!rootDocument) {
-        return null;
-    }
-
-    const subDocumentSlugList = rootDocument.subDocumentSlugList;
-
-    const rawSubDocumentList: Array<MongoDocumentType | null> = await Promise.all(
-        subDocumentSlugList.map((slug: string): Promise<MongoDocumentType | null> => collection.findOne({slug}))
-    );
-
-    const subDocumentList: Array<MongoDocumentType> = [];
-
-    rawSubDocumentList.forEach((mongoDocument: MongoDocumentType | null) => {
-        if (mongoDocument && mongoDocument.isActive) {
-            subDocumentList.push(mongoDocument);
-        }
-    });
-
-    return {rootDocument, subDocumentList};
-}
+import type {InitialDataType} from './intial-data-type';
 
 function getArticleData(
     collection: MongoCollection<MongoDocumentType>,
@@ -67,10 +43,22 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
 
     // root
     if (path === routePathMap.siteEnter.path) {
+        const rootDocument = await collection.findOne({slug: rootDocumentSlug});
+
+        if (rootDocument) {
+            return {
+                ...defaultInitialData,
+                title: rootDocument.title,
+                description: rootDocument.description,
+                documentNodeTree,
+            };
+        }
+
+        console.error('Can not get root document');
+
         return {
             ...defaultInitialData,
             ...rootPathMetaData,
-            rootPathData: await getRootData(collection),
             documentNodeTree,
         };
     }
@@ -79,15 +67,19 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
     if (path.startsWith(routePathMap.article.staticPartPath)) {
         const articlePathData = await getArticleData(collection, path);
 
-        return articlePathData
-            ? {
+        if (articlePathData) {
+            return {
                 ...defaultInitialData,
                 title: articlePathData.title,
                 description: articlePathData.description,
                 articlePathData,
                 documentNodeTree,
-            }
-            : {...page404InitialData, documentNodeTree};
+            };
+        }
+
+        console.error('Can not get article');
+
+        return {...page404InitialData, documentNodeTree};
     }
 
     // check cms
