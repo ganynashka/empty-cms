@@ -1,5 +1,7 @@
 /* stylelint-disable property-no-unknown, selector-list-comma-newline-after, selector-no-qualifying-type, no-descending-specificity */
 
+@import './var';
+
 /*
 
 HTML5 CSS Reset
@@ -226,9 +228,19 @@ a img {
 }
 
 a {
+    color: $link-color;
     text-decoration: underline;
+
+    &:visited {
+        color: $link-color-visited;
+    }
 
     &:hover {
         text-decoration: none;
+    }
+
+    &:focus,
+    &:active {
+        color: $link-color-active;
     }
 }
