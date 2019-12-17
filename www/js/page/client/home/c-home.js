@@ -55,23 +55,6 @@ export class Home extends Component<PropsType, StateType> {
                 </div>
             </Link>
         );
-
-        /*
-                return (
-                    <Link className={homeStyle.home__category_link__wrapper} key={slug} to="#">
-                        <img
-                            alt={title}
-                            className={homeStyle.home__category_link__icon}
-                            src={fileApiRouteMap.getResizedImage + '/' + icon}
-                        />
-                        <h2 className={homeStyle.home__category_link__title}>{title}</h2>
-                        <span
-                            className={homeStyle.home__category_link__background}
-                            style={{backgroundImage: 'url(' + titleImageSrc + ')'}}
-                        />
-                    </Link>
-                );
-        */
     }
 
     renderCategoryLinkList(): Node {
