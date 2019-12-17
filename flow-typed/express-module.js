@@ -17,6 +17,19 @@ declare module 'body-parser' {
     declare export default BodyParser;
 }
 
+declare module 'connect-mongo' {
+    declare type MongoStoreOptionsType = {
+        +url: string,
+        +secret: string,
+    };
+
+    declare class MongoStore {
+        constructor(options: MongoStoreOptionsType): MongoStore,
+    }
+
+    declare export default function connectMongo(expressModule: mixed): Class<MongoStore>;
+}
+
 declare module 'express-session' {
     declare export type ExpressSessionOptionType = {
         +name: string,
@@ -26,6 +39,7 @@ declare module 'express-session' {
         +cookie?: {
             +secure?: boolean, // httpS required
         },
+        +store?: mixed,
     };
 
     declare export default function session(option: ExpressSessionOptionType): string;
