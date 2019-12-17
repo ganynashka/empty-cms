@@ -71,7 +71,8 @@
 }
 
 .home__category_link__wrapper {
-    display: block;
+    display: flex;
+    flex-direction: row;
     height: 170px;
     margin-bottom: 20px;
 }
