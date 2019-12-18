@@ -10,11 +10,15 @@ import serviceStyle from '../../../../css/service.scss';
 import {Footer} from '../../../component/client/footer/c-footer';
 import {Markdown} from '../../../component/layout/markdown/c-markdown';
 import {fileApiRouteMap} from '../../../../../server/src/api/api-route-map';
+import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
+
+import {getResizedInsideImageSrc} from '../../../lib/url';
 
 import homeStyle from './home.scss';
 
 type PropsType = {
     +initialContextData: InitialDataType,
+    +screenContextData: ScreenContextType,
     +match: MatchType | null,
 };
 
@@ -25,9 +29,12 @@ export class Home extends Component<PropsType, StateType> {
         console.log('---> Component Home did mount');
     }
 
-    renderCategoryLink(documentData: MongoDocumentTreeNodeType): Node {
+    renderCategoryLink = (documentData: MongoDocumentTreeNodeType): Node => {
+        const {props} = this;
+        const {screenContextData} = props;
+        const {devicePixelRatio} = screenContextData;
         const {slug, titleImage, title, shortDescription} = documentData;
-        const titleImageSrc = `${fileApiRouteMap.getResizedImage}/${titleImage}?width=240&height=240&fit=inside`;
+        const titleImageSrc = getResizedInsideImageSrc(titleImage, 120, 120, devicePixelRatio); // `${fileApiRouteMap.getResizedImage}/${titleImage}?width=${maxImageSize}&height=${maxImageSize}&fit=inside`;
 
         return (
             <Link className={homeStyle.home__category_link__wrapper} key={slug} to="#">
@@ -41,7 +48,7 @@ export class Home extends Component<PropsType, StateType> {
                 </div>
             </Link>
         );
-    }
+    };
 
     renderCategoryLinkList(): Node {
         const {props} = this;

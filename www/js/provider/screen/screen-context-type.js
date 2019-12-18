@@ -12,4 +12,5 @@ export type ScreenContextType = {|
     +littleThenList: Array<ScreenWidthNameType>,
     +isLandscape: boolean,
     +isPortrait: boolean,
+    +devicePixelRatio: number,
 |};

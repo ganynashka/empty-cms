@@ -1,6 +1,8 @@
 // @flow
 
-/* global document */
+/* global window, document */
+
+import {isNumber} from '../../lib/is';
 
 import type {ScreenWidthNameType, ScreenContextType} from './screen-context-type';
 import {screenMinWidth, screenNameReference} from './screen-context-const';
@@ -53,6 +55,18 @@ function getScreenSize(): {|+width: number, +height: number|} {
     return {width, height};
 }
 
+export function getDevicePixelRatio(): number {
+    const defaultDevicePixelRatio = 2;
+
+    if (typeof window === 'undefined') {
+        return defaultDevicePixelRatio;
+    }
+
+    const {devicePixelRatio} = window;
+
+    return isNumber(devicePixelRatio) ? devicePixelRatio : defaultDevicePixelRatio;
+}
+
 export function getScreenState(): ScreenContextType {
     const {width, height} = getScreenSize();
 
@@ -69,5 +83,6 @@ export function getScreenState(): ScreenContextType {
         isMobile: screenName === screenNameReference.mobile,
         isLandscape,
         isPortrait: !isLandscape,
+        devicePixelRatio: getDevicePixelRatio(),
     };
 }
