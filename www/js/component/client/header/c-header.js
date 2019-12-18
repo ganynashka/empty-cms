@@ -50,7 +50,7 @@ export class Header extends Component<PropsType, StateType> {
 
         if (props.location.pathname !== prevProps.location.pathname) {
             this.fetchInitialContextData();
-            this.handleToggleNavigationMenuOpenState();
+            this.handleCloseNavigationMenuOpenState();
         }
     }
 
@@ -59,6 +59,13 @@ export class Header extends Component<PropsType, StateType> {
         const {isNavigationMenuOpen} = state;
 
         this.setState({isNavigationMenuOpen: !isNavigationMenuOpen});
+    };
+
+    handleCloseNavigationMenuOpenState = () => {
+        const {state} = this;
+        const {isNavigationMenuOpen} = state;
+
+        this.setState({isNavigationMenuOpen: false});
     };
 
     async fetchInitialContextData() {
