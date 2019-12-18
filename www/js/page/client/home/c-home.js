@@ -55,9 +55,6 @@ export class Home extends Component<PropsType, StateType> {
         return (
             <div className={homeStyle.home__category_list}>
                 {documentNodeTree.subNodeList.map(this.renderCategoryLink)}
-                {documentNodeTree.subNodeList.map(this.renderCategoryLink)}
-                {documentNodeTree.subNodeList.map(this.renderCategoryLink)}
-                {documentNodeTree.subNodeList.map(this.renderCategoryLink)}
             </div>
         );
     }
