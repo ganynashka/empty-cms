@@ -44,7 +44,7 @@
 
 or
 
-> $ ~/soft/mongo/bin/mongodump --port=27001 --archive=db/backup/db-dump-\`date +%Y-%m-%d-%H-%M-%S\`.zip
+> $ ~/soft/mongo/bin/mongodump --port=27001 --archive=db-dump/db-dump-\`date +%Y-%m-%d-%H-%M-%S\`.zip
 
 2.4. Restore backup
 

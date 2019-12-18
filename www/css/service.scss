@@ -38,7 +38,9 @@
 .zero_opacity {
     opacity: 0;
 }
+*/
 
+%clear-self,
 .clear_self {
     &:after {
         clear: both;
@@ -47,6 +49,7 @@
     }
 }
 
+/*
 .clear_full {
     clear: both;
 

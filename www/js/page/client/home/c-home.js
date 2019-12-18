@@ -4,8 +4,7 @@ import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
-import {routePathMap} from '../../../component/app/routes-path-map';
-import type {MongoDocumentTreeNodeType, MongoDocumentType} from '../../../../../server/src/database/database-type';
+import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database/database-type';
 import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
 import serviceStyle from '../../../../css/service.scss';
 import {Footer} from '../../../component/client/footer/c-footer';
@@ -23,29 +22,16 @@ type StateType = null;
 
 export class Home extends Component<PropsType, StateType> {
     componentDidMount() {
-        // this.fetchInitialContextData();
-
         console.log('---> Component Home did mount');
     }
 
     renderCategoryLink(documentData: MongoDocumentTreeNodeType): Node {
-        const {slug, imageList, titleImage, title, shortDescription} = documentData;
-        const icon = imageList[0] || '';
-        const titleImageSrc = `${fileApiRouteMap.getResizedImage}/${titleImage}?width=1024&height=1024&fit=inside`;
+        const {slug, titleImage, title, shortDescription} = documentData;
+        const titleImageSrc = `${fileApiRouteMap.getResizedImage}/${titleImage}?width=240&height=240&fit=inside`;
 
         return (
             <Link className={homeStyle.home__category_link__wrapper} key={slug} to="#">
-                <div className={homeStyle.home__category_link__image_wrapper}>
-                    <span
-                        className={homeStyle.home__category_link__background}
-                        style={{backgroundImage: 'url(' + titleImageSrc + ')'}}
-                    />
-                    <img
-                        alt={title}
-                        className={homeStyle.home__category_link__icon}
-                        src={fileApiRouteMap.getResizedImage + '/' + icon}
-                    />
-                </div>
+                <img alt={title} className={homeStyle.home__category_link__icon} src={titleImageSrc}/>
                 <div className={homeStyle.home__category_link__text_content}>
                     <h2 className={homeStyle.home__category_link__title}>{title}</h2>
                     <Markdown
