@@ -20,7 +20,12 @@ import {getInitialData} from '../../www/js/provider/intial-data/intial-data-help
 import type {RouterStaticContextType} from '../../www/js/provider/intial-data/intial-data-type';
 
 import {getIndexHtmlTemplate} from './static-files';
-import {stringForReplaceContent, stringForReplaceDescription, stringForReplaceTitle} from './config';
+import {
+    initialScriptClassName,
+    stringForReplaceContent,
+    stringForReplaceDescription,
+    stringForReplaceTitle,
+} from './config';
 import {addApiIntoApplication} from './api/api';
 
 const PORT: number = ssrServerPort;
@@ -41,7 +46,10 @@ app.get('*', async (request: $Request, response: $Response) => {
     const reactResult = ReactDOMServer.renderToString(
         <StaticRouter context={staticContext} location={request.url}>
             <ClientApp initialData={initialData}/>
-            <script dangerouslySetInnerHTML={{__html: `window.initialData = ${JSON.stringify(initialData)}`}}/>
+            <script
+                className={initialScriptClassName}
+                dangerouslySetInnerHTML={{__html: `window.initialData = ${JSON.stringify(initialData)}`}}
+            />
         </StaticRouter>
     );
 
@@ -51,7 +59,10 @@ app.get('*', async (request: $Request, response: $Response) => {
         const reactResult404 = ReactDOMServer.renderToString(
             <StaticRouter context={staticContext} location={request.url}>
                 <ClientApp initialData={initialData404}/>
-                <script dangerouslySetInnerHTML={{__html: `window.initialData = ${JSON.stringify(initialData404)}`}}/>
+                <script
+                    className={initialScriptClassName}
+                    dangerouslySetInnerHTML={{__html: `window.initialData = ${JSON.stringify(initialData404)}`}}
+                />
             </StaticRouter>
         );
 

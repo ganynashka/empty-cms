@@ -1,6 +1,10 @@
 // @flow
 
+/* global document */
+
 import React, {Component, type Node} from 'react';
+
+import {initialScriptClassName} from '../../../../server/src/config';
 
 import type {InitialDataType, SetInitialDataArgumentType} from './intial-data-type';
 import {defaultInitialData} from './intial-data-const';
@@ -24,6 +28,33 @@ export class InitialDataProvider extends Component<PropsType, StateType> {
         super(props);
 
         this.state = {providedData: props.defaultValue};
+    }
+
+    componentDidMount() {
+        this.removeInitialDataScript();
+    }
+
+    removeInitialDataScript() {
+        if (typeof document === 'undefined') {
+            console.error('---> document is not define');
+            return;
+        }
+
+        const scriptNode = document.querySelector('.' + initialScriptClassName);
+
+        if (!scriptNode) {
+            console.log(`---> ${'.' + initialScriptClassName} is not define`);
+            return;
+        }
+
+        const {body} = document;
+
+        if (!body) {
+            console.error('---> body is not define');
+            return;
+        }
+
+        body.removeChild(scriptNode);
     }
 
     setInitialData = (partInitialData: SetInitialDataArgumentType) => {
