@@ -20,7 +20,7 @@ import {getInitialData} from '../../www/js/provider/intial-data/intial-data-help
 import type {RouterStaticContextType} from '../../www/js/provider/intial-data/intial-data-type';
 
 import {getIndexHtmlTemplate} from './static-files';
-import {initialScriptClassName, stringForReplaceContent, stringForReplaceTitle} from './config';
+import {initialScriptClassName, stringForReplaceContent, stringForReplaceMeta, stringForReplaceTitle} from './config';
 import {addApiIntoApplication} from './api/api';
 
 const PORT: number = ssrServerPort;
@@ -63,7 +63,7 @@ app.get('*', async (request: $Request, response: $Response) => {
 
         const htmlResult404 = htmlTemplate
             .replace(stringForReplaceTitle, initialData.title)
-            // .replace(stringForReplaceDescription, initialData.description)
+            .replace(stringForReplaceMeta, initialData.meta)
             .replace(stringForReplaceContent, reactResult404);
 
         response.send(htmlResult404);
@@ -76,7 +76,7 @@ app.get('*', async (request: $Request, response: $Response) => {
 
     const htmlResult = htmlTemplate
         .replace(stringForReplaceTitle, initialData.title)
-        // .replace(stringForReplaceDescription, initialData.description)
+        .replace(stringForReplaceMeta, initialData.meta)
         .replace(stringForReplaceContent, reactResult);
 
     response.send(htmlResult);

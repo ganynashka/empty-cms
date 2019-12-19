@@ -9,6 +9,7 @@ export const rootPathMetaData = {
 
 export const defaultInitialData: InitialDataType = {
     title: '',
+    meta: '',
     // description: '',
     is404: false,
     articlePathData: null,

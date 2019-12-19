@@ -6,9 +6,10 @@ import type {MongoDocumentTreeNodeType, MongoDocumentType} from '../../../../ser
 type SetInitialDataType = (initialData: SetInitialDataArgumentType) => mixed;
 
 export type SetInitialDataArgumentType = {|
-    +title?: string,
+    +title: string,
+    +meta: string,
     // +description?: string,
-    +is404?: boolean,
+    +is404: boolean,
     +articlePathData?: MongoDocumentType | null,
     +documentNodeTree?: MongoDocumentTreeNodeType | null,
     +setInitialData?: SetInitialDataType | null,
@@ -16,6 +17,7 @@ export type SetInitialDataArgumentType = {|
 
 export type InitialDataType = {|
     +title: string,
+    +meta: string,
     // +description: string,
     +is404: boolean,
     +articlePathData: MongoDocumentType | null,
