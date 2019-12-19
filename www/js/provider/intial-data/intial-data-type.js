@@ -7,7 +7,7 @@ type SetInitialDataType = (initialData: SetInitialDataArgumentType) => mixed;
 
 export type SetInitialDataArgumentType = {|
     +title?: string,
-    +description?: string,
+    // +description?: string,
     +is404?: boolean,
     +articlePathData?: MongoDocumentType | null,
     +documentNodeTree?: MongoDocumentTreeNodeType | null,
@@ -16,7 +16,7 @@ export type SetInitialDataArgumentType = {|
 
 export type InitialDataType = {|
     +title: string,
-    +description: string,
+    // +description: string,
     +is404: boolean,
     +articlePathData: MongoDocumentType | null,
     +documentNodeTree: MongoDocumentTreeNodeType | null,

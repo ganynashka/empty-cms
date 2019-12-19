@@ -82,14 +82,14 @@ export class Header extends Component<PropsType, StateType> {
         if (isError(initialContextData)) {
             setMeta({
                 title: rootPathMetaData.title,
-                description: rootPathMetaData.description,
+                // description: rootPathMetaData.description,
             });
             return;
         }
 
         setMeta({
             title: initialContextData.title,
-            description: initialContextData.description,
+            // description: initialContextData.description,
         });
 
         if (isFunction(setInitialData)) {

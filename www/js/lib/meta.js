@@ -4,7 +4,7 @@
 
 type SetMetaInputType = {|
     +title: string,
-    +description: string,
+    // +description: string,
 |};
 
 export function setMeta(metaData: SetMetaInputType) {
@@ -22,5 +22,5 @@ export function setMeta(metaData: SetMetaInputType) {
     }
 
     title.innerHTML = metaData.title;
-    description.setAttribute('content', metaData.description);
+    // description.setAttribute('content', metaData.description);
 }

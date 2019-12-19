@@ -49,7 +49,7 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
             return {
                 ...defaultInitialData,
                 title: rootDocument.title,
-                description: rootDocument.description,
+                // description: rootDocument.description,
                 documentNodeTree,
             };
         }
@@ -71,7 +71,7 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
             return {
                 ...defaultInitialData,
                 title: articlePathData.title,
-                description: articlePathData.description,
+                // description: articlePathData.description,
                 articlePathData,
                 documentNodeTree,
             };

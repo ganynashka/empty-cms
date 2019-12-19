@@ -18,7 +18,7 @@ export class Home extends Component<PropsType, StateType> {
     componentDidMount() {
         setMeta({
             title: '',
-            description: '',
+            // description: '',
         });
         console.log('---> Component Home did mount');
     }

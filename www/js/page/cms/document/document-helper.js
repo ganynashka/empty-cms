@@ -26,6 +26,8 @@ import {uploadFile, uploadFileList} from '../file/file-api';
 import {promiseCatch} from '../../../lib/promise';
 import {fileApiConst} from '../../../../../server/src/api/part/file-api-const';
 
+import {InputTextArea} from '../../../component/layout/form-generator/field/input-text-area/c-input-text-area';
+
 import type {FormDataMongoDocumentType} from './document-type';
 
 function extractImage(inputValue: FromGeneratorInputValueType): Promise<Error | string> {
@@ -78,7 +80,8 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         titleImage: String(documentFormData.titleImage || ''),
         type: documentFormData.type,
         title: documentFormData.title,
-        description: documentFormData.description,
+        meta: documentFormData.meta,
+        // description: documentFormData.description,
         shortDescription: documentFormData.shortDescription,
         content: documentFormData.content,
         createdDate: 0,
@@ -142,12 +145,12 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         labelText: 'Title',
                     },
                     {
-                        name: 'description',
-                        fieldComponent: InputText,
+                        name: 'meta',
+                        fieldComponent: InputTextArea,
                         validate: noValidate,
                         defaultValue: '',
-                        placeholder: 'Description',
-                        labelText: 'Description (SEO)',
+                        placeholder: 'Some meta tags',
+                        labelText: 'Meta (SEO)',
                     },
                     {
                         name: 'shortDescription',

@@ -32,7 +32,7 @@ export type MongoDocumentType = {|
     +titleImage: string,
     +type: MongoDocumentTypeType,
     +title: string,
-    +description: string,
+    +meta: string,
     +shortDescription: string,
     +content: string,
     +createdDate: number,

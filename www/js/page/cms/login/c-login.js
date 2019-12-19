@@ -39,7 +39,7 @@ export class Login extends Component<PropsType, StateType> {
     componentDidMount() {
         setMeta({
             title: '',
-            description: '',
+            // description: '',
         });
         console.log('---> Component Login did mount');
     }
