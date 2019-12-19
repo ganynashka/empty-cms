@@ -15,7 +15,7 @@ import inputCodeStyle from './input-code.scss';
 
 type PropsType = InputComponentPropsType;
 type StateType = {|
-    +textContent: string,
+    // +textContent: string,
     +textAreaRef: {current: HTMLTextAreaElement | null},
 |};
 
@@ -24,7 +24,7 @@ export class InputCode extends Component<PropsType, StateType> {
         super(props);
 
         this.state = {
-            textContent: String(props.defaultValue),
+            // textContent: String(props.defaultValue),
             textAreaRef: React.createRef<HTMLTextAreaElement>(),
         };
     }
@@ -34,6 +34,11 @@ export class InputCode extends Component<PropsType, StateType> {
         const {textAreaRef} = state;
         const {onBlur, onChange} = props;
         const textAreaNode = textAreaRef.current;
+
+        if (!textAreaNode) {
+            console.error('textAreaNode is not define');
+            return;
+        }
 
         const editor = codeMirror.fromTextArea(textAreaNode, {
             lineNumbers: true,
@@ -45,14 +50,14 @@ export class InputCode extends Component<PropsType, StateType> {
             const textContent = editor.getValue().trim();
 
             onChange(textContent);
-            this.setState({textContent});
+            // this.setState({textContent});
         });
 
         editor.on('blur', () => {
             const textContent = editor.getValue().trim();
 
             onBlur(textContent);
-            this.setState({textContent});
+            // this.setState({textContent});
         });
     }
 
