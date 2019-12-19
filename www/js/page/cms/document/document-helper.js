@@ -25,7 +25,7 @@ import {isError, isFile, isNull, isString} from '../../../lib/is';
 import {uploadFile, uploadFileList} from '../file/file-api';
 import {promiseCatch} from '../../../lib/promise';
 import {fileApiConst} from '../../../../../server/src/api/part/file-api-const';
-
+import {InputCode} from '../../../component/layout/form-generator/field/input-code/c-input-code';
 import {InputTextArea} from '../../../component/layout/form-generator/field/input-text-area/c-input-text-area';
 
 import type {FormDataMongoDocumentType} from './document-type';
@@ -146,7 +146,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                     },
                     {
                         name: 'meta',
-                        fieldComponent: InputTextArea,
+                        fieldComponent: InputCode,
                         validate: noValidate,
                         defaultValue: '',
                         placeholder: 'Some meta tags',
