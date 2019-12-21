@@ -1,5 +1,7 @@
 // @flow
 
+/* global document */
+
 import type {FormGeneratorFormDataType, FromGeneratorInputValueType} from '../form-generator-type';
 import {isBoolean, isNull, isNumber, isString} from '../../../../lib/is';
 
@@ -42,4 +44,28 @@ export function getIsRequired(
 
     console.log(value);
     throw new Error('Type has no validation! Add validation here!');
+}
+
+export function isValidHTml(
+    name: string,
+    html: FromGeneratorInputValueType,
+    formData: FormGeneratorFormDataType
+): Array<Error> {
+    if (typeof document === 'undefined') {
+        return [];
+    }
+
+    if (!isString(html)) {
+        return [new Error('isValidHTml support string only')];
+    }
+
+    const wrapper = document.createElement('div');
+
+    wrapper.innerHTML = html;
+
+    if (wrapper.innerHTML.trim() === html.trim()) {
+        return [];
+    }
+
+    return [new Error('HTML is not valid')];
 }

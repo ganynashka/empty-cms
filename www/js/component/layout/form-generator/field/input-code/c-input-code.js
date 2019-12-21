@@ -73,12 +73,15 @@ export class InputCode extends Component<PropsType, StateType> {
         return (
             <div className={inputTextAreaStyle.text_area__label_wrapper}>
                 <span className={fieldStyle.form__label_description}>{labelText}</span>
-                <div className={inputCodeStyle.input_code__wrapper}>
+                <div
+                    className={classNames(inputCodeStyle.input_code__wrapper, {
+                        [fieldStyle.form__input__invalid]: errorList.length > 0,
+                    })}
+                >
                     <textarea
                         className={classNames(
                             inputCodeStyle.input_code__text_area,
-                            inputTextAreaStyle.text_area__input,
-                            {[fieldStyle.form__input__invalid]: errorList.length > 0}
+                            inputTextAreaStyle.text_area__input
                         )}
                         defaultValue={defaultValue}
                         name={name}

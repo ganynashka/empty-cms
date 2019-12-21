@@ -10,7 +10,7 @@ import type {
     FromGeneratorInputValueType,
 } from '../../../component/layout/form-generator/form-generator-type';
 import {InputText} from '../../../component/layout/form-generator/field/input-text/c-input-text';
-import {getIsRequired, noValidate} from '../../../component/layout/form-generator/validate/validate';
+import {getIsRequired, isValidHTml, noValidate} from '../../../component/layout/form-generator/validate/validate';
 import {InputSelect} from '../../../component/layout/form-generator/field/input-select/c-input-select';
 import {InputMarkdown} from '../../../component/layout/form-generator/field/input-markdown/c-input-markdown';
 import {InputIntNumber} from '../../../component/layout/form-generator/field/input-int-number/c-input-int-number';
@@ -147,7 +147,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                     {
                         name: 'meta',
                         fieldComponent: InputCode,
-                        validate: noValidate,
+                        validate: isValidHTml,
                         defaultValue: '',
                         placeholder: 'Some meta tags',
                         labelText: 'Meta (SEO)',
