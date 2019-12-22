@@ -13,22 +13,18 @@ $page-transition-time: 1000ms;
 
 .transition_enter {
     opacity: 0;
-    transform: scale(1);
 }
 
 .transition_enter_active {
     opacity: 1;
-    transform: scale(1);
-    transition: opacity $page-transition-time, transform $page-transition-time;
+    transition: opacity $page-transition-time;
 }
 
 .transition_exit {
     opacity: 1;
-    transform: scale(1);
 }
 
 .transition_exit_active {
     opacity: 0;
-    transform: scale(0.75);
-    transition: opacity $page-transition-time, transform $page-transition-time;
+    transition: opacity $page-transition-time;
 }
