@@ -5,10 +5,6 @@
 import React, {type Node} from 'react';
 import {Link, Redirect, Route} from 'react-router-dom';
 
-import {Footer} from '../../client/footer/c-footer';
-import {Header as ClientHeader} from '../../client/header/c-header';
-import {CMSHeaderWrapper} from '../../cms/header/c-cms-header-wrapper';
-
 import type {RedirectItemType, RenderPageInputDataType, RouteItemType} from './render-route-type';
 
 export function isRoute(routeItem: RouteItemType | RedirectItemType): boolean %checks {
@@ -56,27 +52,17 @@ export function renderPageComponent(pageInputData: RenderPageInputDataType, rout
     const {component: PageComponent} = routeItem;
 
     return (
-        <>
-            <ClientHeader
-                initialContextData={initialContextData}
-                location={location}
-                screenContextData={screenContextData}
-                themeContextData={themeContextData}
-            />
-            <CMSHeaderWrapper location={location}/>
-            <PageComponent
-                history={history}
-                initialContextData={initialContextData}
-                location={location}
-                match={match}
-                popupContext={popupContextData}
-                screenContextData={screenContextData}
-                snackbarContext={snackbarContextData}
-                staticContext={staticContext}
-                themeContextData={themeContextData}
-                userContextData={userContextData}
-            />
-            <Footer location={location}/>
-        </>
+        <PageComponent
+            history={history}
+            initialContextData={initialContextData}
+            location={location}
+            match={match}
+            popupContext={popupContextData}
+            screenContextData={screenContextData}
+            snackbarContext={snackbarContextData}
+            staticContext={staticContext}
+            themeContextData={themeContextData}
+            userContextData={userContextData}
+        />
     );
 }

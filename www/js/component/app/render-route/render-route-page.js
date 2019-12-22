@@ -10,14 +10,27 @@ import type {RenderPageInputDataType, RouteItemType} from './render-route-type';
 import {renderPageComponent} from './render-route-helper';
 
 export function renderPage(pageInputData: RenderPageInputDataType, routeItem: RouteItemType): Node {
-    const {location} = pageInputData;
+    const {location, initialContextData, screenContextData, themeContextData} = pageInputData;
 
     const {asyncLoad, pageWrapper: PageWrapper} = routeItem;
 
     if (!isFunction(asyncLoad)) {
         const pageComponent = renderPageComponent(pageInputData, routeItem);
 
-        return PageWrapper ? <PageWrapper location={location}>{pageComponent}</PageWrapper> : pageComponent;
+        if (PageWrapper) {
+            return (
+                <PageWrapper
+                    initialContextData={initialContextData}
+                    location={location}
+                    screenContextData={screenContextData}
+                    themeContextData={themeContextData}
+                >
+                    {pageComponent}
+                </PageWrapper>
+            );
+        }
+
+        return pageComponent;
     }
 
     function loadAsyncPageComponent(): Promise<Node> {

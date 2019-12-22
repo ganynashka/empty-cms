@@ -3,10 +3,7 @@
 import {Home} from '../../page/client/home/c-home';
 import {Article} from '../../page/client/article/c-article';
 import {PageNotFound} from '../../page/client/page-not-found/c-page-not-found';
-import {Header as ClientHeader} from '../client/header/c-header';
-import {CMSHeaderWrapper} from '../cms/header/c-cms-header-wrapper';
 import {PageWrapper} from '../page-wrapper/c-page-wrapper';
-import {Footer} from '../client/footer/c-footer';
 
 import {routePathMap} from './routes-path-map';
 import {starPath} from './render-route/render-route-const';
@@ -16,31 +13,7 @@ export const routeItemPage404 = {
     component: PageNotFound,
     type: 'route',
     id: 'page-404',
-    pageWrapper: null,
-};
-
-export const routeItemClientHeader = {
-    path: starPath,
-    component: ClientHeader,
-    type: 'route',
-    id: 'client-header',
-    pageWrapper: null,
-};
-
-export const routeItemCmsHeader = {
-    path: starPath,
-    component: CMSHeaderWrapper,
-    type: 'route',
-    id: 'cms-header',
-    pageWrapper: null,
-};
-
-export const routeItemFooter = {
-    path: starPath,
-    component: Footer,
-    type: 'route',
-    id: 'footer',
-    pageWrapper: null,
+    pageWrapper: PageWrapper,
 };
 
 export const routeItemMap = {
