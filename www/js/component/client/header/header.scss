@@ -1,40 +1,11 @@
-/* stylelint-disable selector-pseudo-class-no-unknown, max-nesting-depth, selector-max-compound-selectors, selector-combinator-blacklist */
-
 @import './../../../../css/var';
 @import './../../../../css/service';
 
+$header-mobile-height: 50px;
+
 // header wrapper
 .header__wrapper {
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    height: $client-desktop-header-height;
-    left: 0;
-    position: absolute;
-    width: 100%;
-    z-index: $z-index-header;
-}
-
-:global .desktop {
-    :local {
-        .header__wrapper {
-            height: $client-desktop-header-height;
-        }
-    }
-}
-
-:global .tablet {
-    :local {
-        .header__wrapper {
-            height: $client-tablet-header-height;
-        }
-    }
-}
-
-:global .mobile {
-    :local {
-        .header__wrapper {
-            height: $client-mobile-header-height;
-        }
-    }
+    display: block;
 }
 
 // top desktop line
@@ -79,6 +50,7 @@
     @extend %width-limit;
 
     align-items: center;
+    background-color: transparent;
     display: flex;
     flex-direction: row;
     height: 50px;
@@ -105,17 +77,17 @@
     align-items: center;
     display: flex;
     flex-direction: row;
-    height: 50px;
+    height: $header-mobile-height;
     justify-content: space-between;
 }
 
 %header-mobile-button {
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: 50% 50%;
+    background-size: 60%;
     display: block;
-    height: 100%;
-    width: 50px;
+    height: $header-mobile-height;
+    width: $header-mobile-height;
 }
 
 .header__mobile__button__menu {
@@ -132,21 +104,16 @@
     @extend %header-mobile-button;
 
     background-image: url('./image/searh-icon.svg');
-    background-size: 45% 45%;
 }
 
 .header__mobile__navigation_wrapper {
     @extend %width-limit;
 
-    background-color: $color-yellow;
+    background-color: $main-background-text-color;
 
     .header__desktop__menu_line__link {
         border-bottom-color: $main-text-color;
         margin-right: 0;
         padding: 10px 0;
     }
-}
-
-.header__wrapper + .header__mobile__navigation_wrapper {
-    z-index: $z-index-page-wrapper + 1;
 }

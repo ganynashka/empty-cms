@@ -1,8 +1,10 @@
 @import '../../../../css/var';
 
 .header {
+    //position: static;
     display: block;
-    height: $cms-header-height;
+    //height: $cms-header-height;
     //position: relative;
-    z-index: $z-index-header;
+    //z-index: $z-index-header;
+    margin-bottom: $ui-unit;
 }

@@ -1,64 +1,14 @@
-/* stylelint-disable selector-pseudo-class-no-unknown, max-nesting-depth, selector-max-compound-selectors */
-
 @import './../../../css/var';
 
 $page-transition-time: 1000ms;
 
 .page_wrapper {
     box-sizing: border-box;
-    height: calc(100% - #{$client-desktop-header-height});
+    height: 100%;
     overflow: auto;
     position: absolute;
-    top: $client-desktop-header-height;
     width: 100%;
     z-index: $z-index-page-wrapper;
-
-    &.page_wrapper__cms {
-        height: calc(100% - #{$cms-header-height});
-        top: $cms-header-height;
-    }
-}
-
-:global .desktop {
-    :local {
-        .page_wrapper {
-            height: calc(100% - #{$client-desktop-header-height});
-            top: $client-desktop-header-height;
-
-            &.page_wrapper__cms {
-                height: calc(100% - #{$cms-header-height});
-                top: $cms-header-height;
-            }
-        }
-    }
-}
-
-:global .tablet {
-    :local {
-        .page_wrapper {
-            height: calc(100% - #{$client-tablet-header-height});
-            top: $client-tablet-header-height;
-
-            &.page_wrapper__cms {
-                height: calc(100% - #{$cms-header-height});
-                top: $cms-header-height;
-            }
-        }
-    }
-}
-
-:global .mobile {
-    :local {
-        .page_wrapper {
-            height: calc(100% - #{$client-mobile-header-height});
-            top: $client-mobile-header-height;
-
-            &.page_wrapper__cms {
-                height: calc(100% - #{$cms-header-height});
-                top: $cms-header-height;
-            }
-        }
-    }
 }
 
 .transition_enter {

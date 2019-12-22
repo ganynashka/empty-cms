@@ -15,7 +15,6 @@ import {getInitialClientData} from '../../app/client-app-helper';
 import {isError, isFunction} from '../../../lib/is';
 import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
 import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database/database-type';
-import {PageWrapper} from '../../page-wrapper/c-page-wrapper';
 
 import headerStyle from './header.scss';
 
@@ -62,9 +61,6 @@ export class Header extends Component<PropsType, StateType> {
     };
 
     handleCloseNavigationMenuOpenState = () => {
-        const {state} = this;
-        const {isNavigationMenuOpen} = state;
-
         this.setState({isNavigationMenuOpen: false});
     };
 
@@ -82,14 +78,12 @@ export class Header extends Component<PropsType, StateType> {
         if (isError(initialContextData)) {
             setMeta({
                 title: rootPathMetaData.title,
-                // description: rootPathMetaData.description,
             });
             return;
         }
 
         setMeta({
             title: initialContextData.title,
-            // description: initialContextData.description,
         });
 
         if (isFunction(setInitialData)) {
@@ -100,13 +94,12 @@ export class Header extends Component<PropsType, StateType> {
     }
 
     renderMobile(): Node {
-        const {props, state} = this;
-        const {location, themeContextData} = props;
+        const {state} = this;
         const {isNavigationMenuOpen} = state;
 
         return (
             <div className={headerStyle.header__desktop__menu_line__wrapper}>
-                <nav className={headerStyle.header__mobile__top_line}>
+                <div className={headerStyle.header__mobile__top_line}>
                     <button
                         className={classNames(headerStyle.header__mobile__button__menu, {
                             [headerStyle.header__mobile__button__menu__close]: isNavigationMenuOpen,
@@ -123,19 +116,13 @@ export class Header extends Component<PropsType, StateType> {
                         title="Поиск пока не работает"
                         type="button"
                     />
-                </nav>
+                </div>
             </div>
         );
     }
 
     renderMobileMenu(): Node {
-        const {props} = this;
-
-        return (
-            <PageWrapper additionalClassName={headerStyle.header__mobile__navigation_wrapper} location={props.location}>
-                {this.renderDesktopLinkList()}
-            </PageWrapper>
-        );
+        return <nav className={headerStyle.header__mobile__navigation_wrapper}>{this.renderDesktopLinkList()}</nav>;
     }
 
     renderDesktopLink(linkData: MongoDocumentTreeNodeType): Node {

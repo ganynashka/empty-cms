@@ -6,6 +6,7 @@ import {PageNotFound} from '../../page/client/page-not-found/c-page-not-found';
 import {Header as ClientHeader} from '../client/header/c-header';
 import {CMSHeaderWrapper} from '../cms/header/c-cms-header-wrapper';
 import {PageWrapper} from '../page-wrapper/c-page-wrapper';
+import {Footer} from '../client/footer/c-footer';
 
 import {routePathMap} from './routes-path-map';
 import {starPath} from './render-route/render-route-const';
@@ -31,6 +32,14 @@ export const routeItemCmsHeader = {
     component: CMSHeaderWrapper,
     type: 'route',
     id: 'cms-header',
+    pageWrapper: null,
+};
+
+export const routeItemFooter = {
+    path: starPath,
+    component: Footer,
+    type: 'route',
+    id: 'footer',
     pageWrapper: null,
 };
 

@@ -1,5 +1,3 @@
-/* stylelint-disable selector-pseudo-class-no-unknown, max-nesting-depth, selector-max-compound-selectors */
-
 @import './../../../../css/var';
 @import './../../../../css/service';
 
@@ -71,8 +69,8 @@
     @extend %clear-self;
 
     display: block;
-    margin-bottom: $ui-unit * 2;
     min-height: 120px;
+    padding-bottom: $ui-unit * 2;
     text-decoration: none;
 
     &:hover {
