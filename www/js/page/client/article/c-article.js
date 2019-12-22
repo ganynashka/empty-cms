@@ -5,6 +5,7 @@ import React, {Component, type Node} from 'react';
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 import type {MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
 import {Markdown} from '../../../component/layout/markdown/c-markdown';
+import serviceStyle from '../../../../css/service.scss';
 
 type PropsType = {
     +initialContextData: InitialDataType,
@@ -57,9 +58,8 @@ export class Article extends Component<PropsType, StateType> {
         }
 
         return (
-            <div>
+            <div className={serviceStyle.width_limit}>
                 <h1>Skazka pro kogoto</h1>
-                <hr/>
                 {this.renderContent()}
             </div>
         );
