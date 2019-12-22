@@ -6,6 +6,7 @@ import type {InitialDataType} from '../../../provider/intial-data/intial-data-ty
 import type {MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
 import {Markdown} from '../../../component/layout/markdown/c-markdown';
 import serviceStyle from '../../../../css/service.scss';
+import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-type';
 
 type PropsType = {
     +initialContextData: InitialDataType,
@@ -26,10 +27,41 @@ export class Article extends Component<PropsType, StateType> {
         return Boolean(props.match && nextProps.match);
     }
 
+    renderContainerContent(): Node {
+        const {props} = this;
+        const {initialContextData} = props;
+        const {articlePathData} = initialContextData;
+
+        if (!articlePathData) {
+            console.error('Article.renderContainerContent has no content');
+            return null;
+        }
+
+        return <Markdown text={articlePathData.content}/>;
+    }
+
+    renderArticleContent(): Node {
+        const {props} = this;
+        const {initialContextData} = props;
+        const {articlePathData} = initialContextData;
+
+        if (!articlePathData) {
+            console.error('Article.renderArticleContent has no content');
+            return null;
+        }
+
+        return <Markdown text={articlePathData.content}/>;
+    }
+
+    // eslint-disable-next-line complexity
     renderContent(): Node {
         const {props} = this;
-        const {articlePathData} = props.initialContextData;
-        const {match} = props;
+        const {initialContextData, match} = props;
+        const {is404, articlePathData} = initialContextData;
+
+        if (is404) {
+            return <h1>here is no skazka, sorry :(</h1>;
+        }
 
         if (match === null) {
             console.log('===> Article props.match is not defined!');
@@ -42,26 +74,22 @@ export class Article extends Component<PropsType, StateType> {
             return null;
         }
 
-        return <Markdown text={articlePathData.content}/>;
+        const {type} = articlePathData;
+        const {article, container} = mongoDocumentTypeMap;
+
+        if (article === type) {
+            return this.renderArticleContent();
+        }
+
+        if (container === type) {
+            return this.renderContainerContent();
+        }
+
+        console.error('Can not detect article type:', type);
+        return null;
     }
 
     render(): Node {
-        const {props} = this;
-        const {is404} = props.initialContextData;
-
-        if (is404) {
-            return (
-                <div>
-                    <h1>here is no skazka, sorry :(</h1>
-                </div>
-            );
-        }
-
-        return (
-            <div className={serviceStyle.width_limit}>
-                <h1>Skazka pro kogoto</h1>
-                {this.renderContent()}
-            </div>
-        );
+        return <div className={serviceStyle.width_limit}>{this.renderContent()}</div>;
     }
 }

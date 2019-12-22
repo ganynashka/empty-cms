@@ -74,6 +74,7 @@ $header-mobile-height: 50px;
     @extend %width-limit;
 
     align-items: center;
+    border-bottom: 1px solid $main-text-color;
     display: flex;
     flex-direction: row;
     height: $header-mobile-height;
