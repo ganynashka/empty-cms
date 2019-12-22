@@ -111,11 +111,14 @@ export class Header extends Component<PropsType, StateType> {
                     <Link className={headerStyle.header__desktop__menu_line__link} to={routePathMap.siteEnter.path}>
                         Сказки детям
                     </Link>
+                    <div/>
+                    {/*
                     <button
                         className={headerStyle.header__mobile__button__search}
                         title="Поиск пока не работает"
                         type="button"
                     />
+*/}
                 </div>
             </div>
         );
@@ -158,11 +161,13 @@ export class Header extends Component<PropsType, StateType> {
                     <Link className={headerStyle.header__desktop__logo} to={routePathMap.siteEnter.path}>
                         Сказки детям
                     </Link>
+                    {/*
                     <input
                         className={headerStyle.header__desktop__search_input}
                         placeholder="Поиск пока не работает"
                         type="text"
                     />
+*/}
                 </div>
                 <div className={headerStyle.header__desktop__menu_line__wrapper}>
                     <nav className={headerStyle.header__desktop__menu_line}>{this.renderDesktopLinkList()}</nav>
