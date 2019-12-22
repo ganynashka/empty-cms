@@ -7,11 +7,8 @@ import type {InitialDataType} from '../../../provider/intial-data/intial-data-ty
 import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database/database-type';
 import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
 import serviceStyle from '../../../../css/service.scss';
-import {Footer} from '../../../component/client/footer/c-footer';
 import {Markdown} from '../../../component/layout/markdown/c-markdown';
-import {fileApiRouteMap} from '../../../../../server/src/api/api-route-map';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
-
 import {getResizedInsideImageSrc} from '../../../lib/url';
 
 import homeStyle from './home.scss';
@@ -79,16 +76,11 @@ export class Home extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        const {props} = this;
-
         return (
-            <>
-                <div className={serviceStyle.width_limit}>
-                    {this.renderRootDocument()}
-                    {this.renderCategoryLinkList()}
-                </div>
-                <Footer/>
-            </>
+            <div className={serviceStyle.width_limit}>
+                {this.renderRootDocument()}
+                {this.renderCategoryLinkList()}
+            </div>
         );
     }
 }

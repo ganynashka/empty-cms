@@ -1,3 +1,5 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
+
 @import './var';
 
 .hidden {
@@ -11,8 +13,18 @@
     display: block;
     margin: 0 auto;
     max-width: $max-width;
-    padding-left: $ui-unit;
-    padding-right: $ui-unit;
+    padding-left: $ui-unit * 4;
+    padding-right: $ui-unit * 4;
+}
+
+:global .mobile {
+    :local {
+        %width-limit,
+        .width_limit {
+            padding-left: $ui-unit * 2;
+            padding-right: $ui-unit * 2;
+        }
+    }
 }
 
 %link,
