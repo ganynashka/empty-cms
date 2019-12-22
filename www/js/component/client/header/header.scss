@@ -42,6 +42,7 @@
     @extend %width-limit;
 
     align-items: center;
+    background-color: $main-background-text-color;
     display: flex;
     flex-direction: row;
     height: 50px;

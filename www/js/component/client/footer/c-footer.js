@@ -6,9 +6,12 @@ import {Link} from 'react-router-dom';
 import footerStyle from './footer.scss';
 
 export function Footer(): Node {
+    const year = new Date().getFullYear();
+    const copyRight = `© Сказки детям 2020-${year}`;
+
     return (
         <footer className={footerStyle.footer_wrapper}>
-            <p>&copy; Сказки детям 2020-{new Date().getFullYear()}</p>
+            <p>{copyRight}</p>
             <Link className={footerStyle.footer__link} to="#">
                 Правообладателям
             </Link>

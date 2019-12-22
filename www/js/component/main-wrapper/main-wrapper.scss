@@ -1,6 +1,8 @@
 @import './../../../css/var';
 
 .main_wrapper {
+    background-image: url('./image/main-bg.jpg');
+    background-position: center center;
     flex-grow: 1;
     position: relative;
 
