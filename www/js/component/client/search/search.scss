@@ -41,3 +41,26 @@
     padding: 9px 40px 9px 10px;
     width: 100%;
 }
+
+%search-result-list,
+.search_result_list {
+    background-color: $main-background-text-color;
+    border: 1px solid $main-text-color;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    display: block;
+    overflow: auto;
+    padding: $ui-unit;
+    position: absolute;
+    width: 100%;
+}
+
+.search_result_list__no_result {
+    @extend %search-result-list;
+
+    font-size: 16px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    text-align: center;
+    word-break: break-word;
+}
