@@ -7,6 +7,7 @@ export const documentApiRouteMap = {
     createDocument: '/api/create-document',
     updateDocument: '/api/update-document',
     documentSearchExact: '/api/document-search-exact',
+    documentSearch: '/api/document-search',
     getParentList: '/api/get-parent-list',
     getOrphanList: '/api/get-orphan-list',
     removeDocument: '/api/remove-document',

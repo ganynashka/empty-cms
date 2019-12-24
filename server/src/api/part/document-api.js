@@ -165,6 +165,31 @@ export function addDocumentApi(app: $Application) {
         response.json({isSuccessful: true, errorList: []});
     });
 
+    app.get(documentApiRouteMap.documentSearch, async (request: $Request, response: $Response) => {
+        const collection = await getCollection<MongoDocumentType>(
+            dataBaseConst.name,
+            dataBaseConst.collection.document
+        );
+
+        if (isError(collection)) {
+            response.status(400);
+            response.json([]);
+            return;
+        }
+
+        const {key, value} = getSearchExactParameters(request);
+
+        const existedDocument = await collection.findOne({[key]: value});
+
+        if (existedDocument) {
+            response.json(existedDocument);
+            return;
+        }
+
+        response.status(400);
+        response.json([]);
+    });
+
     app.get(documentApiRouteMap.documentSearchExact, async (request: $Request, response: $Response) => {
         const collection = await getCollection<MongoDocumentType>(
             dataBaseConst.name,

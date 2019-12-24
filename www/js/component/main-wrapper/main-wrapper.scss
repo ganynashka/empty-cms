@@ -1,7 +1,9 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
+
 @import './../../../css/var';
 
 .main_wrapper {
-    background-image: url('./image/main-bg.jpg');
+    background-color: #fff;
     background-position: center center;
     flex-grow: 1;
     position: relative;
@@ -9,5 +11,11 @@
     .paper_wrapper {
         box-shadow: none;
         margin: 0;
+    }
+}
+
+:global {
+    .desktop {
+        background-image: url('./image/main-bg.jpg');
     }
 }
