@@ -28,19 +28,6 @@ $header-mobile-height: 50px;
     text-decoration: none;
 }
 
-.header__desktop__search_input {
-    background-image: url('./image/searh-icon.svg');
-    background-position: right 10px center;
-    background-repeat: no-repeat;
-    background-size: auto 60%;
-    border: 1px solid $color-border;
-    box-sizing: border-box;
-    display: block;
-    font-size: 14px;
-    padding: 10px 40px 10px 10px;
-    width: 240px;
-}
-
 // desktop menu line
 .header__desktop__menu_line__wrapper {
     background-image: linear-gradient(90deg, $color-yellow 0, $color-orange 100%);
@@ -81,29 +68,19 @@ $header-mobile-height: 50px;
     justify-content: space-between;
 }
 
-%header-mobile-button {
+.header__mobile__button__menu {
+    background-image: url('./image/menu-icon.svg');
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: 60%;
+    background-size: 30px 30px;
     display: block;
     height: $header-mobile-height;
+    margin-left: -$ui-unit;
     width: $header-mobile-height;
-}
-
-.header__mobile__button__menu {
-    @extend %header-mobile-button;
-
-    background-image: url('./image/menu-icon.svg');
 
     &.header__mobile__button__menu__close {
         background-image: url('./image/menu-close-icon.svg');
     }
-}
-
-.header__mobile__button__search {
-    @extend %header-mobile-button;
-
-    background-image: url('./image/searh-icon.svg');
 }
 
 .header__mobile__navigation_wrapper {

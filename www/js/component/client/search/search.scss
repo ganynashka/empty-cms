@@ -1,0 +1,43 @@
+@import './../../../../css/var';
+@import './../../../../css/service';
+
+%search-wrapper {
+    display: block;
+    position: relative;
+}
+
+.desktop__search_wrapper {
+    @extend %search-wrapper;
+
+    transition: width linear 0.1s;
+    width: 33%;
+
+    &.search_wrapper__active {
+        width: 50%;
+    }
+}
+
+.mobile__search_wrapper {
+    @extend %search-wrapper;
+
+    padding-left: $ui-unit;
+    width: 105px;
+
+    &.search_wrapper__active {
+        width: 100%;
+    }
+}
+
+.desktop__search_input {
+    background-color: $light-gray;
+    background-image: url('./image/searh-icon.svg');
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: auto 65%;
+    border: 1px solid $color-border;
+    box-sizing: border-box;
+    display: block;
+    font-size: 14px;
+    padding: 9px 40px 9px 10px;
+    width: 100%;
+}

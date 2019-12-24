@@ -15,6 +15,7 @@ import {getInitialClientData} from '../../app/client-app-helper';
 import {isError, isFunction} from '../../../lib/is';
 import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
 import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database/database-type';
+import {Search} from '../search/c-search';
 
 import headerStyle from './header.scss';
 
@@ -27,6 +28,7 @@ type PropsType = {
 
 type StateType = {|
     +isNavigationMenuOpen: boolean,
+    +isSearchActive: boolean,
 |};
 
 export class Header extends Component<PropsType, StateType> {
@@ -35,6 +37,7 @@ export class Header extends Component<PropsType, StateType> {
 
         this.state = {
             isNavigationMenuOpen: false,
+            isSearchActive: false,
         };
     }
 
@@ -62,6 +65,10 @@ export class Header extends Component<PropsType, StateType> {
 
     handleCloseNavigationMenuOpenState = () => {
         this.setState({isNavigationMenuOpen: false});
+    };
+
+    handleSearchActive = (isSearchActive: boolean) => {
+        this.setState({isSearchActive});
     };
 
     async fetchInitialContextData() {
@@ -93,33 +100,42 @@ export class Header extends Component<PropsType, StateType> {
         }
     }
 
-    renderMobile(): Node {
-        const {state} = this;
-        const {isNavigationMenuOpen} = state;
+    getMobileHeaderContent(): Array<Node> {
+        const {state, props} = this;
+        const {isNavigationMenuOpen, isSearchActive} = state;
+        const {screenContextData} = props;
 
+        if (isSearchActive) {
+            return [
+                <Search key="search" onActiveChange={this.handleSearchActive} screenContextData={screenContextData}/>,
+            ];
+        }
+
+        return [
+            <button
+                className={classNames(headerStyle.header__mobile__button__menu, {
+                    [headerStyle.header__mobile__button__menu__close]: isNavigationMenuOpen,
+                })}
+                key="header-mobile-menu-button"
+                onClick={this.handleToggleNavigationMenuOpenState}
+                title="Меню"
+                type="button"
+            />,
+            <Link
+                className={headerStyle.header__desktop__menu_line__link}
+                key="header-mobile-home-link"
+                to={routePathMap.siteEnter.path}
+            >
+                Сказки детям
+            </Link>,
+            <Search key="search" onActiveChange={this.handleSearchActive} screenContextData={screenContextData}/>,
+        ];
+    }
+
+    renderMobile(): Node {
         return (
             <div className={headerStyle.header__desktop__menu_line__wrapper}>
-                <div className={headerStyle.header__mobile__top_line}>
-                    <button
-                        className={classNames(headerStyle.header__mobile__button__menu, {
-                            [headerStyle.header__mobile__button__menu__close]: isNavigationMenuOpen,
-                        })}
-                        onClick={this.handleToggleNavigationMenuOpenState}
-                        title="Меню"
-                        type="button"
-                    />
-                    <Link className={headerStyle.header__desktop__menu_line__link} to={routePathMap.siteEnter.path}>
-                        Сказки детям
-                    </Link>
-                    <div/>
-                    {/*
-                    <button
-                        className={headerStyle.header__mobile__button__search}
-                        title="Поиск пока не работает"
-                        type="button"
-                    />
-*/}
-                </div>
+                <div className={headerStyle.header__mobile__top_line}>{this.getMobileHeaderContent()}</div>
             </div>
         );
     }
@@ -155,19 +171,20 @@ export class Header extends Component<PropsType, StateType> {
     }
 
     renderDesktop(): Node {
+        const {props} = this;
+        const {screenContextData} = props;
+
         return (
             <>
                 <div className={headerStyle.header__desktop__top_line}>
                     <Link className={headerStyle.header__desktop__logo} to={routePathMap.siteEnter.path}>
                         Сказки детям
                     </Link>
-                    {/*
-                    <input
-                        className={headerStyle.header__desktop__search_input}
-                        placeholder="Поиск пока не работает"
-                        type="text"
+                    <Search
+                        key="search"
+                        onActiveChange={this.handleSearchActive}
+                        screenContextData={screenContextData}
                     />
-*/}
                 </div>
                 <div className={headerStyle.header__desktop__menu_line__wrapper}>
                     <nav className={headerStyle.header__desktop__menu_line}>{this.renderDesktopLinkList()}</nav>
