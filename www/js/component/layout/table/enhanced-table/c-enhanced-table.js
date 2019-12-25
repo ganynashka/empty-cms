@@ -8,13 +8,13 @@ import Paper from '@material-ui/core/Paper';
 import {EmptyTableBody} from '../empty-table-body/c-empty-table-body';
 import {typeConverter} from '../../../../lib/type';
 import {Spinner} from '../../spinner/c-spinner';
+import mainWrapperStyle from '../../../main-wrapper/main-wrapper.scss';
 
 import {EnhancedTableHead} from './c-enhanced-table-head';
 import {EnhancedTableToolbar} from './c-enhanced-table-toolbar';
 import {EnhancedTableBody} from './c-enhanced-table-body';
 import {getDefaultState, getSavedState, saveState} from './enhanced-table-helper';
 import type {EnhancedTableBodyCellType, EnhancedTablePropsType, SortDirectionType} from './enhanced-table-type';
-import style from './enhanced-table.scss';
 import {enhancedTableRowsPerPageOptions, enhancedTableDirection} from './enhanced-table-const';
 
 type PropsType = EnhancedTablePropsType;
@@ -150,7 +150,7 @@ export class EnhancedTable extends Component<PropsType, StateType> {
         const headerText = header.header;
 
         return (
-            <Paper className={style.table_wrapper}>
+            <Paper className={mainWrapperStyle.paper_wrapper}>
                 <EnhancedTableToolbar header={headerText}/>
                 {this.renderContent()}
             </Paper>
