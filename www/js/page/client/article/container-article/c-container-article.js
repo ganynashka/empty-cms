@@ -6,8 +6,10 @@ import {Link} from 'react-router-dom';
 import {Markdown} from '../../../../component/layout/markdown/c-markdown';
 import type {InitialDataType} from '../../../../provider/intial-data/intial-data-type';
 import type {MongoDocumentTreeNodeType} from '../../../../../../server/src/database/database-type';
-import {routePathMap} from '../../../../component/app/routes-path-map';
 import {getLinkToArticle} from '../../../../lib/string';
+import articleStyle from '../article.scss';
+
+import containerArticleStyle from './container-article.scss';
 
 type PropsType = {|
     +initialContextData: InitialDataType,
@@ -45,7 +47,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
 
         return (
             <>
-                <h1>{title}</h1>
+                <h1 className={articleStyle.article__header}>{title}</h1>
                 <ul>{subNodeList.map(this.renderSubNode)}</ul>
                 <Markdown text={content}/>
             </>

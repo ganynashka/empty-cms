@@ -1,0 +1,14 @@
+@import './../../../../css/service';
+@import './../../../../css/var';
+
+.article__wrapper {
+    @extend %width-limit;
+
+    padding-bottom: $ui-unit * 3;
+    padding-top: $ui-unit * 3;
+}
+
+.article__header {
+    display: block;
+    font-size: 26px;
+}

@@ -4,9 +4,9 @@ import React, {Component, type Node} from 'react';
 
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 import type {MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
-import serviceStyle from '../../../../css/service.scss';
 import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-type';
 
+import articleStyle from './article.scss';
 import {SingleArticle} from './single-article/c-single-article';
 import {ContainerArticle} from './container-article/c-container-article';
 
@@ -66,6 +66,6 @@ export class Article extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        return <div className={serviceStyle.width_limit}>{this.renderContent()}</div>;
+        return <div className={articleStyle.article__wrapper}>{this.renderContent()}</div>;
     }
 }
