@@ -11,4 +11,15 @@
 .article__header {
     display: block;
     font-size: 26px;
+    padding-bottom: 20px;
+}
+
+.article__list {
+    display: block;
+    list-style: none;
+}
+
+.article__list_item {
+    display: block;
+    padding: 4px 0;
 }

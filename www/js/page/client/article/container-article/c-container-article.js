@@ -28,7 +28,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         const {slug, title} = subNode;
 
         return (
-            <li key={slug}>
+            <li className={articleStyle.article__list_item} key={slug}>
                 <Link to={getLinkToArticle(slug)}>{title}</Link>
             </li>
         );
@@ -40,7 +40,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         const {articlePathData} = initialContextData;
 
         if (!articlePathData) {
-            return <h1>Here is not list of link</h1>;
+            return <h1 className={articleStyle.article__header}>Here is not list of link</h1>;
         }
 
         const {title, subNodeList, content} = articlePathData;
@@ -48,7 +48,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         return (
             <>
                 <h1 className={articleStyle.article__header}>{title}</h1>
-                <ul>{subNodeList.map(this.renderSubNode)}</ul>
+                <ul className={articleStyle.article__list}>{subNodeList.map(this.renderSubNode)}</ul>
                 <Markdown text={content}/>
             </>
         );
