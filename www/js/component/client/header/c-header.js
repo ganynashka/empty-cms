@@ -17,6 +17,8 @@ import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const'
 import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database/database-type';
 import {Search} from '../search/c-search';
 
+import {getLinkToArticle} from '../../../lib/string';
+
 import headerStyle from './header.scss';
 
 type PropsType = {
@@ -148,11 +150,7 @@ export class Header extends Component<PropsType, StateType> {
         const {slug, title} = linkData;
 
         return (
-            <Link
-                className={headerStyle.header__desktop__menu_line__link}
-                key={slug}
-                to={routePathMap.article.staticPartPath + '/' + slug}
-            >
+            <Link className={headerStyle.header__desktop__menu_line__link} key={slug} to={getLinkToArticle(slug)}>
                 {title}
             </Link>
         );

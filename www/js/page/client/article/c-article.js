@@ -4,9 +4,11 @@ import React, {Component, type Node} from 'react';
 
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 import type {MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
-import {Markdown} from '../../../component/layout/markdown/c-markdown';
 import serviceStyle from '../../../../css/service.scss';
 import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-type';
+
+import {SingleArticle} from './single-article/c-single-article';
+import {ContainerArticle} from './container-article/c-container-article';
 
 type PropsType = {
     +initialContextData: InitialDataType,
@@ -25,32 +27,6 @@ export class Article extends Component<PropsType, StateType> {
         const {props} = this;
 
         return Boolean(props.match && nextProps.match);
-    }
-
-    renderContainerContent(): Node {
-        const {props} = this;
-        const {initialContextData} = props;
-        const {articlePathData} = initialContextData;
-
-        if (!articlePathData) {
-            console.error('Article.renderContainerContent has no content');
-            return null;
-        }
-
-        return <Markdown text={articlePathData.content}/>;
-    }
-
-    renderArticleContent(): Node {
-        const {props} = this;
-        const {initialContextData} = props;
-        const {articlePathData} = initialContextData;
-
-        if (!articlePathData) {
-            console.error('Article.renderArticleContent has no content');
-            return null;
-        }
-
-        return <Markdown text={articlePathData.content}/>;
     }
 
     // eslint-disable-next-line complexity
@@ -78,15 +54,15 @@ export class Article extends Component<PropsType, StateType> {
         const {article, container} = mongoDocumentTypeMap;
 
         if (article === type) {
-            return this.renderArticleContent();
+            return <SingleArticle initialContextData={initialContextData}/>;
         }
 
         if (container === type) {
-            return this.renderContainerContent();
+            return <ContainerArticle initialContextData={initialContextData}/>;
         }
 
         console.error('Can not detect article type:', type);
-        return null;
+        return <h1>Unsupported document type: {type}</h1>;
     }
 
     render(): Node {

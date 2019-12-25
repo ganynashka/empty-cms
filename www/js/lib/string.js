@@ -1,5 +1,7 @@
 // @flow
 
+import {routePathMap} from '../component/app/routes-path-map';
+
 import {hasProperty, isString} from './is';
 
 const cyrillicToLatinMap = {
@@ -146,4 +148,8 @@ export function extractUniqueArrayString(inputValue: mixed): Array<string> {
     });
 
     return arrayString;
+}
+
+export function getLinkToArticle(slug: string): string {
+    return routePathMap.article.staticPartPath + '/' + slug;
 }

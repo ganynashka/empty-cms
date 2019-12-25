@@ -1,6 +1,6 @@
 // @flow
 
-import type {MongoDocumentTreeNodeType, MongoDocumentType} from '../../../../server/src/database/database-type';
+import type {MongoDocumentTreeNodeType} from '../../../../server/src/database/database-type';
 
 // eslint-disable-next-line no-use-before-define
 type SetInitialDataType = (initialData: SetInitialDataArgumentType) => mixed;
@@ -10,7 +10,7 @@ export type SetInitialDataArgumentType = {|
     +meta: string,
     // +description?: string,
     +is404: boolean,
-    +articlePathData?: MongoDocumentType | null,
+    +articlePathData?: MongoDocumentTreeNodeType | null,
     +documentNodeTree?: MongoDocumentTreeNodeType | null,
     +setInitialData?: SetInitialDataType | null,
 |};
@@ -20,7 +20,7 @@ export type InitialDataType = {|
     +meta: string,
     // +description: string,
     +is404: boolean,
-    +articlePathData: MongoDocumentType | null,
+    +articlePathData: MongoDocumentTreeNodeType | null,
     +documentNodeTree: MongoDocumentTreeNodeType | null,
     +setInitialData: SetInitialDataType | null,
 |};

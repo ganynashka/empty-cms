@@ -11,6 +11,8 @@ import {Markdown} from '../../../component/layout/markdown/c-markdown';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 import {getResizedInsideImageSrc} from '../../../lib/url';
 
+import {getLinkToArticle} from '../../../lib/string';
+
 import homeStyle from './home.scss';
 
 type PropsType = {
@@ -34,7 +36,7 @@ export class Home extends Component<PropsType, StateType> {
         const titleImageSrc = getResizedInsideImageSrc(titleImage, 120, 120, devicePixelRatio); // `${fileApiRouteMap.getResizedImage}/${titleImage}?width=${maxImageSize}&height=${maxImageSize}&fit=inside`;
 
         return (
-            <Link className={homeStyle.home__category_link__wrapper} key={slug} to="#">
+            <Link className={homeStyle.home__category_link__wrapper} key={slug} to={getLinkToArticle(slug)}>
                 <img alt={title} className={homeStyle.home__category_link__icon} src={titleImageSrc}/>
                 <div className={homeStyle.home__category_link__text_content}>
                     <h2 className={homeStyle.home__category_link__title}>{title}</h2>

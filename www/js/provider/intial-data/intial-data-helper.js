@@ -3,7 +3,7 @@
 import {type $Request, type $Response} from 'express';
 import {type MongoCollection} from 'mongodb';
 
-import type {MongoDocumentType} from '../../../../server/src/database/database-type';
+import type {MongoDocumentTreeNodeType, MongoDocumentType} from '../../../../server/src/database/database-type';
 import {getCollection} from '../../../../server/src/database/database-helper';
 import {dataBaseConst} from '../../../../server/src/database/database-const';
 import {isError} from '../../lib/is';
@@ -11,25 +11,10 @@ import {routePathMap} from '../../component/app/routes-path-map';
 import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from '../../../../server/src/api/part/document-api-const';
 import {getDocumentTree} from '../../../../server/src/api/part/document-api-helper';
 
+import {getLinkToArticle} from '../../lib/string';
+
 import {defaultInitialData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';
-
-function getArticleData(
-    collection: MongoCollection<MongoDocumentType>,
-    path: string
-): Promise<MongoDocumentType | null> {
-    const slug = path.replace(routePathMap.article.staticPartPath + '/', '');
-
-    return collection
-        .findOne({slug})
-        .then((mayBeDocument: MongoDocumentType | null): MongoDocumentType | null => {
-            return mayBeDocument && mayBeDocument.isActive ? mayBeDocument : null;
-        })
-        .catch((error: Error): null => {
-            console.log(`Can not find document with slug: ${slug}`);
-            return null;
-        });
-}
 
 // eslint-disable-next-line complexity, max-statements
 export async function getInitialDataByPath(path: string): Promise<InitialDataType> {
@@ -65,21 +50,23 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
 
     // article
     if (path.startsWith(routePathMap.article.staticPartPath)) {
-        const articlePathData = await getArticleData(collection, path);
+        const slug = path.replace(getLinkToArticle(''), '');
 
-        if (articlePathData) {
-            return {
-                ...defaultInitialData,
-                title: articlePathData.title,
-                meta: articlePathData.meta,
-                articlePathData,
-                documentNodeTree,
-            };
+        const articlePathData = await getDocumentTree(slug, 3);
+
+        if (isError(articlePathData)) {
+            console.error(articlePathData.message);
+
+            return {...page404InitialData, documentNodeTree};
         }
 
-        console.error('Can not get article');
-
-        return {...page404InitialData, documentNodeTree};
+        return {
+            ...defaultInitialData,
+            title: articlePathData.title,
+            meta: articlePathData.meta,
+            articlePathData,
+            documentNodeTree,
+        };
     }
 
     // check cms

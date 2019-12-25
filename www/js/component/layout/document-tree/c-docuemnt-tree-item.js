@@ -10,6 +10,8 @@ import {routePathMap} from '../../app/routes-path-map';
 import {stopPropagation} from '../../../lib/event';
 import {isError} from '../../../lib/is';
 
+import {getLinkToArticle} from '../../../lib/string';
+
 import documentTreeStyle from './document-tree.scss';
 
 type PropsType = {|
@@ -84,7 +86,7 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
         }
 
         const {title, isActive} = mongoDocument;
-        const href = routePathMap.documentEdit.staticPartPath + '/' + slug;
+        const href = getLinkToArticle(slug);
 
         const className = isActive ? null : documentTreeStyle.not_active_item;
 
