@@ -38,7 +38,7 @@ export function PageWrapper(props: PropsType): Node {
                 themeContextData={themeContextData}
             />
             <CMSHeaderWrapper location={location}/>
-            <main>{children}</main>
+            <main className={pageWrapperStyle.main_content}>{children}</main>
             <Footer location={location}/>
         </div>
     );

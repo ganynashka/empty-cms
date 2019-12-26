@@ -4,6 +4,7 @@
 .article__wrapper {
     @extend %width-limit;
 
+    min-height: 100%;
     padding-bottom: $ui-unit * 3;
     padding-top: $ui-unit * 3;
 }
