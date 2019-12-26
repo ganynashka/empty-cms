@@ -66,6 +66,10 @@ $header-mobile-height: 50px;
     flex-direction: row;
     height: $header-mobile-height;
     justify-content: space-between;
+
+    .header__desktop__menu_line__link {
+        margin-right: $ui-unit;
+    }
 }
 
 .header__mobile__button__menu {

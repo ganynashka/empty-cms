@@ -49,8 +49,6 @@ export class Search extends Component<PropsType, StateType> {
         const {state} = this;
         const {searchText, isActive, resultList} = state;
 
-        const slug = '/article/fads';
-
         if (!isActive) {
             return null;
         }
@@ -67,34 +65,7 @@ export class Search extends Component<PropsType, StateType> {
             );
         }
 
-        return (
-            <div className={searchStyle.search_result_list}>
-                <Link to={slug}>{slug}</Link>
-                {searchText + String(isActive)}
-                <br/>
-                <Link to={slug}>{slug}</Link>
-                {searchText + String(isActive)}
-                <br/>
-                <Link to={slug}>{slug}</Link>
-                {searchText + String(isActive)}
-                <br/>
-                <Link to={slug}>{slug}</Link>
-                {searchText + String(isActive)}
-                <br/>
-                <Link to={slug}>{slug}</Link>
-                {searchText + String(isActive)}
-                <br/>
-                <Link to={slug}>{slug}</Link>
-                {searchText + String(isActive)}
-                <br/>
-                <Link to={slug}>{slug}</Link>
-                {searchText + String(isActive)}
-                <br/>
-                <Link to={slug}>{slug}</Link>
-                {searchText + String(isActive)}
-                <br/>
-            </div>
-        );
+        return <div className={searchStyle.search_result_list}>{resultList.map(this.renderSearchResultItem)}</div>;
     }
 
     handleFocus = () => {
