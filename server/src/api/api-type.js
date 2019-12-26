@@ -14,6 +14,11 @@ export type GetSearchExactParameterType = {|
     +value: string,
 |};
 
+export type GetSearchParameterType = {
+    title?: RegExp,
+    content?: RegExp,
+};
+
 export type GetDocumentTreeParameterType = {|
     +slug: string,
     +deep: number,

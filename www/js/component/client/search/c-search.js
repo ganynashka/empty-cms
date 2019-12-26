@@ -8,8 +8,11 @@ import classNames from 'classnames';
 
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
+import {cleanText, getLinkToArticle} from '../../../lib/string';
+import {isError} from '../../../lib/is';
 
 import searchStyle from './search.scss';
+import {searchDocument} from './search-api';
 
 type PropsType = {|
     +onActiveChange: (isActive: boolean) => mixed,
@@ -39,7 +42,7 @@ export class Search extends Component<PropsType, StateType> {
         const {slug} = mongoDocument;
 
         return (
-            <Link key={slug} to="#">
+            <Link key={slug} to={getLinkToArticle(slug)}>
                 {slug}
             </Link>
         );
@@ -82,8 +85,17 @@ export class Search extends Component<PropsType, StateType> {
         }, 250);
     };
 
-    handleInput = (evt: SyntheticEvent<HTMLInputElement>) => {
-        this.setState({searchText: String(evt.currentTarget.value).trim()});
+    handleInput = async (evt: SyntheticEvent<HTMLInputElement>) => {
+        const searchText = cleanText(String(evt.currentTarget.value));
+
+        const resultList = await searchDocument({title: searchText});
+
+        if (isError(resultList)) {
+            this.setState({searchText, resultList: []});
+            return;
+        }
+
+        this.setState({searchText, resultList});
     };
 
     renderSearchInput(): Node {

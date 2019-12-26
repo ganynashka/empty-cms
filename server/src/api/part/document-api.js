@@ -4,11 +4,16 @@ import {type $Application, type $Request, type $Response} from 'express';
 
 import {typeConverter} from '../../../../www/js/lib/type';
 import {getCollection} from '../../database/database-helper';
-import type {MongoDocumentType, MongoUserType} from '../../database/database-type';
+import type {MongoDocumentType} from '../../database/database-type';
 import {dataBaseConst} from '../../database/database-const';
 import {getTime} from '../../util/time';
 import {isError} from '../../../../www/js/lib/is';
-import {getDocumentTreeParameters, getListParameters, getSearchExactParameters} from '../api-helper';
+import {
+    getDocumentTreeParameters,
+    getListParameters,
+    getSearchExactParameters,
+    getSearchParameters,
+} from '../api-helper';
 import {documentApiRouteMap} from '../api-route-map';
 
 import {getDocumentBySlug, getDocumentParentListBySlug, getDocumentTree, getOrphanList} from './document-api-helper';
@@ -177,17 +182,20 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        const {key, value} = getSearchExactParameters(request);
+        const searchParameters = getSearchParameters(request);
 
-        const existedDocument = await collection.findOne({[key]: value});
+        collection
+            // $FlowFixMe
+            .find(searchParameters)
+            .toArray((error: Error | null, documentList: Array<MongoDocumentType> | null) => {
+                if (error || !Array.isArray(documentList)) {
+                    response.status(400);
+                    response.json([]);
+                    return;
+                }
 
-        if (existedDocument) {
-            response.json(existedDocument);
-            return;
-        }
-
-        response.status(400);
-        response.json([]);
+                response.json(documentList);
+            });
     });
 
     app.get(documentApiRouteMap.documentSearchExact, async (request: $Request, response: $Response) => {

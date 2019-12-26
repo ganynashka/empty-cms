@@ -6,7 +6,12 @@ import {fit as sharpFit, type SharpResizeConfigType} from 'sharp';
 import {getSortDirection} from '../database/database-helper';
 import {hasProperty} from '../../../www/js/lib/is';
 
-import type {GetDocumentTreeParameterType, GetListParameterType, GetSearchExactParameterType} from './api-type';
+import type {
+    GetDocumentTreeParameterType,
+    GetListParameterType,
+    GetSearchExactParameterType,
+    GetSearchParameterType,
+} from './api-type';
 import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from './part/document-api-const';
 
 // export const streamOptionsArray = {transform: (item: {}): string => JSON.stringify(item) + ','};
@@ -30,6 +35,24 @@ export function getSearchExactParameters(request: $Request): GetSearchExactParam
     const value = String(request.query.value || '');
 
     return {key, value};
+}
+
+export function getSearchParameters(request: $Request): GetSearchParameterType {
+    const searchParameterMap = {};
+    const {query} = request;
+
+    const title = decodeURIComponent(String(query.title || '').trim());
+    const content = decodeURIComponent(String(query.content || '').trim());
+
+    if (title) {
+        searchParameterMap.title = new RegExp(title, 'i');
+    }
+
+    if (content) {
+        searchParameterMap.content = new RegExp(content, 'i');
+    }
+
+    return searchParameterMap;
 }
 
 export function getImageResizeParameters(request: $Request): SharpResizeConfigType {

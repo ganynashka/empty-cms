@@ -37,10 +37,22 @@ declare module 'mongodb' {
         +maxTimeMS?: number,
     };
 
+    declare type SearchParametersType = {|
+        +$text: {|
+            +$search?: string,
+            +$language?: string,
+            +$caseSensitive?: boolean,
+            +$diacriticSensitive?: boolean,
+        |},
+    |};
+
     declare export class MongoCollection<ItemType> {
         insertOne: (item: ItemType) => Promise<MongoCollectionActionResultType>,
         insertMany: (itemList: Array<ItemType>) => Promise<MongoCollectionActionResultType>,
-        find: (filter: $Shape<ItemType>, options?: MongoCollectionFindOption) => MongoCollectionCursor<ItemType>,
+        find: (
+            filter: $Shape<ItemType> | SearchParametersType,
+            options?: MongoCollectionFindOption,
+        ) => MongoCollectionCursor<ItemType>,
         findOne: (filter: $Shape<ItemType>) => Promise<ItemType | null>,
         updateMany: (
             filter: $Shape<ItemType>,

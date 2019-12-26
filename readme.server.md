@@ -87,6 +87,26 @@ or
 
 > rs.initiate({"_id" : "MyBestReplica", members : [{"_id" : 0, priority : 3, host : "127.0.0.1:27001"}, {"_id" : 1, host : "127.0.0.1:27002", arbiterOnly : true}, {"_id" : 2, host : "127.0.0.1:27003"}, {"_id" : 3, host : "127.0.0.1:27004"} ]});
 
+### DB search
+No indexed needed (recommended)
+> db.<collection name>.find({ <property name>: /some reg exp/i }) // db.document.find({ content: /лиса/i })
+
+Another way
+> db.<collection name>.createIndex( { <property name>: "text" } ) // db.document.createIndex( { title: "text", slug: "text" } )
+> db.<collection name>.find( { $text: { $search: "Some text" } } ) // will found in all indexed properties
+
+```
+{
+  $text:
+    {
+      $search: <string>,
+      $language: <string>,
+      $caseSensitive: <boolean>,
+      $diacriticSensitive: <boolean>
+    }
+}
+```
+
 ### How to download backup
 
 Execute this from your local machine:
