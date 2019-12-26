@@ -24,7 +24,7 @@ export function Footer(props: PropsType): Node {
     }
 
     const year = new Date().getFullYear();
-    const copyRight = `© Сказки детям 2020-${year}`;
+    const copyRight = `© Сказки детям 2019-${year}`;
 
     return (
         <footer className={footerStyle.footer_wrapper}>

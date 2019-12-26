@@ -39,12 +39,14 @@ export class Search extends Component<PropsType, StateType> {
     }
 
     renderSearchResultItem(mongoDocument: MongoDocumentType): Node {
-        const {slug} = mongoDocument;
+        const {slug, title} = mongoDocument;
 
         return (
-            <Link key={slug} to={getLinkToArticle(slug)}>
-                {slug}
-            </Link>
+            <li key={slug}>
+                <Link className={searchStyle.search_result_item} to={getLinkToArticle(slug)}>
+                    {title}
+                </Link>
+            </li>
         );
     }
 
@@ -68,7 +70,7 @@ export class Search extends Component<PropsType, StateType> {
             );
         }
 
-        return <div className={searchStyle.search_result_list}>{resultList.map(this.renderSearchResultItem)}</div>;
+        return <ul className={searchStyle.search_result_list}>{resultList.map(this.renderSearchResultItem)}</ul>;
     }
 
     handleFocus = () => {

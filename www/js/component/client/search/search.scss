@@ -48,10 +48,17 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
     display: block;
+    max-height: 60vh;
     overflow: auto;
     padding: $ui-unit;
     position: absolute;
     width: 100%;
+}
+
+.search_result_item {
+    display: block;
+    font-size: 14px;
+    line-height: 26px;
 }
 
 .search_result_list__no_result {

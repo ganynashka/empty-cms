@@ -91,6 +91,7 @@ $header-mobile-height: 50px;
     @extend %width-limit;
 
     background-color: $main-background-text-color;
+    width: 100%;
 
     .header__desktop__menu_line__link {
         border-bottom-color: $main-text-color;
