@@ -118,6 +118,7 @@ export class Search extends Component<PropsType, StateType> {
     renderSearchInput(): Node {
         return (
             <input
+                aria-label="Поиск"
                 className={searchStyle.desktop__search_input}
                 key="search-input"
                 onBlur={this.handleBlur}

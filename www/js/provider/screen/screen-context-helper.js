@@ -2,7 +2,7 @@
 
 /* global window, document */
 
-import {isNumber} from '../../lib/is';
+import {isNotNumber, isNumber} from '../../lib/is';
 
 import type {ScreenWidthNameType, ScreenContextType} from './screen-context-type';
 import {screenMinWidth, screenNameReference} from './screen-context-const';
@@ -64,7 +64,15 @@ export function getDevicePixelRatio(): number {
 
     const {devicePixelRatio} = window;
 
-    return isNumber(devicePixelRatio) ? devicePixelRatio : defaultDevicePixelRatio;
+    if (isNotNumber(devicePixelRatio)) {
+        return defaultDevicePixelRatio;
+    }
+
+    if (devicePixelRatio <= defaultDevicePixelRatio) {
+        return defaultDevicePixelRatio;
+    }
+
+    return devicePixelRatio;
 }
 
 export function getScreenState(): ScreenContextType {
