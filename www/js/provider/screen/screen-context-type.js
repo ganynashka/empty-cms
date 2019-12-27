@@ -13,4 +13,5 @@ export type ScreenContextType = {|
     +isLandscape: boolean,
     +isPortrait: boolean,
     +devicePixelRatio: number,
+    +isLoaded: boolean,
 |};

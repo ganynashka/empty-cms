@@ -92,5 +92,6 @@ export function getScreenState(): ScreenContextType {
         isLandscape,
         isPortrait: !isLandscape,
         devicePixelRatio: getDevicePixelRatio(),
+        isLoaded: false,
     };
 }

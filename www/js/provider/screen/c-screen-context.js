@@ -27,7 +27,10 @@ export class ScreenProvider extends Component<PropsType, StateType> {
         super(props);
 
         this.state = {
-            providedData: defaultScreenContextData,
+            providedData: {
+                ...defaultScreenContextData,
+                isLoaded: typeof window !== 'undefined',
+            },
         };
     }
 

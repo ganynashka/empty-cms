@@ -3,7 +3,7 @@
 @import './../../../css/var';
 
 .main_wrapper {
-    background-color: #fff;
+    background-color: #0a7899;
     background-position: center center;
     flex-grow: 1;
     position: relative;
@@ -16,7 +16,7 @@
 }
 
 :global {
-    .desktop {
+    .loaded.desktop {
         background-image: url('./image/main-bg.jpg');
     }
 }
