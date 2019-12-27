@@ -2,7 +2,7 @@
 
 /* global window, document */
 
-import {isNotNumber, isNumber} from '../../lib/is';
+import {isNotNumber} from '../../lib/is';
 
 import type {ScreenWidthNameType, ScreenContextType} from './screen-context-type';
 import {screenMinWidth, screenNameReference} from './screen-context-const';
@@ -92,6 +92,6 @@ export function getScreenState(): ScreenContextType {
         isLandscape,
         isPortrait: !isLandscape,
         devicePixelRatio: getDevicePixelRatio(),
-        isLoaded: false,
+        isLoaded: typeof window !== 'undefined',
     };
 }
