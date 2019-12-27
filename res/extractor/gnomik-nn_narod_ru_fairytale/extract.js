@@ -1,7 +1,6 @@
-/* global window, document, setTimeout */
+/* global window, document, setTimeout, fetch */
 
 function extractFromTable(table) {
-
     console.clear();
 
     function downloadImage(src, index) {
@@ -18,17 +17,17 @@ function extractFromTable(table) {
                 link.href = downloadUrl;
                 link.download = name;
 
-                document.body.appendChild(link);
+                document.body.append(link);
 
                 link.click();
 
-                window.URL.revokeObjectURL(downloadUrl);
-
                 console.log('your file has downloaded!'); // or you know, something with better UX...
+                return window.URL.revokeObjectURL(downloadUrl);
             })
-            .catch(() => alert('oh no!'));
+            .catch(() => console.error('oh no!'));
     }
 
+    // eslint-disable-next-line unicorn/consistent-function-scoping
     function cleanText(text) {
         return text
             .trim()
@@ -38,16 +37,17 @@ function extractFromTable(table) {
             .replace(/\n-/g, '\n—');
     }
 
-    function getImageSrcFromTd(td) {
-        return td.querySelector('img').src;
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    function getImageSrcFromTd(tdNode) {
+        return tdNode.querySelector('img').src;
     }
 
-    function getTextFromTd(td) {
-        return cleanText(td.textContent);
+    function getTextFromTd(tdNode) {
+        return cleanText(tdNode.textContent);
     }
 
-    function extractFromTd(td, index) {
-        const src = getImageSrcFromTd(td);
+    function extractFromTd(tdNode, index) {
+        const src = getImageSrcFromTd(tdNode);
 
         setTimeout(() => {
             downloadImage(src, index);
@@ -55,14 +55,14 @@ function extractFromTable(table) {
 
         return {
             src,
-            text: getTextFromTd(td),
+            text: getTextFromTd(tdNode),
         };
     }
 
     const tdList = [...table.querySelectorAll('td')];
 
     const result = tdList
-        .filter(td => Boolean(td.textContent.trim()))
+        .filter(tdNode => Boolean(tdNode.textContent.trim()))
         .map(extractFromTd)
         .map((extractedData, index) => {
             const {src, text} = extractedData;
@@ -74,6 +74,6 @@ function extractFromTable(table) {
     console.log(result);
 }
 
-const table = document.querySelector('table tr td:nth-of-type(3) table');
+const tableNode = document.querySelector('table tr td:nth-of-type(3) table');
 
-extractFromTable(table);
+extractFromTable(tableNode);
