@@ -29,7 +29,9 @@ export class ContainerArticle extends Component<PropsType, StateType> {
 
         return (
             <li className={articleStyle.article__list_item} key={slug}>
-                <Link to={getLinkToArticle(slug)}>{title}</Link>
+                <Link className={articleStyle.article__list_item__link} to={getLinkToArticle(slug)}>
+                    {title}
+                </Link>
             </li>
         );
     }
