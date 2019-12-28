@@ -10,7 +10,7 @@ import type {
     GetDocumentTreeParameterType,
     GetListParameterType,
     GetSearchExactParameterType,
-    GetSearchParameterType,
+    GetSearchParameterListType,
 } from './api-type';
 import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from './part/document-api-const';
 
@@ -37,22 +37,28 @@ export function getSearchExactParameters(request: $Request): GetSearchExactParam
     return {key, value};
 }
 
-export function getSearchParameters(request: $Request): GetSearchParameterType {
-    const searchParameterMap = {};
+// eslint-disable-next-line complexity
+export function getSearchParameters(request: $Request): GetSearchParameterListType {
+    const searchParameterList = [];
     const {query} = request;
 
     const title = decodeURIComponent(String(query.title || '').trim());
     const content = decodeURIComponent(String(query.content || '').trim());
+    const tagList = decodeURIComponent(String(query['tag-list'] || '').trim());
 
     if (title) {
-        searchParameterMap.title = new RegExp(title, 'i');
+        searchParameterList.push({title: new RegExp(title, 'i')});
     }
 
     if (content) {
-        searchParameterMap.content = new RegExp(content, 'i');
+        searchParameterList.push({content: new RegExp(content, 'i')});
     }
 
-    return searchParameterMap;
+    if (tagList) {
+        searchParameterList.push({tagList: new RegExp(tagList, 'i')});
+    }
+
+    return searchParameterList;
 }
 
 export function getImageResizeParameters(request: $Request): SharpResizeConfigType {

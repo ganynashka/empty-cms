@@ -90,7 +90,11 @@ export class Search extends Component<PropsType, StateType> {
     handleInput = async (evt: SyntheticEvent<HTMLInputElement>) => {
         const searchText = cleanText(String(evt.currentTarget.value));
 
-        const resultList = await searchDocument({title: searchText});
+        const resultList = await searchDocument({
+            title: searchText,
+            tagList: searchText,
+            content: searchText,
+        });
 
         if (isError(resultList)) {
             this.setState({searchText, resultList: []});

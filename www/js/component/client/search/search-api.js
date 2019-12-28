@@ -7,9 +7,10 @@ import {isString} from '../../../lib/is';
 
 import type {SearchParametersType} from './search-type';
 
+// eslint-disable-next-line complexity
 export function searchDocument(searchParameters: SearchParametersType): Promise<Array<MongoDocumentType> | Error> {
     const parametersList: Array<string> = [];
-    const {title, content} = searchParameters;
+    const {title, content, tagList} = searchParameters;
 
     if (isString(title) && title.trim()) {
         parametersList.push('title=' + encodeURIComponent(title.trim()));
@@ -17,6 +18,10 @@ export function searchDocument(searchParameters: SearchParametersType): Promise<
 
     if (isString(content) && content.trim()) {
         parametersList.push('content=' + encodeURIComponent(content.trim()));
+    }
+
+    if (isString(tagList) && tagList.trim()) {
+        parametersList.push('tag-list=' + encodeURIComponent(tagList.trim()));
     }
 
     const url = documentApiRouteMap.documentSearch + '?' + parametersList.join('&');

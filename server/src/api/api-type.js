@@ -2,6 +2,8 @@
 
 import {type MongoSortDirectionType} from 'mongodb';
 
+import type {SearchParametersType} from '../../../www/js/component/client/search/search-type';
+
 export type GetListParameterType = {|
     +pageIndex: number,
     +pageSize: number,
@@ -14,10 +16,7 @@ export type GetSearchExactParameterType = {|
     +value: string,
 |};
 
-export type GetSearchParameterType = {
-    title?: RegExp,
-    content?: RegExp,
-};
+export type GetSearchParameterListType = Array<{[$Keys<SearchParametersType>]: RegExp}>;
 
 export type GetDocumentTreeParameterType = {|
     +slug: string,
