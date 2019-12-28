@@ -1,5 +1,9 @@
+/* stylelint-disable selector-pseudo-class-no-unknown, max-nesting-depth, selector-max-compound-selectors */
+
 @import './../../../../css/service';
 @import './../../../../css/var';
+
+$space-between-blocks: 20px;
 
 .article__wrapper {
     @extend %width-limit;
@@ -16,15 +20,82 @@
 }
 
 .article__list {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
     list-style: none;
 }
 
-.article__list_item {
+.article__list_image_item {
+    background-color: #f5f5f5;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 5px;
+    box-sizing: border-box;
     display: block;
-    padding: 4px 0;
+    height: 170px;
+    margin-bottom: $space-between-blocks;
+    position: relative;
+    width: calc((100% - #{$space-between-blocks * 3}) / 4);
+
+    &.article__list_image_item__no_image {
+        background-size: auto 50%;
+    }
 }
 
-.article__list_item__link {
+.article__list_image_item__link_text {
+    @extend %ellipsis;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 5px 5px;
+    bottom: 0;
+    box-sizing: border-box;
+    color: #fff;
     font-size: 16px;
+    left: 0;
+    padding: $ui-unit;
+    position: absolute;
+    width: 100%;
+}
+
+.article__list_image_item__link {
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 16px;
+    height: 100%;
+    left: 0;
+    padding: 5px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+
+    .article__list_image_item__link_text {
+        text-decoration: underline;
+    }
+
+    &:hover .article__list_image_item__link_text {
+        text-decoration: none;
+    }
+}
+
+:global {
+    .tablet {
+        :local {
+            .article__list_image_item {
+                width: calc((100% - #{$space-between-blocks * 2}) / 3);
+            }
+        }
+    }
+
+    .mobile {
+        :local {
+            .article__list_image_item {
+                height: 120px;
+                width: calc((100% - #{$space-between-blocks * 1}) / 2);
+            }
+        }
+    }
 }

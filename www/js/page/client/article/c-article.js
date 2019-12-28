@@ -5,6 +5,7 @@ import React, {Component, type Node} from 'react';
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 import type {MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
 import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-type';
+import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 
 import articleStyle from './article.scss';
 import {SingleArticle} from './single-article/c-single-article';
@@ -12,6 +13,7 @@ import {ContainerArticle} from './container-article/c-container-article';
 
 type PropsType = {
     +initialContextData: InitialDataType,
+    +screenContextData: ScreenContextType,
     +match: MatchType | null,
     +history: RouterHistoryType,
 };
@@ -32,7 +34,7 @@ export class Article extends Component<PropsType, StateType> {
     // eslint-disable-next-line complexity
     renderContent(): Node {
         const {props} = this;
-        const {initialContextData, match} = props;
+        const {initialContextData, match, screenContextData} = props;
         const {is404, articlePathData} = initialContextData;
 
         if (is404) {
@@ -58,7 +60,7 @@ export class Article extends Component<PropsType, StateType> {
         }
 
         if (container === type) {
-            return <ContainerArticle initialContextData={initialContextData}/>;
+            return <ContainerArticle initialContextData={initialContextData} screenContextData={screenContextData}/>;
         }
 
         console.error('Can not detect article type:', type);
