@@ -30,6 +30,35 @@ function extractFromSite(node) {
         return nodeList;
     }
 
+    function saveDataAsJsonFile(data) {
+        const uriContent = 'data:application/octet-stream,' + encodeURIComponent(JSON.stringify(data, null, 4));
+
+        const pageName = window.location.href
+            .split('/')
+            .pop()
+            .replace('.html', '');
+
+        fetch(uriContent)
+            .then(resp => resp.blob())
+            .then(blob => {
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+
+                link.style.display = 'none';
+                link.href = downloadUrl;
+                link.download = pageName + '.json';
+
+                document.body.append(link);
+
+                link.click();
+
+                console.log('your file has downloaded!'); // or you know, something with better UX...
+                return window.URL.revokeObjectURL(downloadUrl);
+            })
+            .catch(() => console.error('oh no!'));
+    }
+
+    /*
     function downloadImage(src, index) {
         const extension = src.split('.').pop();
         const pageName = window.location.href
@@ -57,6 +86,7 @@ function extractFromSite(node) {
             })
             .catch(() => console.error('oh no!'));
     }
+*/
 
     // eslint-disable-next-line unicorn/consistent-function-scoping
     function cleanText(text) {
@@ -69,19 +99,20 @@ function extractFromSite(node) {
     }
 
     function extractFromNode(childNode, index) {
+        /*
         if (childNode.src) {
             setTimeout(() => {
                 downloadImage(childNode.src, index);
             }, index * 500);
         }
-
+*/
         return {
             src: childNode.src || '',
             text: cleanText(childNode.textContent || ''),
         };
     }
 
-    const result = textNodesUnder(node)
+    const itemList = textNodesUnder(node)
         .filter(childNode => {
             if (childNode.textContent && childNode.textContent.trim()) {
                 return true;
@@ -93,25 +124,12 @@ function extractFromSite(node) {
 
             return false;
         })
-        .map(extractFromNode)
-        .map((extractedData, index) => {
-            const {src, text} = extractedData;
+        .map(extractFromNode);
+    const title = '';
 
-            if (text) {
-                return text;
-            }
+    const result = {title, itemList};
 
-            if (src) {
-                return '\n\n------------------![](' + String(index).padStart(3, '0') + ')------------------\n\n';
-            }
-
-            console.error('can not detect value');
-
-            return '';
-        })
-        .join('\n');
-
-    console.log(result);
+    saveDataAsJsonFile(result);
 }
 
 extractFromSite(document.querySelector('.text'));
