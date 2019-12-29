@@ -13,15 +13,16 @@ import type {
     FormGeneratorFormDataType,
     FromGeneratorInputValueType,
 } from '../../../component/layout/form-generator/form-generator-type';
-import {getIsRequired} from '../../../component/layout/form-generator/validate/validate';
+import {getIsRequired, noValidate} from '../../../component/layout/form-generator/validate/validate';
 import {FieldSet} from '../../../component/layout/form-generator/field/field-set/field-set';
 import {InputFileList} from '../../../component/layout/form-generator/field/input-file-list/c-input-file-list';
 import {ButtonListWrapper} from '../../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../../component/layout/form-button/c-form-button';
 import {isError, isFile} from '../../../lib/is';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
-import {isAdmin} from '../../../provider/user/user-context-helper';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
+
+import {InputUploadJsonAsDocument} from '../../../component/layout/form-generator/field/input-upload-json-as-document/c-input-upload-json-as-document';
 
 import {uploadFileList} from './file-api';
 
@@ -46,6 +47,31 @@ const formConfig: FormGeneratorConfigType = {
                     defaultValue: null,
                     placeholder: 'File list',
                     labelText: 'File list',
+                    isHidden: false,
+                    isMultiple: true,
+                    accept: '*',
+                },
+            ],
+            fieldSetWrapper: {
+                component: FieldSet,
+                legend: null,
+            },
+        },
+    ],
+};
+
+const formUploadJsonConfig: FormGeneratorConfigType = {
+    fieldSetList: [
+        {
+            name: 'upload file list',
+            fieldList: [
+                {
+                    name: 'json-to-document',
+                    fieldComponent: InputUploadJsonAsDocument,
+                    validate: noValidate,
+                    defaultValue: null,
+                    placeholder: 'JSON to Document',
+                    labelText: 'JSON to Document',
                     isHidden: false,
                     isMultiple: true,
                     accept: '*',
@@ -111,6 +137,10 @@ export class FileUpload extends Component<PropsType, StateType> {
         );
     }
 
+    renderFormFooterJSON(): Node {
+        return null;
+    }
+
     handleFormError = async (errorList: Array<Error>, formData: FormGeneratorFormDataType) => {
         const {props} = this;
         const {snackbarContext} = props;
@@ -140,6 +170,13 @@ export class FileUpload extends Component<PropsType, StateType> {
                     config={formConfig}
                     footer={this.renderFormFooter()}
                     key={state.formGeneratorKey}
+                    onError={this.handleFormError}
+                    onSubmit={this.handleFormSubmit}
+                />
+                <FormGenerator
+                    config={formUploadJsonConfig}
+                    footer={this.renderFormFooterJSON()}
+                    key={-state.formGeneratorKey}
                     onError={this.handleFormError}
                     onSubmit={this.handleFormSubmit}
                 />
