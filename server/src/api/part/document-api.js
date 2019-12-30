@@ -2,6 +2,8 @@
 
 import {type $Application, type $Request, type $Response} from 'express';
 
+// eslint-disable-next-line max-len
+import {type JsonToMongoDocumentType} from '../../../../www/js/component/layout/form-generator/field/input-upload-json-as-document/input-upload-json-as-document-type';
 import {typeConverter} from '../../../../www/js/lib/type';
 import {getCollection} from '../../database/database-helper';
 import type {MongoDocumentType} from '../../database/database-type';
@@ -15,9 +17,11 @@ import {
     getSearchParameters,
 } from '../api-helper';
 import {documentApiRouteMap} from '../api-route-map';
+import {getSlug} from '../../../../www/js/lib/string';
+import {convertJsonToDocument} from '../../util/json-to-document';
 
-import {getDocumentBySlug, getDocumentParentListBySlug, getDocumentTree, getOrphanList} from './document-api-helper';
 import {rootDocumentSlug} from './document-api-const';
+import {getDocumentBySlug, getDocumentParentListBySlug, getDocumentTree, getOrphanList} from './document-api-helper';
 
 export function addDocumentApi(app: $Application) {
     app.get(documentApiRouteMap.getDocumentList, async (request: $Request, response: $Response) => {
@@ -124,6 +128,53 @@ export function addDocumentApi(app: $Application) {
             createdDate: date,
             updatedDate: date,
         };
+
+        await collection.insertOne(newDocument);
+
+        response.json({isSuccessful: true, errorList: []});
+    });
+
+    // eslint-disable-next-line max-statements
+    app.post(documentApiRouteMap.uploadDocumentAsJson, async (request: $Request, response: $Response) => {
+        const jsonDocument: JsonToMongoDocumentType = typeConverter<JsonToMongoDocumentType>(request.body);
+
+        const collection = await getCollection<MongoDocumentType>(
+            dataBaseConst.name,
+            dataBaseConst.collection.document
+        );
+
+        if (isError(collection)) {
+            response.status(400);
+            response.json({
+                isSuccessful: false,
+                errorList: [`Can not get collection: ${dataBaseConst.collection.document}`],
+            });
+            return;
+        }
+
+        const {title} = jsonDocument;
+
+        if (!title.trim()) {
+            response.status(400);
+            response.json({isSuccessful: false, errorList: ['Title is required.']});
+            return;
+        }
+
+        const slug = getSlug(title);
+
+        const existedDocument = await collection.findOne({slug});
+
+        if (existedDocument) {
+            await collection.deleteOne({slug}, {});
+
+            // response.status(400);
+            // response.json({isSuccessful: false, errorList: [`Document with slug: '${slug}' already exists.`]});
+            // return;
+        }
+
+        const newDocument: MongoDocumentType = await convertJsonToDocument(jsonDocument);
+
+        console.log(newDocument);
 
         await collection.insertOne(newDocument);
 

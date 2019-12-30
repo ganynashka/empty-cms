@@ -1,19 +1,21 @@
 // @flow
 
-/* global URL, navigator, FileReader, window */
+/* global URL, navigator, FileReader */
 
 import React, {Component, type Node} from 'react';
 import classNames from 'classnames';
 
 import type {InputComponentPropsType, FromGeneratorInputValueType} from '../../form-generator-type';
 import fieldStyle from '../field.scss';
-import {isError, isFunction, isNull, isString} from '../../../../../lib/is';
-
+import {isError, isNull, isString} from '../../../../../lib/is';
 import type {MainServerApiResponseType} from '../../../../../type/response';
+
+import {typeConverter} from '../../../../../lib/type';
 
 import spinnerImage from './image/spinner.gif';
 import inputUploadFileStyle from './input-upload-file.scss';
 import {uploadJsonAsDocument} from './input-upload-json-as-document-api';
+import type {JsonToMongoDocumentType} from './input-upload-json-as-document-type';
 
 type PropsType = InputComponentPropsType;
 
@@ -61,8 +63,6 @@ export class InputUploadJsonAsDocument extends Component<PropsType, StateType> {
         const {showSnackbar} = snackbarContext;
         const fileOrNull = this.getValue(evt);
 
-        console.log(fileOrNull);
-
         if (isNull(fileOrNull)) {
             onChange(null);
             this.setState(this.getDefaultState());
@@ -72,62 +72,40 @@ export class InputUploadJsonAsDocument extends Component<PropsType, StateType> {
         const reader = new FileReader();
 
         reader.addEventListener('load', () => {
-            uploadJsonAsDocument(reader.result)
-                .then((result: Error | MainServerApiResponseType) => {
+            const readerResult: JsonToMongoDocumentType = typeConverter<JsonToMongoDocumentType>(
+                // $FlowFixMe
+                JSON.parse(reader.result)
+            );
+
+            uploadJsonAsDocument(readerResult)
+                .then(async (result: Error | MainServerApiResponseType): Promise<boolean> => {
                     if (isError(result)) {
-                        window.alert(result.message);
-                        return;
+                        console.error(result.message);
+                        return false;
                     }
 
                     if (result.isSuccessful !== true) {
-                        window.alert(result.errorList.join('\n'));
-                        return;
+                        console.error(result.errorList.join('\n'));
+                        return false;
                     }
 
-                    window.alert('success');
+                    console.log('---> success');
+                    this.setState(this.getDefaultState());
+
+                    await showSnackbar({children: 'Success!', variant: 'success'}, 'upload-file-success');
+
+                    return true;
                 })
-                .catch((error: Error) => {
-                    window.alert(error.message);
-                });
-        });
-
-        reader.readAsText(fileOrNull);
-
-        return;
-
-        onChange(fileOrNull);
-        this.setState({file: fileOrNull, isUploadInProgress: true});
-
-        uploadFile(fileOrNull)
-            .then(async (uploadResult: Error | string): Promise<Error | string> => {
-                if (isError(uploadResult)) {
-                    console.error('Can not upload file');
-                    console.error(uploadResult);
-
-                    onChange(null);
+                .catch(async (error: Error) => {
                     this.setState(this.getDefaultState());
 
                     await showSnackbar({children: 'Error while upload file!', variant: 'error'}, 'can-not-upload-file');
 
-                    return uploadResult;
-                }
-
-                this.setState({file: null, isUploadInProgress: false, defaultValue: uploadResult}, () => {
-                    onChange(uploadResult);
+                    console.error(error.message);
                 });
+        });
 
-                return uploadResult;
-            })
-            .catch(async (error: Error): Promise<Error> => {
-                onChange(null);
-                this.setState(this.getDefaultState());
-
-                await showSnackbar({children: 'Error while upload file!', variant: 'error'}, 'can-not-upload-file');
-
-                console.error('Can not upload file');
-                console.error(error);
-                return error;
-            });
+        reader.readAsText(fileOrNull);
     };
 
     handleRemoveImage = () => {

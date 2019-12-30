@@ -99,13 +99,6 @@ function extractFromSite(node) {
     }
 
     function extractFromNode(childNode, index) {
-        /*
-        if (childNode.src) {
-            setTimeout(() => {
-                downloadImage(childNode.src, index);
-            }, index * 500);
-        }
-*/
         return {
             src: childNode.src || '',
             text: cleanText(childNode.textContent || ''),

@@ -12,7 +12,6 @@ import {cwd} from '../../../../webpack/config';
 import {promiseCatch} from '../../../../www/js/lib/promise';
 import {isError, isString} from '../../../../www/js/lib/is';
 import {getSlug} from '../../../../www/js/lib/string';
-
 import {fileApiRouteMap} from '../api-route-map';
 import {getImageResizeParameters} from '../api-helper';
 

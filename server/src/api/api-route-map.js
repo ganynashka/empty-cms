@@ -6,6 +6,7 @@ export const documentApiRouteMap = {
     getDocumentListSize: '/api/get-document-list-size',
     createDocument: '/api/create-document',
     updateDocument: '/api/update-document',
+    uploadDocumentAsJson: '/api/upload-document-as-json',
     documentSearchExact: '/api/document-search-exact',
     documentSearch: '/api/document-search',
     getParentList: '/api/get-parent-list',

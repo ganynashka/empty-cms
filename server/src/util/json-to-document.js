@@ -1,0 +1,142 @@
+// @flow
+
+import path from 'path';
+import fileSystem from 'fs';
+import https from 'https';
+
+import type {
+    JsonToMongoDocumentItemType,
+    JsonToMongoDocumentType,
+    // eslint-disable-next-line max-len
+} from '../../../www/js/component/layout/form-generator/field/input-upload-json-as-document/input-upload-json-as-document-type';
+import type {MongoDocumentType} from '../database/database-type';
+import {getSlug} from '../../../www/js/lib/string';
+import {mongoDocumentTypeMap} from '../database/database-type';
+import {cwd} from '../../../webpack/config';
+import {fileApiConst} from '../api/part/file-api-const';
+import {isError} from '../../../www/js/lib/is';
+import {getMarkdownResizedImage} from '../../../www/js/page/cms/file/file-api';
+
+import {getTime} from './time';
+
+function getFileByUrl(url: string, destination: string): Promise<Error | string> {
+    const file = fileSystem.createWriteStream(destination);
+
+    return new Promise((resolve: (result: Error | string) => mixed) => {
+        const request = https.get(url, (response: Response) => {
+            // check if response is success
+            if (Number(response.statusCode) !== 200) {
+                resolve(new Error('Response status was ' + response.statusCode));
+                return;
+            }
+
+            response.pipe(file);
+        });
+
+        file.on('finish', () => {
+            file.close(() => {
+                resolve(destination);
+            });
+        });
+
+        request.on('error', (error: Error) => {
+            fileSystem.unlink(destination);
+            resolve(error);
+        });
+
+        file.on('error', (error: Error) => {
+            fileSystem.unlink(destination);
+            resolve(error);
+        });
+    });
+}
+
+async function makeData(rawData: JsonToMongoDocumentItemType, prefix: string): Promise<JsonToMongoDocumentItemType> {
+    const text = rawData.text.trim();
+    const src = rawData.src.trim();
+
+    if (text) {
+        return {
+            src: '',
+            text,
+        };
+    }
+
+    if (src) {
+        const fileName
+            = prefix
+            + '-'
+            + rawData.src
+                .trim()
+                .split('/')
+                .pop();
+        const newSrc = await getFileByUrl(rawData.src.trim(), path.join(cwd, fileApiConst.pathToUploadFiles, fileName));
+
+        if (isError(src)) {
+            throw new Error(src.message);
+        }
+
+        return {
+            src: newSrc.replace(cwd, '').replace(fileApiConst.pathToUploadFiles + '/', ''),
+            text: '',
+        };
+    }
+
+    throw new Error('Should be text or src.');
+}
+
+function dataToContent(rawData: JsonToMongoDocumentItemType): string {
+    const text = rawData.text.trim();
+    const src = rawData.src.trim();
+
+    if (text) {
+        return text;
+    }
+
+    if (src) {
+        return getMarkdownResizedImage(src);
+    }
+
+    throw new Error('Should be text or src.');
+}
+
+export async function convertJsonToDocument(jsonDocument: JsonToMongoDocumentType): Promise<MongoDocumentType> {
+    const date = getTime();
+    const slug = getSlug(jsonDocument.title);
+
+    const newDocument: MongoDocumentType = {
+        slug,
+        titleImage: '',
+        type: mongoDocumentTypeMap.article,
+        title: jsonDocument.title,
+        meta: '',
+        shortDescription: '',
+        content: '',
+        createdDate: date,
+        updatedDate: date,
+        subDocumentSlugList: [],
+        tagList: [],
+        rating: 0,
+        isActive: true,
+        imageList: [],
+    };
+
+    const newList = await Promise.all(
+        jsonDocument.itemList.map(
+            (jsonDocumentItem: JsonToMongoDocumentItemType, index: number): Promise<JsonToMongoDocumentItemType> => {
+                return makeData(jsonDocumentItem, slug);
+            }
+        )
+    );
+
+    const imageList = newList
+        .map((jsonDocumentItem: JsonToMongoDocumentItemType): string => jsonDocumentItem.src.trim())
+        .filter(Boolean)
+        .map((src: string): string => src.split('/').pop());
+
+    return Promise.resolve({
+        ...newDocument,
+        content: newList.map(dataToContent).join('\n'),
+        imageList,
+    });
+}

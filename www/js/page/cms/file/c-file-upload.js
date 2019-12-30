@@ -5,6 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
 import Paper from '@material-ui/core/Paper';
 
+// eslint-disable-next-line max-len
+import {InputUploadJsonAsDocument} from '../../../component/layout/form-generator/field/input-upload-json-as-document/c-input-upload-json-as-document';
 import mainWrapperStyle from '../../../component/main-wrapper/main-wrapper.scss';
 import {fileApiConst} from '../../../../../server/src/api/part/file-api-const';
 import {FormGenerator} from '../../../component/layout/form-generator/form-generator';
@@ -21,8 +23,6 @@ import {FormButton} from '../../../component/layout/form-button/c-form-button';
 import {isError, isFile} from '../../../lib/is';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
-
-import {InputUploadJsonAsDocument} from '../../../component/layout/form-generator/field/input-upload-json-as-document/c-input-upload-json-as-document';
 
 import {uploadFileList} from './file-api';
 
