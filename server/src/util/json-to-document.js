@@ -74,8 +74,8 @@ async function makeData(rawData: JsonToMongoDocumentItemType, prefix: string): P
                 .pop();
         const newSrc = await getFileByUrl(rawData.src.trim(), path.join(cwd, fileApiConst.pathToUploadFiles, fileName));
 
-        if (isError(src)) {
-            throw new Error(src.message);
+        if (isError(newSrc)) {
+            throw new Error(newSrc.message);
         }
 
         return {
