@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pathToFolder='./back-up'
+pathToFolder='./db-dump'
 maxFileCount=200
 
 # make fodler if needed

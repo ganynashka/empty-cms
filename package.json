@@ -36,6 +36,7 @@
     "zip": "zip -9 --exclude=*node_modules* -r my-project_`git symbolic-ref --short HEAD`-`date +%Y-%m-%d-%H-%M-%S` ./",
     "pre-commit-hook": "npm run eslint && npm run stylelint && npm run flow",
     "postinstall": "cp ./dev/git/hooks/* ./.git/hooks/",
+    "db-dump": "mongodump --port=27001 --archive=db-dump/db-dump-`date +%Y-%m-%d-%H-%M-%S`.zip",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
