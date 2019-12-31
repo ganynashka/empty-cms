@@ -23,7 +23,8 @@ function getFileByUrl(url: string, destination: string): Promise<Error | string>
     const file = fileSystem.createWriteStream(destination);
 
     return new Promise((resolve: (result: Error | string) => mixed) => {
-        const request = https.get(url, (response: Response) => {
+        // eslint-disable-next-line id-match
+        const request = https.get(url, (response: http$IncomingMessage<net$Socket>) => {
             // check if response is success
             if (Number(response.statusCode) !== 200) {
                 resolve(new Error('Response status was ' + response.statusCode));
@@ -34,6 +35,7 @@ function getFileByUrl(url: string, destination: string): Promise<Error | string>
         });
 
         file.on('finish', () => {
+            // $FlowFixMe
             file.close(() => {
                 resolve(destination);
             });
