@@ -23,6 +23,7 @@ type StateType = {
     file: File | null,
     isUploadInProgress: boolean,
     defaultValue: FromGeneratorInputValueType,
+    refreshKey: number,
 };
 
 export class InputUploadJsonAsDocument extends Component<PropsType, StateType> {
@@ -33,14 +34,18 @@ export class InputUploadJsonAsDocument extends Component<PropsType, StateType> {
             file: null,
             isUploadInProgress: false,
             defaultValue: props.defaultValue,
+            refreshKey: 1,
         };
     }
 
     getDefaultState(): StateType {
+        const {state} = this;
+
         return {
             file: null,
             isUploadInProgress: false,
             defaultValue: '',
+            refreshKey: state.refreshKey + 1,
         };
     }
 
@@ -80,11 +85,13 @@ export class InputUploadJsonAsDocument extends Component<PropsType, StateType> {
             uploadJsonAsDocument(readerResult)
                 .then(async (result: Error | MainServerApiResponseType): Promise<boolean> => {
                     if (isError(result)) {
+                        this.setState(this.getDefaultState());
                         console.error(result.message);
                         return false;
                     }
 
                     if (result.isSuccessful !== true) {
+                        this.setState(this.getDefaultState());
                         console.error(result.errorList.join('\n'));
                         return false;
                     }
@@ -208,7 +215,8 @@ export class InputUploadJsonAsDocument extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        const {props} = this;
+        const {props, state} = this;
+        const {refreshKey} = state;
         const {labelText, defaultValue} = props;
 
         if (!isString(defaultValue) && !isNull(defaultValue)) {
@@ -217,7 +225,7 @@ export class InputUploadJsonAsDocument extends Component<PropsType, StateType> {
         }
 
         return (
-            <div className={inputUploadFileStyle.input_upload_file__label_wrapper}>
+            <div className={inputUploadFileStyle.input_upload_file__label_wrapper} key={refreshKey}>
                 <span className={fieldStyle.form__label_description}>{labelText}</span>
                 <div className={this.getWrapperClassName()}>{this.renderContent()}</div>
             </div>

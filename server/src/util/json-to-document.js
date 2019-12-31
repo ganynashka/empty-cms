@@ -35,10 +35,8 @@ function getFileByUrl(url: string, destination: string): Promise<Error | string>
         });
 
         file.on('finish', () => {
-            // $FlowFixMe
-            file.close(() => {
-                resolve(destination);
-            });
+            file.close();
+            resolve(destination);
         });
 
         request.on('error', (error: Error) => {
