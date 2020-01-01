@@ -9,4 +9,5 @@ export const deviceTypeNameMap = {
     car: 'car',
 };
 
-export const mobileDeviceList = [deviceTypeNameMap.tablet, deviceTypeNameMap.phone, deviceTypeNameMap.car];
+export const mobileDeviceList = [deviceTypeNameMap.phone, deviceTypeNameMap.tablet, deviceTypeNameMap.car];
+export const supportedDeviceList = [deviceTypeNameMap.phone, deviceTypeNameMap.tablet, deviceTypeNameMap.desktop];
