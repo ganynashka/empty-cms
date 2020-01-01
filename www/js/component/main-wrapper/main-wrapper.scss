@@ -17,6 +17,11 @@
 
 :global {
     .loaded.desktop {
-        background-image: url('./image/main-bg.jpg');
+        background-image: url('./image/main-bg.jpg'); // $main-background-text-color
+    }
+
+    .tablet,
+    .mobile {
+        background-color: $main-background-text-color;
     }
 }

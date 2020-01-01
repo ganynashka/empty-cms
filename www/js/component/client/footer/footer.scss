@@ -2,21 +2,18 @@
 @import './../../../../css/var';
 
 .footer_wrapper {
-    align-items: center;
     background-color: $light-gray;
     border-top: 1px solid $gray;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+    font-size: 0; // because inline-block inner
+    line-height: 0;
     padding: $ui-unit;
+    text-align: center;
 }
 
 %footer-text-item {
-    display: block;
+    display: inline-block;
     font-size: 16px;
     margin: $ui-unit / 2 $ui-unit;
-    position: relative;
 }
 
 .footer__copy_right {

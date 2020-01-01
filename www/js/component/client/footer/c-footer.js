@@ -24,11 +24,11 @@ export function Footer(props: PropsType): Node {
     }
 
     const year = new Date().getFullYear();
-    const copyRight = `© Сказки детям 2019-${year}`;
+    const copyRight = `© Сказки детям ${year}г.`;
 
     return (
         <footer className={footerStyle.footer_wrapper}>
-            <p>{copyRight}</p>
+            <p className={footerStyle.footer__copy_right}>{copyRight}</p>
             <Link className={footerStyle.footer__link} to="#">
                 Правообладателям
             </Link>
