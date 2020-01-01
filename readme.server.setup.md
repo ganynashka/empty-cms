@@ -3,6 +3,7 @@
 1 - check SSHD is installed
 
 > $ ssh-keygen // generate shh key
+> $ ssh-keygen -t rsa // the same
 
 ssh-keygen will create 2 files:
 - ~/.ssh/id_rsa - private key
