@@ -24,3 +24,5 @@ module.exports.pathToLoadedFileFolder = '/file';
 
 module.exports.webpackDevServerPort = 9090;
 module.exports.ssrServerPort = 9091;
+module.exports.ssrHttpServerPortProduction = 80;
+module.exports.ssrHttpsServerPortProduction = 443;

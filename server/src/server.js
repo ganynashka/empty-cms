@@ -13,7 +13,7 @@ import {StaticRouter} from 'react-router-dom';
 import express, {type $Application, type $Request, type $Response} from 'express';
 
 import {ClientApp} from '../../www/js/component/app/c-client-app';
-import {ssrServerPort} from '../../webpack/config';
+import {ssrServerPort, ssrHttpServerPortProduction} from '../../webpack/config';
 
 import {getInitialData} from '../../www/js/provider/intial-data/intial-data-helper';
 
@@ -82,15 +82,20 @@ app.get('*', async (request: $Request, response: $Response) => {
     response.send(htmlResult);
 });
 
-/*
 if (process.env.NODE_ENV === 'production') {
     // $FlowFixMe
-    https.createServer(sslCredentials, app).listen(PORT, () => {
-        console.info(`Server listening on port ${PORT} - production`);
+    // https.createServer(sslCredentials, app).listen(PORT, () => {
+    //     console.info(`Server listening on port ${PORT} - production`);
+    // });
+    app.listen(ssrHttpServerPortProduction, () => {
+        console.info(
+            `Server listening on port ${ssrHttpServerPortProduction} - ${String(
+                process.env.NODE_ENV || 'development'
+            )}`
+        );
     });
 } else {
-*/
-app.listen(PORT, () => {
-    console.info(`Server listening on port ${PORT} - ${String(process.env.NODE_ENV || 'development')}`);
-});
-// }
+    app.listen(PORT, () => {
+        console.info(`Server listening on port ${PORT} - ${String(process.env.NODE_ENV || 'development')}`);
+    });
+}
