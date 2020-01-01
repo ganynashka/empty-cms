@@ -8,6 +8,11 @@ type SetMetaInputType = {|
 |};
 
 export function setMeta(metaData: SetMetaInputType) {
+    if (typeof document === 'undefined') {
+        console.error('document is undefined');
+        return;
+    }
+
     const {head} = document;
 
     if (!head) {
@@ -15,12 +20,20 @@ export function setMeta(metaData: SetMetaInputType) {
     }
 
     const title = head.querySelector('title');
-    const description = head.querySelector('meta[name="description"]');
 
-    if (!title || !description) {
+    if (!title) {
+        console.error('title', title);
         return;
     }
 
     title.innerHTML = metaData.title;
+
+    // const description = head.querySelector('meta[name="description"]');
+
+    // if (!description) {
+    //     console.error('description', description);
+    //     return;
+    // }
+
     // description.setAttribute('content', metaData.description);
 }

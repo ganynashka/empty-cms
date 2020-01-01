@@ -17,6 +17,14 @@ declare module 'body-parser' {
     declare export default BodyParser;
 }
 
+declare module 'express-device' {
+    declare type ExpressDevice = {
+        capture: () => string,
+    };
+
+    declare export default ExpressDevice;
+}
+
 declare module 'connect-mongo' {
     declare type MongoStoreOptionsType = {
         +url: string,

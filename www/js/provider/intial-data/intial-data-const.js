@@ -1,5 +1,7 @@
 // @flow
 
+import {deviceTypeNameMap} from '../../../../server/src/util/device/device-const';
+
 import {type InitialDataType} from './intial-data-type';
 
 export const rootPathMetaData = {
@@ -15,6 +17,7 @@ export const defaultInitialData: InitialDataType = {
     articlePathData: null,
     documentNodeTree: null,
     setInitialData: null,
+    device: {type: deviceTypeNameMap.phone},
 };
 
 export const page404InitialData: InitialDataType = {

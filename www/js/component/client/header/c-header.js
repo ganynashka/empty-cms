@@ -16,8 +16,8 @@ import {isError, isFunction} from '../../../lib/is';
 import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
 import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database/database-type';
 import {Search} from '../search/c-search';
-
 import {getLinkToArticle} from '../../../lib/string';
+import {isMobileDevice} from '../../../../../server/src/util/device/device-helper';
 
 import headerStyle from './header.scss';
 
@@ -191,22 +191,47 @@ export class Header extends Component<PropsType, StateType> {
         );
     }
 
-    render(): Node {
+    renderServerSide(): Node {
+        const {props} = this;
+        const {initialContextData} = props;
+        const {device} = initialContextData;
+
+        if (!device) {
+            return this.renderClientSide();
+        }
+
+        return (
+            <header className={headerStyle.header__wrapper}>
+                {isMobileDevice(device) ? this.renderMobile() : this.renderDesktop()}
+            </header>
+        );
+    }
+
+    renderClientSide(): Node {
         const {props, state} = this;
-        const {location, screenContextData} = props;
+        const {screenContextData} = props;
         const {isNavigationMenuOpen} = state;
+        const {isDesktop} = screenContextData;
+
+        return (
+            <>
+                <header className={headerStyle.header__wrapper}>
+                    {isDesktop ? this.renderDesktop() : this.renderMobile()}
+                </header>
+                {!isDesktop && isNavigationMenuOpen ? this.renderMobileMenu() : null}
+            </>
+        );
+    }
+
+    render(): Node {
+        const {props} = this;
+        const {location, screenContextData} = props;
+        const {isLoaded} = screenContextData;
 
         if (isCMS(location)) {
             return null;
         }
 
-        return (
-            <>
-                <header className={headerStyle.header__wrapper}>
-                    {screenContextData.isDesktop ? this.renderDesktop() : this.renderMobile()}
-                </header>
-                {!screenContextData.isDesktop && isNavigationMenuOpen ? this.renderMobileMenu() : null}
-            </>
-        );
+        return isLoaded ? this.renderClientSide() : this.renderServerSide();
     }
 }

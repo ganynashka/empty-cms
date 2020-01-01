@@ -6,6 +6,7 @@ import compression from 'compression';
 import bodyParser from 'body-parser';
 import fileUpload from 'express-fileupload';
 import session from 'express-session';
+import expressDevice from 'express-device';
 import connectMongo from 'connect-mongo';
 
 import {passwordKey, sessionKey} from '../../key';
@@ -26,6 +27,7 @@ export function addApiIntoApplication(app: $Application) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(fileUpload({createParentPath: true}));
+    app.use(expressDevice.capture());
     app.disable('x-powered-by');
 
     // WARNING: I don't know why needed 'app.set('trust proxy', 1)', just copy-paste from https://www.npmjs.com/package/express-session

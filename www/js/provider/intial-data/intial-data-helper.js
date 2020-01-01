@@ -1,29 +1,32 @@
 // @flow
 
 import {type $Request, type $Response} from 'express';
-import {type MongoCollection} from 'mongodb';
 
-import type {MongoDocumentTreeNodeType, MongoDocumentType} from '../../../../server/src/database/database-type';
+import type {MongoDocumentType} from '../../../../server/src/database/database-type';
 import {getCollection} from '../../../../server/src/database/database-helper';
 import {dataBaseConst} from '../../../../server/src/database/database-const';
 import {isError} from '../../lib/is';
 import {routePathMap} from '../../component/app/routes-path-map';
 import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from '../../../../server/src/api/part/document-api-const';
 import {getDocumentTree} from '../../../../server/src/api/part/document-api-helper';
-
 import {getLinkToArticle} from '../../lib/string';
+import {getDeviceData} from '../../../../server/src/util/device/device';
 
 import {defaultInitialData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';
 
 // eslint-disable-next-line complexity, max-statements
-export async function getInitialDataByPath(path: string): Promise<InitialDataType> {
+export async function getInitialDataByRequest(request: $Request): Promise<InitialDataType> {
+    const path = String(request.query.url || request.path || routePathMap.siteEnter.path);
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
     const mayBeDocumentNodeTree = await getDocumentTree(rootDocumentSlug, rootDocumentTreeDefaultDeep);
-    const documentNodeTree = isError(mayBeDocumentNodeTree) ? null : mayBeDocumentNodeTree;
+    const defaultRequestInitialData = {
+        documentNodeTree: isError(mayBeDocumentNodeTree) ? null : mayBeDocumentNodeTree,
+        device: getDeviceData(request),
+    };
 
     if (isError(collection)) {
-        return {...page404InitialData, documentNodeTree};
+        return {...page404InitialData, ...defaultRequestInitialData};
     }
 
     // root
@@ -35,7 +38,7 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
                 ...defaultInitialData,
                 title: rootDocument.title,
                 meta: rootDocument.meta,
-                documentNodeTree,
+                ...defaultRequestInitialData,
             };
         }
 
@@ -44,7 +47,7 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
         return {
             ...defaultInitialData,
             ...rootPathMetaData,
-            documentNodeTree,
+            ...defaultRequestInitialData,
         };
     }
 
@@ -57,7 +60,7 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
         if (isError(articlePathData)) {
             console.error(articlePathData.message);
 
-            return {...page404InitialData, documentNodeTree};
+            return {...page404InitialData, ...defaultRequestInitialData};
         }
 
         return {
@@ -65,16 +68,16 @@ export async function getInitialDataByPath(path: string): Promise<InitialDataTyp
             title: articlePathData.title,
             meta: articlePathData.meta,
             articlePathData,
-            documentNodeTree,
+            ...defaultRequestInitialData,
         };
     }
 
     // check cms
     if (path.startsWith(routePathMap.cmsEnter.path)) {
-        return {...defaultInitialData, documentNodeTree};
+        return {...defaultInitialData, ...defaultRequestInitialData};
     }
 
-    return {...page404InitialData, documentNodeTree};
+    return {...page404InitialData, ...defaultRequestInitialData};
 }
 
 export async function getInitialData(request: $Request, response: $Response): Promise<InitialDataType> {
@@ -82,7 +85,5 @@ export async function getInitialData(request: $Request, response: $Response): Pr
         return {...page404InitialData};
     }
 
-    const {path} = request;
-
-    return getInitialDataByPath(path);
+    return getInitialDataByRequest(request);
 }
