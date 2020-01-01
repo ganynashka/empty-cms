@@ -50,3 +50,10 @@ also try to find and play with 'PasswordAuthentication no', probably if 'yes' yo
 
 if ssh-add do not works, try to use
 > $ eval \`ssh-agent -s\`
+
+
+### PM2
+> $ sudo npm i -g pm2
+> $ sudo pm2 start "npm run start-ssr-server:prod" --name server // start process with name 'server'
+> $ pm2 monit // show current state
+> $ pm2 kill // kill 'em all!
