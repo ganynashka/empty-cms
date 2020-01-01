@@ -54,6 +54,6 @@ if ssh-add do not works, try to use
 
 ### PM2
 > $ sudo npm i -g pm2
-> $ sudo pm2 start "npm run start-ssr-server:prod" --name server // start process with name 'server'
+> $ sudo pm2 start ./run-server.sh --name server // start process with name 'server'
 > $ pm2 monit // show current state
 > $ pm2 kill // kill 'em all!
