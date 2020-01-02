@@ -3,11 +3,14 @@
 /* global location */
 
 import React, {Component, type Node} from 'react';
-import {Link} from 'react-router-dom';
 
 import type {InitialDataType, RouterStaticContextType} from '../../../provider/intial-data/intial-data-type';
-import {routePathMap} from '../../../component/app/routes-path-map';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
+import articleStyle from '../article/article.scss';
+import {Markdown} from '../../../component/layout/markdown/c-markdown';
+import singleArticleStyle from '../article/single-article/single-article.scss';
+
+import pageNoFoundStyle from './page-not-found.scss';
 
 type PropsType = {
     +initialContextData: InitialDataType,
@@ -44,6 +47,19 @@ export class PageNotFound extends Component<PropsType, StateType> {
         const {props} = this;
         const {initialContextData} = props;
 
+        return (
+            <div className={articleStyle.article__wrapper}>
+                <div className={pageNoFoundStyle.page_not_found__wrapper}>
+                    <h1 className={articleStyle.article__header}>404 - Страница не найдена</h1>
+                    <Markdown
+                        additionalClassName={singleArticleStyle.markdown}
+                        text="Всё хорошо, вы всё равно можете почитать у нас сказки, стихи и многое другое!"
+                    />
+                </div>
+            </div>
+        );
+
+        /*
         if (initialContextData.is404) {
             return (
                 <div>
@@ -61,5 +77,6 @@ export class PageNotFound extends Component<PropsType, StateType> {
                 <Link to={routePathMap.siteEnter.path}>to home without reload page</Link>
             </div>
         );
+*/
     }
 }
