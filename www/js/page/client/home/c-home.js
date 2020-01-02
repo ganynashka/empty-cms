@@ -10,8 +10,8 @@ import serviceStyle from '../../../../css/service.scss';
 import {Markdown} from '../../../component/layout/markdown/c-markdown';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 import {getResizedInsideImageSrc} from '../../../lib/url';
-
 import {getLinkToArticle} from '../../../lib/string';
+import {PageLoading} from '../../../component/client/page-loading/c-page-loading';
 
 import homeStyle from './home.scss';
 
@@ -78,8 +78,20 @@ export class Home extends Component<PropsType, StateType> {
     }
 
     render(): Node {
+        const {props} = this;
+        const {initialContextData} = props;
+        const {documentNodeTree} = initialContextData;
+
+        if (!documentNodeTree) {
+            return (
+                <div className={serviceStyle.width_limit} key="loading">
+                    <PageLoading/>
+                </div>
+            );
+        }
+
         return (
-            <div className={serviceStyle.width_limit}>
+            <div className={serviceStyle.width_limit} key="loaded">
                 {this.renderRootDocument()}
                 {this.renderCategoryLinkList()}
             </div>

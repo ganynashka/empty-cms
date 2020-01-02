@@ -1,0 +1,24 @@
+@import './../../../../css/var';
+
+.page_loading__wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    width: 100%;
+}
+
+.page_loading__image {
+    display: block;
+    margin-top: -100px;
+    width: 100px;
+}
+
+.page_loading__text {
+    color: $main-text-color;
+    display: block;
+    font-size: 16px;
+    padding-top: 8px;
+    text-indent: 16px;
+}
