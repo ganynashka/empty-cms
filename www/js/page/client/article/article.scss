@@ -8,7 +8,7 @@ $space-between-blocks: 20px;
 .article__wrapper {
     @extend %width-limit;
 
-    min-height: 100%;
+    min-height: 100vh;
     padding-bottom: $ui-unit * 3;
     padding-top: $ui-unit * 3;
 }
