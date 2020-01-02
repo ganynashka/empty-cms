@@ -65,12 +65,10 @@ export function addFileApi(app: $Application) {
         const isFileExists = await getIsFileExists(pathToCachedFile);
 
         if (isFileExists) {
-            console.log('get file from cache', pathToCachedFile);
+            // console.log('get file from cache', pathToCachedFile);
             response.sendFile(pathToCachedFile);
             return;
         }
-
-        console.log('make new file and send', pathToCachedFile);
 
         const pathToTemporaryFile = path.join(cwd, fileApiConst.pathToUploadFilesTemp, endFileName);
 

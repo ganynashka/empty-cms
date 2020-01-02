@@ -23,22 +23,22 @@ export function addStaticApi(app: $Application) {
 
     // usual static files
     app.get(pathToStaticFileFolder + '/*', (request: $Request, response: $Response) => {
-        console.log(pathToStaticFileFolder + '/*');
-        console.log(request.url);
+        // console.log(pathToStaticFileFolder + '/*');
+        // console.log(request.url);
         response.sendFile(path.join(CWD, pathToDist, request.params['0']));
     });
 
     // upload files
     app.get(pathToUploadFiles + '/*', (request: $Request, response: $Response) => {
-        console.log(pathToUploadFiles + '/*');
-        console.log(request.url);
+        // console.log(pathToUploadFiles + '/*');
+        // console.log(request.url);
         response.sendFile(path.join(CWD, pathToUploadFiles, request.params['0']));
     });
 
     // service worker
     app.get('/sw.js', (request: $Request, response: $Response) => {
-        console.log(pathToStaticFileFolder + '/*');
-        console.log(request.url);
+        // console.log(pathToStaticFileFolder + '/*');
+        // console.log(request.url);
         response.sendFile(path.join(CWD, pathToDist, 'asset/sw.js'));
     });
 }

@@ -13,7 +13,7 @@ const getDataBaseCache: {[key: string]: Promise<MongoDataBase>} = {};
 
 export function getDataBase(name: string): Promise<MongoDataBase> {
     if (hasProperty(getDataBaseCache, name)) {
-        console.log('getDataBase: MongoDataBase get from cache, name:', name);
+        // console.log('getDataBase: MongoDataBase get from cache, name:', name);
         return getDataBaseCache[name];
     }
 
@@ -27,13 +27,13 @@ export function getDataBase(name: string): Promise<MongoDataBase> {
                 },
                 (clientError: NullableType<Error>, client: NullableType<MongoClient>) => {
                     if (isError(clientError)) {
-                        console.error('Can not connect to mongo server');
+                        // console.error('Can not connect to mongo server');
                         reject(new Error('Can not connect to mongo server'));
                         return;
                     }
 
                     if (client === null) {
-                        console.error('Mongo client is not define');
+                        // console.error('Mongo client is not define');
                         reject(new Error('Mongo client is not define'));
                         return;
                     }
@@ -43,8 +43,6 @@ export function getDataBase(name: string): Promise<MongoDataBase> {
             );
         }
     );
-
-    console.log('getDataBase: MongoDataBase defined');
 
     return getDataBaseCache[name];
 }

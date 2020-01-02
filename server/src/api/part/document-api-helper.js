@@ -63,8 +63,8 @@ export async function getDocumentParentListBySlug(slug: string): Promise<Array<M
 export function getDocumentTree(slug: string, deep: number): Promise<MongoDTNType | Error> {
     return getDocumentBySlug(slug).then((mongoDocument: MayBeDocumentType): Promise<MongoDTNType | Error> => {
         if (isError(mongoDocument) || isNull(mongoDocument) || !mongoDocument.isActive) {
-            console.error('Can not get document tree');
-            console.error(mongoDocument);
+            // console.error('Can not get document tree');
+            // console.error(mongoDocument);
 
             // eslint-disable-next-line promise/no-return-wrap
             return Promise.resolve(new Error('Can not get document tree'));
@@ -94,7 +94,7 @@ function getDocumentTreeRecursively(
     // collection: MongoCollection<MongoDocumentType>
 ): Promise<MongoDTNType | Error> {
     if (deep === 0) {
-        console.log('---> Error: deep is 0');
+        // console.log('---> Error: deep is 0');
         return Promise.resolve(currentRoot);
     }
 
@@ -108,13 +108,13 @@ function getDocumentTreeRecursively(
         .then((documentListOrError: Array<MayBeDocumentType>): Promise<MongoDTNType> => {
             documentListOrError.map((documentOrError: MayBeDocumentType) => {
                 if (isError(documentOrError) || isNull(documentOrError)) {
-                    console.error('can not get document');
-                    console.error(documentOrError);
+                    // console.error('can not get document');
+                    // console.error(documentOrError);
                     return;
                 }
 
                 if (documentOrError && !documentOrError.isActive) {
-                    console.log('document is not active');
+                    // console.log('document is not active');
                     return;
                 }
 
@@ -141,8 +141,8 @@ function getDocumentTreeRecursively(
             return Promise.all(promiseList).then((): MongoDTNType => currentRoot);
         })
         .catch((error: Error): MongoDTNType => {
-            console.error(error.message);
-            console.error(error);
+            // console.error(error.message);
+            // console.error(error);
 
             return currentRoot;
         });

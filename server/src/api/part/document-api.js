@@ -174,8 +174,6 @@ export function addDocumentApi(app: $Application) {
 
         const newDocument: MongoDocumentType = await convertJsonToDocument(jsonDocument);
 
-        console.log(newDocument);
-
         await collection.insertOne(newDocument);
 
         response.json({isSuccessful: true, errorList: []});
