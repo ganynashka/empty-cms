@@ -105,11 +105,16 @@ export class Header extends Component<PropsType, StateType> {
     getMobileHeaderContent(): Array<Node> {
         const {state, props} = this;
         const {isNavigationMenuOpen, isSearchActive} = state;
-        const {screenContextData} = props;
+        const {screenContextData, initialContextData} = props;
 
         if (isSearchActive) {
             return [
-                <Search key="search" onActiveChange={this.handleSearchActive} screenContextData={screenContextData}/>,
+                <Search
+                    initialContextData={initialContextData}
+                    key="search"
+                    onActiveChange={this.handleSearchActive}
+                    screenContextData={screenContextData}
+                />,
             ];
         }
 
@@ -130,7 +135,12 @@ export class Header extends Component<PropsType, StateType> {
             >
                 Сказки детям
             </Link>,
-            <Search key="search" onActiveChange={this.handleSearchActive} screenContextData={screenContextData}/>,
+            <Search
+                initialContextData={initialContextData}
+                key="search"
+                onActiveChange={this.handleSearchActive}
+                screenContextData={screenContextData}
+            />,
         ];
     }
 
@@ -170,7 +180,7 @@ export class Header extends Component<PropsType, StateType> {
 
     renderDesktop(): Node {
         const {props} = this;
-        const {screenContextData} = props;
+        const {screenContextData, initialContextData} = props;
 
         return (
             <>
@@ -179,6 +189,7 @@ export class Header extends Component<PropsType, StateType> {
                         Сказки детям
                     </Link>
                     <Search
+                        initialContextData={initialContextData}
                         key="search"
                         onActiveChange={this.handleSearchActive}
                         screenContextData={screenContextData}

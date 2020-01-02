@@ -10,6 +10,8 @@ import type {ScreenContextType} from '../../../provider/screen/screen-context-ty
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
 import {cleanText, getLinkToArticle} from '../../../lib/string';
 import {isError} from '../../../lib/is';
+import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
+import {isMobileDevice} from '../../../../../server/src/util/device/device-helper';
 
 import searchStyle from './search.scss';
 import {searchDocument} from './search-api';
@@ -17,6 +19,7 @@ import {searchDocument} from './search-api';
 type PropsType = {|
     +onActiveChange: (isActive: boolean) => mixed,
     +screenContextData: ScreenContextType,
+    +initialContextData: InitialDataType,
 |};
 
 type StateType = {|
@@ -151,10 +154,31 @@ export class Search extends Component<PropsType, StateType> {
         );
     }
 
-    render(): Node {
-        const {props, state} = this;
+    renderClientSide(): Node {
+        const {props} = this;
         const {screenContextData} = props;
+        const {isDesktop} = screenContextData;
 
-        return screenContextData.isDesktop ? this.renderDesktop() : this.renderMobile();
+        return isDesktop ? this.renderDesktop() : this.renderMobile();
+    }
+
+    renderServerSide(): Node {
+        const {props} = this;
+        const {initialContextData} = props;
+        const {device} = initialContextData;
+
+        if (!device) {
+            return this.renderClientSide();
+        }
+
+        return isMobileDevice(device) ? this.renderMobile() : this.renderDesktop();
+    }
+
+    render(): Node {
+        const {props} = this;
+        const {screenContextData} = props;
+        const {isLoaded} = screenContextData;
+
+        return isLoaded ? this.renderClientSide() : this.renderServerSide();
     }
 }
