@@ -113,8 +113,12 @@ function getDocumentTreeRecursively(
                     return;
                 }
 
-                if (documentOrError && !documentOrError.isActive) {
+                if (!documentOrError) {
                     // console.log('document is not active');
+                    return;
+                }
+
+                if (documentOrError.isActive !== true) {
                     return;
                 }
 
