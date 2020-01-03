@@ -150,6 +150,10 @@ export function extractUniqueArrayString(inputValue: mixed): Array<string> {
     return arrayString;
 }
 
-export function getLinkToArticle(slug: string): string {
+export function getLinkToReadArticle(slug: string): string {
     return routePathMap.article.staticPartPath + '/' + slug;
+}
+
+export function getLinkToEditArticle(slug: string): string {
+    return String(routePathMap.documentEdit.staticPartPath) + '/' + slug;
 }

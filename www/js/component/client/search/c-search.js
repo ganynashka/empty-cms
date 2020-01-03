@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
-import {cleanText, getLinkToArticle} from '../../../lib/string';
+import {cleanText, getLinkToReadArticle} from '../../../lib/string';
 import {isError} from '../../../lib/is';
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 import {isMobileDevice} from '../../../../../server/src/util/device/device-helper';
@@ -46,7 +46,7 @@ export class Search extends Component<PropsType, StateType> {
 
         return (
             <li key={slug}>
-                <Link className={searchStyle.search_result_item} to={getLinkToArticle(slug)}>
+                <Link className={searchStyle.search_result_item} to={getLinkToReadArticle(slug)}>
                     {title}
                 </Link>
             </li>

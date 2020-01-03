@@ -16,7 +16,7 @@ import {isError, isFunction} from '../../../lib/is';
 import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
 import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database/database-type';
 import {Search} from '../search/c-search';
-import {getLinkToArticle} from '../../../lib/string';
+import {getLinkToReadArticle} from '../../../lib/string';
 import {isMobileDevice} from '../../../../../server/src/util/device/device-helper';
 
 import headerStyle from './header.scss';
@@ -160,7 +160,7 @@ export class Header extends Component<PropsType, StateType> {
         const {slug, title} = linkData;
 
         return (
-            <Link className={headerStyle.header__desktop__menu_line__link} key={slug} to={getLinkToArticle(slug)}>
+            <Link className={headerStyle.header__desktop__menu_line__link} key={slug} to={getLinkToReadArticle(slug)}>
                 {title}
             </Link>
         );

@@ -6,11 +6,9 @@ import TreeItem from '@material-ui/lab/TreeItem';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
 import {documentSearchExact} from '../../../page/cms/document/document-api';
 import {typeConverter} from '../../../lib/type';
-import {routePathMap} from '../../app/routes-path-map';
 import {stopPropagation} from '../../../lib/event';
 import {isError} from '../../../lib/is';
-
-import {getLinkToArticle} from '../../../lib/string';
+import {getLinkToEditArticle} from '../../../lib/string';
 
 import documentTreeStyle from './document-tree.scss';
 
@@ -86,7 +84,7 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
         }
 
         const {title, isActive} = mongoDocument;
-        const href = getLinkToArticle(slug);
+        const href = getLinkToEditArticle(slug);
 
         const className = isActive ? null : documentTreeStyle.not_active_item;
 

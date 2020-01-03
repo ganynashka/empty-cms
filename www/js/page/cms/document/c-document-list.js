@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
 import {EnhancedTable} from '../../../component/layout/table/enhanced-table/c-enhanced-table';
 import {timeToHumanString} from '../../../../../server/src/util/time';
-import {routePathMap} from '../../../component/app/routes-path-map';
 import type {
     EnhancedTableBodyCellType,
     EnhancedTableGetDataResultType,
@@ -14,6 +13,7 @@ import type {
 } from '../../../component/layout/table/enhanced-table/enhanced-table-type';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 import {isError} from '../../../lib/is';
+import {getLinkToEditArticle} from '../../../lib/string';
 
 import {getDocumentList, getDocumentListSize} from './document-api';
 import {RemoveDocument} from './c-document-remove-button';
@@ -32,7 +32,6 @@ async function enhancedTableGetDocumentList(
 ): Promise<EnhancedTableGetDataResultType> {
     const list = await getDocumentList(pageIndex, rowsPerPage, orderBy, order);
     const fullListSize = await getDocumentListSize();
-    const staticPartPath = String(routePathMap.documentEdit.staticPartPath);
 
     if (isError(list) || isError(fullListSize)) {
         console.error('list or fullListSize is error');
@@ -47,7 +46,7 @@ async function enhancedTableGetDocumentList(
             const {slug, type, title, isActive, updatedDate, createdDate, rating} = documentData;
 
             return {
-                slug: <Link to={staticPartPath + '/' + slug}>{slug}</Link>,
+                slug: <Link to={getLinkToEditArticle(slug)}>{slug}</Link>,
                 type,
                 title,
                 rating,

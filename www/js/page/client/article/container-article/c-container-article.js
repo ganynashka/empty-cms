@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import {Markdown} from '../../../../component/layout/markdown/c-markdown';
 import type {InitialDataType} from '../../../../provider/intial-data/intial-data-type';
 import type {MongoDocumentTreeNodeType} from '../../../../../../server/src/database/database-type';
-import {getLinkToArticle} from '../../../../lib/string';
+import {getLinkToReadArticle} from '../../../../lib/string';
 import articleStyle from '../article.scss';
 import {getResizedInsideImageSrc} from '../../../../lib/url';
 import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
@@ -60,7 +60,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
                 key={slug}
                 style={style}
             >
-                <Link className={articleStyle.article__list_image_item__link} to={getLinkToArticle(slug)}>
+                <Link className={articleStyle.article__list_image_item__link} to={getLinkToReadArticle(slug)}>
                     <span className={articleStyle.article__list_image_item__link_text}>{title}</span>
                 </Link>
             </li>

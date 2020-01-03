@@ -9,7 +9,7 @@ import {isError} from '../../lib/is';
 import {routePathMap} from '../../component/app/routes-path-map';
 import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from '../../../../server/src/api/part/document-api-const';
 import {getDocumentTree} from '../../../../server/src/api/part/document-api-helper';
-import {getLinkToArticle} from '../../lib/string';
+import {getLinkToReadArticle} from '../../lib/string';
 import {getDeviceData} from '../../../../server/src/util/device/device';
 
 import {defaultInitialData, page404InitialData, rootPathMetaData} from './intial-data-const';
@@ -53,7 +53,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
 
     // article
     if (path.startsWith(routePathMap.article.staticPartPath)) {
-        const slug = path.replace(getLinkToArticle(''), '');
+        const slug = path.replace(getLinkToReadArticle(''), '');
 
         const articlePathData = await getDocumentTree(slug, 3);
 
