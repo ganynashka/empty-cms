@@ -233,7 +233,7 @@ export function addDocumentApi(app: $Application) {
 
         collection
             // $FlowFixMe
-            .find({$or: getSearchParameters(request)})
+            .find({$or: [...getSearchParameters(request)], isActive: true})
             .toArray((error: Error | null, documentList: Array<MongoDocumentType> | null) => {
                 if (error || !Array.isArray(documentList)) {
                     response.status(400);
