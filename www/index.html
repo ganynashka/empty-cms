@@ -7,12 +7,64 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+
+    <!-- icon list  -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/asset/icon/apple-icon-57x57.png"/>
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/asset/icon/apple-icon-60x60.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/asset/icon/apple-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/asset/icon/apple-icon-76x76.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/asset/icon/apple-icon-114x114.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/asset/icon/apple-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/asset/icon/apple-icon-144x144.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/asset/icon/apple-icon-152x152.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/asset/icon/apple-icon-180x180.png"/>
+    <link rel="icon" type="image/png" sizes="192x192"  href="/static/asset/icon/android-icon-192x192.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/asset/icon/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="96x96" href="/static/asset/icon/favicon-96x96.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/asset/icon/favicon-16x16.png"/>
+
+<!--    <meta name="mobile-web-app-capable" content="yes">-->
+<!--    <meta name="apple-mobile-web-app-capable" content="yes">-->
+<!--    <meta name="msapplication-starturl" content="/">-->
+
+<!--    <meta name="msapplication-TileImage" content="/static/asset/icon/ms-icon-144x144.png">-->
+<!--    <meta name="msapplication-TileColor" content="#c00">-->
+
+    <!-- browser's header color, mobile only -->
     <meta name="theme-color" content="#f0ece3"/>
+
+<!--    <link rel="manifest" href="/manifest.json">-->
 
     <meta>
 
 </head>
 <body>
 <div class="js-app-wrapper app-wrapper">{content}</div>
+
+<!--
+    <script
+        data-ad-client="ca-pub-6654692173920232"
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
+    </script>
+-->
+
+<!--
+<script>
+    function registerServiceWorker() {
+        // регистрирует скрипт sw в поддерживаемых браузерах
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(() => {
+                console.log('Service Worker registered successfully.');
+            }).catch(error => {
+                console.log('Service Worker registration failed:', error);
+                console.log(error);
+            });
+        }
+    }
+    registerServiceWorker();
+</script>
+-->
+
 </body>
 </html>
