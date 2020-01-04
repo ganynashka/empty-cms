@@ -45,13 +45,13 @@ export function addDefendApi(app: $Application) {
         }
 
         // check resized image
-        if (path.startsWith(fileApiRouteMap.getResizedImage)) {
+        if (path.startsWith(fileApiRouteMap.getResizedImage + '/')) {
             next();
             return;
         }
 
         // article
-        if (path.startsWith(routePathMap.article.staticPartPath)) {
+        if (path.startsWith(routePathMap.article.staticPartPath + '/')) {
             next();
             return;
         }
