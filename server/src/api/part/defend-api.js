@@ -19,13 +19,17 @@ export function addDefendApi(app: $Application) {
     ];
 
     app.use((request: $Request, response: $Response, next: () => mixed) => {
-        // const userSession = getSession(request);
-        //
-        // console.log('---> Defend API:');
-        // console.log('--->     url:', request.url);
-        // console.log('--->     path:', request.path);
-        // console.log('--->     Session.login:', String(userSession.login));
-        // console.log('--->     Session.role:', String(userSession.role));
+        const userSession = getSession(request);
+
+        const requestInfoList = [
+            '====> Request:',
+            `>     request.url: ${request.url}`,
+            `>     request.path: ${request.path}`,
+            `>     session.login: ${String(userSession.login)}`,
+            `>     session.role: ${String(userSession.role)}`,
+        ];
+
+        console.log(requestInfoList.join('\n'));
 
         next();
     });
