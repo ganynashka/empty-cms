@@ -4,17 +4,18 @@ $page-transition-time: 1000ms;
 
 .page_wrapper {
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow: auto;
-    position: absolute;
-    width: 100%;
-    z-index: $z-index-page-wrapper;
+    //display: flex;
+    //flex-direction: column;
+    //height: 100%;
+    //overflow: auto;
+    //position: absolute;
+    //width: 100%;
+    //z-index: $z-index-page-wrapper;
 }
 
 .main_content {
-    flex-grow: 1;
+    min-height: 100vh;
+    //flex-grow: 1;
 }
 
 .transition_enter {

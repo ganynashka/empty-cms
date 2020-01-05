@@ -6,3 +6,5 @@ export function promiseCatch(error: Error): Error {
 
     return error;
 }
+
+export type PromiseResolveType<Result> = (result: Result) => mixed;

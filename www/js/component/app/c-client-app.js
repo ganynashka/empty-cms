@@ -45,17 +45,26 @@ export function ClientApp(props: PropsType): Node {
         );
     }
 
+    // <InitialDataProvider defaultValue={initialData}>
+    //     {renderWrapperList(wrapperList, [
+    //         // redderRoute(routeItemClientHeader),
+    //         // redderRoute(routeItemCmsHeader),
+    //         routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key])),
+    //         <Switch key="switch">
+    //             {routeItemKeyList.map((key: string): Node => redderEmptyRoute(routeItemMap[key]))}
+    //             {redderRoute(routeItemPage404)}
+    //         </Switch>,
+    //         // redderRoute(routeItemFooter),
+    //     ])}
+    // </InitialDataProvider>
+
     return (
         <InitialDataProvider defaultValue={initialData}>
             {renderWrapperList(wrapperList, [
-                // redderRoute(routeItemClientHeader),
-                // redderRoute(routeItemCmsHeader),
-                routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key])),
                 <Switch key="switch">
-                    {routeItemKeyList.map((key: string): Node => redderEmptyRoute(routeItemMap[key]))}
+                    {routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key]))}
                     {redderRoute(routeItemPage404)}
                 </Switch>,
-                // redderRoute(routeItemFooter),
             ])}
         </InitialDataProvider>
     );

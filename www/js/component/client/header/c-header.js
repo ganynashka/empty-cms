@@ -18,6 +18,7 @@ import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database
 import {Search} from '../search/c-search';
 import {getLinkToReadArticle} from '../../../lib/string';
 import {isMobileDevice} from '../../../../../server/src/util/device/device-helper';
+import {scrollToTop} from '../../../provider/screen/screen-context-helper';
 
 import headerStyle from './header.scss';
 
@@ -85,6 +86,8 @@ export class Header extends Component<PropsType, StateType> {
         const initialContextData = await getInitialClientData(props.location.pathname);
 
         if (isError(initialContextData)) {
+            scrollToTop();
+
             setMeta({
                 title: rootPathMetaData.title,
             });
@@ -100,6 +103,8 @@ export class Header extends Component<PropsType, StateType> {
         } else {
             console.error('initialContextData.setInitialData should be the function!');
         }
+
+        scrollToTop();
     }
 
     getMobileHeaderContent(): Array<Node> {
