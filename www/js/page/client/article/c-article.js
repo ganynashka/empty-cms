@@ -6,6 +6,7 @@ import type {InitialDataType} from '../../../provider/intial-data/intial-data-ty
 import type {MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
 import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-type';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
+import {PageNotFoundContent} from '../page-not-found/page-not-found-content';
 
 import articleStyle from './article.scss';
 import {SingleArticle} from './single-article/c-single-article';
@@ -38,7 +39,7 @@ export class Article extends Component<PropsType, StateType> {
         const {is404, articlePathData} = initialContextData;
 
         if (is404) {
-            return <h1>here is no skazka, sorry :(</h1>;
+            return <PageNotFoundContent/>;
         }
 
         if (match === null) {

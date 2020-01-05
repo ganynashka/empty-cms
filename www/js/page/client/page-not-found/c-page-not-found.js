@@ -7,10 +7,8 @@ import React, {Component, type Node} from 'react';
 import type {InitialDataType, RouterStaticContextType} from '../../../provider/intial-data/intial-data-type';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 import articleStyle from '../article/article.scss';
-import {Markdown} from '../../../component/layout/markdown/c-markdown';
-import singleArticleStyle from '../article/single-article/single-article.scss';
 
-import pageNoFoundStyle from './page-not-found.scss';
+import {PageNotFoundContent} from './page-not-found-content';
 
 type PropsType = {
     +initialContextData: InitialDataType,
@@ -44,18 +42,9 @@ export class PageNotFound extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        const {props} = this;
-        const {initialContextData} = props;
-
         return (
             <div className={articleStyle.article__wrapper}>
-                <div className={pageNoFoundStyle.page_not_found__wrapper}>
-                    <h1 className={articleStyle.article__header}>404 - Страница не найдена</h1>
-                    <Markdown
-                        additionalClassName={singleArticleStyle.markdown}
-                        text="Всё хорошо, вы всё равно можете почитать у нас сказки, стихи и многое другое!"
-                    />
-                </div>
+                <PageNotFoundContent/>
             </div>
         );
 
