@@ -12,6 +12,7 @@ import connectMongo from 'connect-mongo';
 import {passwordKey, sessionKey} from '../../key';
 import {dataBaseConst} from '../database/database-const';
 
+import {siteMapXmlApi} from './part/site-map-xml-api';
 import {addUserApi} from './part/user-api';
 import {addDocumentApi} from './part/document-api';
 import {addDefendApi} from './part/defend-api';
@@ -46,6 +47,7 @@ export function addApiIntoApplication(app: $Application) {
         })
     );
 
+    siteMapXmlApi(app);
     addStaticApi(app);
     addDefendApi(app);
     initialDataApi(app);

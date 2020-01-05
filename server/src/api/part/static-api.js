@@ -10,6 +10,7 @@ import {pathToDist, pathToStaticFileFolder} from '../../../../webpack/config';
 import {staticFilesList} from '../../config';
 
 import {fileApiConst} from './file-api-const';
+
 const {pathToUploadFiles} = fileApiConst;
 const CWD = process.cwd();
 
