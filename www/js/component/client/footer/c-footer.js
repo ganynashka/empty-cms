@@ -5,8 +5,10 @@ import {Link} from 'react-router-dom';
 
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 import {isCMS} from '../../../lib/url';
+import {getLinkToReadArticle} from '../../../lib/string';
 
 import footerStyle from './footer.scss';
+import {footerLinkMap} from './footer-const';
 
 type PropsType = {
     +location?: LocationType,
@@ -29,14 +31,26 @@ export function Footer(props: PropsType): Node {
     return (
         <footer className={footerStyle.footer_wrapper}>
             <p className={footerStyle.footer__copy_right}>{copyRight}</p>
-            <Link className={footerStyle.footer__link} to="#">
-                Правообладателям
+            <Link
+                className={footerStyle.footer__link}
+                target="_blank"
+                to={getLinkToReadArticle(footerLinkMap.holders.slug)}
+            >
+                {footerLinkMap.holders.title}
             </Link>
-            <Link className={footerStyle.footer__link} to="#">
-                Обратная связь
+            <Link
+                className={footerStyle.footer__link}
+                target="_blank"
+                to={getLinkToReadArticle(footerLinkMap.contacts.slug)}
+            >
+                {footerLinkMap.contacts.title}
             </Link>
-            <Link className={footerStyle.footer__link} to="#">
-                Политика конфиденциальности
+            <Link
+                className={footerStyle.footer__link}
+                target="_blank"
+                to={getLinkToReadArticle(footerLinkMap.policy.slug)}
+            >
+                {footerLinkMap.policy.title}
             </Link>
         </footer>
     );

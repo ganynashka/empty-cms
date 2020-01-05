@@ -219,4 +219,22 @@
     img {
         max-width: 35%;
     }
+
+    s,
+    em,
+    strong {
+        font-size: inherit;
+    }
+
+    strong {
+        font-weight: bold;
+    }
+
+    em {
+        font-style: italic;
+    }
+
+    s {
+        text-decoration: line-through;
+    }
 }
