@@ -2,27 +2,13 @@
 
 @import './var';
 
-/*
-html,
-body {
-    height: 100%;
-}
-*/
-
 body {
     color: $main-text-color;
     font-family: $main-font-family;
     font-size: $main-font-size;
     line-height: $main-line-height;
-    //overflow-y: hidden;
 }
 
 :global .app-wrapper {
     display: block;
-
-    /*
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
-    */
 }
