@@ -12,6 +12,7 @@ import articleStyle from '../article.scss';
 import {getResizedInsideImageSrc} from '../../../../lib/url';
 import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
 import noImageImage from '../image/no-image.svg';
+import {ImagePreview} from '../../../../component/layout/image-preview/c-image-preview';
 
 // import containerArticleStyle from './container-article.scss';
 
@@ -50,19 +51,11 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         const {slug, title} = subNode;
         const pathToImage = this.getSubNodeImage(subNode);
         const src = pathToImage ? getResizedInsideImageSrc(pathToImage, 269, 170, devicePixelRatio) : noImageImage;
-        const style = {backgroundImage: 'url(' + src + ')'};
+        const imageData = {src, title};
 
         return (
-            <li
-                className={classNames(articleStyle.article__list_image_item, {
-                    [articleStyle.article__list_image_item__no_image]: !pathToImage,
-                })}
-                key={slug}
-                style={style}
-            >
-                <Link className={articleStyle.article__list_image_item__link} to={getLinkToReadArticle(slug)}>
-                    <span className={articleStyle.article__list_image_item__link_text}>{title}</span>
-                </Link>
+            <li className={articleStyle.article__list_image_item} key={slug}>
+                <ImagePreview image={imageData} link={{to: getLinkToReadArticle(slug)}}/>
             </li>
         );
     };
