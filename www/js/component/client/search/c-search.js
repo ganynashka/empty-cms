@@ -122,6 +122,17 @@ export class Search extends Component<PropsType, StateType> {
         );
     }
 
+    renderStopSearchButton(): Node {
+        const {state} = this;
+        const {isActive} = state;
+
+        if (isActive) {
+            return <div className={searchStyle.desktop__search_input__stop_search}/>;
+        }
+
+        return null;
+    }
+
     renderDesktop(): Node {
         const {state} = this;
         const {isActive} = state;
@@ -134,6 +145,7 @@ export class Search extends Component<PropsType, StateType> {
             >
                 {this.renderSearchInput()}
                 {this.renderSearchResult()}
+                {this.renderStopSearchButton()}
             </div>
         );
     }
@@ -150,6 +162,7 @@ export class Search extends Component<PropsType, StateType> {
             >
                 {this.renderSearchInput()}
                 {this.renderSearchResult()}
+                {this.renderStopSearchButton()}
             </div>
         );
     }

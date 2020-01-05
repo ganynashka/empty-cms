@@ -6,27 +6,6 @@
     position: relative;
 }
 
-.desktop__search_wrapper {
-    @extend %search-wrapper;
-
-    transition: width linear 0.1s;
-    width: 33%;
-
-    &.search_wrapper__active {
-        width: 50%;
-    }
-}
-
-.mobile__search_wrapper {
-    @extend %search-wrapper;
-
-    width: 105px;
-
-    &.search_wrapper__active {
-        width: 100%;
-    }
-}
-
 .desktop__search_input {
     background-color: $light-gray;
     background-image: url('./image/searh-icon.svg');
@@ -39,6 +18,47 @@
     font-size: 16px;
     padding: 7px 40px 7px 10px;
     width: 100%;
+}
+
+.desktop__search_input__stop_search {
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    opacity: 0.5;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40px;
+    z-index: 1;
+}
+
+.desktop__search_wrapper {
+    @extend %search-wrapper;
+
+    transition: width linear 0.1s;
+    width: 33%;
+
+    &.search_wrapper__active {
+        width: 50%;
+
+        .desktop__search_input {
+            background-image: url('./image/stop-searh-icon.svg');
+        }
+    }
+}
+
+.mobile__search_wrapper {
+    @extend %search-wrapper;
+
+    width: 105px;
+
+    &.search_wrapper__active {
+        width: 100%;
+
+        .desktop__search_input {
+            background-image: url('./image/stop-searh-icon.svg');
+        }
+    }
 }
 
 %search-result-list,
