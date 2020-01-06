@@ -14,15 +14,13 @@ import express, {type $Application, type $Request, type $Response} from 'express
 
 import {ClientApp} from '../../www/js/component/app/c-client-app';
 import {ssrServerPort, ssrHttpServerPortProduction} from '../../webpack/config';
-
 import {getInitialData} from '../../www/js/provider/intial-data/intial-data-helper';
-
 import type {RouterStaticContextType} from '../../www/js/provider/intial-data/intial-data-type';
 
 import {getIndexHtmlTemplate} from './static-files';
 import {initialScriptClassName, stringForReplaceContent, stringForReplaceMeta, stringForReplaceTitle} from './config';
 import {addApiIntoApplication} from './api/api';
-import {getDeviceData} from './util/device/device';
+import {updateSiteMapXml} from './helper/site-map-xml-helper';
 
 const PORT: number = ssrServerPort;
 const app: $Application = express();
@@ -100,3 +98,7 @@ if (process.env.NODE_ENV === 'production') {
         console.info(`Server listening on port ${PORT} - ${String(process.env.NODE_ENV || 'development')}`);
     });
 }
+
+console.log('update /sitemap.xml');
+
+updateSiteMapXml();
