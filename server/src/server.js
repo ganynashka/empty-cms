@@ -99,6 +99,9 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-console.log('update /sitemap.xml');
-
-updateSiteMapXml();
+updateSiteMapXml()
+    .then((): mixed => console.log('/sitemap.xml has been updated'))
+    .catch((error: Error) => {
+        console.log('/sitemap.xml - Error while update!');
+        console.log(error.message);
+    });
