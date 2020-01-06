@@ -248,8 +248,6 @@ export function addDocumentApi(app: $Application) {
                     return;
                 }
 
-                updateSiteMapXml();
-
                 response.json(documentList);
             });
     });
