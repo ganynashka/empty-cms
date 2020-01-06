@@ -2,7 +2,7 @@
 
 /* global fetch */
 
-import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
+import type {MongoDocumentSlugTitleType, MongoDocumentType} from '../../../../../server/src/database/database-type';
 import {documentApiRouteMap} from '../../../../../server/src/api/api-route-map';
 import type {SortDirectionType} from '../../../component/layout/table/enhanced-table/enhanced-table-type';
 import {getLisParametersToUrl, getSearchExactParametersToUrl} from '../../../lib/url';
@@ -10,6 +10,7 @@ import type {MainServerApiResponseType} from '../../../type/response';
 import {typeConverter} from '../../../lib/type';
 import {promiseCatch} from '../../../lib/promise';
 import {fetchNumber} from '../../../lib/fetch-x';
+import type {FieldAutocompleteDataType} from '../../../component/layout/form-generator/form-generator-type';
 
 export function getDocumentList(
     pageIndex: number,
@@ -93,5 +94,31 @@ export function removeDocument(slug: string): Promise<MainServerApiResponseType 
         body: JSON.stringify({slug}),
     })
         .then((response: Response): Promise<MainServerApiResponseType | Error> => response.json())
+        .catch(promiseCatch);
+}
+
+export function getDocumentSlugTitleList(): Promise<Array<MongoDocumentSlugTitleType> | Error> {
+    return fetch(documentApiRouteMap.getDocumentSlugTitleList)
+        .then((response: Response): Promise<Array<MongoDocumentSlugTitleType> | Error> => response.json())
+        .catch(promiseCatch);
+}
+
+export function getDocumentAutocompleteDataList(): Promise<Array<FieldAutocompleteDataType> | Error> {
+    return getDocumentSlugTitleList()
+        .then((documentSlugTitleList: Array<MongoDocumentSlugTitleType> | Error): | Array<FieldAutocompleteDataType>
+            | Error => {
+            if (!Array.isArray(documentSlugTitleList)) {
+                return new Error('can not get autocomplete list data');
+            }
+
+            return documentSlugTitleList.map(
+                (documentSlugTitleInList: MongoDocumentSlugTitleType): FieldAutocompleteDataType => {
+                    return {
+                        title: documentSlugTitleInList.title,
+                        value: documentSlugTitleInList.slug,
+                    };
+                }
+            );
+        })
         .catch(promiseCatch);
 }

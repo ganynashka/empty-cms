@@ -118,6 +118,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
             isMultiple,
             filePathPrefix,
             uploadFile,
+            getAutocompleteListData,
         } = fieldData;
 
         const onChangeFieldHandler = this.createOnChangeFieldHandler(fieldData);
@@ -137,6 +138,7 @@ export class FormGenerator extends Component<PropsType, StateType> {
                                         defaultValue={defaultValue}
                                         errorList={errorList}
                                         filePathPrefix={filePathPrefix}
+                                        getAutocompleteListData={getAutocompleteListData}
                                         isMultiple={isMultiple}
                                         labelText={labelText}
                                         name={name}

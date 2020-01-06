@@ -6,7 +6,7 @@ import {type $Application, type $Request, type $Response} from 'express';
 import {type JsonToMongoDocumentType} from '../../../../www/js/component/layout/form-generator/field/input-upload-json-as-document/input-upload-json-as-document-type';
 import {typeConverter} from '../../../../www/js/lib/type';
 import {getCollection} from '../../database/database-helper';
-import type {MongoDocumentType} from '../../database/database-type';
+import type {MongoDocumentSlugTitleType, MongoDocumentType} from '../../database/database-type';
 import {dataBaseConst} from '../../database/database-const';
 import {getTime} from '../../util/time';
 import {isError} from '../../../../www/js/lib/is';
@@ -423,6 +423,35 @@ export function addDocumentApi(app: $Application) {
         response.json({
             isSuccessful: true,
             errorList: [],
+        });
+    });
+
+    app.get(documentApiRouteMap.getDocumentSlugTitleList, async (request: $Request, response: $Response) => {
+        const collection = await getCollection<MongoDocumentType>(
+            dataBaseConst.name,
+            dataBaseConst.collection.document
+        );
+
+        if (isError(collection)) {
+            response.status(400);
+            response.json([]);
+            return;
+        }
+
+        collection.find({}).toArray((error: Error | null, documentList: Array<MongoDocumentType> | null) => {
+            if (error || !Array.isArray(documentList)) {
+                response.status(400);
+                response.json([]);
+                return;
+            }
+
+            const slugTitleList = documentList.map((documentInList: MongoDocumentType): MongoDocumentSlugTitleType => {
+                const {slug, title} = documentInList;
+
+                return {slug, title};
+            });
+
+            response.json(slugTitleList);
         });
     });
 }

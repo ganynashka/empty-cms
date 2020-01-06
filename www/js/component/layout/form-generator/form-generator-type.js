@@ -32,6 +32,11 @@ export type ValidateType = (
     formData: FormGeneratorFormDataType,
 ) => Array<Error>;
 
+export type FieldAutocompleteDataType = {|
+    +title: string,
+    +value: string,
+|};
+
 export type InputComponentPropsType = {|
     +name: string,
     +onChange: InputComponentOnChangeType,
@@ -47,6 +52,7 @@ export type InputComponentPropsType = {|
     +snackbarContext: SnackbarContextType,
     +popupContext: PopupContextType,
     +uploadFile?: (file: File) => Promise<Error | string>,
+    +getAutocompleteListData?: () => Promise<Array<FieldAutocompleteDataType> | Error>,
 |};
 
 export type FieldDataType = {|
@@ -63,6 +69,7 @@ export type FieldDataType = {|
     +isMultiple?: boolean,
     +filePathPrefix?: string,
     +uploadFile?: (file: File) => Promise<Error | string>,
+    +getAutocompleteListData?: () => Promise<Array<FieldAutocompleteDataType> | Error>,
 |};
 
 export type FieldSetWrapperDataType = {

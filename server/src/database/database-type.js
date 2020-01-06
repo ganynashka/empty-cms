@@ -58,6 +58,11 @@ export type MongoDocumentTreeNodeType = {|
     +imageList: Array<string>,
 |};
 
+export type MongoDocumentSlugTitleType = {|
+    +slug: string,
+    +title: string,
+|};
+
 /*
 export type MongoDocumentTreeType = {|
     +_id?: mixed,

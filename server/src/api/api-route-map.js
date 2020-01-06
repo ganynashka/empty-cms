@@ -12,6 +12,7 @@ export const documentApiRouteMap = {
     getParentList: '/api/get-parent-list',
     getOrphanList: '/api/get-orphan-list',
     removeDocument: '/api/remove-document',
+    getDocumentSlugTitleList: '/api/get-document-slug-title-list',
 };
 
 export const userApiRouteMap = {

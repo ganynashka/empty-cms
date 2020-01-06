@@ -4,6 +4,8 @@ import React from 'react';
 
 // eslint-disable-next-line max-len
 import {InputUploadFileList} from '../../../component/layout/form-generator/field/input-upload-file-list/c-input-upload-file-list';
+// eslint-disable-next-line max-len
+import {InputTextAutocomplete} from '../../../component/layout/form-generator/field/input-text-autocomplete/c-input-text-autocomplete';
 import type {
     FormGeneratorConfigType,
     FormGeneratorFormDataType,
@@ -26,9 +28,9 @@ import {uploadFile, uploadFileList} from '../file/file-api';
 import {promiseCatch} from '../../../lib/promise';
 import {fileApiConst} from '../../../../../server/src/api/part/file-api-const';
 import {InputCode} from '../../../component/layout/form-generator/field/input-code/c-input-code';
-import {InputTextArea} from '../../../component/layout/form-generator/field/input-text-area/c-input-text-area';
 
 import type {FormDataMongoDocumentType} from './document-type';
+import {getDocumentAutocompleteDataList} from './document-api';
 
 function extractImage(inputValue: FromGeneratorInputValueType): Promise<Error | string> {
     if (isString(inputValue)) {
@@ -68,7 +70,7 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         return titleImage;
     }
 
-    const subDocumentSlugList = stringToUniqArray(documentFormData.subDocumentSlugList, ',');
+    const subDocumentSlugList = documentFormData.subDocumentSlugList;
     const slug = getSlug(documentFormData.title);
 
     if (subDocumentSlugList.includes(slug)) {
@@ -95,6 +97,8 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
 }
 
 export function getDocumentFormConfig(): FormGeneratorConfigType {
+    const emptyStringArray: Array<string> = [];
+
     return {
         fieldSetList: [
             {
@@ -196,11 +200,13 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                     },
                     {
                         name: 'subDocumentSlugList',
-                        fieldComponent: InputText,
+                        fieldComponent: InputTextAutocomplete,
                         validate: noValidate,
-                        defaultValue: '',
-                        placeholder: 'doc-1, doc-2, the-article',
-                        labelText: 'Sub-document slug list',
+                        defaultValue: emptyStringArray,
+                        placeholder: 'Sub-document list',
+                        labelText: 'Sub-document list',
+                        isHidden: false,
+                        getAutocompleteListData: getDocumentAutocompleteDataList,
                     },
                     {
                         name: 'rating',

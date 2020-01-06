@@ -1,6 +1,6 @@
 // @flow
 
-import React, {Component, type Node} from 'react';
+import React, {type Node} from 'react';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
