@@ -19,6 +19,7 @@ import {
 import {documentApiRouteMap} from '../api-route-map';
 import {getSlug} from '../../../../www/js/lib/string';
 import {convertJsonToDocument} from '../../util/json-to-document';
+import {updateSiteMapXml} from '../../helper/site-map-xml-helper';
 
 import {rootDocumentSlug} from './document-api-const';
 import {getDocumentBySlug, getDocumentParentListBySlug, getDocumentTree, getOrphanList} from './document-api-helper';
@@ -131,6 +132,8 @@ export function addDocumentApi(app: $Application) {
 
         await collection.insertOne(newDocument);
 
+        updateSiteMapXml();
+
         response.json({isSuccessful: true, errorList: []});
     });
 
@@ -176,6 +179,8 @@ export function addDocumentApi(app: $Application) {
 
         await collection.insertOne(newDocument);
 
+        updateSiteMapXml();
+
         response.json({isSuccessful: true, errorList: []});
     });
 
@@ -216,6 +221,8 @@ export function addDocumentApi(app: $Application) {
 
         const result = await collection.updateOne({slug}, {$set: newDocument}, {});
 
+        updateSiteMapXml();
+
         response.json({isSuccessful: true, errorList: []});
     });
 
@@ -240,6 +247,8 @@ export function addDocumentApi(app: $Application) {
                     response.json([]);
                     return;
                 }
+
+                updateSiteMapXml();
 
                 response.json(documentList);
             });
@@ -410,6 +419,8 @@ export function addDocumentApi(app: $Application) {
         }
 
         await collection.deleteOne({slug}, {});
+
+        updateSiteMapXml();
 
         response.json({
             isSuccessful: true,
