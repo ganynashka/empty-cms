@@ -13,12 +13,12 @@ import type {InitialDataType} from '../../../provider/intial-data/intial-data-ty
 import {setMeta} from '../../../lib/meta';
 import {getInitialClientData} from '../../app/client-app-helper';
 import {isError, isFunction} from '../../../lib/is';
-import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
 import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database/database-type';
 import {Search} from '../search/c-search';
 import {getLinkToReadArticle} from '../../../lib/string';
 import {isMobileDevice} from '../../../../../server/src/util/device/device-helper';
 import {scrollToTop} from '../../../provider/screen/screen-context-helper';
+import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-type';
 
 import headerStyle from './header.scss';
 
@@ -74,6 +74,48 @@ export class Header extends Component<PropsType, StateType> {
         this.setState({isSearchActive});
     };
 
+    errorInitialContextData(error: Error) {
+        const {props} = this;
+        const {location} = props;
+        const {setInitialData} = props.initialContextData;
+
+        if (!isFunction(setInitialData)) {
+            console.error('initialContextData.setInitialData should be the function!');
+            return;
+        }
+
+        setInitialData({
+            title: '',
+            meta: '',
+            is404: false,
+            articlePathData: {
+                slug: location.pathname
+                    .split('/')
+                    .filter(Boolean)
+                    .pop(),
+                titleImage: '',
+                type: mongoDocumentTypeMap.article,
+                title: 'Ошибка соединения',
+                meta: '',
+                shortDescription: '',
+                content: 'Ошибка соединения. Проверьте наличие интернета и обновите страницу.',
+                subNodeList: [],
+                subDocumentSlugList: [],
+                isActive: true,
+                imageList: [],
+            },
+            documentNodeTree: props.initialContextData.documentNodeTree,
+            setInitialData: null,
+            device: props.initialContextData.device,
+        });
+
+        scrollToTop();
+
+        setMeta({
+            title: 'Ошибка соединения',
+        });
+    }
+
     async fetchInitialContextData() {
         const {props} = this;
         const {location} = props;
@@ -86,23 +128,20 @@ export class Header extends Component<PropsType, StateType> {
         const initialContextData = await getInitialClientData(props.location.pathname);
 
         if (isError(initialContextData)) {
-            scrollToTop();
-
-            setMeta({
-                title: rootPathMetaData.title,
-            });
+            this.errorInitialContextData(initialContextData);
             return;
         }
+
+        if (!isFunction(setInitialData)) {
+            console.error('initialContextData.setInitialData should be the function!');
+            return;
+        }
+
+        setInitialData(initialContextData);
 
         setMeta({
             title: initialContextData.title,
         });
-
-        if (isFunction(setInitialData)) {
-            setInitialData(initialContextData);
-        } else {
-            console.error('initialContextData.setInitialData should be the function!');
-        }
 
         scrollToTop();
     }
