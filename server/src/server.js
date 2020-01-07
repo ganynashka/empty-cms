@@ -20,7 +20,7 @@ import type {RouterStaticContextType} from '../../www/js/provider/intial-data/in
 import {getIndexHtmlTemplate} from './static-files';
 import {initialScriptClassName, stringForReplaceContent, stringForReplaceMeta, stringForReplaceTitle} from './config';
 import {addApiIntoApplication} from './api/api';
-import {updateSiteMapXml} from './helper/site-map-xml-helper';
+import {handleDataBaseChange} from './util/data-base';
 
 const PORT: number = ssrServerPort;
 const app: $Application = express();
@@ -99,9 +99,9 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-updateSiteMapXml()
-    .then((): mixed => console.log('/sitemap.xml has been updated'))
+handleDataBaseChange()
+    .then((): mixed => console.log('---> handleDataBaseChange: done!'))
     .catch((error: Error) => {
-        console.log('/sitemap.xml - Error while update!');
+        console.log('---> handleDataBaseChange: error while execution!');
         console.log(error.message);
     });

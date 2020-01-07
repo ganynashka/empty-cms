@@ -12,8 +12,8 @@ import {getLinkToReadArticle} from '../../../www/js/lib/string';
 import {isError} from '../../../www/js/lib/is';
 import {pathToDist} from '../../../webpack/config';
 import type {PromiseResolveType} from '../../../www/js/lib/promise';
-import {timeToHumanString} from '../util/time';
 
+import {timeToHumanString} from './time';
 import {getAllDocumentList} from './document-helper';
 
 const CWD = process.cwd();
