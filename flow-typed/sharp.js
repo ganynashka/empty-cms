@@ -13,10 +13,23 @@ declare module 'sharp' {
 
     declare export var fit: SharpFitResizeNameMapType;
 
+    declare export type SharpKernelResizeNameType = 'nearest' | 'cubic' | 'mitchell' | 'lanczos2' | 'lanczos3';
+
+    declare type SharpKernelResizeNameMapType = {
+        nearest: 'nearest',
+        cubic: 'cubic',
+        mitchell: 'mitchell',
+        lanczos2: 'lanczos2',
+        lanczos3: 'lanczos3',
+    };
+
+    declare export var kernel: SharpKernelResizeNameMapType;
+
     declare export type SharpResizeConfigType = {
         width: number,
         height: number,
         fit: SharpFitResizeNameType,
+        kernel?: SharpKernelResizeNameType,
         withoutEnlargement?: boolean,
     };
 

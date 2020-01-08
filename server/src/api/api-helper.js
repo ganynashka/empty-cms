@@ -1,7 +1,7 @@
 // @flow
 
 import {type $Request} from 'express';
-import {fit as sharpFit, type SharpResizeConfigType} from 'sharp';
+import {fit as sharpFit, kernel as sharpKernel, type SharpResizeConfigType} from 'sharp';
 
 import {getSortDirection} from '../database/database-helper';
 import {hasProperty} from '../../../www/js/lib/is';
@@ -66,8 +66,11 @@ export function getImageResizeParameters(request: $Request): SharpResizeConfigTy
     const height = parseInt(request.query.height, 10) || 0;
     const requestFitType = String(request.query.fit);
     const fit = hasProperty(sharpFit, requestFitType) ? sharpFit[requestFitType] : sharpFit.inside;
+    const requestKernelType = String(request.query.kernel);
+    const kernel = hasProperty(sharpKernel, requestKernelType) ? sharpKernel[requestKernelType] : sharpKernel.cubic;
+    const withoutEnlargement = String(request.query['without-enlargement']) !== '0';
 
-    return {width, height, fit, withoutEnlargement: true};
+    return {width, height, fit, kernel, withoutEnlargement};
 }
 
 export function getDocumentTreeParameters(request: $Request): GetDocumentTreeParameterType {
