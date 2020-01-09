@@ -36,6 +36,7 @@
     "zip": "zip -9 --exclude=*node_modules* -r my-project_`git symbolic-ref --short HEAD`-`date +%Y-%m-%d-%H-%M-%S` ./",
     "pre-commit-hook": "npm run eslint && npm run stylelint && npm run flow",
     "db-dump": "mongodump --port=27001 --archive=db-dump/db-dump-`date +%Y-%m-%d-%H-%M-%S`.zip",
+    "artillery": "artillery run ./dev/artillery-io/artillery-config.yml",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -78,6 +79,7 @@
     "@babel/preset-flow": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
     "@babel/runtime": "^7.7.7",
+    "artillery": "^1.6.0-29",
     "autoprefixer": "^9.7.3",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",

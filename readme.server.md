@@ -120,3 +120,17 @@ $ scp deploy@188.166.70.236:~/<file-name>.zip ~/<file-name>.zip
 ```bash
 $ nohup watch -n 3600 ./make-db-dump.sh & // make back up every one hour
 ```
+
+### Artillery.io
+
+#### Example
+
+Create 50 virtual users (50 requests per 1 second) every second for 600 seconds:
+
+```$yml
+config:
+  target: https://my.microservice.internal
+  phases:
+    - duration: 600
+      arrivalRate: 50
+```
