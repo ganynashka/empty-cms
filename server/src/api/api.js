@@ -18,6 +18,7 @@ import {addDefendApi} from './part/defend-api';
 import {addFileApi} from './part/file-api';
 import {addStaticApi} from './part/static-api';
 import {initialDataApi} from './part/initial-data-api';
+import {addLoggingApi} from './part/logging-api';
 
 const MongoStore = connectMongo(session);
 
@@ -46,6 +47,7 @@ export function addApiIntoApplication(app: $Application) {
         })
     );
 
+    addLoggingApi(app);
     addStaticApi(app);
     addDefendApi(app);
     initialDataApi(app);

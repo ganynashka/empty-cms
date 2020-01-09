@@ -18,6 +18,7 @@ export function addDefendApi(app: $Application) {
         documentApiRouteMap.documentSearch,
     ];
 
+    /*
     app.use((request: $Request, response: $Response, next: () => mixed) => {
         const userSession = getSession(request);
 
@@ -33,6 +34,7 @@ export function addDefendApi(app: $Application) {
 
         next();
     });
+    */
 
     // eslint-disable-next-line complexity, max-statements
     app.use((request: $Request, response: $Response, next: (error?: ?Error) => mixed) => {

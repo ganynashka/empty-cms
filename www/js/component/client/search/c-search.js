@@ -93,6 +93,10 @@ export class Search extends Component<PropsType, StateType> {
     handleInput = async (evt: SyntheticEvent<HTMLInputElement>) => {
         const searchText = cleanText(String(evt.currentTarget.value));
 
+        if (searchText.length < minSearchSymbolCount) {
+            return;
+        }
+
         const resultList = await searchDocument({
             title: searchText,
             tagList: searchText,

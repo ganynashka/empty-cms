@@ -79,3 +79,13 @@ declare module 'express-fileupload' {
 
     declare export default function fileUpload(option: ExpressFileUploadOptionType): string;
 }
+
+declare module 'morgan' {
+    declare type LoggingNameType = 'combined' | 'common' | 'dev' | 'short' | 'tiny';
+    declare type LoggingOptionType = {
+        // eslint-disable-next-line id-match
+        stream: stream$Writable,
+    };
+
+    declare export default function morgan(loggingName: LoggingNameType, options: LoggingOptionType): string;
+}
