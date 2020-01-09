@@ -1,0 +1,52 @@
+@import './../../../../css/service';
+@import './../../../../css/var';
+
+.gdpr_info__wrapper {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    bottom: 0;
+    box-sizing: border-box;
+    display: block;
+    left: 0;
+    padding: $ui-unit * 1.5 0;
+    position: fixed;
+    width: 100%;
+    z-index: $z-index-header;
+}
+
+.gdpr_info__container {
+    @extend %width-limit;
+
+    align-items: center;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.gdpr_info__text {
+    color: #fff;
+    display: block;
+    font-size: 16px;
+    margin-right: $ui-unit * 2;
+    min-width: 200px;
+}
+
+.gdpr_info__button {
+    background-color: $main-background-text-color;
+    background-image: url('./../../client/header/image/menu-close-icon.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: 1px solid $main-text-color;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: $main-text-color;
+    display: block;
+    flex-shrink: 0;
+    height: 36px;
+    width: 36px;
+
+    &:hover {
+        opacity: 0.85;
+    }
+}

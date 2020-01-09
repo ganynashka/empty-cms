@@ -6,6 +6,8 @@ import React, {Component, type Node} from 'react';
 
 import {handleApplyGdpr, isGdprApplyed} from '../../../lib/cookie';
 
+import gdprInfoStyle from './gdpr-info.scss';
+
 type PropsType = {};
 type StateType = {|
     +isVisible: boolean,
@@ -42,12 +44,13 @@ export class GdprInfo extends Component<PropsType, StateType> {
         }
 
         return (
-            <div>
-                <span>some text</span>
-                <br/>
-                <button onClick={this.handleApplyGdpr} type="button">
-                    apply cookie
-                </button>
+            <div className={gdprInfoStyle.gdpr_info__wrapper}>
+                <div className={gdprInfoStyle.gdpr_info__container}>
+                    <p className={gdprInfoStyle.gdpr_info__text}>
+                        Пользуясь настоящим веб-сайтом, вы даёте свое согласие на использование файлов cookies.
+                    </p>
+                    <button className={gdprInfoStyle.gdpr_info__button} onClick={this.handleApplyGdpr} type="button"/>
+                </div>
             </div>
         );
     }
