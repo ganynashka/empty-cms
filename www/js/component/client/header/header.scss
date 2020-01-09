@@ -6,6 +6,8 @@ $header-mobile-height: 50px;
 // header wrapper
 .header__wrapper {
     display: block;
+    position: relative;
+    z-index: $z-index-header;
 }
 
 // top desktop line
