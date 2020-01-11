@@ -50,11 +50,11 @@ or
 
 Clean folder db/data if needed.
 
-> $ ~/soft/mongo/bin/mongorestore --port=27001 --archive=db/back-0001.zip
+> $ ~/soft/mongo/bin/mongorestore --port=27001 --archive=db/back-0001.zip --db=main-db
 
 or
 
-> $ ~/soft/mongo/bin/mongorestore db/backup/001 --port=27001
+> $ ~/soft/mongo/bin/mongorestore db/backup/001 --port=27001 --db=main-db
 
 2.5. Some commands in mongodb console/client (~/soft/mongo/bin/mongo):
 > $ ~/soft/mongo/bin/mongo --port=27001 --host=127.0.0.1 // run client \
