@@ -40,11 +40,11 @@
 
 2.3. Make backup
 
-> $ ~/soft/mongo/bin/mongodump --port=27001 --archive=db-dump/db-dump-\`date +%Y-%m-%d-%H-%M-%S\`.zip
+> $ ~/soft/mongo/bin/mongodump --port=27001 --archive=db-dump/db-dump-\`date +%Y-%m-%d-%H-%M-%S\`.zip --db=main-db
 
 or
 
-> $ ~/soft/mongo/bin/mongodump --port=27001 --out=db/backup/001
+> $ ~/soft/mongo/bin/mongodump --port=27001 --out=db/backup/001 --db=main-db
 
 2.4. Restore backup
 
