@@ -27,6 +27,7 @@ import {isError, isFile, isNull, isString} from '../../../lib/is';
 import {uploadFile, uploadFileList} from '../file/file-api';
 import {promiseCatch} from '../../../lib/promise';
 import {fileApiConst} from '../../../../../server/src/api/part/file-api-const';
+import {InputDateTime} from '../../../component/layout/form-generator/field/input-date-time/c-input-date-time';
 import {InputCode} from '../../../component/layout/form-generator/field/input-code/c-input-code';
 
 import type {FormDataMongoDocumentType} from './document-type';
@@ -178,9 +179,9 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                     },
                     {
                         name: 'publicationDate',
-                        fieldComponent: InputIntNumber,
+                        fieldComponent: InputDateTime,
                         validate: noValidate,
-                        defaultValue: '',
+                        defaultValue: 0,
                         placeholder: 'Publication Date',
                         labelText: 'Publication Date',
                     },
