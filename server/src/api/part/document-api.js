@@ -375,10 +375,26 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        const {titleImage, meta, content, subDocumentSlugList, tagList, imageList, shortDescription} = mongoDocument;
+        const {
+            titleImage,
+            meta,
+            content,
+            subDocumentSlugList,
+            tagList,
+            imageList,
+            shortDescription,
+            author,
+            illustrator,
+            artist,
+            publicationDate,
+        } = mongoDocument;
 
         if (
             titleImage
+            || author
+            || illustrator
+            || artist
+            || publicationDate
             || meta
             || shortDescription
             || content

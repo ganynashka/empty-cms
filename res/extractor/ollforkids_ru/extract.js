@@ -118,9 +118,13 @@ function extractFromSite(node) {
             return false;
         })
         .map(extractFromNode);
-    const title = '';
 
-    const result = {title, itemList};
+    const title = '';
+    const author = '';
+    const illustrator = '';
+    const artist = '';
+
+    const result = {title, author, illustrator, artist, itemList};
 
     saveDataAsJsonFile(result);
 }

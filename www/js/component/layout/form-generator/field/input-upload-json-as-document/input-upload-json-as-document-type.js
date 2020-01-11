@@ -1,11 +1,14 @@
 // @flow
 
 export type JsonToMongoDocumentItemType = {
-    src: string,
-    text: string,
+    +src: string,
+    +text: string,
 };
 
 export type JsonToMongoDocumentType = {
-    title: string,
-    itemList: Array<JsonToMongoDocumentItemType>,
+    +title: string,
+    +author: string,
+    +illustrator: string,
+    +artist: string,
+    +itemList: Array<JsonToMongoDocumentItemType>,
 };
