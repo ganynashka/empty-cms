@@ -21,7 +21,7 @@ import {initialScriptClassName, stringForReplaceContent, stringForReplaceMeta, s
 import {addApiIntoApplication} from './api/api';
 import {handleDataBaseChange} from './util/data-base';
 
-const PORT: number = ssrServerPort;
+const PORT: number = 443; //ssrServerPort;
 const app: $Application = express();
 
 /*
