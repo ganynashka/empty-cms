@@ -96,7 +96,7 @@ if (process.env.NODE_ENV === 'production') {
                 console.info(`Server listening on port ${PORT} - production`);
             })
     */
-    app.listen(443, () => {
+    app.listen(ssrHttpServerPortProduction, () => {
         console.info(
             `Server listening on port ${ssrHttpServerPortProduction} - ${String(
                 process.env.NODE_ENV || 'development'
