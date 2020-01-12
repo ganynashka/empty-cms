@@ -26,6 +26,7 @@ type StateType = {|
     +isActive: boolean,
     +searchText: string,
     +resultList: Array<MongoDocumentType>,
+    +inputRef: {current: null | HTMLInputElement},
 |};
 
 const minSearchSymbolCount = 3;
@@ -38,6 +39,7 @@ export class Search extends Component<PropsType, StateType> {
             isActive: false,
             searchText: '',
             resultList: [],
+            inputRef: React.createRef<HTMLInputElement>(),
         };
     }
 
@@ -112,6 +114,8 @@ export class Search extends Component<PropsType, StateType> {
     };
 
     renderSearchInput(): Node {
+        const {state} = this;
+
         return (
             <input
                 aria-label="Поиск"
@@ -121,17 +125,44 @@ export class Search extends Component<PropsType, StateType> {
                 onFocus={this.handleFocus}
                 onInput={this.handleInput}
                 placeholder="Поиск"
+                ref={state.inputRef}
                 type="text"
             />
         );
     }
+
+    handleStopSearch = () => {
+        const {state, props} = this;
+        const {inputRef} = state;
+        const inputNode = inputRef.current;
+
+        if (!inputNode) {
+            return;
+        }
+
+        inputNode.value = '';
+
+        this.setState({
+            isActive: false,
+            searchText: '',
+            resultList: [],
+        });
+
+        props.onActiveChange(false);
+    };
 
     renderStopSearchButton(): Node {
         const {state} = this;
         const {isActive} = state;
 
         if (isActive) {
-            return <div className={searchStyle.desktop__search_input__stop_search}/>;
+            return (
+                <button
+                    className={searchStyle.desktop__search_input__stop_search}
+                    onClick={this.handleStopSearch}
+                    type="button"
+                />
+            );
         }
 
         return null;
