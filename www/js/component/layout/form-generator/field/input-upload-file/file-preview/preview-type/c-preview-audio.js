@@ -5,7 +5,7 @@
 import React, {type Node} from 'react';
 
 import type {SnackbarContextType} from '../../../../../../../provider/snackbar/snackbar-context-type';
-import {handleCopySrc} from '../file-preview-helper';
+import {handleCopyAudioSrc} from '../file-preview-helper';
 import filePreviewStyle from '../file-preview.scss';
 import serviceStyle from '../../../../../../../../css/service.scss';
 import {getNoHashFileName} from '../../../../../../../lib/string';
@@ -16,7 +16,7 @@ export function PreviewFileAudio(props: PreviewFileTypePropsType): Node {
     const {src, snackbarContext, children} = props;
 
     function handleOnClick(evt: SyntheticEvent<HTMLElement>) {
-        handleCopySrc(evt, snackbarContext);
+        handleCopyAudioSrc(evt, snackbarContext);
     }
 
     return (

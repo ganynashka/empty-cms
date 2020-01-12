@@ -1,13 +1,13 @@
 // @flow
 
 import React, {Component, type Node} from 'react';
+import Paper from '@material-ui/core/Paper';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography/Typography';
 
 import {setMeta} from '../../../lib/meta';
-import {isAdmin} from '../../../provider/user/user-context-helper';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
-
-import imageLogo from './image/empty.jpg';
-import homeStyle from './home.scss';
+import mainWrapperStyle from '../../../component/main-wrapper/main-wrapper.scss';
 
 type PropsType = {
     +userContextData: UserContextConsumerType,
@@ -32,23 +32,15 @@ export class Home extends Component<PropsType, StateType> {
         return <AsyncLoadTest/>;
         <LoadComponent load={this.loadAsyncLoadTestComponent}/>
     };
-*/
+    */
 
     render(): Node {
-        const {props} = this;
-        const {userContextData} = props;
-
-        /*
-        if (!isAdmin(userContextData)) {
-            return null;
-        }
-*/
-
         return (
-            <>
-                <div className={homeStyle.home__wrapper}>Welcome to the Empty CMS!</div>
-                <img alt="" className={homeStyle.home__title_image} src={imageLogo}/>
-            </>
+            <Paper className={mainWrapperStyle.paper_wrapper}>
+                <Toolbar>
+                    <Typography variant="h5">Welcome to the Empty CMS!</Typography>
+                </Toolbar>
+            </Paper>
         );
     }
 }
