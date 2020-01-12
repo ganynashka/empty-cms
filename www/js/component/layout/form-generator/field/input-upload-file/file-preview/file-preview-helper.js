@@ -12,17 +12,20 @@ export async function handleCopyImageSrc(evt: SyntheticEvent<HTMLElement>, snack
     const snackBarId = 'copy-image-markdown-snack-bar-id-' + String(Date.now());
     const {showSnackbar} = snackbarContext;
 
+    const src = String(evt.currentTarget.dataset.src);
+    const imageMarkdown = getMarkdownResizedImage(src);
+
     if (!navigator.clipboard) {
+        await showSnackbar({children: imageMarkdown, variant: 'error'}, snackBarId);
+
+        /*
         await showSnackbar(
             {children: 'Your browser DO NOT support \'navigator.clipboard\'!', variant: 'error'},
             snackBarId
         );
+        */
         return;
     }
-
-    const src = String(evt.currentTarget.dataset.src);
-
-    const imageMarkdown = getMarkdownResizedImage(src);
 
     const copyResult = await navigator.clipboard.writeText(imageMarkdown).catch(promiseCatch);
 
@@ -38,15 +41,19 @@ export async function handleCopySrc(evt: SyntheticEvent<HTMLElement>, snackbarCo
     const snackBarId = 'copy-file-src-snack-bar-id-' + String(Date.now());
     const {showSnackbar} = snackbarContext;
 
+    const src = fileApiConst.pathToUploadFiles + '/' + String(evt.currentTarget.dataset.src);
+
     if (!navigator.clipboard) {
+        await showSnackbar({children: src, variant: 'error'}, snackBarId);
+
+        /*
         await showSnackbar(
             {children: 'Your browser DO NOT support \'navigator.clipboard\'!', variant: 'error'},
             snackBarId
         );
+        */
         return;
     }
-
-    const src = fileApiConst.pathToUploadFiles + '/' + String(evt.currentTarget.dataset.src);
 
     const copyResult = await navigator.clipboard.writeText(src).catch(promiseCatch);
 
