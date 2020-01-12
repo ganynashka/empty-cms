@@ -28,6 +28,7 @@
     "stylelint": "stylelint ./**/*.scss",
     "stylelint:fix": "stylelint ./**/*.scss --fix",
     "flow": "flow stop; flow;",
+    "flow-stop": "flow stop;",
     "prettier": "prettier --write \"./**/*.js\"",
     "mdlint": "eslint --ext md .",
     "mdlint:fix": "eslint --ext md . --fix",
