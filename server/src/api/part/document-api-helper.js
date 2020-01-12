@@ -6,7 +6,7 @@ import type {MongoDocumentTreeNodeType as MongoDTNType, MongoDocumentType} from 
 import {getCollection} from '../../database/database-helper';
 import {dataBaseConst} from '../../database/database-const';
 import {promiseCatch} from '../../../../www/js/lib/promise';
-import {isError, isNull} from '../../../../www/js/lib/is';
+import {hasProperty, isError, isNull} from '../../../../www/js/lib/is';
 import {documentApiRouteMap} from '../api-route-map';
 
 type MayBeDocumentType = MongoDocumentType | Error | null;
@@ -60,7 +60,7 @@ export async function getDocumentParentListBySlug(slug: string): Promise<Array<M
     });
 }
 
-export function getDocumentTree(slug: string, deep: number): Promise<MongoDTNType | Error> {
+function getDocumentTree(slug: string, deep: number): Promise<MongoDTNType | Error> {
     return getDocumentBySlug(slug).then((mongoDocument: MayBeDocumentType): Promise<MongoDTNType | Error> => {
         if (isError(mongoDocument) || isNull(mongoDocument) || !mongoDocument.isActive) {
             // console.error('Can not get document tree');
@@ -86,6 +86,37 @@ export function getDocumentTree(slug: string, deep: number): Promise<MongoDTNTyp
 
         return getDocumentTreeRecursively(rootDocumentTreeNode, deep);
     });
+}
+
+const documentTreeCache = {};
+
+export function clearGetDocumentTreeCache() {
+    Object.keys(documentTreeCache).forEach((key: string) => {
+        documentTreeCache[key] = null;
+    });
+}
+
+export function getDocumentTreeMemoized(slug: string, deep: number): Promise<MongoDTNType | Error> {
+    const cacheKey = `key-slug:${slug}-deep:${deep}`;
+
+    if (hasProperty(documentTreeCache, cacheKey) && documentTreeCache[cacheKey]) {
+        return documentTreeCache[cacheKey];
+    }
+
+    documentTreeCache[cacheKey] = getDocumentTree(slug, deep)
+        .then((result: MongoDTNType | Error): MongoDTNType | Error => {
+            if (isError(result)) {
+                documentTreeCache[cacheKey] = null;
+            }
+
+            return result;
+        })
+        .catch((error: Error): Error => {
+            documentTreeCache[cacheKey] = null;
+            return error;
+        });
+
+    return documentTreeCache[cacheKey];
 }
 
 function getDocumentTreeRecursively(

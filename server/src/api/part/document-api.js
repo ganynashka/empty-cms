@@ -22,7 +22,12 @@ import {convertJsonToDocument} from '../../util/json-to-document';
 import {handleDataBaseChange} from '../../util/data-base';
 
 import {rootDocumentSlug} from './document-api-const';
-import {getDocumentBySlug, getDocumentParentListBySlug, getDocumentTree, getOrphanList} from './document-api-helper';
+import {
+    getDocumentBySlug,
+    getDocumentParentListBySlug,
+    getDocumentTreeMemoized,
+    getOrphanList,
+} from './document-api-helper';
 
 export function addDocumentApi(app: $Application) {
     app.get(documentApiRouteMap.getDocumentList, async (request: $Request, response: $Response) => {
@@ -63,7 +68,7 @@ export function addDocumentApi(app: $Application) {
 
     app.get(documentApiRouteMap.getDocumentTree, async (request: $Request, response: $Response) => {
         const {slug, deep} = getDocumentTreeParameters(request);
-        const tree = await getDocumentTree(slug, deep);
+        const tree = await getDocumentTreeMemoized(slug, deep);
 
         if (isError(tree)) {
             response.status(400);

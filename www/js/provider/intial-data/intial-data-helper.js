@@ -8,7 +8,7 @@ import {dataBaseConst} from '../../../../server/src/database/database-const';
 import {isError} from '../../lib/is';
 import {routePathMap} from '../../component/app/routes-path-map';
 import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from '../../../../server/src/api/part/document-api-const';
-import {getDocumentTree} from '../../../../server/src/api/part/document-api-helper';
+import {getDocumentTreeMemoized} from '../../../../server/src/api/part/document-api-helper';
 import {getLinkToReadArticle} from '../../lib/string';
 import {getDeviceData} from '../../../../server/src/util/device/device';
 
@@ -19,7 +19,7 @@ import type {InitialDataType} from './intial-data-type';
 export async function getInitialDataByRequest(request: $Request): Promise<InitialDataType> {
     const path = String(request.query.url || request.path || routePathMap.siteEnter.path);
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
-    const mayBeDocumentNodeTree = await getDocumentTree(rootDocumentSlug, rootDocumentTreeDefaultDeep);
+    const mayBeDocumentNodeTree = await getDocumentTreeMemoized(rootDocumentSlug, rootDocumentTreeDefaultDeep);
     const defaultRequestInitialData = {
         documentNodeTree: isError(mayBeDocumentNodeTree) ? null : mayBeDocumentNodeTree,
         device: getDeviceData(request),
@@ -55,7 +55,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
     if (path.startsWith(routePathMap.article.staticPartPath)) {
         const slug = path.replace(getLinkToReadArticle(''), '');
 
-        const articlePathData = await getDocumentTree(slug, 3);
+        const articlePathData = await getDocumentTreeMemoized(slug, 3);
 
         if (isError(articlePathData)) {
             console.error(articlePathData.message);
