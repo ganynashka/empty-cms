@@ -5,7 +5,8 @@
 /* eslint no-process-env: 0, id-match: 0, optimize-regex/optimize-regex: 0, react/no-danger: 0 */
 
 // import type {IncomingMessage, ServerResponse} from 'http';
-// import https from 'https';
+var https = require('https');
+var fs = require('fs');
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -16,14 +17,20 @@ import {ClientApp} from '../../www/js/component/app/c-client-app';
 import {ssrServerPort, ssrHttpServerPortProduction} from '../../webpack/config';
 import {getInitialData} from '../../www/js/provider/intial-data/intial-data-helper';
 import type {RouterStaticContextType} from '../../www/js/provider/intial-data/intial-data-type';
+import {sessionKey, passwordKey} from '../key';
 
 import {getIndexHtmlTemplate} from './static-files';
 import {initialScriptClassName, stringForReplaceContent, stringForReplaceMeta, stringForReplaceTitle} from './config';
 import {addApiIntoApplication} from './api/api';
 import {handleDataBaseChange} from './util/data-base';
 
-const PORT: number = ssrServerPort;
+const PORT: number = 443; // ssrServerPort;
 const app: $Application = express();
+
+const sslCredentials = {
+    key: fs.readFileSync(__dirname + '/../../ssl/selfsigned.key'),
+    cert: fs.readFileSync(__dirname + '/../../ssl/selfsigned.crt')
+};
 
 // const app = express.createServer(sslCredentials);
 
@@ -44,7 +51,7 @@ app.get('*', async (request: $Request, response: $Response) => {
                 className={initialScriptClassName}
                 dangerouslySetInnerHTML={{__html: `window.initialData = ${JSON.stringify(initialData)}`}}
             />
-        </StaticRouter>
+        </StaticRouter>,
     );
 
     if (staticContext.is404 && !initialData.is404) {
@@ -57,7 +64,7 @@ app.get('*', async (request: $Request, response: $Response) => {
                     className={initialScriptClassName}
                     dangerouslySetInnerHTML={{__html: `window.initialData = ${JSON.stringify(initialData404)}`}}
                 />
-            </StaticRouter>
+            </StaticRouter>,
         );
 
         const htmlResult404 = htmlTemplate
@@ -81,18 +88,22 @@ app.get('*', async (request: $Request, response: $Response) => {
     response.send(htmlResult);
 });
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' || 1) {
     // $FlowFixMe
-    // https.createServer(sslCredentials, app).listen(PORT, () => {
-    //     console.info(`Server listening on port ${PORT} - production`);
-    // });
-    app.listen(ssrHttpServerPortProduction, () => {
-        console.info(
-            `Server listening on port ${ssrHttpServerPortProduction} - ${String(
-                process.env.NODE_ENV || 'development'
-            )}`
-        );
-    });
+    https
+        .createServer(sslCredentials, app)
+        .listen(PORT, () => {
+            console.info(`Server listening on port ${PORT} - production`);
+        })
+    /*
+        app.listen(ssrHttpServerPortProduction, () => {
+            console.info(
+                `Server listening on port ${ssrHttpServerPortProduction} - ${String(
+                    process.env.NODE_ENV || 'development',
+                )}`,
+            );
+        });
+    */
 } else {
     app.listen(PORT, () => {
         console.info(`Server listening on port ${PORT} - ${String(process.env.NODE_ENV || 'development')}`);
