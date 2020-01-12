@@ -21,7 +21,7 @@ import {initialScriptClassName, stringForReplaceContent, stringForReplaceMeta, s
 import {addApiIntoApplication} from './api/api';
 import {handleDataBaseChange} from './util/data-base';
 
-const PORT: number = 443; //ssrServerPort;
+const PORT: number = ssrServerPort;
 const app: $Application = express();
 
 /*
@@ -96,7 +96,7 @@ if (process.env.NODE_ENV === 'production') {
                 console.info(`Server listening on port ${PORT} - production`);
             })
     */
-    app.listen(ssrHttpServerPortProduction, () => {
+    app.listen(443, () => {
         console.info(
             `Server listening on port ${ssrHttpServerPortProduction} - ${String(
                 process.env.NODE_ENV || 'development'
