@@ -21,6 +21,24 @@ export class SingleArticle extends Component<PropsType, StateType> {
         this.state = {};
     }
 
+    renderAuthor(): Node {
+        const {props} = this;
+        const {initialContextData} = props;
+        const {articlePathData} = initialContextData;
+
+        if (!articlePathData) {
+            return null;
+        }
+
+        const {author} = articlePathData;
+
+        if (!author.trim()) {
+            return null;
+        }
+
+        return <p className={singleArticleStyle.single_article__author}>Автор: {author}</p>;
+    }
+
     render(): Node {
         const {props} = this;
         const {initialContextData} = props;
@@ -36,6 +54,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
             <>
                 <h1 className={articleStyle.article__header}>{header}</h1>
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={content}/>
+                {this.renderAuthor()}
             </>
         );
     }
