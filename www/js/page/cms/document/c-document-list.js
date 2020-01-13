@@ -43,12 +43,12 @@ async function enhancedTableGetDocumentList(
 
     return {
         list: list.map((documentData: MongoDocumentType): EnhancedTableBodyCellType => {
-            const {slug, type, title, isActive, updatedDate, createdDate, rating} = documentData;
+            const {slug, type, header, isActive, updatedDate, createdDate, rating} = documentData;
 
             return {
                 slug: <Link to={getLinkToEditArticle(slug)}>{slug}</Link>,
                 type,
-                title,
+                header,
                 rating,
                 isActive,
                 createdDate: timeToHumanString(createdDate),
@@ -63,7 +63,7 @@ async function enhancedTableGetDocumentList(
 const enhancedTableHeader = {
     header: 'Document list',
     rowList: [
-        {id: 'title', align: 'left', label: 'Title', hasSort: true},
+        {id: 'header', align: 'left', label: 'Header', hasSort: true},
         {id: 'slug', align: 'left', label: 'Slug', hasSort: true},
         {id: 'type', align: 'left', label: 'Type', hasSort: true},
         {id: 'rating', align: 'left', label: 'Rating', hasSort: true},

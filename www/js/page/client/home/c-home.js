@@ -32,14 +32,14 @@ export class Home extends Component<PropsType, StateType> {
         const {props} = this;
         const {screenContextData} = props;
         const {devicePixelRatio} = screenContextData;
-        const {slug, titleImage, title, shortDescription} = documentData;
+        const {slug, titleImage, header, shortDescription} = documentData;
         const titleImageSrc = getResizedInsideImageSrc(titleImage, 120, 120, devicePixelRatio); // `${fileApiRouteMap.getResizedImage}/${titleImage}?width=${maxImageSize}&height=${maxImageSize}&fit=inside`;
 
         return (
             <Link className={homeStyle.home__category_link__wrapper} key={slug} to={getLinkToReadArticle(slug)}>
-                <img alt={title} className={homeStyle.home__category_link__icon} src={titleImageSrc}/>
+                <img alt={header} className={homeStyle.home__category_link__icon} src={titleImageSrc}/>
                 <div className={homeStyle.home__category_link__text_content}>
-                    <h2 className={homeStyle.home__category_link__title}>{title}</h2>
+                    <h2 className={homeStyle.home__category_link__title}>{header}</h2>
                     <Markdown
                         additionalClassName={homeStyle.home__category_link__short_description}
                         text={shortDescription}

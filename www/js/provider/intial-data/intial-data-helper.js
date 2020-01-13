@@ -36,7 +36,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
         if (rootDocument) {
             return {
                 ...defaultInitialData,
-                title: rootDocument.title,
+                header: rootDocument.header,
                 meta: rootDocument.meta,
                 ...defaultRequestInitialData,
             };
@@ -65,7 +65,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
 
         return {
             ...defaultInitialData,
-            title: articlePathData.title,
+            header: articlePathData.header,
             meta: articlePathData.meta,
             articlePathData,
             ...defaultRequestInitialData,

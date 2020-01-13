@@ -10,10 +10,10 @@ import type {SearchParametersType} from './search-type';
 // eslint-disable-next-line complexity
 export function searchDocument(searchParameters: SearchParametersType): Promise<Array<MongoDocumentType> | Error> {
     const parametersList: Array<string> = [];
-    const {title, content, tagList} = searchParameters;
+    const {header, content, tagList} = searchParameters;
 
-    if (isString(title) && title.trim()) {
-        parametersList.push('title=' + encodeURIComponent(title.trim()));
+    if (isString(header) && header.trim()) {
+        parametersList.push('header=' + encodeURIComponent(header.trim()));
     }
 
     if (isString(content) && content.trim()) {

@@ -33,7 +33,7 @@ export type ValidateType = (
 ) => Array<Error>;
 
 export type FieldAutocompleteDataType = {|
-    +title: string,
+    +header: string,
     +value: string,
 |};
 

@@ -44,12 +44,12 @@ export class Search extends Component<PropsType, StateType> {
     }
 
     renderSearchResultItem(mongoDocument: MongoDocumentType): Node {
-        const {slug, title} = mongoDocument;
+        const {slug, header} = mongoDocument;
 
         return (
             <li key={slug}>
                 <Link className={searchStyle.search_result_item} to={getLinkToReadArticle(slug)}>
-                    {title}
+                    {header}
                 </Link>
             </li>
         );
@@ -100,7 +100,7 @@ export class Search extends Component<PropsType, StateType> {
         }
 
         const resultList = await searchDocument({
-            title: searchText,
+            header: searchText,
             tagList: searchText,
             content: searchText,
         });

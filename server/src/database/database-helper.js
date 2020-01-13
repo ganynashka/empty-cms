@@ -8,6 +8,7 @@ import {hasProperty, isError} from '../../../www/js/lib/is';
 import {promiseCatch} from '../../../www/js/lib/promise';
 
 import {dataBaseConst} from './database-const';
+import type {MongoDocumentSlugTitleType, MongoDocumentType} from './database-type';
 
 const getDataBaseCache: {[key: string]: Promise<MongoDataBase>} = {};
 
@@ -65,28 +66,30 @@ export function getSortDirection(value: mixed): MongoSortDirectionType {
 /*
 // change user type
 async function updateUserType() {
-    const userCollection = await await await getCollection<MongoUserType>(
+    const collection = await await await getCollection<MongoDocumentType>(
         dataBaseConst.name,
-        dataBaseConst.collection.user
+        dataBaseConst.collection.document
     );
 
-    userCollection.find({}).each(function (error: Error | null, userData: MongoUserType | null) {
-        if (error || !userData) {
+    collection.find({}).toArray((error: Error | null, itemList: Array<MongoDocumentType> | null) => {
+        if (error || !itemList) {
             console.error('---> !!! error');
             console.error(error);
-            console.log('---> !!! userData');
-            console.log(userData);
+            console.log('---> !!! itemList');
+            console.log(itemList);
             return;
         }
 
-        console.log('---> userData');
-        console.log(userData);
+        itemList.forEach((item: MongoDocumentType) => {
+            console.log('---> item');
+            console.log(item);
 
-        // const {id, password} = userData;
-        //
-        // console.log(id, password);
+            const {title, slug} = item;
 
-        // userCollection.updateOne({id}, {$set: {password: getPasswordSha256(password)}}, {});
+            console.log(title, slug);
+
+            // collection.updateOne({slug}, {$set: {header: title}}, {});
+        });
     });
 
     // userCollection.updateMany({}, {$set: {registerDate: getTime()}}, {}, function () {

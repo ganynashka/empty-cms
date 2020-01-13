@@ -83,7 +83,7 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
             return [<span key="title-text">Loading...</span>, <span key="label-slug">&nbsp;&ndash;&nbsp;{slug}</span>];
         }
 
-        const {title, isActive} = mongoDocument;
+        const {header, isActive} = mongoDocument;
         const href = getLinkToEditArticle(slug);
 
         const className = isActive ? null : documentTreeStyle.not_active_item;
@@ -92,12 +92,12 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
             <a
                 className={className}
                 href={href}
-                key="title-link"
+                key="header-link"
                 onClick={stopPropagation}
                 rel="noopener noreferrer"
                 target="_blank"
             >
-                {title}
+                {header}
             </a>,
             <span className={className} key="label-slug">
                 &nbsp;&ndash;&nbsp;{slug}

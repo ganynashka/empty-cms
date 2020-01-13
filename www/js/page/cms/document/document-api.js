@@ -98,7 +98,7 @@ export function removeDocument(slug: string): Promise<MainServerApiResponseType 
 }
 
 export function getDocumentSlugTitleList(): Promise<Array<MongoDocumentSlugTitleType> | Error> {
-    return fetch(documentApiRouteMap.getDocumentSlugTitleList)
+    return fetch(documentApiRouteMap.getDocumentSlugHeaderList)
         .then((response: Response): Promise<Array<MongoDocumentSlugTitleType> | Error> => response.json())
         .catch(promiseCatch);
 }
@@ -114,7 +114,7 @@ export function getDocumentAutocompleteDataList(): Promise<Array<FieldAutocomple
             return documentSlugTitleList.map(
                 (documentSlugTitleInList: MongoDocumentSlugTitleType): FieldAutocompleteDataType => {
                     return {
-                        title: documentSlugTitleInList.title,
+                        header: documentSlugTitleInList.header,
                         value: documentSlugTitleInList.slug,
                     };
                 }

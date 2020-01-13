@@ -160,15 +160,15 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        const {title} = jsonDocument;
+        const {header} = jsonDocument;
 
-        if (!title.trim()) {
+        if (!header.trim()) {
             response.status(400);
-            response.json({isSuccessful: false, errorList: ['Title is required.']});
+            response.json({isSuccessful: false, errorList: ['Header is required.']});
             return;
         }
 
-        const slug = getSlug(title);
+        const slug = getSlug(header);
 
         const existedDocument = await collection.findOne({slug});
 
@@ -447,7 +447,7 @@ export function addDocumentApi(app: $Application) {
         });
     });
 
-    app.get(documentApiRouteMap.getDocumentSlugTitleList, async (request: $Request, response: $Response) => {
+    app.get(documentApiRouteMap.getDocumentSlugHeaderList, async (request: $Request, response: $Response) => {
         const collection = await getCollection<MongoDocumentType>(
             dataBaseConst.name,
             dataBaseConst.collection.document
@@ -467,9 +467,9 @@ export function addDocumentApi(app: $Application) {
             }
 
             const slugTitleList = documentList.map((documentInList: MongoDocumentType): MongoDocumentSlugTitleType => {
-                const {slug, title} = documentInList;
+                const {slug, header} = documentInList;
 
-                return {slug, title};
+                return {slug, header};
             });
 
             response.json(slugTitleList);

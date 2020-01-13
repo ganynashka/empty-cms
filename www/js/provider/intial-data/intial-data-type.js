@@ -7,7 +7,7 @@ import type {DeviceDataType} from '../../../../server/src/util/device/device-typ
 type SetInitialDataType = (initialData: SetInitialDataArgumentType) => mixed;
 
 export type SetInitialDataArgumentType = {|
-    +title: string,
+    +header: string,
     +meta: string,
     // +description?: string,
     +is404: boolean,
@@ -18,7 +18,7 @@ export type SetInitialDataArgumentType = {|
 |};
 
 export type InitialDataType = {|
-    +title: string,
+    +header: string,
     +meta: string,
     // +description: string,
     +is404: boolean,

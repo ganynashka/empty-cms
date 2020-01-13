@@ -140,7 +140,7 @@ export class Header extends Component<PropsType, StateType> {
         setInitialData(initialContextData);
 
         setMeta({
-            title: initialContextData.title,
+            title: initialContextData.header,
         });
 
         scrollToTop();
@@ -201,11 +201,11 @@ export class Header extends Component<PropsType, StateType> {
     }
 
     renderDesktopLink(linkData: MongoDocumentTreeNodeType): Node {
-        const {slug, title} = linkData;
+        const {slug, header} = linkData;
 
         return (
             <Link className={headerStyle.header__desktop__menu_line__link} key={slug} to={getLinkToReadArticle(slug)}>
-                {title}
+                {header}
             </Link>
         );
     }

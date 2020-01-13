@@ -59,7 +59,7 @@ export class InputTextAutocomplete extends Component<PropsType, StateType> {
             if (!isString(value)) {
                 return {
                     value: 'value - ' + String(Math.random()),
-                    title: 'Error!!!',
+                    header: 'Error!!!',
                 };
             }
 
@@ -71,11 +71,11 @@ export class InputTextAutocomplete extends Component<PropsType, StateType> {
                 return data;
             }
 
-            console.error(value, 'has no title');
+            console.error(value, 'has no header');
 
             return {
                 value,
-                title: 'Error: ' + value,
+                header: 'Error: ' + value,
             };
         });
     }
@@ -88,7 +88,7 @@ export class InputTextAutocomplete extends Component<PropsType, StateType> {
     };
 
     getOptionLabel = (option: FieldAutocompleteDataType): string => {
-        return option.title;
+        return option.header;
     };
 
     handleChange = (event: mixed, dataList: Array<FieldAutocompleteDataType>) => {
@@ -105,7 +105,7 @@ export class InputTextAutocomplete extends Component<PropsType, StateType> {
     renderTagList = (value: Array<FieldAutocompleteDataType>, getTagProps: (data: {}) => {}): Array<Node> => {
         return value.map((option: FieldAutocompleteDataType, index: number): Node => {
             // eslint-disable-next-line react/jsx-props-no-spreading
-            return <Chip {...getTagProps({index})} key={option.value} label={option.title}/>;
+            return <Chip {...getTagProps({index})} key={option.value} label={option.header}/>;
         });
     };
 

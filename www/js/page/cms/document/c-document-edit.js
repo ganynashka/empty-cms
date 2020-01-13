@@ -164,6 +164,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                         titleImage: {defaultValue: mongoDocument.titleImage},
                         type: {defaultValue: mongoDocument.type},
                         title: {defaultValue: mongoDocument.title},
+                        header: {defaultValue: mongoDocument.header},
                         author: {defaultValue: mongoDocument.author},
                         illustrator: {defaultValue: mongoDocument.illustrator},
                         artist: {defaultValue: mongoDocument.artist},
@@ -199,14 +200,14 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                 <Typography variant="body1">
                     {'Parents: '}
                     {parentList.map((documentData: MongoDocumentType, index: number): Node => {
-                        const {slug, title} = documentData;
+                        const {slug, header} = documentData;
                         const href = routePathMap.documentEdit.staticPartPath + '/' + slug;
 
                         return (
                             <Fragment key={slug}>
                                 {index === 0 ? '' : ', '}
                                 <a href={href} key={'a-' + slug} rel="noopener noreferrer" target="_blank">
-                                    {title}
+                                    {header}
                                 </a>
                             </Fragment>
                         );

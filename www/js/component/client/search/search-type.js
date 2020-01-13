@@ -1,7 +1,7 @@
 // @flow
 
 export type SearchParametersType = {|
-    title?: string,
+    header?: string,
     content?: string,
     tagList?: string,
 |};

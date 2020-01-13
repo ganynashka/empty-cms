@@ -42,12 +42,12 @@ export function getSearchParameters(request: $Request): GetSearchParameterListTy
     const searchParameterList = [];
     const {query} = request;
 
-    const title = decodeURIComponent(String(query.title || '').trim());
+    const header = decodeURIComponent(String(query.header || '').trim());
     const content = decodeURIComponent(String(query.content || '').trim());
     const tagList = decodeURIComponent(String(query['tag-list'] || '').trim());
 
-    if (title) {
-        searchParameterList.push({title: new RegExp(title, 'i')});
+    if (header) {
+        searchParameterList.push({header: new RegExp(header, 'i')});
     }
 
     if (content) {

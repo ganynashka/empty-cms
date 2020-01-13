@@ -32,6 +32,7 @@ export type MongoDocumentType = {|
     +titleImage: string,
     +type: MongoDocumentTypeType,
     +title: string,
+    +header: string,
     +author: string,
     +illustrator: string,
     +artist: string,
@@ -52,7 +53,7 @@ export type MongoDocumentTreeNodeType = {|
     +slug: string,
     +titleImage: string,
     +type: MongoDocumentTypeType,
-    +title: string,
+    +header: string,
     +meta: string,
     +shortDescription: string,
     +content: string,
@@ -64,7 +65,7 @@ export type MongoDocumentTreeNodeType = {|
 
 export type MongoDocumentSlugTitleType = {|
     +slug: string,
-    +title: string,
+    +header: string,
 |};
 
 /*

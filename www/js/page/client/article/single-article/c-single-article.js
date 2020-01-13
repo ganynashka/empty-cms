@@ -30,11 +30,11 @@ export class SingleArticle extends Component<PropsType, StateType> {
             return <h1 className={articleStyle.article__header}>Here is not list of link</h1>;
         }
 
-        const {title, content} = articlePathData;
+        const {header, content} = articlePathData;
 
         return (
             <>
-                <h1 className={articleStyle.article__header}>{title}</h1>
+                <h1 className={articleStyle.article__header}>{header}</h1>
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={content}/>
             </>
         );

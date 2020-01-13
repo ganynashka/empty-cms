@@ -48,10 +48,10 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         const {props} = this;
         const {screenContextData} = props;
         const {devicePixelRatio} = screenContextData;
-        const {slug, title} = subNode;
+        const {slug, header} = subNode;
         const pathToImage = this.getSubNodeImage(subNode);
         const src = pathToImage ? getResizedInsideImageSrc(pathToImage, 269, 170, devicePixelRatio) : noImageImage;
-        const imageData = {src, title};
+        const imageData = {src, title: header};
 
         return (
             <li className={articleStyle.article__list_image_item} key={slug}>
@@ -69,11 +69,11 @@ export class ContainerArticle extends Component<PropsType, StateType> {
             return <h1 className={articleStyle.article__header}>Here is not list of link</h1>;
         }
 
-        const {title, subNodeList, content} = articlePathData;
+        const {header, subNodeList, content} = articlePathData;
 
         return (
             <>
-                <h1 className={articleStyle.article__header}>{title}</h1>
+                <h1 className={articleStyle.article__header}>{header}</h1>
                 <ul className={articleStyle.article__list}>{subNodeList.map(this.renderSubNode)}</ul>
                 <Markdown text={content}/>
             </>

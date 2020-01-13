@@ -102,13 +102,14 @@ function dataToContent(rawData: JsonToMongoDocumentItemType): string {
 
 export async function convertJsonToDocument(jsonDocument: JsonToMongoDocumentType): Promise<MongoDocumentType> {
     const date = getTime();
-    const slug = getSlug(jsonDocument.title);
+    const slug = getSlug(jsonDocument.header);
 
     const newDocument: MongoDocumentType = {
         slug,
         titleImage: '',
         type: mongoDocumentTypeMap.article,
         title: jsonDocument.title,
+        header: jsonDocument.header,
         author: jsonDocument.author,
         illustrator: jsonDocument.illustrator,
         artist: jsonDocument.artist,

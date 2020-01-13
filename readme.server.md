@@ -40,7 +40,7 @@
 
 2.3. Make backup
 
-> $ ~/soft/mongo/bin/mongodump --port=27001 --archive=db-dump/db-dump-\`date +%Y-%m-%d-%H-%M-%S\`.zip --db=main-db
+> $ ~/soft/mongo/bin/mongodump --port=27001 --db=main-db --archive=db-dump/db-dump-\`date +%Y-%m-%d-%H-%M-%S\`.zip
 
 or
 
@@ -50,7 +50,7 @@ or
 
 Clean folder db/data if needed.
 
-> $ ~/soft/mongo/bin/mongorestore --port=27001 --archive=db/back-0001.zip --db=main-db
+> $ ~/soft/mongo/bin/mongorestore --port=27001 --db=main-db --archive=db/back-0001.zip
 
 or
 

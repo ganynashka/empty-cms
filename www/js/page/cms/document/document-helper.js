@@ -72,7 +72,7 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
     }
 
     const subDocumentSlugList = documentFormData.subDocumentSlugList;
-    const slug = getSlug(documentFormData.title);
+    const slug = getSlug(documentFormData.header);
 
     if (subDocumentSlugList.includes(slug)) {
         subDocumentSlugList.splice(subDocumentSlugList.indexOf(slug), 1);
@@ -83,6 +83,7 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         titleImage: String(documentFormData.titleImage || ''),
         type: documentFormData.type,
         title: documentFormData.title,
+        header: documentFormData.header,
         author: documentFormData.author,
         illustrator: documentFormData.illustrator,
         artist: documentFormData.artist,
@@ -123,8 +124,8 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         fieldComponent: InputUploadFile,
                         validate: noValidate,
                         defaultValue: null,
-                        placeholder: 'title-image',
-                        labelText: 'Title image',
+                        placeholder: 'header-image',
+                        labelText: 'title image',
                         accept: 'image/png, image/jpg, image/jpeg',
                         uploadFile,
                         filePathPrefix: fileApiConst.pathToUploadFiles,
@@ -146,12 +147,12 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         ],
                     },
                     {
-                        name: 'title',
+                        name: 'header',
                         fieldComponent: InputText,
                         validate: getIsRequired,
                         defaultValue: '',
-                        placeholder: 'Title',
-                        labelText: 'Title',
+                        placeholder: 'Header',
+                        labelText: 'Header',
                     },
                     {
                         name: 'author',
@@ -184,6 +185,14 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: 0,
                         placeholder: 'Publication Date',
                         labelText: 'Publication Date',
+                    },
+                    {
+                        name: 'title',
+                        fieldComponent: InputText,
+                        validate: getIsRequired,
+                        defaultValue: '',
+                        placeholder: 'title',
+                        labelText: 'Title',
                     },
                     {
                         name: 'meta',
