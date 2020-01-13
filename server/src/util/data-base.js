@@ -10,9 +10,6 @@ import {clearGetDocumentTreeCache} from '../api/part/document-api-helper';
 import {updateSiteMapXml} from './site-map-xml-helper';
 
 export function handleDataBaseChange(): Promise<mixed> {
-    return Promise.resolve(null);
-
-    /*
     return updateSiteMapXml()
         .then((): mixed => console.log('/sitemap.xml has been updated'))
         .then(makeDataBaseBackUp)
@@ -21,7 +18,6 @@ export function handleDataBaseChange(): Promise<mixed> {
             console.log('---> handleDataBaseChange: error while execution!');
             console.log(error.message);
         });
-*/
 }
 
 export async function makeDataBaseBackUp(): Promise<null | Error> {
