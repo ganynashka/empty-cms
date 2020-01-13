@@ -140,7 +140,7 @@ export class Header extends Component<PropsType, StateType> {
         setInitialData(initialContextData);
 
         setMeta({
-            title: initialContextData.header,
+            title: initialContextData.title,
         });
 
         scrollToTop();

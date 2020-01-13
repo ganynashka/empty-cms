@@ -8,7 +8,7 @@ import {hasProperty, isError} from '../../../www/js/lib/is';
 import {promiseCatch} from '../../../www/js/lib/promise';
 
 import {dataBaseConst} from './database-const';
-import type {MongoDocumentSlugTitleType, MongoDocumentType} from './database-type';
+import type {MongoDocumentSlugHeaderType, MongoDocumentType} from './database-type';
 
 const getDataBaseCache: {[key: string]: Promise<MongoDataBase>} = {};
 

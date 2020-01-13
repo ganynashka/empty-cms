@@ -8,6 +8,7 @@ type SetInitialDataType = (initialData: SetInitialDataArgumentType) => mixed;
 
 export type SetInitialDataArgumentType = {|
     +header: string,
+    +title: string,
     +meta: string,
     // +description?: string,
     +is404: boolean,
@@ -19,6 +20,7 @@ export type SetInitialDataArgumentType = {|
 
 export type InitialDataType = {|
     +header: string,
+    +title: string,
     +meta: string,
     // +description: string,
     +is404: boolean,
