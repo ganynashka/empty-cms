@@ -67,7 +67,7 @@ app.get('*', async (request: $Request, response: $Response) => {
         );
 
         const htmlResult404 = htmlTemplate
-            .replace(stringForReplaceTitle, initialData.header)
+            .replace(stringForReplaceTitle, initialData.title)
             .replace(stringForReplaceMeta, initialData.meta)
             .replace(stringForReplaceContent, reactResult404);
 
@@ -80,7 +80,7 @@ app.get('*', async (request: $Request, response: $Response) => {
     }
 
     const htmlResult = htmlTemplate
-        .replace(stringForReplaceTitle, initialData.header)
+        .replace(stringForReplaceTitle, initialData.title)
         .replace(stringForReplaceMeta, initialData.meta)
         .replace(stringForReplaceContent, reactResult);
 

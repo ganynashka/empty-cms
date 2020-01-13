@@ -6,7 +6,7 @@ import {type $Application, type $Request, type $Response} from 'express';
 import {type JsonToMongoDocumentType} from '../../../../www/js/component/layout/form-generator/field/input-upload-json-as-document/input-upload-json-as-document-type';
 import {typeConverter} from '../../../../www/js/lib/type';
 import {getCollection} from '../../database/database-helper';
-import type {MongoDocumentSlugTitleType, MongoDocumentType} from '../../database/database-type';
+import type {MongoDocumentSlugHeaderType, MongoDocumentType} from '../../database/database-type';
 import {dataBaseConst} from '../../database/database-const';
 import {getTime} from '../../util/time';
 import {isError} from '../../../../www/js/lib/is';
@@ -466,7 +466,7 @@ export function addDocumentApi(app: $Application) {
                 return;
             }
 
-            const slugTitleList = documentList.map((documentInList: MongoDocumentType): MongoDocumentSlugTitleType => {
+            const slugTitleList = documentList.map((documentInList: MongoDocumentType): MongoDocumentSlugHeaderType => {
                 const {slug, header} = documentInList;
 
                 return {slug, header};
