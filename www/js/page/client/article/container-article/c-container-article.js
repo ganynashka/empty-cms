@@ -68,15 +68,15 @@ export class ContainerArticle extends Component<PropsType, StateType> {
     }
 
     renderHeaderSubNode(
-        subNode: MongoDocumentTreeNodeType,
-        index: number,
-        array: Array<MongoDocumentTreeNodeType>
+        subNode: MongoDocumentTreeNodeType
+        // index: number,
+        // array: Array<MongoDocumentTreeNodeType>
     ): Node {
         const {slug, header} = subNode;
 
         return (
             <li className={articleStyle.article__list_header_item} key={slug}>
-                {String(index + 1).padStart(String(array.length + 1).length, '0')}.&nbsp;
+                {/* {String(index + 1).padStart(String(array.length + 1).length, '0')}.&nbsp;*/}
                 <Link
                     className={articleStyle.article__list_header_item__link}
                     key={slug}
@@ -89,9 +89,9 @@ export class ContainerArticle extends Component<PropsType, StateType> {
     }
 
     renderSubNode = (
-        subNode: MongoDocumentTreeNodeType,
-        index: number,
-        array: Array<MongoDocumentTreeNodeType>
+        subNode: MongoDocumentTreeNodeType
+        // index: number,
+        // array: Array<MongoDocumentTreeNodeType>
     ): Node => {
         const {props} = this;
         const {initialContextData} = props;
@@ -108,7 +108,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         }
 
         if (mongoSubDocumentsViewTypeMap.header === subDocumentListViewType) {
-            return this.renderHeaderSubNode(subNode, index, array);
+            return this.renderHeaderSubNode(subNode);
         }
 
         return this.renderImageHeaderSubNode(subNode);

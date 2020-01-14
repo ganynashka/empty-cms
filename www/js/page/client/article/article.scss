@@ -28,6 +28,9 @@ $space-between-blocks: 20px;
 }
 
 .article__list_header {
+    column-count: 3;
+    column-gap: $ui-unit * 4;
+    column-rule: 1px solid $color-border;
     display: block;
 }
 
@@ -59,6 +62,10 @@ $space-between-blocks: 20px;
             .article__list_image_item {
                 width: calc((100% - #{$space-between-blocks * 2}) / 3);
             }
+
+            .article__list_header {
+                column-count: 2;
+            }
         }
     }
 
@@ -67,6 +74,10 @@ $space-between-blocks: 20px;
             .article__list_image_item {
                 height: 120px;
                 width: calc((100% - #{$space-between-blocks * 1}) / 2);
+            }
+
+            .article__list_header {
+                column-count: 1;
             }
         }
     }
