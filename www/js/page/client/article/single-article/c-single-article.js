@@ -36,7 +36,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
             return null;
         }
 
-        return <p className={singleArticleStyle.single_article__author}>Автор: {author}</p>;
+        return <p className={singleArticleStyle.single_article__author}>{author}</p>;
     }
 
     render(): Node {
