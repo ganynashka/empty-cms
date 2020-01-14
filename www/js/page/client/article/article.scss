@@ -19,12 +19,16 @@ $space-between-blocks: 20px;
     padding-bottom: 20px;
 }
 
-.article__list {
+.article__list_image {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     list-style: none;
+}
+
+.article__list_header {
+    display: block;
 }
 
 .article__list_image_item {
@@ -34,6 +38,19 @@ $space-between-blocks: 20px;
     margin-bottom: $space-between-blocks;
     position: relative;
     width: calc((100% - #{$space-between-blocks * 3}) / 4);
+}
+
+.article__list_header_item {
+    display: block;
+    font-size: $main-font-size;
+    width: 100%;
+}
+
+.article__list_header_item__link {
+    display: inline-block;
+    font-size: $main-font-size;
+    padding-bottom: $ui-unit / 2;
+    padding-top: $ui-unit / 2;
 }
 
 :global {

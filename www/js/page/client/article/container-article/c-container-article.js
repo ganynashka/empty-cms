@@ -13,6 +13,7 @@ import {getResizedInsideImageSrc} from '../../../../lib/url';
 import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
 import noImageImage from '../image/no-image.svg';
 import {ImagePreview} from '../../../../component/layout/image-preview/c-image-preview';
+import {mongoSubDocumentsViewTypeMap} from '../../../../../../server/src/database/database-type';
 
 // import containerArticleStyle from './container-article.scss';
 
@@ -22,6 +23,12 @@ type PropsType = {|
 |};
 
 type StateType = {};
+
+const listClassNameMap = {
+    [mongoSubDocumentsViewTypeMap.auto]: articleStyle.article__list_image,
+    [mongoSubDocumentsViewTypeMap.imageHeader]: articleStyle.article__list_image,
+    [mongoSubDocumentsViewTypeMap.header]: articleStyle.article__list_header,
+};
 
 export class ContainerArticle extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
@@ -44,7 +51,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         return null;
     }
 
-    renderSubNode = (subNode: MongoDocumentTreeNodeType): Node => {
+    renderImageHeaderSubNode(subNode: MongoDocumentTreeNodeType): Node {
         const {props} = this;
         const {screenContextData} = props;
         const {devicePixelRatio} = screenContextData;
@@ -58,7 +65,58 @@ export class ContainerArticle extends Component<PropsType, StateType> {
                 <ImagePreview image={imageData} link={{to: getLinkToReadArticle(slug)}}/>
             </li>
         );
+    }
+
+    renderHeaderSubNode(
+        subNode: MongoDocumentTreeNodeType,
+        index: number,
+        array: Array<MongoDocumentTreeNodeType>
+    ): Node {
+        const {slug, header} = subNode;
+
+        return (
+            <li className={articleStyle.article__list_header_item} key={slug}>
+                {String(index + 1).padStart(String(array.length + 1).length, '0')}.&nbsp;
+                <Link
+                    className={articleStyle.article__list_header_item__link}
+                    key={slug}
+                    to={getLinkToReadArticle(slug)}
+                >
+                    {header}
+                </Link>
+            </li>
+        );
+    }
+
+    renderSubNode = (
+        subNode: MongoDocumentTreeNodeType,
+        index: number,
+        array: Array<MongoDocumentTreeNodeType>
+    ): Node => {
+        const {props} = this;
+        const {initialContextData} = props;
+        const {articlePathData} = initialContextData;
+
+        if (!articlePathData) {
+            return null;
+        }
+
+        const {subDocumentListViewType} = articlePathData;
+
+        if (mongoSubDocumentsViewTypeMap.imageHeader === subDocumentListViewType) {
+            return this.renderImageHeaderSubNode(subNode);
+        }
+
+        if (mongoSubDocumentsViewTypeMap.header === subDocumentListViewType) {
+            return this.renderHeaderSubNode(subNode, index, array);
+        }
+
+        return this.renderImageHeaderSubNode(subNode);
     };
+
+    sortDocumentByAlphabet(subNodeA: MongoDocumentTreeNodeType, subNodeB: MongoDocumentTreeNodeType): number {
+        return subNodeA.header > subNodeB.header ? 1 : -1;
+    }
 
     render(): Node {
         const {props} = this;
@@ -69,12 +127,15 @@ export class ContainerArticle extends Component<PropsType, StateType> {
             return <h1 className={articleStyle.article__header}>Here is not list of link</h1>;
         }
 
-        const {header, subNodeList, content} = articlePathData;
+        const {header, subNodeList, content, subDocumentListViewType} = articlePathData;
+        const listClassName = listClassNameMap[subDocumentListViewType];
 
         return (
             <>
                 <h1 className={articleStyle.article__header}>{header}</h1>
-                <ul className={articleStyle.article__list}>{subNodeList.map(this.renderSubNode)}</ul>
+                <ul className={listClassName}>
+                    {subNodeList.sort(this.sortDocumentByAlphabet).map(this.renderSubNode)}
+                </ul>
                 <Markdown text={content}/>
             </>
         );
