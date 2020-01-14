@@ -11,7 +11,7 @@ import type {
 } from '../../../www/js/component/layout/form-generator/field/input-upload-json-as-document/input-upload-json-as-document-type';
 import type {MongoDocumentType} from '../database/database-type';
 import {getSlug} from '../../../www/js/lib/string';
-import {mongoDocumentTypeMap} from '../database/database-type';
+import {mongoDocumentTypeMap, mongoSubDocumentsViewTypeMap} from '../database/database-type';
 import {cwd} from '../../../webpack/config';
 import {fileApiConst} from '../api/part/file-api-const';
 import {isError} from '../../../www/js/lib/is';
@@ -108,6 +108,7 @@ export async function convertJsonToDocument(jsonDocument: JsonToMongoDocumentTyp
         slug,
         titleImage: '',
         type: mongoDocumentTypeMap.article,
+        subDocumentListViewType: mongoSubDocumentsViewTypeMap.auto,
         title: jsonDocument.title,
         header: jsonDocument.header,
         author: jsonDocument.author,

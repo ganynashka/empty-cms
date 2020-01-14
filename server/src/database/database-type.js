@@ -26,11 +26,20 @@ export const mongoDocumentTypeMap = {
     container: 'container',
 };
 
+export type MongoSubDocumentsViewType = 'image-header' | 'header' | 'auto';
+
+export const mongoSubDocumentsViewTypeMap = {
+    imageHeader: 'image-header',
+    header: 'header',
+    auto: 'auto',
+};
+
 export type MongoDocumentType = {|
     +_id?: mixed,
     +slug: string,
     +titleImage: string,
     +type: MongoDocumentTypeType,
+    +subDocumentListViewType: MongoSubDocumentsViewType,
     +title: string,
     +header: string,
     +author: string,

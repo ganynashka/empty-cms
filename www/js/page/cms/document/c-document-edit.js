@@ -163,6 +163,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                         slug: {defaultValue: mongoDocument.slug, isHidden: true},
                         titleImage: {defaultValue: mongoDocument.titleImage},
                         type: {defaultValue: mongoDocument.type},
+                        subDocumentListViewType: {defaultValue: mongoDocument.subDocumentListViewType},
                         title: {defaultValue: mongoDocument.title},
                         header: {defaultValue: mongoDocument.header},
                         author: {defaultValue: mongoDocument.author},

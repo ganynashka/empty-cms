@@ -1,11 +1,12 @@
 // @flow
 
-import type {MongoDocumentTypeType} from '../../../../../server/src/database/database-type';
+import type {MongoDocumentTypeType, MongoSubDocumentsViewType} from '../../../../../server/src/database/database-type';
 
 export type FormDataMongoDocumentType = {
     +slug: string,
     +titleImage: string | File | null,
     +type: MongoDocumentTypeType,
+    +subDocumentListViewType: MongoSubDocumentsViewType,
     +title: string,
     +header: string,
     +author: string,

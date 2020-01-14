@@ -20,7 +20,7 @@ import {InputCheckbox} from '../../../component/layout/form-generator/field/inpu
 import {FieldSet} from '../../../component/layout/form-generator/field/field-set/field-set';
 import {typeConverter} from '../../../lib/type';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
-import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-type';
+import {mongoDocumentTypeMap, mongoSubDocumentsViewTypeMap} from '../../../../../server/src/database/database-type';
 import {extractUniqueArrayString, getSlug, stringToUniqArray} from '../../../lib/string';
 import {InputUploadFile} from '../../../component/layout/form-generator/field/input-upload-file/c-input-upload-file';
 import {isError, isFile, isNull, isString} from '../../../lib/is';
@@ -82,6 +82,7 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         slug,
         titleImage: String(documentFormData.titleImage || ''),
         type: documentFormData.type,
+        subDocumentListViewType: documentFormData.subDocumentListViewType,
         title: documentFormData.title,
         header: documentFormData.header,
         author: documentFormData.author,
@@ -143,6 +144,31 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                             </option>,
                             <option key={mongoDocumentTypeMap.container} value={mongoDocumentTypeMap.container}>
                                 {mongoDocumentTypeMap.container}
+                            </option>,
+                        ],
+                    },
+                    {
+                        name: 'subDocumentListViewType',
+                        fieldComponent: InputSelect,
+                        validate: getIsRequired,
+                        defaultValue: mongoSubDocumentsViewTypeMap.auto,
+                        placeholder: 'Type: image-header, header or auto',
+                        labelText: 'Type: image-header, header or auto',
+                        content: [
+                            <option key={mongoSubDocumentsViewTypeMap.auto} value={mongoSubDocumentsViewTypeMap.auto}>
+                                {mongoSubDocumentsViewTypeMap.auto}
+                            </option>,
+                            <option
+                                key={mongoSubDocumentsViewTypeMap.imageHeader}
+                                value={mongoSubDocumentsViewTypeMap.imageHeader}
+                            >
+                                {mongoSubDocumentsViewTypeMap.imageHeader}
+                            </option>,
+                            <option
+                                key={mongoSubDocumentsViewTypeMap.header}
+                                value={mongoSubDocumentsViewTypeMap.header}
+                            >
+                                {mongoSubDocumentsViewTypeMap.header}
                             </option>,
                         ],
                     },
