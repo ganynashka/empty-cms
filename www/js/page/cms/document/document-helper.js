@@ -152,8 +152,8 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         fieldComponent: InputSelect,
                         validate: getIsRequired,
                         defaultValue: mongoSubDocumentsViewTypeMap.auto,
-                        placeholder: 'Type: image-header, header or auto',
-                        labelText: 'Type: image-header, header or auto',
+                        placeholder: 'Sub-document List View Type: image-header, header or auto',
+                        labelText: 'Sub-document List View Type: image-header, header or auto',
                         content: [
                             <option key={mongoSubDocumentsViewTypeMap.auto} value={mongoSubDocumentsViewTypeMap.auto}>
                                 {mongoSubDocumentsViewTypeMap.auto}
