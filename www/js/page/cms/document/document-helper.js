@@ -136,7 +136,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         fieldComponent: InputSelect,
                         validate: getIsRequired,
                         defaultValue: mongoDocumentTypeMap.article,
-                        placeholder: 'Type: article or container',
+                        placeholder: 'Type: article, container or downloadable-image-list',
                         labelText: 'Type',
                         content: [
                             <option key={mongoDocumentTypeMap.article} value={mongoDocumentTypeMap.article}>
@@ -144,6 +144,12 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                             </option>,
                             <option key={mongoDocumentTypeMap.container} value={mongoDocumentTypeMap.container}>
                                 {mongoDocumentTypeMap.container}
+                            </option>,
+                            <option
+                                key={mongoDocumentTypeMap.downloadableImageList}
+                                value={mongoDocumentTypeMap.downloadableImageList}
+                            >
+                                {mongoDocumentTypeMap.downloadableImageList}
                             </option>,
                         ],
                     },

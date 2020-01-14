@@ -19,11 +19,12 @@ export type MongoUserFrontType = {|
     +rating: number,
 |};
 
-export type MongoDocumentTypeType = 'article' | 'container';
+export type MongoDocumentTypeType = 'article' | 'container' | 'downloadable-image-list';
 
 export const mongoDocumentTypeMap = {
     article: 'article',
     container: 'container',
+    downloadableImageList: 'downloadable-image-list',
 };
 
 export type MongoSubDocumentsViewType = 'image-header' | 'header' | 'auto';

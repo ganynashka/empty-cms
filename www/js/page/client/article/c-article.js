@@ -11,6 +11,7 @@ import {PageNotFoundContent} from '../page-not-found/page-not-found-content';
 import articleStyle from './article.scss';
 import {SingleArticle} from './single-article/c-single-article';
 import {ContainerArticle} from './container-article/c-container-article';
+import {DownloadableImageListArticle} from './downloadable-image-list-article/c-downloadable-image-list-article';
 
 type PropsType = {
     +initialContextData: InitialDataType,
@@ -32,7 +33,7 @@ export class Article extends Component<PropsType, StateType> {
         return Boolean(props.match && nextProps.match);
     }
 
-    // eslint-disable-next-line complexity
+    // eslint-disable-next-line complexity, max-statements
     renderContent(): Node {
         const {props} = this;
         const {initialContextData, match, screenContextData} = props;
@@ -54,7 +55,7 @@ export class Article extends Component<PropsType, StateType> {
         }
 
         const {type} = articlePathData;
-        const {article, container} = mongoDocumentTypeMap;
+        const {article, container, downloadableImageList} = mongoDocumentTypeMap;
 
         if (article === type) {
             return <SingleArticle initialContextData={initialContextData}/>;
@@ -62,6 +63,15 @@ export class Article extends Component<PropsType, StateType> {
 
         if (container === type) {
             return <ContainerArticle initialContextData={initialContextData} screenContextData={screenContextData}/>;
+        }
+
+        if (downloadableImageList === type) {
+            return (
+                <DownloadableImageListArticle
+                    initialContextData={initialContextData}
+                    screenContextData={screenContextData}
+                />
+            );
         }
 
         console.error('Can not detect article type:', type);
