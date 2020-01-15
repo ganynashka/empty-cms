@@ -4,8 +4,8 @@
 
 import fileSystem from 'fs';
 import path from 'path';
-const CWD = process.cwd();
 
+const CWD = process.cwd();
 const pathToKeys = path.join(CWD, 'server/key/file');
 
 // eslint-disable-next-line no-sync
