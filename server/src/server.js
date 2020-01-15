@@ -31,13 +31,13 @@ if (process.env.NODE_ENV === 'production') {
         console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
     });
 
-    app.get('*', (request: $Request, response: $Response) => {
-        console.log('https://' + request.headers.host + request.url);
-        response.redirect('https://' + request.headers.host + request.url);
-    });
-    app.listen(ssrHttpServerPortProduction, () => {
-        console.info(`Server listening on port ${ssrHttpServerPortProduction} - production`);
-    });
+    // app.get('*', (request: $Request, response: $Response) => {
+    //     console.log('https://' + request.headers.host + request.url);
+    //     response.redirect('https://' + request.headers.host + request.url);
+    // });
+    // app.listen(ssrHttpServerPortProduction, () => {
+    //     console.info(`Server listening on port ${ssrHttpServerPortProduction} - production`);
+    // });
 } else {
     app.listen(ssrServerPort, () => {
         console.info(`Server listening on port ${ssrServerPort} - ${String(process.env.NODE_ENV || 'development')}`);
