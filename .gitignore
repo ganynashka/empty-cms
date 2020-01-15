@@ -4,6 +4,10 @@
 # keys
 /server/key/file
 
+# user's files
+/upload-file-cache
+/upload-file-temp
+
 # Logs
 logs
 *.log
