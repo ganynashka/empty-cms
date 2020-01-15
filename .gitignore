@@ -2,7 +2,7 @@
 /.idea
 
 # keys
-/server/key/file
+# /server/key/file
 
 # user's files
 /upload-file-cache
