@@ -5,15 +5,18 @@
 /* eslint no-process-env: 0, id-match: 0, optimize-regex/optimize-regex: 0, react/no-danger: 0 */
 
 // import type {IncomingMessage, ServerResponse} from 'http';
+import https from 'https';
+
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {StaticRouter} from 'react-router-dom';
 import express, {type $Application, type $Request, type $Response} from 'express';
 
 import {ClientApp} from '../../www/js/component/app/c-client-app';
-import {ssrServerPort, ssrHttpServerPortProduction} from '../../webpack/config';
+import {ssrServerPort, ssrHttpServerPortProduction, ssrHttpsServerPortProduction} from '../../webpack/config';
 import {getInitialData} from '../../www/js/provider/intial-data/intial-data-helper';
 import type {RouterStaticContextType} from '../../www/js/provider/intial-data/intial-data-type';
+import {sslCert, sslKey} from '../key/key';
 
 import {getIndexHtmlTemplate} from './static-files';
 import {initialScriptClassName, stringForReplaceContent, stringForReplaceMeta, stringForReplaceTitle} from './config';
@@ -88,23 +91,12 @@ app.get('*', async (request: $Request, response: $Response) => {
 
 if (process.env.NODE_ENV === 'production') {
     // $FlowFixMe
-    /*
-        https
-            .createServer(sslCredentials, app)
-            .listen(PORT, () => {
-                console.info(`Server listening on port ${PORT} - production`);
-            })
-    */
-    app.listen(ssrHttpServerPortProduction, () => {
-        console.info(
-            `Server listening on port ${ssrHttpServerPortProduction} - ${String(
-                process.env.NODE_ENV || 'development'
-            )}`
-        );
+    https.createServer({key: sslKey, cert: sslCert}, app).listen(ssrHttpsServerPortProduction, () => {
+        console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
     });
 } else {
-    app.listen(PORT, () => {
-        console.info(`Server listening on port ${PORT} - ${String(process.env.NODE_ENV || 'development')}`);
+    app.listen(ssrServerPort, () => {
+        console.info(`Server listening on port ${ssrServerPort} - ${String(process.env.NODE_ENV || 'development')}`);
     });
 }
 
