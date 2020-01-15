@@ -14,7 +14,6 @@ import {ClientApp} from '../../www/js/component/app/c-client-app';
 import {ssrServerPort, ssrHttpServerPortProduction} from '../../webpack/config';
 import {getInitialData} from '../../www/js/provider/intial-data/intial-data-helper';
 import type {RouterStaticContextType} from '../../www/js/provider/intial-data/intial-data-type';
-import {sessionKey, passwordKey} from '../key';
 
 import {getIndexHtmlTemplate} from './static-files';
 import {initialScriptClassName, stringForReplaceContent, stringForReplaceMeta, stringForReplaceTitle} from './config';

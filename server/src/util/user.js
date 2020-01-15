@@ -5,7 +5,7 @@ import crypto from 'crypto';
 import type {MongoUserType} from '../database/database-type';
 import {getCollection} from '../database/database-helper';
 import {dataBaseConst} from '../database/database-const';
-import {passwordKey} from '../../key';
+import {passwordKey} from '../../key/key';
 import {isError} from '../../../www/js/lib/is';
 
 export type UserLoginPasswordType = {login: string, password: string};
