@@ -23,17 +23,26 @@ import {initialScriptClassName, stringForReplaceContent, stringForReplaceMeta, s
 import {addApiIntoApplication} from './api/api';
 import {handleDataBaseChange} from './util/data-base';
 
-const PORT: number = ssrServerPort;
 const app: $Application = express();
 
-/*
-const sslCredentials = {
-    key: fs.readFileSync(__dirname + '/../../ssl/selfsigned.key'),
-    cert: fs.readFileSync(__dirname + '/../../ssl/selfsigned.crt'),
-};
-*/
+if (process.env.NODE_ENV === 'production') {
+    // $FlowFixMe
+    https.createServer({key: sslKey, cert: sslCert}, app).listen(ssrHttpsServerPortProduction, () => {
+        console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
+    });
 
-// const app = express.createServer(sslCredentials);
+    app.get('*', (request: $Request, response: $Response) => {
+        console.log('https://' + request.headers.host + request.url);
+        response.redirect('https://' + request.headers.host + request.url);
+    });
+    app.listen(ssrHttpServerPortProduction, () => {
+        console.info(`Server listening on port ${ssrHttpServerPortProduction} - production`);
+    });
+} else {
+    app.listen(ssrServerPort, () => {
+        console.info(`Server listening on port ${ssrServerPort} - ${String(process.env.NODE_ENV || 'development')}`);
+    });
+}
 
 // api
 addApiIntoApplication(app);
@@ -88,25 +97,6 @@ app.get('*', async (request: $Request, response: $Response) => {
 
     response.send(htmlResult);
 });
-
-if (process.env.NODE_ENV === 'production') {
-    // $FlowFixMe
-    https.createServer({key: sslKey, cert: sslCert}, app).listen(ssrHttpsServerPortProduction, () => {
-        console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
-    });
-
-    app.get('*', (request: $Request, response: $Response) => {
-        console.log('https://' + request.headers.host + request.url);
-        response.redirect('https://' + request.headers.host + request.url);
-    });
-    app.listen(ssrHttpServerPortProduction, () => {
-        console.info(`Server listening on port ${ssrHttpServerPortProduction} - production`);
-    });
-} else {
-    app.listen(ssrServerPort, () => {
-        console.info(`Server listening on port ${ssrServerPort} - ${String(process.env.NODE_ENV || 'development')}`);
-    });
-}
 
 handleDataBaseChange()
     .then((): mixed => console.log('---> handleDataBaseChange: done!'))
