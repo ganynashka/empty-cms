@@ -1,6 +1,9 @@
 #IDE
 /.idea
 
+# keys
+/server/key/file/
+
 # Logs
 logs
 *.log
