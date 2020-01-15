@@ -94,6 +94,13 @@ if (process.env.NODE_ENV === 'production') {
     https.createServer({key: sslKey, cert: sslCert}, app).listen(ssrHttpsServerPortProduction, () => {
         console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
     });
+
+    app.get('*', (request: $Request, response: $Response) => {
+        response.redirect('https://' + request.headers.host + request.url);
+    });
+    app.listen(ssrHttpServerPortProduction, () => {
+        console.info(`Server listening on port ${ssrHttpServerPortProduction} - production`);
+    });
 } else {
     app.listen(ssrServerPort, () => {
         console.info(`Server listening on port ${ssrServerPort} - ${String(process.env.NODE_ENV || 'development')}`);
