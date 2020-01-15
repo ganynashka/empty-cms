@@ -6,7 +6,7 @@
 
 // import type {IncomingMessage, ServerResponse} from 'http';
 import https from 'https';
-import http from 'http';
+import http, {type IncomingMessage, type ServerResponse} from 'http';
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -32,20 +32,17 @@ if (process.env.NODE_ENV === 'production') {
         console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
     });
 
-    http.createServer((req, res) => {
-        res.writeHead(301, {'Location': 'https://' + req.headers['host'].replace(ssrHttpServerPortProduction, ssrHttpsServerPortProduction) + req.url});
-        console.log('http request, will go to >> ');
-        console.log('https://' + req.headers['host'].replace(ssrHttpServerPortProduction, ssrHttpsServerPortProduction) + req.url);
-        res.end();
-    }).listen(80);
-
-    // app.get('*', (request: $Request, response: $Response) => {
-    //     console.log('https://' + request.headers.host + request.url);
-    //     response.redirect('https://' + request.headers.host + request.url);
-    // });
-    // app.listen(ssrHttpServerPortProduction, () => {
-    //     console.info(`Server listening on port ${ssrHttpServerPortProduction} - production`);
-    // });
+    http.createServer((request: IncomingMessage, response: ServerResponse) => {
+        response.writeHead(301, {
+            Location:
+                'https://'
+                + request.headers.host.replace(ssrHttpServerPortProduction, ssrHttpsServerPortProduction)
+                + request.url,
+        });
+        response.end();
+    }).listen(ssrHttpServerPortProduction, () => {
+        console.info(`Server (redirect) listening on port ${ssrHttpServerPortProduction} - production`);
+    });
 } else {
     app.listen(ssrServerPort, () => {
         console.info(`Server listening on port ${ssrServerPort} - ${String(process.env.NODE_ENV || 'development')}`);
@@ -69,7 +66,7 @@ app.get('*', async (request: $Request, response: $Response) => {
                 className={initialScriptClassName}
                 dangerouslySetInnerHTML={{__html: `window.initialData = ${JSON.stringify(initialData)}`}}
             />
-        </StaticRouter>,
+        </StaticRouter>
     );
 
     if (staticContext.is404 && !initialData.is404) {
@@ -82,7 +79,7 @@ app.get('*', async (request: $Request, response: $Response) => {
                     className={initialScriptClassName}
                     dangerouslySetInnerHTML={{__html: `window.initialData = ${JSON.stringify(initialData404)}`}}
                 />
-            </StaticRouter>,
+            </StaticRouter>
         );
 
         const htmlResult404 = htmlTemplate
