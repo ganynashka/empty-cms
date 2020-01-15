@@ -30,3 +30,4 @@ package-lock.json
 .DS_Store
 __delete_and_no_commit__
 
+/server/key/file/
