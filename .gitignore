@@ -2,7 +2,7 @@
 /.idea
 
 # keys
-/server/key/file/
+/server/key/file
 
 # Logs
 logs
