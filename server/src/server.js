@@ -96,6 +96,7 @@ if (process.env.NODE_ENV === 'production') {
     });
 
     app.get('*', (request: $Request, response: $Response) => {
+        console.log('https://' + request.headers.host + request.url);
         response.redirect('https://' + request.headers.host + request.url);
     });
     app.listen(ssrHttpServerPortProduction, () => {
