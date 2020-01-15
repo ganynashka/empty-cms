@@ -12,7 +12,6 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {StaticRouter} from 'react-router-dom';
 import express, {type $Application, type $Request, type $Response} from 'express';
-import secure from 'express-force-https';
 
 import {ClientApp} from '../../www/js/component/app/c-client-app';
 import {ssrServerPort, ssrHttpServerPortProduction, ssrHttpsServerPortProduction} from '../../webpack/config';
@@ -28,7 +27,6 @@ import {handleDataBaseChange} from './util/data-base';
 const app: $Application = express();
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(secure);
     // $FlowFixMe
     https.createServer({key: sslKey, cert: sslCert}, app).listen(ssrHttpsServerPortProduction, () => {
         console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
