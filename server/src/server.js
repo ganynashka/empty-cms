@@ -28,7 +28,12 @@ const app: $Application = express();
 
 if (process.env.NODE_ENV === 'production') {
     // $FlowFixMe
-    https.createServer({key: sslKey, cert: sslCert}, app).listen(ssrHttpsServerPortProduction, () => {
+    https.createServer({
+        key: sslKey,
+        cert: sslCert,
+        requestCert: true,
+        rejectUnauthorized: false,
+    }, app).listen(ssrHttpsServerPortProduction, () => {
         console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
     });
 
