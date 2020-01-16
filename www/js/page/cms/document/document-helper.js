@@ -95,7 +95,7 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         content: documentFormData.content,
         createdDate: 0,
         updatedDate: 0,
-        rating: documentFormData.rating,
+        rating: Number(documentFormData.rating),
         tagList: stringToUniqArray(documentFormData.tagList, ','),
         subDocumentSlugList,
         isActive: documentFormData.isActive,

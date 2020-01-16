@@ -106,6 +106,7 @@ function extractFromSite(node) {
     }
 
     const itemList = textNodesUnder(node)
+        // eslint-disable-next-line complexity
         .filter(childNode => {
             if (childNode.textContent && childNode.textContent.trim()) {
                 return true;
