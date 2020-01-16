@@ -8,6 +8,8 @@
 import https from 'https';
 import http, {type IncomingMessage, type ServerResponse} from 'http';
 
+import spdy from 'spdy';
+
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {StaticRouter} from 'react-router-dom';
@@ -28,7 +30,7 @@ const app: $Application = express();
 
 if (process.env.NODE_ENV === 'production') {
     // $FlowFixMe
-    https.createServer({key: sslKey, cert: sslCert}, app).listen(ssrHttpsServerPortProduction, () => {
+    spdy.createServer({key: sslKey, cert: sslCert}, app).listen(ssrHttpsServerPortProduction, () => {
         console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
     });
 
