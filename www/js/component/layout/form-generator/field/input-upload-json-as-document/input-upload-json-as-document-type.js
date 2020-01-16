@@ -6,7 +6,6 @@ export type JsonToMongoDocumentItemType = {
 };
 
 export type JsonToMongoDocumentType = {
-    +title: string,
     +header: string,
     +author: string,
     +illustrator: string,

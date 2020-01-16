@@ -109,7 +109,7 @@ export async function convertJsonToDocument(jsonDocument: JsonToMongoDocumentTyp
         titleImage: '',
         type: mongoDocumentTypeMap.article,
         subDocumentListViewType: mongoSubDocumentsViewTypeMap.auto,
-        title: jsonDocument.title,
+        title: jsonDocument.header,
         header: jsonDocument.header,
         author: jsonDocument.author,
         illustrator: jsonDocument.illustrator,

@@ -111,7 +111,7 @@ function extractFromSite(node) {
                 return true;
             }
 
-            if (childNode.src && childNode.src.trim()) {
+            if (childNode.src && childNode.src.trim() && !childNode.src.trim().startsWith('data:')) {
                 return true;
             }
 
@@ -119,12 +119,12 @@ function extractFromSite(node) {
         })
         .map(extractFromNode);
 
-    const title = '';
+    const header = '';
     const author = '';
     const illustrator = '';
     const artist = '';
 
-    const result = {title, author, illustrator, artist, itemList};
+    const result = {header, author, illustrator, artist, itemList};
 
     saveDataAsJsonFile(result);
 }
