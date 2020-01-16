@@ -54,40 +54,8 @@ async function getDocumentFirstParentBySlug(slug: string): Promise<MayBeDocument
         return collection;
     }
 
-    return new Promise((resolve: (documentListOrError: MayBeDocumentType) => mixed) => {
-        collection
-            // $FlowFixMe
-            .find({subDocumentSlugList: slug})
-            .toArray((error: Error | null, rawDocumentList: Array<MongoDocumentType> | null) => {
-                if (error) {
-                    resolve(new Error('getDocumentFirstParentBySlug: Can not find document!'));
-                    return;
-                }
-
-                if (!Array.isArray(rawDocumentList)) {
-                    resolve(new Error('getDocumentFirstParentBySlug: Result is not Array!'));
-                    return;
-                }
-
-                const documentList: Array<MongoDocumentType> = [];
-
-                // eslint-disable-next-line sonarjs/no-identical-functions
-                rawDocumentList.forEach((rawDocument: MongoDocumentType | null) => {
-                    if (!rawDocument) {
-                        return;
-                    }
-
-                    documentList.push(rawDocument);
-                });
-
-                if (documentList.length === 0) {
-                    resolve(null);
-                    return;
-                }
-
-                resolve(documentList[0]);
-            });
-    });
+    // $FlowFixMe
+    return collection.findOne({subDocumentSlugList: slug});
 }
 
 function getDocumentParentListRecursively(
