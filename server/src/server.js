@@ -17,7 +17,7 @@ import {ClientApp} from '../../www/js/component/app/c-client-app';
 import {ssrServerPort, ssrHttpServerPortProduction, ssrHttpsServerPortProduction} from '../../webpack/config';
 import {getInitialData} from '../../www/js/provider/intial-data/intial-data-helper';
 import type {RouterStaticContextType} from '../../www/js/provider/intial-data/intial-data-type';
-import {sslCert, sslKey} from '../key/key';
+import {passwordKey, sessionKey, sslCert, sslKey} from '../key/key';
 
 import {getIndexHtmlTemplate} from './static-files';
 import {initialScriptClassName, stringForReplaceContent, stringForReplaceMeta, stringForReplaceTitle} from './config';
@@ -27,16 +27,21 @@ import {handleDataBaseChange} from './util/data-base';
 const app: $Application = express();
 
 if (process.env.NODE_ENV === 'production') {
-    // $FlowFixMe
-    https.createServer({
-        key: sslKey,
-        cert: sslCert,
-        requestCert: true,
-        rejectUnauthorized: false,
-        passphrase: 'das;lfj asfasdfdsa   ddffddfdfds12312321',
-    }, app).listen(ssrHttpsServerPortProduction, () => {
-        console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
-    });
+    https
+        .createServer(
+            {
+                key: sslKey,
+                cert: sslCert,
+                requestCert: true,
+                rejectUnauthorized: false,
+                passphrase: passwordKey + sessionKey,
+            },
+            // $FlowFixMe
+            app
+        )
+        .listen(ssrHttpsServerPortProduction, () => {
+            console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
+        });
 
     http.createServer((request: IncomingMessage, response: ServerResponse) => {
         response.writeHead(301, {
