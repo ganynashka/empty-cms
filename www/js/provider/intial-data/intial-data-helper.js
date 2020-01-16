@@ -8,9 +8,11 @@ import {dataBaseConst} from '../../../../server/src/database/database-const';
 import {isError} from '../../lib/is';
 import {routePathMap} from '../../component/app/routes-path-map';
 import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from '../../../../server/src/api/part/document-api-const';
-import {getDocumentTreeMemoized} from '../../../../server/src/api/part/document-api-helper';
+import {getDocumentTreeMemoized} from '../../../../server/src/api/part/document-api-helper-get-document-tree';
 import {getLinkToReadArticle} from '../../lib/string';
 import {getDeviceData} from '../../../../server/src/util/device/device';
+
+import {getDocumentParentListMemoized} from '../../../../server/src/api/part/document-api-helper-get-parent-list';
 
 import {defaultInitialData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';
@@ -31,11 +33,13 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
 
     // root
     if (path === routePathMap.siteEnter.path) {
+        const parentNodeList = await getDocumentParentListMemoized(rootDocumentSlug, 5);
         const rootDocument = await collection.findOne({slug: rootDocumentSlug});
 
         if (rootDocument) {
             return {
                 ...defaultInitialData,
+                parentNodeList: isError(parentNodeList) ? [] : parentNodeList,
                 title: rootDocument.title,
                 header: rootDocument.header,
                 meta: rootDocument.meta,
@@ -55,8 +59,10 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
     // article
     if (path.startsWith(routePathMap.article.staticPartPath)) {
         const slug = path.replace(getLinkToReadArticle(''), '');
-
+        const parentNodeList = await getDocumentParentListMemoized(slug, 5);
         const articlePathData = await getDocumentTreeMemoized(slug, 3);
+
+        console.log(parentNodeList);
 
         if (isError(articlePathData)) {
             console.error(articlePathData.message);
@@ -66,6 +72,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
 
         return {
             ...defaultInitialData,
+            parentNodeList: isError(parentNodeList) ? [] : parentNodeList,
             title: articlePathData.title,
             header: articlePathData.header,
             meta: articlePathData.meta,

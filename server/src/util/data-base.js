@@ -5,7 +5,8 @@ import {exec} from 'child_process';
 import type {PromiseResolveType} from '../../../www/js/lib/promise';
 import {isError} from '../../../www/js/lib/is';
 import {dataBaseConst} from '../database/database-const';
-import {clearGetDocumentTreeCache} from '../api/part/document-api-helper';
+import {clearGetDocumentTreeCache} from '../api/part/document-api-helper-get-document-tree';
+import {clearGetDocumentParentListCache} from '../api/part/document-api-helper-get-parent-list';
 
 import {updateSiteMapXml} from './site-map-xml-helper';
 
@@ -13,7 +14,12 @@ export function handleDataBaseChange(): Promise<mixed> {
     return updateSiteMapXml()
         .then((): mixed => console.log('/sitemap.xml has been updated'))
         .then(makeDataBaseBackUp)
-        .then(clearGetDocumentTreeCache)
+        .then((): true => {
+            clearGetDocumentTreeCache();
+            clearGetDocumentParentListCache();
+
+            return true;
+        })
         .catch((error: Error) => {
             console.log('---> handleDataBaseChange: error while execution!');
             console.log(error.message);

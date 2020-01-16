@@ -19,6 +19,7 @@ export const defaultInitialData: InitialDataType = {
     articlePathData: null,
     documentNodeTree: null,
     setInitialData: null,
+    parentNodeList: [],
     device: {type: deviceTypeNameMap.phone},
 };
 

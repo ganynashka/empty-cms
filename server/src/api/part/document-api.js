@@ -22,12 +22,11 @@ import {convertJsonToDocument} from '../../util/json-to-document';
 import {handleDataBaseChange} from '../../util/data-base';
 
 import {rootDocumentSlug} from './document-api-const';
-import {
-    getDocumentBySlug,
-    getDocumentParentListBySlug,
-    getDocumentTreeMemoized,
-    getOrphanList,
-} from './document-api-helper';
+import {getDocumentParentListBySlug} from './document-api-helper-get-parent-list';
+import {getDocumentTreeMemoized} from './document-api-helper-get-document-tree';
+import {getOrphanList, getDocumentBySlug} from './document-api-helper';
+
+// import {getDocumentTreeMemoized} from './document-api-helper-get-document-tree';
 
 export function addDocumentApi(app: $Application) {
     app.get(documentApiRouteMap.getDocumentList, async (request: $Request, response: $Response) => {
