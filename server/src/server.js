@@ -33,6 +33,7 @@ if (process.env.NODE_ENV === 'production') {
         cert: sslCert,
         requestCert: true,
         rejectUnauthorized: false,
+        passphrase: 'das;lfj asfasdfdsa   ddffddfdfds12312321',
     }, app).listen(ssrHttpsServerPortProduction, () => {
         console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
     });
