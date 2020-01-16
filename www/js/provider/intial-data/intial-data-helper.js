@@ -62,8 +62,6 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
         const parentNodeList = await getDocumentParentListMemoized(slug, 5);
         const articlePathData = await getDocumentTreeMemoized(slug, 3);
 
-        console.log(parentNodeList);
-
         if (isError(articlePathData)) {
             console.error(articlePathData.message);
 
