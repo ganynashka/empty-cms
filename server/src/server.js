@@ -22,6 +22,7 @@ import {caChain, passwordKey, sessionKey, sslCert, sslKey} from '../key/key';
 import {getIndexHtmlTemplate} from './static-files';
 import {
     hostingDomainName,
+    hostingIpAddress,
     initialScriptClassName,
     stringForReplaceContent,
     stringForReplaceMeta,
@@ -36,6 +37,7 @@ if (process.env.NODE_ENV === 'production') {
     https
         .createServer(
             {
+                host: hostingIpAddress,
                 hostname: hostingDomainName,
                 key: sslKey,
                 cert: sslCert,
