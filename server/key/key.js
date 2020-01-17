@@ -16,3 +16,5 @@ export const passwordKey = fileSystem.readFileSync(path.join(pathToKeys, 'passwo
 export const sslCert = fileSystem.readFileSync(path.join(pathToKeys, 'ssl-cert.txt'), 'utf-8').trim();
 // eslint-disable-next-line no-sync
 export const sslKey = fileSystem.readFileSync(path.join(pathToKeys, 'ssl-key.txt'), 'utf-8').trim();
+// eslint-disable-next-line no-sync
+export const caChain = fileSystem.readFileSync(path.join(pathToKeys, 'www-skazki-land-chain.pem'), 'utf-8').trim();
