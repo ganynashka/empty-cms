@@ -58,36 +58,6 @@ function extractFromSite(node) {
             .catch(() => console.error('oh no!'));
     }
 
-    /*
-    function downloadImage(src, index) {
-        const extension = src.split('.').pop();
-        const pageName = window.location.href
-            .split('/')
-            .pop()
-            .replace('.html', '');
-        const name = String(index).padStart(3, '0') + '-' + pageName + '.' + extension;
-
-        fetch(src)
-            .then(resp => resp.blob())
-            .then(blob => {
-                const downloadUrl = window.URL.createObjectURL(blob);
-                const link = document.createElement('a');
-
-                link.style.display = 'none';
-                link.href = downloadUrl;
-                link.download = name;
-
-                document.body.append(link);
-
-                link.click();
-
-                console.log('your file has downloaded!'); // or you know, something with better UX...
-                return window.URL.revokeObjectURL(downloadUrl);
-            })
-            .catch(() => console.error('oh no!'));
-    }
-*/
-
     // eslint-disable-next-line unicorn/consistent-function-scoping
     function cleanText(text) {
         return text
