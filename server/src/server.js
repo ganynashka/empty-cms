@@ -39,11 +39,12 @@ if (process.env.NODE_ENV === 'production') {
             {
                 key: sslKey,
                 cert: sslCert,
-                ca: [
-                    fileSystem.readFileSync(pathToKeys + '/SectigoRSADomainValidationSecureServerCA.crt'),
-                    fileSystem.readFileSync(pathToKeys + '/USERTrustRSAAddTrustCA.crt'),
-                    fileSystem.readFileSync(pathToKeys + '/USERTrustRSACertificationAuthority.crl'),
-                ],
+                ca: fileSystem.readFileSync(pathToKeys + '/www-skazki-land-chain.pem'),
+                // ca: [
+                //     fileSystem.readFileSync(pathToKeys + '/SectigoRSADomainValidationSecureServerCA.crt'),
+                //     fileSystem.readFileSync(pathToKeys + '/USERTrustRSAAddTrustCA.crt'),
+                //     fileSystem.readFileSync(pathToKeys + '/USERTrustRSACertificationAuthority.crl'),
+                // ],
                 requestCert: true,
                 rejectUnauthorized: false,
                 passphrase: passwordKey + sessionKey,
