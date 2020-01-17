@@ -9,7 +9,7 @@ import {isCMS} from '../../../lib/url';
 import {routePathMap} from '../../app/routes-path-map';
 import type {ThemeContextType} from '../../../provider/theme/theme-context-type';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
-import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
+import type {InitialDataType, SetInitialDataArgumentType} from '../../../provider/intial-data/intial-data-type';
 import {setMeta} from '../../../lib/meta';
 import {getInitialClientData} from '../../app/client-app-helper';
 import {isError, isFunction} from '../../../lib/is';
@@ -18,7 +18,7 @@ import {Search} from '../search/c-search';
 import {getLinkToReadArticle} from '../../../lib/string';
 import {isMobileDevice} from '../../../../../server/src/util/device/device-helper';
 import {scrollToTop} from '../../../provider/screen/screen-context-helper';
-import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-type';
+import {mongoDocumentTypeMap, mongoSubDocumentsViewTypeMap} from '../../../../../server/src/database/database-type';
 
 import headerStyle from './header.scss';
 
@@ -84,17 +84,22 @@ export class Header extends Component<PropsType, StateType> {
             return;
         }
 
-        setInitialData({
+        const data: SetInitialDataArgumentType = {
+            header: '',
             title: '',
             meta: '',
             is404: false,
             articlePathData: {
-                slug: location.pathname
-                    .split('/')
-                    .filter(Boolean)
-                    .pop(),
+                slug:
+                    location.pathname
+                        .split('/')
+                        .filter(Boolean)
+                        .pop() || '',
                 titleImage: '',
                 type: mongoDocumentTypeMap.article,
+                subDocumentListViewType: mongoSubDocumentsViewTypeMap.header,
+                header: '',
+                author: '',
                 title: 'Ошибка соединения',
                 meta: '',
                 shortDescription: '',
@@ -107,7 +112,9 @@ export class Header extends Component<PropsType, StateType> {
             documentNodeTree: props.initialContextData.documentNodeTree,
             setInitialData: null,
             device: props.initialContextData.device,
-        });
+        };
+
+        setInitialData(data);
 
         scrollToTop();
 

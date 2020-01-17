@@ -14,6 +14,7 @@ import type {ScreenContextType} from '../../../../provider/screen/screen-context
 import noImageImage from '../image/no-image.svg';
 import {ImagePreview} from '../../../../component/layout/image-preview/c-image-preview';
 import {mongoSubDocumentsViewTypeMap} from '../../../../../../server/src/database/database-type';
+import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
 
 // import containerArticleStyle from './container-article.scss';
 
@@ -121,7 +122,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
     render(): Node {
         const {props} = this;
         const {initialContextData} = props;
-        const {articlePathData} = initialContextData;
+        const {articlePathData, parentNodeList} = initialContextData;
 
         if (!articlePathData) {
             return <h1 className={articleStyle.article__header}>Here is not list of link</h1>;
@@ -132,6 +133,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
 
         return (
             <>
+                <BreadcrumbList parentNodeList={parentNodeList}/>
                 <h1 className={articleStyle.article__header}>{header}</h1>
                 <ul className={listClassName}>
                     {subNodeList.sort(this.sortDocumentByAlphabet).map(this.renderSubNode)}

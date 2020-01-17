@@ -6,9 +6,9 @@ import {Markdown} from '../../../../component/layout/markdown/c-markdown';
 import type {InitialDataType} from '../../../../provider/intial-data/intial-data-type';
 import articleStyle from '../article.scss';
 import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
-
 import singleArticleStyle from '../single-article/single-article.scss';
 import {getResizedInsideImageSrc} from '../../../../lib/url';
+import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
 
 import downloadableImageListArticleStyle from './downloadable-image-list-article.scss';
 
@@ -51,7 +51,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
     render(): Node {
         const {props} = this;
         const {initialContextData} = props;
-        const {articlePathData} = initialContextData;
+        const {articlePathData, parentNodeList} = initialContextData;
 
         if (!articlePathData) {
             return <h1 className={articleStyle.article__header}>Here is not list of link</h1>;
@@ -61,6 +61,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
 
         return (
             <>
+                <BreadcrumbList parentNodeList={parentNodeList}/>
                 <h1 className={articleStyle.article__header}>{header}</h1>
                 <ul className={downloadableImageListArticleStyle.downloadable_image_list_article__list}>
                     {imageList.map(this.renderDownloadableImage)}
