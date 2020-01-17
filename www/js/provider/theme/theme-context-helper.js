@@ -33,7 +33,9 @@ function getSavedThemeName(): ThemeNameType {
 export function getDefaultThemeContextData(): ThemeContextType {
     return {
         name: getSavedThemeName(),
-        setName: (themeName: ThemeNameType): null => null,
+        setName(themeName: ThemeNameType): null {
+            return null;
+        },
     };
 }
 

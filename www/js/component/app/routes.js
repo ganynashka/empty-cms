@@ -34,7 +34,9 @@ export const routeItemMap = {
     // cms
     cmsEnter: {
         path: routePathMap.cmsEnter.path,
-        component: (): null => null,
+        component(): null {
+            return null;
+        },
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
@@ -48,7 +50,9 @@ export const routeItemMap = {
     },
     userList: {
         path: routePathMap.userList.path,
-        component: (): null => null,
+        component(): null {
+            return null;
+        },
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
@@ -62,7 +66,9 @@ export const routeItemMap = {
     },
     documentList: {
         path: routePathMap.documentList.path,
-        component: (): null => null,
+        component(): null {
+            return null;
+        },
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
@@ -76,7 +82,9 @@ export const routeItemMap = {
     },
     documentTree: {
         path: routePathMap.documentTree.path,
-        component: (): null => null,
+        component(): null {
+            return null;
+        },
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return import(
@@ -91,7 +99,9 @@ export const routeItemMap = {
     },
     documentCreate: {
         path: routePathMap.documentCreate.path,
-        component: (): null => null,
+        component(): null {
+            return null;
+        },
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return import(
@@ -107,7 +117,9 @@ export const routeItemMap = {
     documentEdit: {
         path: routePathMap.documentEdit.path,
         staticPartPath: routePathMap.documentEdit.staticPartPath,
-        component: (): null => null,
+        component(): null {
+            return null;
+        },
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
@@ -121,7 +133,9 @@ export const routeItemMap = {
     },
     login: {
         path: routePathMap.login.path,
-        component: (): null => null,
+        component(): null {
+            return null;
+        },
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
@@ -135,7 +149,9 @@ export const routeItemMap = {
     },
     register: {
         path: routePathMap.register.path,
-        component: (): null => null,
+        component(): null {
+            return null;
+        },
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
@@ -149,7 +165,9 @@ export const routeItemMap = {
     },
     fileUpload: {
         path: routePathMap.fileUpload.path,
-        component: (): null => null,
+        component(): null {
+            return null;
+        },
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
@@ -163,7 +181,9 @@ export const routeItemMap = {
     },
     fileList: {
         path: routePathMap.fileList.path,
-        component: (): null => null,
+        component(): null {
+            return null;
+        },
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (

@@ -10,7 +10,9 @@ import snackbarStyle from './snackbar.scss';
 
 export const defaultSnackbarContextData: SnackbarContextType = {
     showSnackbar: (snackbarProps: SnackbarPropsType, id: string): Promise<mixed> => Promise.resolve(null),
-    hideSnackbarById: (id: string, value: mixed): null => null,
+    hideSnackbarById(id: string, value: mixed): null {
+        return null;
+    },
 };
 
 export const snackbarVariantIcon = {

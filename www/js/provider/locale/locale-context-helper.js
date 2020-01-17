@@ -77,7 +77,9 @@ export function getLocalizedString(
 export function getDefaultLocaleContextData(): LocaleContextType {
     return {
         name: getSavedLocaleName(),
-        setName: (localeName: LocaleNameType): null => null,
+        setName(localeName: LocaleNameType): null {
+            return null;
+        },
         getLocalizedString: (stringKey: LangKeyType, valueMap?: LocaleContextValueMapType): string => stringKey,
     };
 }
