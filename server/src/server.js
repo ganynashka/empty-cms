@@ -20,7 +20,13 @@ import type {RouterStaticContextType} from '../../www/js/provider/intial-data/in
 import {caChain, passwordKey, sessionKey, sslCert, sslKey} from '../key/key';
 
 import {getIndexHtmlTemplate} from './static-files';
-import {initialScriptClassName, stringForReplaceContent, stringForReplaceMeta, stringForReplaceTitle} from './config';
+import {
+    hostingDomainName,
+    initialScriptClassName,
+    stringForReplaceContent,
+    stringForReplaceMeta,
+    stringForReplaceTitle,
+} from './config';
 import {addApiIntoApplication} from './api/api';
 import {handleDataBaseChange} from './util/data-base';
 
@@ -30,6 +36,7 @@ if (process.env.NODE_ENV === 'production') {
     https
         .createServer(
             {
+                hostname: hostingDomainName,
                 key: sslKey,
                 cert: sslCert,
                 // eslint-disable-next-line id-length
