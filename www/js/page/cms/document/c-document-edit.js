@@ -1,6 +1,7 @@
 // @flow
 
 import React, {Component, Fragment, type Node} from 'react';
+import {Link} from 'react-router-dom';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -21,7 +22,7 @@ import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
 import {Spinner} from '../../../component/layout/spinner/c-spinner';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import {routePathMap} from '../../../component/app/routes-path-map';
-import {extractUniqueArrayString} from '../../../lib/string';
+import {extractUniqueArrayString, getLinkToReadArticle} from '../../../lib/string';
 
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 
@@ -227,7 +228,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
         if (!isAdmin(userContextData)) {
             return null;
         }
-*/
+        */
 
         if (mongoDocument === null) {
             return (
@@ -240,10 +241,14 @@ export class DocumentEdit extends Component<PropsType, StateType> {
             );
         }
 
+        const {header, slug} = mongoDocument;
+
         return (
             <Paper className={mainWrapperStyle.paper_wrapper}>
                 <Toolbar>
-                    <Typography variant="h5">Edit a Document. Slug: {mongoDocument.slug}</Typography>
+                    <Typography component={Link} target="_blank" to={getLinkToReadArticle(slug)} variant="h5">
+                        Edit a Document: {header} / {slug}
+                    </Typography>
                 </Toolbar>
                 {this.renderParentList()}
                 <FormGenerator
