@@ -5,8 +5,10 @@
 /* eslint no-process-env: 0, id-match: 0, optimize-regex/optimize-regex: 0, react/no-danger: 0 */
 
 // import type {IncomingMessage, ServerResponse} from 'http';
+import fileSystem from 'fs';
 import https from 'https';
 import http, {type IncomingMessage, type ServerResponse} from 'http';
+import path from 'path';
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -26,12 +28,22 @@ import {handleDataBaseChange} from './util/data-base';
 
 const app: $Application = express();
 
+
+const CWD = process.cwd();
+const pathToKeys = path.join(CWD, 'server/key/file');
+
+
 if (process.env.NODE_ENV === 'production') {
     https
         .createServer(
             {
                 key: sslKey,
                 cert: sslCert,
+                ca: [
+                    fileSystem.readFileSync(pathToKeys + '/SectigoRSADomainValidationSecureServerCA.crt'),
+                    fileSystem.readFileSync(pathToKeys + '/USERTrustRSAAddTrustCA.crt'),
+                    fileSystem.readFileSync(pathToKeys + '/USERTrustRSACertificationAuthority.crl'),
+                ],
                 requestCert: true,
                 rejectUnauthorized: false,
                 passphrase: passwordKey + sessionKey,
