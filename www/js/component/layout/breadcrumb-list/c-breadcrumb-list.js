@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
 import {rootDocumentSlug} from '../../../../../server/src/api/part/document-api-const';
+import {getLinkToReadArticle} from '../../../lib/string';
 
 import breadcrumbsStyle from './breadcrumb-list.scss';
 
@@ -43,7 +44,7 @@ export class BreadcrumbList extends Component<PropsType, StateType> {
         return (
             <li className={breadcrumbsStyle.breadcrumbs_list_item} key={slug}>
                 {this.renderSeparator()}
-                <Link className={breadcrumbsStyle.breadcrumbs_link} to={slug}>
+                <Link className={breadcrumbsStyle.breadcrumbs_link} to={getLinkToReadArticle(slug)}>
                     {header}
                 </Link>
             </li>
