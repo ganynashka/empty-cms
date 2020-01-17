@@ -1,12 +1,5 @@
 User-agent: *
-Disallow: /authorization
-Disallow: /cart
-Disallow: /order
-Disallow: /search
-Disallow: /account
-Disallow: /api
-Disallow: /add-product
-Disallow: /remove-product
-Sitemap: http://localhost:8282/sitemap.xml
+Disallow: /cms
+Sitemap: https://skazki.land/sitemap.xml
 
-Host: http://localhost:8282
+Host: https://skazki.land
