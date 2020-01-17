@@ -43,6 +43,9 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
                         className={downloadableImageListArticleStyle.downloadable_image_list_article__list_item_image}
                         src={getResizedInsideImageSrc(imageSrc, 100, 100, devicePixelRatio)}
                     />
+                    <span>Скачать файл</span>
+                    <span>Скачать как pdf</span>
+                    <span>Распечатать</span>
                 </a>
             </li>
         );

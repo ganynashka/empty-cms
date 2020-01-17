@@ -1,9 +1,12 @@
 .downloadable_image_list_article__list {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .downloadable_image_list_article__list_item {
     display: block;
+    width: 50%;
 }
 
 .downloadable_image_list_article__list_item_link {
