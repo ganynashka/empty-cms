@@ -12,14 +12,14 @@
     color: $main-text-color;
     display: block;
     font-size: 16px;
-    padding: 0 0 $ui-unit;
+    padding: $ui-unit 0 $ui-unit * 1.5;
 }
 
 .breadcrumbs_link {
     color: $main-text-color;
     display: block;
     font-size: 16px;
-    padding: 0 $ui-unit $ui-unit * 2 $ui-unit;
+    padding: $ui-unit $ui-unit $ui-unit * 1.5;
 }
 
 .breadcrumbs_list_item {
