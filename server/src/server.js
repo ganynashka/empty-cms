@@ -43,8 +43,8 @@ if (process.env.NODE_ENV === 'production') {
                 cert: sslCert,
                 // eslint-disable-next-line id-length
                 ca: caChain,
-                requestCert: true,
-                rejectUnauthorized: false,
+                // requestCert: true,
+                // rejectUnauthorized: false,
                 passphrase: passwordKey + sessionKey,
             },
             // $FlowFixMe
