@@ -15,7 +15,7 @@ import {isError} from '../../../lib/is';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 
 import {getUserList, getUserListSize} from './user-list-api';
-// import {isAdmin} from '../../../provider/user/user-context-helper';
+// import {getIsAdmin} from '../../../provider/user/user-context-helper';
 
 type PropsType = {
     +userContextData: UserContextConsumerType,
@@ -79,7 +79,7 @@ export class UserList extends Component<PropsType, StateType> {
         // const {userContextData} = props;
 
         /*
-        if (!isAdmin(userContextData)) {
+        if (!getIsAdmin(userContextData)) {
             return null;
         }
 */

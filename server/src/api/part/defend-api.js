@@ -2,9 +2,15 @@
 
 import {type $Application, type $Request, type $Response} from 'express';
 
-import {getSession, isAdmin as getIsAdmin} from '../../util/session';
+import {getIsAdmin} from '../../util/session';
 import {routePathMap} from '../../../../www/js/component/app/routes-path-map';
-import {documentApiRouteMap, fileApiRouteMap, initialDataApiRouteMap, userApiRouteMap} from '../api-route-map';
+import {
+    documentApiRouteMap,
+    fileApiRouteMap,
+    initialDataApiRouteMap,
+    pdfApiRouteMap,
+    userApiRouteMap,
+} from '../api-route-map';
 
 export function addDefendApi(app: $Application) {
     const publicPathList = [routePathMap.login.path, routePathMap.register.path, routePathMap.siteEnter.path];
@@ -16,25 +22,8 @@ export function addDefendApi(app: $Application) {
         userApiRouteMap.getCurrentUser,
         initialDataApiRouteMap.getInitialData,
         documentApiRouteMap.documentSearch,
+        pdfApiRouteMap.getImageAsPdf,
     ];
-
-    /*
-    app.use((request: $Request, response: $Response, next: () => mixed) => {
-        const userSession = getSession(request);
-
-        const requestInfoList = [
-            '====> Request:',
-            `>     request.url: ${request.url}`,
-            `>     request.path: ${request.path}`,
-            `>     session.login: ${String(userSession.login)}`,
-            `>     session.role: ${String(userSession.role)}`,
-        ];
-
-        console.log(requestInfoList.join('\n'));
-
-        next();
-    });
-    */
 
     // eslint-disable-next-line complexity, max-statements
     app.use((request: $Request, response: $Response, next: (error?: ?Error) => mixed) => {

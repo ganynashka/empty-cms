@@ -23,7 +23,7 @@ export class DocumentTreeView extends Component<PropsType, StateType> {
         const {userContextData} = props;
 
         /*
-        if (!isAdmin(userContextData)) {
+        if (!getIsAdmin(userContextData)) {
             return null;
         }
 */

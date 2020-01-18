@@ -15,6 +15,10 @@ export const documentApiRouteMap = {
     getDocumentSlugHeaderList: '/api/get-document-slug-header-list',
 };
 
+export const pdfApiRouteMap = {
+    getImageAsPdf: '/api/get-image-as-pdf',
+};
+
 export const userApiRouteMap = {
     getUserList: '/api/get-user-list',
     getUserListSize: '/api/get-user-list-size',

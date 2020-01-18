@@ -1,11 +1,13 @@
 // @flow
 
+/* global window */
+
 import type {SortDirectionType} from '../component/layout/table/enhanced-table/enhanced-table-type';
 import {enhancedTableDirection} from '../component/layout/table/enhanced-table/enhanced-table-const';
 import type {LocationType} from '../type/react-router-dom-v5-type-extract';
 import {routePathMap} from '../component/app/routes-path-map';
 import type {SharpFitResizeNameType} from '../page/cms/file/file-api';
-import {fileApiRouteMap} from '../../../server/src/api/api-route-map';
+import {fileApiRouteMap, pdfApiRouteMap} from '../../../server/src/api/api-route-map';
 import {sharpFitResizeNameMap} from '../page/cms/file/file-api';
 
 export function getLisParametersToUrl(
@@ -53,4 +55,16 @@ export function getResizedImageSrc(
 
 export function getResizedInsideImageSrc(src: string, width: number, height: number, aspectRatio: number): string {
     return getResizedImageSrc(src, width, height, sharpFitResizeNameMap.inside, aspectRatio);
+}
+
+export function getPdfUrlFromImage(imageSrc: string): string {
+    if (typeof window === 'undefined') {
+        return '';
+    }
+
+    const {location} = window;
+    const {origin} = location;
+    const src = encodeURIComponent(origin + getResizedImageSrc(imageSrc, 3e3, 3e3, sharpFitResizeNameMap.outside, 1));
+
+    return origin + pdfApiRouteMap.getImageAsPdf + '?src=' + src;
 }

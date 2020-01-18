@@ -18,6 +18,6 @@ export function getSession(request: $Request): SessionType {
     return session || {};
 }
 
-export function isAdmin(request: $Request): boolean {
+export function getIsAdmin(request: $Request): boolean {
     return getSession(request).role === mongoUserRoleMap.admin;
 }

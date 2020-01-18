@@ -7,7 +7,7 @@ import type {InitialDataType} from '../../../../provider/intial-data/intial-data
 import articleStyle from '../article.scss';
 import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
 import singleArticleStyle from '../single-article/single-article.scss';
-import {getResizedInsideImageSrc} from '../../../../lib/url';
+import {getPdfUrlFromImage, getResizedInsideImageSrc} from '../../../../lib/url';
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
 
 import downloadableImageListArticleStyle from './downloadable-image-list-article.scss';
@@ -26,6 +26,14 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
         this.state = {};
     }
 
+    makeHandlePrintImage = (imageSrc: string): (() => mixed) => {
+        return () => {
+            const endSrc = getPdfUrlFromImage(imageSrc);
+
+            console.log(endSrc);
+        };
+    };
+
     renderDownloadableImage = (imageSrc: string): Node => {
         const {props} = this;
         const {screenContextData} = props;
@@ -33,20 +41,20 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
 
         return (
             <li className={downloadableImageListArticleStyle.downloadable_image_list_article__list_item} key={imageSrc}>
-                <a
-                    className={downloadableImageListArticleStyle.downloadable_image_list_article__list_item_link}
-                    download
-                    href={getResizedInsideImageSrc(imageSrc, 10e3, 10e3, devicePixelRatio)}
-                >
+                <div className={downloadableImageListArticleStyle.downloadable_image_list_article__list_item_link}>
                     <img
                         alt=""
                         className={downloadableImageListArticleStyle.downloadable_image_list_article__list_item_image}
                         src={getResizedInsideImageSrc(imageSrc, 100, 100, devicePixelRatio)}
                     />
-                    <span>Скачать файл</span>
-                    <span>Скачать как pdf</span>
-                    <span>Распечатать</span>
-                </a>
+                    <a download href={getResizedInsideImageSrc(imageSrc, 10e3, 10e3, devicePixelRatio)}>
+                        Скачать файл
+                    </a>
+                    <button onClick={this.makeHandlePrintImage(imageSrc)} type="button">
+                        Распечатать
+                    </button>
+                    <span>????? Скачать как pdf ?????</span>
+                </div>
             </li>
         );
     };
