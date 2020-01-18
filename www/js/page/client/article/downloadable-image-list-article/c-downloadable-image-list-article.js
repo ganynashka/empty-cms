@@ -11,7 +11,7 @@ import {getPdfUrlFromImage, getResizedInsideImageSrc} from '../../../../lib/url'
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
 import serviceStyle from '../../../../../css/service.scss';
 
-import downloadableImageListArticleStyle from './downloadable-image-list-article.scss';
+import imageListArticleStyle from './downloadable-image-list-article.scss';
 
 type PropsType = {|
     +initialContextData: InitialDataType,
@@ -71,19 +71,27 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
         const {devicePixelRatio} = screenContextData;
 
         return (
-            <li className={downloadableImageListArticleStyle.downloadable_image_list_article__list_item} key={imageSrc}>
-                <div className={downloadableImageListArticleStyle.downloadable_image_list_article__list_item_link}>
-                    <img
-                        alt=""
-                        className={downloadableImageListArticleStyle.downloadable_image_list_article__list_item_image}
-                        src={getResizedInsideImageSrc(imageSrc, 100, 100, devicePixelRatio)}
-                    />
-                    <a download href={getResizedInsideImageSrc(imageSrc, 10e3, 10e3, devicePixelRatio)}>
-                        Скачать файл
-                    </a>
-                    <button onClick={this.makeHandlePrintImage(imageSrc)} type="button">
+            <li className={imageListArticleStyle.image_list_article__list_item} key={imageSrc}>
+                <img
+                    alt=""
+                    className={imageListArticleStyle.image_list_article__list_item_image}
+                    src={getResizedInsideImageSrc(imageSrc, 504, 504, devicePixelRatio)}
+                />
+                <div className={imageListArticleStyle.image_list_article__list_item_button_list_wrapper}>
+                    <button
+                        className={imageListArticleStyle.image_list_article__list_item_button}
+                        onClick={this.makeHandlePrintImage(imageSrc)}
+                        type="button"
+                    >
                         Распечатать
                     </button>
+                    <a
+                        className={imageListArticleStyle.image_list_article__list_item_button}
+                        download
+                        href={getResizedInsideImageSrc(imageSrc, 10e3, 10e3, devicePixelRatio)}
+                    >
+                        Скачать
+                    </a>
                 </div>
             </li>
         );
@@ -118,7 +126,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
             <>
                 <BreadcrumbList parentNodeList={parentNodeList}/>
                 <h1 className={articleStyle.article__header}>{header}</h1>
-                <ul className={downloadableImageListArticleStyle.downloadable_image_list_article__list}>
+                <ul className={imageListArticleStyle.image_list_article__list}>
                     {imageList.map(this.renderDownloadableImage)}
                 </ul>
 
