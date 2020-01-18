@@ -9,6 +9,7 @@ import type {ScreenContextType} from '../../../../provider/screen/screen-context
 import singleArticleStyle from '../single-article/single-article.scss';
 import {getPdfUrlFromImage, getResizedInsideImageSrc} from '../../../../lib/url';
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
+import serviceStyle from '../../../../../css/service.scss';
 
 import downloadableImageListArticleStyle from './downloadable-image-list-article.scss';
 
@@ -17,20 +18,50 @@ type PropsType = {|
     +screenContextData: ScreenContextType,
 |};
 
-type StateType = {};
+type StateType = {|
+    +imageForPrint: {|
+        +src: string,
+        +iframe: {current: HTMLIFrameElement | null},
+    |},
+|};
 
 export class DownloadableImageListArticle extends Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            imageForPrint: {
+                src: '',
+                iframe: React.createRef<HTMLIFrameElement>(),
+            },
+        };
     }
+
+    getIFrameNode(): HTMLIFrameElement | null {
+        const {state} = this;
+        const {imageForPrint} = state;
+        const {iframe} = imageForPrint;
+
+        return iframe.current;
+    }
+
+    printIFrameNode = () => {
+        const iFrameNode = this.getIFrameNode();
+
+        if (!iFrameNode) {
+            return;
+        }
+
+        iFrameNode.contentWindow.print();
+    };
 
     makeHandlePrintImage = (imageSrc: string): (() => mixed) => {
         return () => {
-            const endSrc = getPdfUrlFromImage(imageSrc);
+            const {state} = this;
+            const {imageForPrint} = state;
+            const newImageForPrint = {...imageForPrint, src: imageSrc};
 
-            console.log(endSrc);
+            this.setState({imageForPrint: newImageForPrint}, this.printIFrameNode);
         };
     };
 
@@ -53,11 +84,24 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
                     <button onClick={this.makeHandlePrintImage(imageSrc)} type="button">
                         Распечатать
                     </button>
-                    <span>????? Скачать как pdf ?????</span>
                 </div>
             </li>
         );
     };
+
+    renderPrintableIFrame(): Node {
+        const {state} = this;
+        const {imageForPrint} = state;
+        const {src, iframe} = imageForPrint;
+
+        if (!src.trim()) {
+            return null;
+        }
+
+        return (
+            <iframe className={serviceStyle.hidden} key={src} ref={iframe} src={getPdfUrlFromImage(src)} title={src}/>
+        );
+    }
 
     render(): Node {
         const {props} = this;
@@ -79,6 +123,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
                 </ul>
 
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={content}/>
+                {this.renderPrintableIFrame()}
             </>
         );
     }
