@@ -23,11 +23,24 @@ $header-mobile-height: 50px;
 }
 
 .header__desktop__logo {
-    color: $main-text-color;
-    display: block;
-    font-size: 20px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     padding: 10px 10px 10px 0;
     text-decoration: none;
+}
+
+.header__desktop__logo__image {
+    display: block;
+    height: 22px;
+    margin-right: 8px;
+}
+
+.header__desktop__logo__title {
+    color: $main-text-color;
+    display: block;
+    font-size: 22px;
 }
 
 // desktop menu line
@@ -70,8 +83,13 @@ $header-mobile-height: 50px;
     justify-content: space-between;
 
     .header__desktop__menu_line__link {
-        margin-right: $ui-unit;
+        border-bottom: 0;
     }
+}
+
+.header__mobile__menu_line__link__image {
+    display: block;
+    height: 24px;
 }
 
 .header__mobile__button__menu {

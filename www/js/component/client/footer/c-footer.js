@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 import {isCMS} from '../../../lib/url';
 import {getLinkToReadArticle} from '../../../lib/string';
+import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
 
 import footerStyle from './footer.scss';
 import {footerLinkMap} from './footer-const';
@@ -26,7 +27,7 @@ export function Footer(props: PropsType): Node {
     }
 
     const year = new Date().getFullYear();
-    const copyRight = `© Сказки детям ${year}г.`;
+    const copyRight = `© ${rootPathMetaData.header} ${year}г.`;
 
     return (
         <footer className={footerStyle.footer_wrapper}>

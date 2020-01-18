@@ -19,6 +19,9 @@ import {getLinkToReadArticle} from '../../../lib/string';
 import {isMobileDevice} from '../../../../../server/src/util/device/device-helper';
 import {scrollToTop} from '../../../provider/screen/screen-context-helper';
 import {mongoDocumentTypeMap, mongoSubDocumentsViewTypeMap} from '../../../../../server/src/database/database-type';
+import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
+
+import faviconImage from '../page-loading/image/favicon.svg';
 
 import headerStyle from './header.scss';
 
@@ -182,9 +185,14 @@ export class Header extends Component<PropsType, StateType> {
             <Link
                 className={headerStyle.header__desktop__menu_line__link}
                 key="header-mobile-home-link"
+                title={rootPathMetaData.header}
                 to={routePathMap.siteEnter.path}
             >
-                Сказки детям
+                <img
+                    alt={rootPathMetaData.header}
+                    className={headerStyle.header__mobile__menu_line__link__image}
+                    src={faviconImage}
+                />
             </Link>,
             <Search
                 initialContextData={initialContextData}
@@ -236,8 +244,17 @@ export class Header extends Component<PropsType, StateType> {
         return (
             <>
                 <div className={headerStyle.header__desktop__top_line}>
-                    <Link className={headerStyle.header__desktop__logo} to={routePathMap.siteEnter.path}>
-                        Сказки детям
+                    <Link
+                        className={headerStyle.header__desktop__logo}
+                        title={rootPathMetaData.header}
+                        to={routePathMap.siteEnter.path}
+                    >
+                        <img
+                            alt={rootPathMetaData.header}
+                            className={headerStyle.header__desktop__logo__image}
+                            src={faviconImage}
+                        />
+                        <span className={headerStyle.header__desktop__logo__title}>{rootPathMetaData.header}</span>
                     </Link>
                     <Search
                         initialContextData={initialContextData}
