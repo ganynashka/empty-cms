@@ -7,6 +7,7 @@ import type {MatchType, RouterHistoryType} from '../../../type/react-router-dom-
 import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-type';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 import {PageNotFoundContent} from '../page-not-found/page-not-found-content';
+import {PageLoading} from '../../../component/client/page-loading/c-page-loading';
 
 import articleStyle from './article.scss';
 import {SingleArticle} from './single-article/c-single-article';
@@ -51,7 +52,7 @@ export class Article extends Component<PropsType, StateType> {
         const slug = match.params.slug || '';
 
         if (!articlePathData || articlePathData.slug !== slug) {
-            return null;
+            return <PageLoading/>;
         }
 
         const {type} = articlePathData;

@@ -57,7 +57,7 @@ $header-mobile-height: 50px;
     display: flex;
     flex-direction: row;
     height: 50px;
-    justify-content: space-between;
+    //justify-content: space-between;
 }
 
 .header__desktop__menu_line__link {
@@ -66,6 +66,7 @@ $header-mobile-height: 50px;
     color: $main-text-color;
     display: block;
     font-size: 16px;
+    margin-right: $ui-unit * 4;
 
     &:last-of-type {
         margin-right: 0;
