@@ -1,5 +1,9 @@
 User-agent: *
 Disallow: /cms
-Sitemap: https://skazki.land/sitemap.xml
+Disallow: /static-page-holders
+Disallow: /static-page-contacts
+Disallow: /static-page-policy
+Disallow: /404
 
 Host: https://skazki.land
+Sitemap: https://skazki.land/sitemap.xml
