@@ -6,7 +6,13 @@ export const stringForReplaceTitle: string = '{title}';
 export const stringForReplaceIconList: string = '<link>';
 export const stringForReplaceMeta: string = '<meta>';
 
-export const staticFilesList: Array<string> = ['/favicon.ico', '/robots.txt', '/sitemap.xml', '/manifest.json'];
+export const staticFilesList: Array<string> = [
+    '/favicon.ico',
+    '/robots.txt',
+    '/sitemap.xml',
+    '/manifest.json',
+    '/gss-0.9.xsl',
+];
 
 export const hostingIpAddress = '134.209.235.147';
 export const hostingDomainName = 'skazki.land';

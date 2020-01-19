@@ -21,7 +21,7 @@ const definePluginParameters = {
     // IS_DEVELOPMENT: JSON.stringify(IS_DEVELOPMENT)
 };
 
-const staticFilesList = ['/favicon.ico', '/robots.txt', '/manifest.json', '/asset'];
+const staticFilesList = ['/favicon.ico', '/robots.txt', '/manifest.json', '/gss-0.9.xsl', '/asset'];
 
 module.exports.plugins = [
     new CircularDependencyPlugin({
