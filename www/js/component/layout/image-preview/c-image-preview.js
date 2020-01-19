@@ -22,11 +22,11 @@ export function ImagePreview(props: PropsType): Node {
     const {src, title} = image;
 
     return (
-        <Link className={classNames(imagePreviewStyle.image_preview__wrapper, additionalClassName || '')} to={link.to}>
-            <div
-                className={imagePreviewStyle.image_preview__background_image}
-                style={{backgroundImage: 'url(' + src + ')'}}
-            />
+        <Link
+            className={classNames(imagePreviewStyle.image_preview__wrapper, additionalClassName || '')}
+            style={{backgroundImage: 'url(' + src + ')'}}
+            to={link.to}
+        >
             <img alt={title} className={imagePreviewStyle.image_preview__image} src={src}/>
             <span className={imagePreviewStyle.article__list_image_item__link_text}>{title}</span>
         </Link>
