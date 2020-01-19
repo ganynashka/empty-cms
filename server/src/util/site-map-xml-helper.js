@@ -22,10 +22,10 @@ function getLocTagContent(mongoDocument: MongoDocumentType): string {
     const {slug} = mongoDocument;
 
     if (slug === rootDocumentSlug) {
-        return 'htts://' + hostingDomainName + '/';
+        return 'https://' + hostingDomainName + '/';
     }
 
-    return 'htts://' + hostingDomainName + getLinkToReadArticle(slug);
+    return 'https://' + hostingDomainName + getLinkToReadArticle(slug);
 }
 
 function getLastmodTagContent(mongoDocument: MongoDocumentType): string {
