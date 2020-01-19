@@ -49,7 +49,12 @@ export class GdprInfo extends Component<PropsType, StateType> {
                     <p className={gdprInfoStyle.gdpr_info__text}>
                         Пользуясь настоящим веб-сайтом, вы даёте свое согласие на использование файлов cookies.
                     </p>
-                    <button className={gdprInfoStyle.gdpr_info__button} onClick={this.handleApplyGdpr} type="button"/>
+                    <button
+                        className={gdprInfoStyle.gdpr_info__button}
+                        onClick={this.handleApplyGdpr}
+                        title="GDPR"
+                        type="button"
+                    />
                 </div>
             </div>
         );
