@@ -41,11 +41,10 @@ module.exports.rules = [
                     gifsicle: {
                         optimizationLevel: 3, // 1..3
                     },
-                    // webp brake MS Edge
-                    // webp: {
-                    //     quality: 75,
-                    //     method: 6
-                    // }
+                    webp: {
+                        quality: 75,
+                        method: 6,
+                    },
                 },
             },
             {
