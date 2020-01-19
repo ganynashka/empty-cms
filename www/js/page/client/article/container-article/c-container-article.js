@@ -2,12 +2,11 @@
 
 import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
-import classNames from 'classnames';
 
 import {Markdown} from '../../../../component/layout/markdown/c-markdown';
 import type {InitialDataType} from '../../../../provider/intial-data/intial-data-type';
 import type {MongoDocumentTreeNodeType} from '../../../../../../server/src/database/database-type';
-import {getLinkToReadArticle} from '../../../../lib/string';
+import {getLinkToReadArticle, sortDocumentByAlphabet} from '../../../../lib/string';
 import articleStyle from '../article.scss';
 import {getResizedInsideImageSrc} from '../../../../lib/url';
 import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
@@ -15,8 +14,6 @@ import noImageImage from '../image/no-image.svg';
 import {ImagePreview} from '../../../../component/layout/image-preview/c-image-preview';
 import {mongoSubDocumentsViewTypeMap} from '../../../../../../server/src/database/database-type';
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
-
-// import containerArticleStyle from './container-article.scss';
 
 type PropsType = {|
     +initialContextData: InitialDataType,
@@ -117,10 +114,6 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         return this.renderImageHeaderSubNode(subNode);
     };
 
-    sortDocumentByAlphabet(subNodeA: MongoDocumentTreeNodeType, subNodeB: MongoDocumentTreeNodeType): number {
-        return subNodeA.header > subNodeB.header ? 1 : -1;
-    }
-
     render(): Node {
         const {props} = this;
         const {initialContextData} = props;
@@ -137,9 +130,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
             <>
                 <BreadcrumbList parentNodeList={parentNodeList}/>
                 <h1 className={articleStyle.article__header}>{header}</h1>
-                <ul className={listClassName}>
-                    {subNodeList.sort(this.sortDocumentByAlphabet).map(this.renderSubNode)}
-                </ul>
+                <ul className={listClassName}>{subNodeList.sort(sortDocumentByAlphabet).map(this.renderSubNode)}</ul>
                 <Markdown text={content}/>
             </>
         );

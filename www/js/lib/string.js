@@ -157,3 +157,7 @@ export function getLinkToReadArticle(slug: string): string {
 export function getLinkToEditArticle(slug: string): string {
     return String(routePathMap.documentEdit.staticPartPath) + '/' + slug;
 }
+
+export function sortDocumentByAlphabet(subNodeA: {+header: string}, subNodeB: {+header: string}): number {
+    return subNodeA.header > subNodeB.header ? 1 : -1;
+}
