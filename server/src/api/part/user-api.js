@@ -5,7 +5,7 @@ import {type $Application, type $Request, type $Response} from 'express';
 import {typeConverter} from '../../../../www/js/lib/type';
 import {getSession} from '../../util/session';
 import {getCollection} from '../../database/database-helper';
-import type {MongoDocumentType, MongoUserFrontType, MongoUserType} from '../../database/database-type';
+import type {MongoUserFrontType, MongoUserType} from '../../database/database-type';
 import {dataBaseConst, mongoUserRoleMap} from '../../database/database-const';
 import {getTime} from '../../util/time';
 import type {UserLoginPasswordType} from '../../util/user';

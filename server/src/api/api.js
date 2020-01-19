@@ -10,7 +10,7 @@ import expressDevice from 'express-device';
 import connectMongo from 'connect-mongo';
 
 import {dataBaseConst} from '../database/database-const';
-import {sessionKey, passwordKey} from '../../key/key';
+import {passwordKey, sessionKey} from '../../key/key';
 
 import {addUserApi} from './part/user-api';
 import {addDocumentApi} from './part/document-api';

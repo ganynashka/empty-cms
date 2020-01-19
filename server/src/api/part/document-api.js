@@ -24,7 +24,7 @@ import {handleDataBaseChange} from '../../util/data-base';
 import {rootDocumentSlug} from './document-api-const';
 import {getDocumentParentListBySlug} from './document-api-helper-get-parent-list';
 import {getDocumentTreeMemoized} from './document-api-helper-get-document-tree';
-import {getOrphanList, getDocumentBySlug} from './document-api-helper';
+import {getDocumentBySlug, getOrphanList} from './document-api-helper';
 
 // import {getDocumentTreeMemoized} from './document-api-helper-get-document-tree';
 

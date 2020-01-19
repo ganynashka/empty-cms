@@ -1,14 +1,14 @@
 // @flow
 
-import type {MongoDocumentTreeNodeType as MongoDTNType, MongoDocumentType} from '../../database/database-type';
+import type {MongoDocumentType} from '../../database/database-type';
 import {getCollection} from '../../database/database-helper';
 import {dataBaseConst} from '../../database/database-const';
-import {hasProperty, isError, isNull} from '../../../../www/js/lib/is';
+import {hasProperty, isError} from '../../../../www/js/lib/is';
 import {documentApiRouteMap} from '../api-route-map';
 import {promiseCatch} from '../../../../www/js/lib/promise';
 
 import type {MayBeDocumentType} from './document-api-helper';
-import {getDocumentBySlug} from './document-api-helper';
+import {getDocumentBySlugMemoized} from './document-api-helper';
 
 export async function getDocumentParentListBySlug(slug: string): Promise<Array<MongoDocumentType> | Error> {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
@@ -92,7 +92,7 @@ function getDocumentParentListRecursively(
 }
 
 async function getDocumentParentList(slug: string, deep: number): Promise<Array<MongoDocumentType> | Error> {
-    const mongoDocument = await getDocumentBySlug(slug);
+    const mongoDocument = await getDocumentBySlugMemoized(slug);
 
     if (isError(mongoDocument) || !mongoDocument) {
         return new Error('Can not get docuemnt by slug');

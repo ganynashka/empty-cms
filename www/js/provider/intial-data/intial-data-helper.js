@@ -11,13 +11,13 @@ import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from '../../../../server/
 import {getDocumentTreeMemoized} from '../../../../server/src/api/part/document-api-helper-get-document-tree';
 import {getLinkToReadArticle} from '../../lib/string';
 import {getDeviceData} from '../../../../server/src/util/device/device';
-
 import {getDocumentParentListMemoized} from '../../../../server/src/api/part/document-api-helper-get-parent-list';
+import {getSiblingLinkDataListMemoized} from '../../../../server/src/api/part/document-api-helper-get-child-list';
 
 import {defaultInitialData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';
 
-// eslint-disable-next-line complexity, max-statements
+// eslint-disable-next-line complexity, max-statements, sonarjs/cognitive-complexity
 export async function getInitialDataByRequest(request: $Request): Promise<InitialDataType> {
     const path = String(request.query.url || request.path || routePathMap.siteEnter.path);
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
@@ -61,6 +61,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
         const slug = path.replace(getLinkToReadArticle(''), '');
         const parentNodeList = await getDocumentParentListMemoized(slug, 5);
         const articlePathData = await getDocumentTreeMemoized(slug, 3);
+        const siblingDataList = await getSiblingLinkDataListMemoized(slug);
 
         if (isError(articlePathData)) {
             console.error(articlePathData.message);
@@ -75,6 +76,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
             header: articlePathData.header,
             meta: articlePathData.meta,
             articlePathData,
+            siblingDataList: isError(siblingDataList) ? [] : siblingDataList,
             ...defaultRequestInitialData,
         };
     }

@@ -7,6 +7,8 @@ import {isError} from '../../../www/js/lib/is';
 import {dataBaseConst} from '../database/database-const';
 import {clearGetDocumentTreeCache} from '../api/part/document-api-helper-get-document-tree';
 import {clearGetDocumentParentListCache} from '../api/part/document-api-helper-get-parent-list';
+import {clearGetSiblingLinkDataListCache} from '../api/part/document-api-helper-get-child-list';
+import {clearGetDocumentBySlugCache} from '../api/part/document-api-helper';
 
 import {updateSiteMapXml} from './site-map-xml-helper';
 
@@ -16,7 +18,9 @@ export function handleDataBaseChange(): Promise<mixed> {
         .then(makeDataBaseBackUp)
         .then((): true => {
             clearGetDocumentTreeCache();
+            clearGetDocumentBySlugCache();
             clearGetDocumentParentListCache();
+            clearGetSiblingLinkDataListCache();
 
             return true;
         })

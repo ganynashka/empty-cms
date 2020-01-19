@@ -81,6 +81,12 @@ export type MongoDocumentSlugHeaderType = {|
     +header: string,
 |};
 
+export type MongoDocumentLinkType = {|
+    +type: MongoDocumentTypeType,
+    +slug: string,
+    +header: string,
+|};
+
 /*
 export type MongoDocumentTreeType = {|
     +_id?: mixed,

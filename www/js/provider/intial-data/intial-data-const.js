@@ -21,6 +21,7 @@ export const defaultInitialData: InitialDataType = {
     setInitialData: null,
     parentNodeList: [],
     device: {type: deviceTypeNameMap.phone},
+    siblingDataList: [],
 };
 
 export const page404InitialData: InitialDataType = {

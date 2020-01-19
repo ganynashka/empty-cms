@@ -5,7 +5,7 @@
 import fileSystem from 'fs';
 import path from 'path';
 
-import {type $Application, type $Request, type $Response} from 'express';
+import {type $Application} from 'express';
 import morgan from 'morgan';
 
 const CWD = process.cwd();
