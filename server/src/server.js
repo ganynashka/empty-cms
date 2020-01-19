@@ -5,9 +5,10 @@
 /* eslint no-process-env: 0, id-match: 0, optimize-regex/optimize-regex: 0, react/no-danger: 0 */
 
 // import type {IncomingMessage, ServerResponse} from 'http';
-import https from 'https';
+// import https from 'https';
 import http, {type IncomingMessage, type ServerResponse} from 'http';
 
+import spdy from 'spdy';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {StaticRouter} from 'react-router-dom';
@@ -34,25 +35,24 @@ import {handleDataBaseChange} from './util/data-base';
 const app: $Application = express();
 
 if (process.env.NODE_ENV === 'production') {
-    https
-        .createServer(
-            {
-                host: hostingIpAddress,
-                hostname: hostingDomainName,
-                key: sslKey,
-                cert: sslCert,
-                // eslint-disable-next-line id-length
-                ca: caChain,
-                // requestCert: true,
-                // rejectUnauthorized: false,
-                passphrase: passwordKey + sessionKey,
-            },
-            // $FlowFixMe
-            app
-        )
-        .listen(ssrHttpsServerPortProduction, () => {
-            console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
-        });
+    // https
+    spdy.createServer(
+        {
+            host: hostingIpAddress,
+            hostname: hostingDomainName,
+            key: sslKey,
+            cert: sslCert,
+            // eslint-disable-next-line id-length
+            ca: caChain,
+            // requestCert: true,
+            // rejectUnauthorized: false,
+            passphrase: passwordKey + sessionKey,
+        },
+        // $FlowFixMe
+        app
+    ).listen(ssrHttpsServerPortProduction, () => {
+        console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
+    });
 
     http.createServer((request: IncomingMessage, response: ServerResponse) => {
         response.writeHead(301, {
