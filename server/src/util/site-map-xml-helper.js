@@ -12,6 +12,7 @@ import {getLinkToReadArticle} from '../../../www/js/lib/string';
 import {isError} from '../../../www/js/lib/is';
 import {pathToDist} from '../../../webpack/config';
 import type {PromiseResolveType} from '../../../www/js/lib/promise';
+import {mongoDocumentTypeMap} from '../database/database-type';
 
 import {timeToHumanString} from './time';
 import {getAllDocumentList} from './document-helper';
@@ -36,10 +37,21 @@ function getLastmodTagContent(mongoDocument: MongoDocumentType): string {
 }
 
 function getChangefreqTagContent(mongoDocument: MongoDocumentType): string {
-    return 'daily'; // always, hourly, daily, weekly, monthly, yearly, never
+    return 'weekly'; // always, hourly, daily, weekly, monthly, yearly, never
 }
 
 function getPriorityTagContent(mongoDocument: MongoDocumentType): string {
+    const {slug, type} = mongoDocument;
+
+    if (slug === rootDocumentSlug) {
+        return '1.0';
+    }
+
+    if (type === mongoDocumentTypeMap.container) {
+        return '0.8';
+    }
+
+    // article and downloadable-image-list
     return '0.5';
 }
 
