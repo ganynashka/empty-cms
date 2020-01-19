@@ -51,7 +51,8 @@ module.exports.rules = [
             {
                 loader: 'base64-inline-loader',
                 query: {
-                    limit: isProduction ? 1e3 : 1, // 1k bytes for production
+                    limit: 1,
+                    // limit: isProduction ? 1 : 1, // 1k bytes for production
                     name: pathToLoadedFileFolder.replace(/^\//, '') + '/[name]-[md5:hash:hex:7].[ext]',
                 },
             },
