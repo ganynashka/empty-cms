@@ -58,7 +58,9 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         const {devicePixelRatio} = screenContextData;
         const {slug, header} = subNode;
         const pathToImage = this.getSubNodeImage(subNode);
-        const src = pathToImage ? getResizedInsideImageSrc(pathToImage, 269, 170, devicePixelRatio) : noImageImage;
+        const src = pathToImage
+            ? getResizedInsideImageSrc(pathToImage, 269, 170, devicePixelRatio / 1.5)
+            : noImageImage;
         const imageData = {src, title: header};
 
         return (

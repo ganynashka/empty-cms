@@ -75,7 +75,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
                 <img
                     alt=""
                     className={imageListArticleStyle.image_list_article__list_item_image}
-                    src={getResizedInsideImageSrc(imageSrc, 267, 208, devicePixelRatio)}
+                    src={getResizedInsideImageSrc(imageSrc, 267, 208, devicePixelRatio / 1.5)}
                 />
                 <div className={imageListArticleStyle.image_list_article__list_item_button_list_wrapper}>
                     <button
@@ -88,7 +88,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
                     <a
                         className={imageListArticleStyle.image_list_article__list_item_button}
                         download
-                        href={getResizedInsideImageSrc(imageSrc, 10e3, 10e3, devicePixelRatio)}
+                        href={getResizedInsideImageSrc(imageSrc, 10e3, 10e3, 1)}
                     >
                         Скачать
                     </a>

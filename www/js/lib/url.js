@@ -46,8 +46,8 @@ export function getResizedImageSrc(
     fit: SharpFitResizeNameType,
     aspectRatio: number
 ): string {
-    const endWidth = width * aspectRatio;
-    const endHeight = height * aspectRatio;
+    const endWidth = Math.floor(width * aspectRatio);
+    const endHeight = Math.floor(height * aspectRatio);
     const {getResizedImage} = fileApiRouteMap;
 
     return `${getResizedImage}/${src}?width=${endWidth}&height=${endHeight}&fit=${fit}`;
