@@ -2,8 +2,9 @@
 
 import React, {Component, type Node} from 'react';
 
+import loadingImage from '../header/image/favicon.svg';
+
 import pageLoadingStyle from './page-loading.scss';
-import loadingImage from './image/favicon.svg';
 
 type PropsType = {};
 

@@ -21,8 +21,7 @@ import {scrollToTop} from '../../../provider/screen/screen-context-helper';
 import {mongoDocumentTypeMap, mongoSubDocumentsViewTypeMap} from '../../../../../server/src/database/database-type';
 import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
 
-import faviconImage from '../page-loading/image/favicon.svg';
-
+import faviconImage from './image/favicon.svg';
 import headerStyle from './header.scss';
 
 type PropsType = {
