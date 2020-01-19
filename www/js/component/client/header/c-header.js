@@ -183,7 +183,7 @@ export class Header extends Component<PropsType, StateType> {
                 type="button"
             />,
             <Link
-                className={headerStyle.header__desktop__menu_line__link}
+                className={headerStyle.header__mobile__menu_line__link}
                 key="header-mobile-home-link"
                 title={rootPathMetaData.header}
                 to={routePathMap.siteEnter.path}

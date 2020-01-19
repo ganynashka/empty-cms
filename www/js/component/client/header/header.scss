@@ -89,9 +89,15 @@ $header-mobile-height: 50px;
     }
 }
 
+.header__mobile__menu_line__link {
+    display: block;
+    margin-left: 62px;
+}
+
 .header__mobile__menu_line__link__image {
     display: block;
     height: 24px;
+    padding: 10px;
     width: 24px;
 }
 
