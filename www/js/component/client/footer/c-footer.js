@@ -31,16 +31,26 @@ export function Footer(props: PropsType): Node {
 
     return (
         <footer className={footerStyle.footer_wrapper}>
-            <p className={footerStyle.footer__copy_right}>{copyRight}</p>
-            <Link className={footerStyle.footer__link} to={getLinkToReadArticle(footerLinkMap.holders.slug)}>
-                {footerLinkMap.holders.title}
-            </Link>
-            <Link className={footerStyle.footer__link} to={getLinkToReadArticle(footerLinkMap.contacts.slug)}>
-                {footerLinkMap.contacts.title}
-            </Link>
-            <Link className={footerStyle.footer__link} to={getLinkToReadArticle(footerLinkMap.policy.slug)}>
-                {footerLinkMap.policy.title}
-            </Link>
+            <ul className={footerStyle.footer_list}>
+                <li className={footerStyle.footer_list_item}>
+                    <p className={footerStyle.footer__copy_right}>{copyRight}</p>
+                </li>
+                <li className={footerStyle.footer_list_item}>
+                    <Link className={footerStyle.footer__link} to={getLinkToReadArticle(footerLinkMap.holders.slug)}>
+                        {footerLinkMap.holders.title}
+                    </Link>
+                </li>
+                <li className={footerStyle.footer_list_item}>
+                    <Link className={footerStyle.footer__link} to={getLinkToReadArticle(footerLinkMap.contacts.slug)}>
+                        {footerLinkMap.contacts.title}
+                    </Link>
+                </li>
+                <li className={footerStyle.footer_list_item}>
+                    <Link className={footerStyle.footer__link} to={getLinkToReadArticle(footerLinkMap.policy.slug)}>
+                        {footerLinkMap.policy.title}
+                    </Link>
+                </li>
+            </ul>
         </footer>
     );
 }

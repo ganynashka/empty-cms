@@ -10,8 +10,20 @@
     text-align: center;
 }
 
+.footer_list {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer_list_item {
+    display: block;
+}
+
 %footer-text-item {
-    display: inline-block;
+    display: block;
     font-size: 16px;
     margin: $ui-unit / 2 $ui-unit;
 }
