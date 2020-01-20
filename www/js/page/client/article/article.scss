@@ -1,4 +1,4 @@
-/* stylelint-disable selector-pseudo-class-no-unknown, max-nesting-depth, selector-max-compound-selectors */
+/* stylelint-disable selector-pseudo-class-no-unknown, max-nesting-depth, selector-max-compound-selectors, no-descending-specificity */
 
 @import './../../../../css/service';
 @import './../../../../css/var';
@@ -24,7 +24,7 @@ $space-between-blocks: 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     list-style: none;
 }
 
@@ -40,8 +40,13 @@ $space-between-blocks: 20px;
     display: block;
     height: 170px;
     margin-bottom: $space-between-blocks;
+    margin-right: $space-between-blocks;
     position: relative;
     width: calc((100% - #{$space-between-blocks * 3}) / 4);
+
+    &:nth-child(4n) {
+        margin-right: 0;
+    }
 }
 
 .article__list_header_item {
@@ -61,7 +66,12 @@ $space-between-blocks: 20px;
     .tablet {
         :local {
             .article__list_image_item {
+                margin-right: $space-between-blocks;
                 width: calc((100% - #{$space-between-blocks * 2}) / 3);
+
+                &:nth-child(3n) {
+                    margin-right: 0;
+                }
             }
 
             .article__list_header {
@@ -74,7 +84,12 @@ $space-between-blocks: 20px;
         :local {
             .article__list_image_item {
                 height: 120px;
+                margin-right: $space-between-blocks;
                 width: calc((100% - #{$space-between-blocks * 1}) / 2);
+
+                &:nth-child(2n) {
+                    margin-right: 0;
+                }
             }
 
             .article__list_header {
