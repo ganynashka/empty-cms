@@ -2,15 +2,15 @@
 
 export const footerLinkMap = {
     holders: {
-        slug: 'static-page-holders',
+        slug: 'holders',
         title: 'Правообладателям',
     },
     policy: {
-        slug: 'static-page-policy',
+        slug: 'policy',
         title: 'Политика конфиденциальности',
     },
     contacts: {
-        slug: 'static-page-contacts',
+        slug: 'contacts',
         title: 'Обратная связь',
     },
 };
