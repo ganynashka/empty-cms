@@ -1,5 +1,5 @@
 {
-    "name": "skazki.land",
+    "name": "skazki land",
     "lang": "ru-RU",
     "start_url": "/",
     "display": "standalone",
@@ -17,7 +17,7 @@
             "density": "1.0"
         },
         {
-            "src": "/api/get-resized-image/favicon.png?width=72&height=72&fit=inside&kernel=nearest&without-enlargement=0",
+            "src": "\/api\/get-resized-image\/favicon.png?width=72&height=72&fit=inside&kernel=nearest&without-enlargement=0",
             "sizes": "72x72",
             "type": "image\/png",
             "density": "1.5"
