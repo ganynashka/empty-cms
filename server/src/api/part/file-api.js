@@ -65,7 +65,7 @@ export function addFileApi(app: $Application) {
         const isFileExists = await getIsFileExists(pathToCachedFile);
 
         if (isFileExists) {
-            // console.log('get file from cache', pathToCachedFile);
+            console.log('get file from cache', pathToCachedFile);
             response.sendFile(pathToCachedFile);
             return;
         }
@@ -95,6 +95,8 @@ export function addFileApi(app: $Application) {
             response.json({isSuccessful: false, errorList: [compressImageResult]});
             return;
         }
+
+        console.log('send new file', pathToCachedFile);
 
         response.sendFile(pathToCachedFile);
     });
