@@ -16,7 +16,7 @@
   "engines": {
     "node": "^10.18.1"
   },
-  "engineStrict" : true,
+  "engineStrict": true,
   "scripts": {
     "start": "webpack-dev-server --progress --no-inline",
     "start:hot": "webpack-dev-server --progress --hot",
@@ -50,7 +50,7 @@
     "@material-ui/lab": "^4.0.0-alpha.39",
     "body-parser": "^1.19.0",
     "classnames": "^2.2.6",
-    "codemirror": "^5.50.2",
+    "codemirror": "^5.51.0",
     "compression": "^1.7.4",
     "connect-mongo": "^3.2.0",
     "cors": "^2.8.5",
@@ -64,7 +64,7 @@
     "imagemin-pngquant": "latest",
     "markdown-it": "^10.0.0",
     "mime-types": "^2.1.26",
-    "mongodb": "^3.5.1",
+    "mongodb": "^3.5.2",
     "morgan": "^1.9.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

@@ -2,7 +2,7 @@
 
 import {type $Application, type $Request, type $Response} from 'express';
 
-import {getIsAdmin} from '../../util/session';
+import {getIsAdmin, getSession} from '../../util/session';
 import {routePathMap} from '../../../../www/js/component/app/routes-path-map';
 import {
     documentApiRouteMap,
@@ -24,6 +24,22 @@ export function addDefendApi(app: $Application) {
         documentApiRouteMap.documentSearch,
         pdfApiRouteMap.getImageAsPdf,
     ];
+
+    app.use((request: $Request, response: $Response, next: () => mixed) => {
+        const userSession = getSession(request);
+
+        const requestInfoList = [
+            '====> Request:',
+            `> request.url: ${request.url}`,
+            `> request.path: ${request.path}`,
+            `> session.login: ${String(userSession.login)}`,
+            `> session.role: ${String(userSession.role)}`,
+        ];
+
+        console.log(requestInfoList.join('\n'));
+
+        next();
+    });
 
     // eslint-disable-next-line complexity, max-statements
     app.use((request: $Request, response: $Response, next: (error?: ?Error) => mixed) => {
