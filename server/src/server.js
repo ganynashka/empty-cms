@@ -5,7 +5,7 @@
 /* eslint no-process-env: 0, id-match: 0, optimize-regex/optimize-regex: 0, react/no-danger: 0 */
 
 // import type {IncomingMessage, ServerResponse} from 'http';
-// import https from 'https';
+import https from 'https';
 import http, {type IncomingMessage, type ServerResponse} from 'http';
 
 import spdy from 'spdy';
@@ -36,7 +36,8 @@ const app: $Application = express();
 
 if (process.env.NODE_ENV === 'production') {
     // https
-    spdy.createServer(
+    // spdy
+    https.createServer(
         {
             host: hostingIpAddress,
             hostname: hostingDomainName,
@@ -46,7 +47,7 @@ if (process.env.NODE_ENV === 'production') {
             ca: caChain,
             // requestCert: true,
             // rejectUnauthorized: false,
-            passphrase: passwordKey + sessionKey,
+            // passphrase: passwordKey + sessionKey,
         },
         // $FlowFixMe
         app
