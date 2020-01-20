@@ -31,9 +31,6 @@ export function clearGetDocumentBySlugCache() {
 }
 
 export function getDocumentBySlugMemoized(slug: string): Promise<MayBeDocumentType> {
-    return getDocumentBySlug(slug);
-
-    /*
     const cacheKey = `key-slug:${slug}`;
 
     if (hasProperty(getDocumentBySlugCache, cacheKey) && getDocumentBySlugCache[cacheKey]) {
@@ -54,7 +51,6 @@ export function getDocumentBySlugMemoized(slug: string): Promise<MayBeDocumentTy
         });
 
     return getDocumentBySlugCache[cacheKey];
-*/
 }
 
 export async function getOrphanList(): Promise<Array<MongoDocumentType> | Error> {
