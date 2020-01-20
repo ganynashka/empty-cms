@@ -15,7 +15,7 @@ module.exports.isProduction = nodeEnvironment === modeProductionName;
 
 module.exports.cwd = process.cwd();
 
-module.exports.fileRegExp = /\.(png|jpg|jpeg|gif|svg|otf|ttf|woff2?)$/;
+module.exports.fileRegExp = /\.(webp|png|jpg|jpeg|gif|svg|otf|ttf|woff2?)$/;
 
 module.exports.pathToDist = '/dist';
 

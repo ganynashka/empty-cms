@@ -3,7 +3,7 @@
 @import './../../../css/var';
 
 .main_wrapper {
-    background-color: #0a7899;
+    background-color: #394e64;
     background-position: center center;
 
     .paper_wrapper {
@@ -15,6 +15,6 @@
 
 :global {
     .loaded.desktop {
-        background-image: url('./image/main-bg.jpg');
+        background-image: url('./image/main-bg.webp');
     }
 }
