@@ -99,6 +99,7 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         tagList: stringToUniqArray(documentFormData.tagList, ','),
         subDocumentSlugList,
         isActive: documentFormData.isActive,
+        isInSiteMap: documentFormData.isInSiteMap,
         imageList: extractUniqueArrayString(documentFormData.imageList),
     };
 }
@@ -275,6 +276,14 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: true,
                         placeholder: '',
                         labelText: 'Is active',
+                    },
+                    {
+                        name: 'isInSiteMap',
+                        fieldComponent: InputCheckbox,
+                        validate: noValidate,
+                        defaultValue: true,
+                        placeholder: '',
+                        labelText: 'Is in sitemap.xml',
                     },
                     {
                         name: 'subDocumentSlugList',

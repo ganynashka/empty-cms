@@ -178,6 +178,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                         subDocumentSlugList: {defaultValue: mongoDocument.subDocumentSlugList},
                         tagList: {defaultValue: mongoDocument.tagList.join(', ')},
                         isActive: {defaultValue: mongoDocument.isActive},
+                        isInSiteMap: {defaultValue: mongoDocument.isInSiteMap},
                         rating: {defaultValue: mongoDocument.rating, isHidden: false},
                         imageList: {defaultValue: extractUniqueArrayString(mongoDocument.imageList)},
                     }),

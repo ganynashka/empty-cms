@@ -124,6 +124,7 @@ export async function convertJsonToDocument(jsonDocument: JsonToMongoDocumentTyp
         tagList: [],
         rating: 0,
         isActive: true,
+        isInSiteMap: true,
         imageList: [],
     };
 

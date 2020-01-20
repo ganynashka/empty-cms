@@ -78,7 +78,9 @@ async function getSiteMapXml(): Promise<string | Error> {
         '<?xml-stylesheet type="text/xsl" href="/gss-0.9.xsl"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
         documentList
-            .filter((documentInList: MongoDocumentType): boolean => documentInList.isActive)
+            .filter(
+                (documentInList: MongoDocumentType): boolean => documentInList.isActive && documentInList.isInSiteMap
+            )
             .map(mongoDocumentToSiteMapXml)
             .join('\n'),
         '</urlset>',

@@ -43,7 +43,17 @@ async function enhancedTableGetDocumentList(
 
     return {
         list: list.map((documentData: MongoDocumentType): EnhancedTableBodyCellType => {
-            const {slug, type, header, isActive, updatedDate, createdDate, rating} = documentData;
+            const {
+                slug,
+                type,
+                header,
+                isActive,
+                updatedDate,
+                createdDate,
+                rating,
+                isInSiteMap,
+                subDocumentListViewType,
+            } = documentData;
 
             return {
                 slug: <Link to={getLinkToEditArticle(slug)}>{slug}</Link>,
@@ -51,6 +61,8 @@ async function enhancedTableGetDocumentList(
                 header,
                 rating,
                 isActive,
+                isInSiteMap,
+                subDocumentListViewType,
                 createdDate: timeToHumanString(createdDate),
                 updatedDate: timeToHumanString(updatedDate),
                 remove: <RemoveDocument onSuccess={refreshTable} slug={slug}/>,
@@ -66,8 +78,10 @@ const enhancedTableHeader = {
         {id: 'header', align: 'left', label: 'Header', hasSort: true},
         {id: 'slug', align: 'left', label: 'Slug', hasSort: true},
         {id: 'type', align: 'left', label: 'Type', hasSort: true},
+        {id: 'subDocumentListViewType', align: 'left', label: 'Sub-documents view type', hasSort: true},
         {id: 'rating', align: 'left', label: 'Rating', hasSort: true},
         {id: 'isActive', align: 'left', label: 'Is active', hasSort: true},
+        {id: 'isInSiteMap', align: 'left', label: 'Is in sitemap.xml', hasSort: true},
         {id: 'createdDate', align: 'left', label: 'Created Date (UTC 0)', hasSort: true},
         {id: 'updatedDate', align: 'left', label: 'Updated Date (UTC 0)', hasSort: true},
         {id: 'remove', align: 'right', label: 'Remove', hasSort: false},

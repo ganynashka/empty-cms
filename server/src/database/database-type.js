@@ -56,6 +56,7 @@ export type MongoDocumentType = {|
     +tagList: Array<string>,
     +rating: number,
     +isActive: boolean,
+    +isInSiteMap: boolean,
     +imageList: Array<string>,
 |};
 
