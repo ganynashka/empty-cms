@@ -2,9 +2,6 @@
 
 import {type $Request, type $Response} from 'express';
 
-import type {MongoDocumentType} from '../../../../server/src/database/database-type';
-import {getCollection} from '../../../../server/src/database/database-helper';
-import {dataBaseConst} from '../../../../server/src/database/database-const';
 import {isError} from '../../lib/is';
 import {routePathMap} from '../../component/app/routes-path-map';
 import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from '../../../../server/src/api/part/document-api-const';
@@ -13,6 +10,7 @@ import {getLinkToReadArticle} from '../../lib/string';
 import {getDeviceData} from '../../../../server/src/util/device/device';
 import {getDocumentParentListMemoized} from '../../../../server/src/api/part/document-api-helper-get-parent-list';
 import {getSiblingLinkDataListMemoized} from '../../../../server/src/api/part/document-api-helper-get-child-list';
+import {getDocumentBySlugMemoized} from '../../../../server/src/api/part/document-api-helper';
 
 import {defaultInitialData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';
@@ -20,38 +18,33 @@ import type {InitialDataType} from './intial-data-type';
 // eslint-disable-next-line complexity, max-statements, sonarjs/cognitive-complexity
 export async function getInitialDataByRequest(request: $Request): Promise<InitialDataType> {
     const path = String(request.query.url || request.path || routePathMap.siteEnter.path);
-    const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
     const mayBeDocumentNodeTree = await getDocumentTreeMemoized(rootDocumentSlug, rootDocumentTreeDefaultDeep);
     const defaultRequestInitialData = {
         documentNodeTree: isError(mayBeDocumentNodeTree) ? null : mayBeDocumentNodeTree,
         device: getDeviceData(request),
     };
 
-    if (isError(collection)) {
-        return {...page404InitialData, ...defaultRequestInitialData};
-    }
-
     // root
     if (path === routePathMap.siteEnter.path) {
         const parentNodeList = await getDocumentParentListMemoized(rootDocumentSlug, 5);
-        const rootDocument = await collection.findOne({slug: rootDocumentSlug});
+        const rootDocument = await getDocumentBySlugMemoized(rootDocumentSlug);
 
-        if (rootDocument) {
+        if (!rootDocument || isError(rootDocument)) {
+            console.error('Can not get root document');
+
             return {
                 ...defaultInitialData,
-                parentNodeList: isError(parentNodeList) ? [] : parentNodeList,
-                title: rootDocument.title,
-                header: rootDocument.header,
-                meta: rootDocument.meta,
+                ...rootPathMetaData,
                 ...defaultRequestInitialData,
             };
         }
 
-        console.error('Can not get root document');
-
         return {
             ...defaultInitialData,
-            ...rootPathMetaData,
+            parentNodeList: isError(parentNodeList) ? [] : parentNodeList,
+            title: rootDocument.title,
+            header: rootDocument.header,
+            meta: rootDocument.meta,
             ...defaultRequestInitialData,
         };
     }
