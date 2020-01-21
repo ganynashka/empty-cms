@@ -68,6 +68,8 @@ export type MongoDocumentTreeNodeType = {|
     +title: string,
     +header: string,
     +author: string,
+    +illustrator: string,
+    +artist: string,
     +meta: string,
     +shortDescription: string,
     +content: string,

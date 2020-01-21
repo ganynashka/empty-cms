@@ -102,6 +102,8 @@ export class Header extends Component<PropsType, StateType> {
                 subDocumentListViewType: mongoSubDocumentsViewTypeMap.header,
                 header: '',
                 author: '',
+                illustrator: '',
+                artist: '',
                 title: 'Ошибка соединения',
                 meta: '',
                 shortDescription: '',

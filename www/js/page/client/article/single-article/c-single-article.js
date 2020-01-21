@@ -34,13 +34,15 @@ export class SingleArticle extends Component<PropsType, StateType> {
             return null;
         }
 
-        const {author} = articlePathData;
+        const {artist, author, illustrator} = articlePathData;
 
-        if (!author.trim()) {
+        const creatorList = [artist, author, illustrator].filter((creator: string): boolean => Boolean(creator.trim()));
+
+        if (creatorList.length === 0) {
             return null;
         }
 
-        return <p className={singleArticleStyle.single_article__author}>{author}</p>;
+        return <p className={singleArticleStyle.single_article__author}>{creatorList.join(' / ')}</p>;
     }
 
     renderSiblingListItem(siblingData: MongoDocumentLinkType): Node {
