@@ -43,17 +43,57 @@ export class Search extends Component<PropsType, StateType> {
         };
     }
 
-    renderSearchResultItem(mongoDocument: MongoDocumentType): Node {
+    makeHandleListItemClick(text: string): () => mixed {
+        return () => {
+            this.setSearchInputValue(text);
+        };
+    }
+
+    getInputValue(): string {
+        const {state} = this;
+        const {inputRef} = state;
+        const inputNode = inputRef.current;
+
+        if (!inputNode) {
+            return '';
+        }
+
+        return inputNode.value;
+    }
+
+    setSearchInputValue(text: string) {
+        const {state} = this;
+        const {inputRef} = state;
+        const inputNode = inputRef.current;
+        const searchText = cleanText(text);
+
+        this.setState({searchText}, () => {
+            if (!inputNode) {
+                return;
+            }
+
+            inputNode.value = searchText;
+            this.handleInput();
+        });
+    }
+
+    renderSearchResultItem = (mongoDocument: MongoDocumentType): Node => {
         const {slug, header} = mongoDocument;
+
+        const handleListItemClick = this.makeHandleListItemClick(header);
 
         return (
             <li key={slug}>
-                <Link className={searchStyle.search_result_item} to={getLinkToReadArticle(slug)}>
+                <Link
+                    className={searchStyle.search_result_item}
+                    onClick={handleListItemClick}
+                    to={getLinkToReadArticle(slug)}
+                >
                     {header}
                 </Link>
             </li>
         );
-    }
+    };
 
     renderSearchResult(): Node {
         const {state} = this;
@@ -92,8 +132,8 @@ export class Search extends Component<PropsType, StateType> {
         }, 250);
     };
 
-    handleInput = async (evt: SyntheticEvent<HTMLInputElement>) => {
-        const searchText = cleanText(String(evt.currentTarget.value));
+    handleInput = async () => {
+        const searchText = cleanText(this.getInputValue());
 
         if (searchText.length < minSearchSymbolCount) {
             return;

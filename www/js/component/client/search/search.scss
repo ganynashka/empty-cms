@@ -78,7 +78,8 @@
 .search_result_item {
     display: block;
     font-size: 16px;
-    line-height: 26px;
+    padding-bottom: $ui-unit;
+    padding-top: $ui-unit;
 }
 
 .search_result_list__no_result {
