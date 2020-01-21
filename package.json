@@ -13,10 +13,6 @@
     "url": "https://github.com/webbestmaster/empty-cms/issues"
   },
   "homepage": "https://github.com/webbestmaster/empty-cms#readme",
-  "engines": {
-    "node": "^10.18.1"
-  },
-  "engineStrict": true,
   "scripts": {
     "start": "webpack-dev-server --progress --no-inline",
     "start:hot": "webpack-dev-server --progress --hot",
@@ -70,8 +66,7 @@
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "react-transition-group": "^4.3.0",
-    "sharp": "^0.24.0",
-    "spdy": "^4.0.1"
+    "sharp": "^0.24.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",

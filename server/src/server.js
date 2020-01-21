@@ -8,7 +8,6 @@
 import https from 'https';
 import http, {type IncomingMessage, type ServerResponse} from 'http';
 
-import spdy from 'spdy';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {StaticRouter} from 'react-router-dom';
@@ -18,7 +17,7 @@ import {ClientApp} from '../../www/js/component/app/c-client-app';
 import {ssrServerPort, ssrHttpServerPortProduction, ssrHttpsServerPortProduction} from '../../webpack/config';
 import {getInitialData} from '../../www/js/provider/intial-data/intial-data-helper';
 import type {RouterStaticContextType} from '../../www/js/provider/intial-data/intial-data-type';
-import {caChain, passwordKey, sessionKey, sslCert, sslKey} from '../key/key';
+import {caChain, sslCert, sslKey} from '../key/key';
 
 import {getIndexHtmlTemplate} from './static-files';
 import {
@@ -35,25 +34,25 @@ import {handleDataBaseChange} from './util/data-base';
 const app: $Application = express();
 
 if (process.env.NODE_ENV === 'production') {
-    // https
-    // spdy
-    https.createServer(
-        {
-            host: hostingIpAddress,
-            hostname: hostingDomainName,
-            key: sslKey,
-            cert: sslCert,
-            // eslint-disable-next-line id-length
-            ca: caChain,
-            // requestCert: true,
-            // rejectUnauthorized: false,
-            // passphrase: passwordKey + sessionKey,
-        },
-        // $FlowFixMe
-        app
-    ).listen(ssrHttpsServerPortProduction, () => {
-        console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
-    });
+    https
+        .createServer(
+            {
+                host: hostingIpAddress,
+                hostname: hostingDomainName,
+                key: sslKey,
+                cert: sslCert,
+                // eslint-disable-next-line id-length
+                ca: caChain,
+                // requestCert: true,
+                // rejectUnauthorized: false,
+                // passphrase: passwordKey + sessionKey,
+            },
+            // $FlowFixMe
+            app
+        )
+        .listen(ssrHttpsServerPortProduction, () => {
+            console.info(`Server listening on port ${ssrHttpsServerPortProduction} - production`);
+        });
 
     http.createServer((request: IncomingMessage, response: ServerResponse) => {
         response.writeHead(301, {
