@@ -211,7 +211,14 @@ export class Header extends Component<PropsType, StateType> {
     }
 
     renderMobileMenu(): Node {
-        return <nav className={headerStyle.header__mobile__navigation_wrapper}>{this.renderDesktopLinkList()}</nav>;
+        return (
+            <nav className={headerStyle.header__mobile__navigation_wrapper}>
+                <Link className={headerStyle.header__desktop__menu_line__link} key="/" to="/">
+                    Главная
+                </Link>
+                {this.renderDesktopLinkList()}
+            </nav>
+        );
     }
 
     renderDesktopLink(linkData: MongoDocumentTreeNodeType): Node {
