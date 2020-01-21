@@ -60,7 +60,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
     if (path.startsWith(routePathMap.article.staticPartPath)) {
         const slug = path.replace(getLinkToReadArticle(''), '');
         const parentNodeList = await getDocumentParentListMemoized(slug, 5);
-        const articlePathData = await getDocumentTreeMemoized(slug, 3);
+        const articlePathData = await getDocumentTreeMemoized(slug, 1);
         const siblingDataList = await getSiblingLinkDataListMemoized(slug);
 
         if (isError(articlePathData)) {

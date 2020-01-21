@@ -136,7 +136,7 @@ export class Header extends Component<PropsType, StateType> {
             return;
         }
 
-        const initialContextData = await getInitialClientData(props.location.pathname);
+        const initialContextData = await getInitialClientData(props.location.pathname, 1);
 
         if (isError(initialContextData)) {
             this.errorInitialContextData(initialContextData);
