@@ -17,7 +17,7 @@ import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database
 import {Search} from '../search/c-search';
 import {getLinkToReadArticle} from '../../../lib/string';
 import {isMobileDevice} from '../../../../../server/src/util/device/device-helper';
-import {scrollToTop} from '../../../provider/screen/screen-context-helper';
+import {scrollToTop} from '../../../lib/screen';
 import {mongoDocumentTypeMap, mongoSubDocumentsViewTypeMap} from '../../../../../server/src/database/database-type';
 import {rootPathMetaData} from '../../../provider/intial-data/intial-data-const';
 
@@ -123,11 +123,11 @@ export class Header extends Component<PropsType, StateType> {
 
         setInitialData(data);
 
-        scrollToTop();
-
         setMeta({
             title: 'Ошибка соединения',
         });
+
+        scrollToTop();
     }
 
     async fetchInitialContextData() {
@@ -156,8 +156,6 @@ export class Header extends Component<PropsType, StateType> {
         setMeta({
             title: initialContextData.title,
         });
-
-        scrollToTop();
     }
 
     getMobileHeaderContent(): Array<Node> {

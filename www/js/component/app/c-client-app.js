@@ -13,6 +13,7 @@ import {MainWrapper} from '../main-wrapper/c-main-wrapper';
 import {type InitialDataType} from '../../provider/intial-data/intial-data-type';
 import {InitialDataProvider} from '../../provider/intial-data/c-initial-data-context';
 import {Header} from '../client/header/c-header';
+import {ScrollRestoration} from '../../provider/screen/scroll-restoration/c-scroll-restoration.js';
 
 import {routeItemMap, routeItemPage404} from './routes';
 import {redderRoute} from './render-route/render-route';
@@ -62,6 +63,13 @@ export function ClientApp(props: PropsType): Node {
     return (
         <InitialDataProvider defaultValue={initialData}>
             {renderWrapperList(wrapperList, [
+                redderRoute({
+                    path: starPath,
+                    component: ScrollRestoration,
+                    type: 'route',
+                    id: 'scroll-restoration',
+                    pageWrapper: null,
+                }),
                 redderRoute({
                     path: starPath,
                     component: Header,

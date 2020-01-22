@@ -3,7 +3,7 @@
 import React, {Component, type Node} from 'react';
 
 import loadingImage from '../header/image/favicon.svg';
-import {scrollToTop} from '../../../provider/screen/screen-context-helper';
+import {scrollToTop} from '../../../lib/screen';
 
 import pageLoadingStyle from './page-loading.scss';
 

@@ -1,9 +1,8 @@
 // @flow
 
-/* global window, document, requestAnimationFrame */
+/* global window, document */
 
 import {isNotNumber} from '../../lib/is';
-import type {PromiseResolveType} from '../../lib/promise';
 
 import type {ScreenWidthNameType, ScreenContextType} from './screen-context-type';
 import {screenMinWidth, screenNameReference} from './screen-context-const';
@@ -95,13 +94,4 @@ export function getScreenState(): ScreenContextType {
         devicePixelRatio: getDevicePixelRatio(),
         isLoaded: typeof window !== 'undefined',
     };
-}
-
-export function scrollToTop(): Promise<true> {
-    return new Promise((resolve: PromiseResolveType<true>) => {
-        requestAnimationFrame(() => {
-            window.scrollTo(0, 0);
-            resolve(true);
-        });
-    });
 }
