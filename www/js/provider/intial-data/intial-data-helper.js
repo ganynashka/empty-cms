@@ -11,8 +11,8 @@ import {getDeviceData} from '../../../../server/src/util/device/device';
 import {getDocumentParentListMemoized} from '../../../../server/src/api/part/document-api-helper-get-parent-list';
 import {getSiblingLinkDataListMemoized} from '../../../../server/src/api/part/document-api-helper-get-child-list';
 import {getDocumentBySlugMemoized} from '../../../../server/src/api/part/document-api-helper';
-
 import type {MongoDocumentType, OpenGraphDataType} from '../../../../server/src/database/database-type';
+import {getResizedInsideImageSrc} from '../../lib/url';
 
 import {defaultInitialData, defaultOpenGraphData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';
@@ -119,9 +119,13 @@ export function getOpenGraphMetaString(openGraphData: OpenGraphDataType): string
             return;
         }
 
-        const metaString = template.replace('{{key}}', key).replace('{{value}}', String(value));
-
-        metaList.push(metaString);
+        if (key === 'image') {
+            metaList.push(
+                template.replace('{{key}}', key).replace('{{value}}', getResizedInsideImageSrc(value, 512, 512, 1))
+            );
+        } else {
+            metaList.push(template.replace('{{key}}', key).replace('{{value}}', String(value)));
+        }
     });
 
     return metaList.join('\n');
