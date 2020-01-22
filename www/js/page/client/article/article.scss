@@ -58,8 +58,8 @@ $space-between-blocks: 20px;
 .article__list_header_item__link {
     display: inline-block;
     font-size: $main-font-size;
-    padding-bottom: $ui-unit / 2;
-    padding-top: $ui-unit / 2;
+    padding-bottom: $ui-unit;
+    padding-top: $ui-unit;
 }
 
 :global {
