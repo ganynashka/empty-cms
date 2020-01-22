@@ -7,6 +7,10 @@ import classNames from 'classnames';
 import noImageImage from './image/no-image.svg';
 import imagePreviewStyle from './image-preview.scss';
 
+type StateType = {|
+    +isLoaded: boolean,
+|};
+
 type PropsType = {|
     +additionalClassName?: string,
     +image: {|
@@ -18,11 +22,20 @@ type PropsType = {|
     |},
 |};
 
-export function ImagePreview(props: PropsType): Node {
-    const {additionalClassName, image, link} = props;
-    const {src, title} = image;
+export class ImagePreview extends Component<PropsType, StateType> {
+    constructor(props: PropsType) {
+        super(props);
 
-    if (!src.trim()) {
+        this.state = {
+            isLoaded: false,
+        };
+    }
+
+    renderNoImage(): Node {
+        const {props} = this;
+        const {additionalClassName, image, link} = props;
+        const {title} = image;
+
         return (
             <Link
                 className={classNames(imagePreviewStyle.image_preview__wrapper__no_image, additionalClassName || '')}
@@ -34,14 +47,38 @@ export function ImagePreview(props: PropsType): Node {
         );
     }
 
-    return (
-        <Link
-            className={classNames(imagePreviewStyle.image_preview__wrapper, additionalClassName || '')}
-            style={{backgroundImage: 'url(' + src + ')'}}
-            to={link.to}
-        >
-            <img alt={title} className={imagePreviewStyle.image_preview__image} src={src}/>
-            <span className={imagePreviewStyle.article__list_image_item__link_text}>{title}</span>
-        </Link>
-    );
+    handleImageLoad = () => {
+        this.setState({isLoaded: true});
+    };
+
+    renderPreview(): Node {
+        const {props, state} = this;
+        const {additionalClassName, image, link} = props;
+        const {src, title} = image;
+
+        return (
+            <Link
+                className={classNames(imagePreviewStyle.image_preview__wrapper, additionalClassName || '')}
+                style={{backgroundImage: state.isLoaded ? 'url(' + src + ')' : 'none'}}
+                to={link.to}
+            >
+                <img
+                    alt={title}
+                    className={imagePreviewStyle.image_preview__image}
+                    loading="lazy"
+                    onLoad={this.handleImageLoad}
+                    src={src}
+                />
+                <span className={imagePreviewStyle.article__list_image_item__link_text}>{title}</span>
+            </Link>
+        );
+    }
+
+    render(): Node {
+        const {props} = this;
+        const {image} = props;
+        const {src} = image;
+
+        return src.trim() ? this.renderPreview() : this.renderNoImage();
+    }
 }
