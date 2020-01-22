@@ -75,6 +75,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
                 <img
                     alt=""
                     className={imageListArticleStyle.image_list_article__list_item_image}
+                    loading="lazy"
                     src={getResizedInsideImageSrc(imageSrc, 267, 208, devicePixelRatio / 1.5)}
                 />
                 <div className={imageListArticleStyle.image_list_article__list_item_button_list_wrapper}>
