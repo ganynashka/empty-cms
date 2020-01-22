@@ -15,7 +15,7 @@ import express, {type $Application, type $Request, type $Response} from 'express
 
 import {ClientApp} from '../../www/js/component/app/c-client-app';
 import {ssrServerPort, ssrHttpServerPortProduction, ssrHttpsServerPortProduction} from '../../webpack/config';
-import {getInitialData} from '../../www/js/provider/intial-data/intial-data-helper';
+import {getInitialData, getOpenGraphMetaString} from '../../www/js/provider/intial-data/intial-data-helper';
 import type {RouterStaticContextType} from '../../www/js/provider/intial-data/intial-data-type';
 import {caChain, sslCert, sslKey} from '../key/key';
 
@@ -26,6 +26,7 @@ import {
     initialScriptClassName,
     stringForReplaceContent,
     stringForReplaceMeta,
+    stringForReplaceOpenGraphMeta,
     stringForReplaceTitle,
 } from './config';
 import {addApiIntoApplication} from './api/api';
@@ -80,6 +81,8 @@ app.get('*', async (request: $Request, response: $Response) => {
     const initialData = await getInitialData(request, response);
     // staticContext.is404 will rewrite by page404
     const staticContext: RouterStaticContextType = {is404: false};
+    const {openGraphData} = initialData;
+    const openGraphMetaString = openGraphData ? getOpenGraphMetaString(openGraphData) : '';
 
     const reactResult = ReactDOMServer.renderToString(
         <StaticRouter context={staticContext} location={request.url}>
@@ -107,6 +110,7 @@ app.get('*', async (request: $Request, response: $Response) => {
         const htmlResult404 = htmlTemplate
             .replace(stringForReplaceTitle, initialData.title)
             .replace(stringForReplaceMeta, initialData.meta)
+            .replace(stringForReplaceOpenGraphMeta, openGraphMetaString)
             .replace(stringForReplaceContent, reactResult404);
 
         response.send(htmlResult404);
@@ -120,6 +124,7 @@ app.get('*', async (request: $Request, response: $Response) => {
     const htmlResult = htmlTemplate
         .replace(stringForReplaceTitle, initialData.title)
         .replace(stringForReplaceMeta, initialData.meta)
+        .replace(stringForReplaceOpenGraphMeta, openGraphMetaString)
         .replace(stringForReplaceContent, reactResult);
 
     response.send(htmlResult);

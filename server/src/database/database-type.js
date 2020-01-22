@@ -90,6 +90,13 @@ export type MongoDocumentLinkType = {|
     +header: string,
 |};
 
+export type OpenGraphDataType = {|
+    +title: string,
+    +type: string, // "article"
+    +image: string,
+    +description: string,
+|};
+
 /*
 export type MongoDocumentTreeType = {|
     +_id?: mixed,

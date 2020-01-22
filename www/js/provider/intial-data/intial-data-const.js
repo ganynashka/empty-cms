@@ -2,6 +2,8 @@
 
 import {deviceTypeNameMap} from '../../../../server/src/util/device/device-const';
 
+import type {OpenGraphDataType} from '../../../../server/src/database/database-type';
+
 import {type InitialDataType} from './intial-data-type';
 
 export const rootPathMetaData = {
@@ -10,10 +12,18 @@ export const rootPathMetaData = {
     // description: 'Хорошие сказки хорошим детям',
 };
 
+export const defaultOpenGraphData: OpenGraphDataType = {
+    title: rootPathMetaData.header,
+    type: 'article', // "article"
+    image: '',
+    description: '',
+};
+
 export const defaultInitialData: InitialDataType = {
     title: '',
     header: '',
     meta: '',
+    openGraphData: defaultOpenGraphData,
     // description: '',
     is404: false,
     articlePathData: null,

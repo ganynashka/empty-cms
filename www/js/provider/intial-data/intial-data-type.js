@@ -4,6 +4,7 @@ import type {
     MongoDocumentLinkType,
     MongoDocumentTreeNodeType,
     MongoDocumentType,
+    OpenGraphDataType,
 } from '../../../../server/src/database/database-type';
 import type {DeviceDataType} from '../../../../server/src/util/device/device-type';
 
@@ -16,6 +17,7 @@ export type SetInitialDataArgumentType = {|
     +header: string,
     +title: string,
     +meta: string,
+    +openGraphData?: NullableType<OpenGraphDataType>,
     +is404: boolean,
     +articlePathData?: NullableType<MongoDocumentTreeNodeType>,
     +documentNodeTree?: NullableType<MongoDocumentTreeNodeType>,
@@ -29,6 +31,7 @@ export type InitialDataType = {|
     +header: string,
     +title: string,
     +meta: string,
+    +openGraphData: NullableType<OpenGraphDataType>,
     +is404: boolean,
     +articlePathData: NullableType<MongoDocumentTreeNodeType>,
     +documentNodeTree: NullableType<MongoDocumentTreeNodeType>,
