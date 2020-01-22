@@ -54,12 +54,14 @@ export class ScrollRestoration extends Component<PropsType, StateType> {
     }
 
     restoreScrollTopPosition(pathname: string): Promise<void> {
+        const scrollTop = parseInt(sessionStorage.getItem(storageKeyPrefix + pathname), 10) || 0;
+        const {documentElement} = window.document;
+
         return new Promise((resolve: PromiseResolveType<void>) => {
             requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    const {documentElement} = window.document;
-                    const scrollTop = parseInt(sessionStorage.getItem(storageKeyPrefix + pathname), 10) || 0;
+                documentElement.scrollTop = scrollTop;
 
+                requestAnimationFrame(() => {
                     documentElement.scrollTop = scrollTop;
                     resolve();
                 });
