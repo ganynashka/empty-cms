@@ -12,10 +12,12 @@ import {SnackbarProvider} from '../../provider/snackbar/c-snackbar-context';
 import {MainWrapper} from '../main-wrapper/c-main-wrapper';
 import {type InitialDataType} from '../../provider/intial-data/intial-data-type';
 import {InitialDataProvider} from '../../provider/intial-data/c-initial-data-context';
+import {Header} from '../client/header/c-header';
 
 import {routeItemMap, routeItemPage404} from './routes';
 import {redderRoute} from './render-route/render-route';
 import {renderWrapperList} from './wrapper-list';
+import {starPath} from './render-route/render-route-const';
 
 const wrapperList = [
     ThemeProvider,
@@ -60,6 +62,13 @@ export function ClientApp(props: PropsType): Node {
     return (
         <InitialDataProvider defaultValue={initialData}>
             {renderWrapperList(wrapperList, [
+                redderRoute({
+                    path: starPath,
+                    component: Header,
+                    type: 'route',
+                    id: 'client-header',
+                    pageWrapper: null,
+                }),
                 <Switch key="switch">
                     {routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key]))}
                     {redderRoute(routeItemPage404)}
