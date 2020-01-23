@@ -172,11 +172,11 @@ export function addDocumentApi(app: $Application) {
         const existedDocument = await collection.findOne({slug});
 
         if (existedDocument) {
-            await collection.deleteOne({slug}, {});
+            // await collection.deleteOne({slug}, {});
 
-            // response.status(400);
-            // response.json({isSuccessful: false, errorList: [`Document with slug: '${slug}' already exists.`]});
-            // return;
+            response.status(400);
+            response.json({isSuccessful: false, errorList: [`Document with slug: '${slug}' already exists.`]});
+            return;
         }
 
         const newDocument: MongoDocumentType = await convertJsonToDocument(jsonDocument);
