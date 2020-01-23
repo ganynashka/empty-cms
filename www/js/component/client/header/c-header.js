@@ -158,13 +158,14 @@ export class Header extends Component<PropsType, StateType> {
     getMobileHeaderContent(): Array<Node> {
         const {state, props} = this;
         const {isNavigationMenuOpen, isSearchActive} = state;
-        const {screenContextData, initialContextData} = props;
+        const {screenContextData, initialContextData, location} = props;
 
         if (isSearchActive) {
             return [
                 <Search
                     initialContextData={initialContextData}
                     key="search"
+                    location={location}
                     onActiveChange={this.handleSearchActive}
                     screenContextData={screenContextData}
                 />,
@@ -196,6 +197,7 @@ export class Header extends Component<PropsType, StateType> {
             <Search
                 initialContextData={initialContextData}
                 key="search"
+                location={location}
                 onActiveChange={this.handleSearchActive}
                 screenContextData={screenContextData}
             />,
@@ -245,7 +247,7 @@ export class Header extends Component<PropsType, StateType> {
 
     renderDesktop(): Node {
         const {props} = this;
-        const {screenContextData, initialContextData} = props;
+        const {screenContextData, initialContextData, location} = props;
 
         return (
             <>
@@ -265,6 +267,7 @@ export class Header extends Component<PropsType, StateType> {
                     <Search
                         initialContextData={initialContextData}
                         key="search"
+                        location={location}
                         onActiveChange={this.handleSearchActive}
                         screenContextData={screenContextData}
                     />

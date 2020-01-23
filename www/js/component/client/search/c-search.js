@@ -12,6 +12,7 @@ import {cleanText, getLinkToReadArticle} from '../../../lib/string';
 import {isError} from '../../../lib/is';
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 import {isMobileDevice} from '../../../../../server/src/util/device/device-helper';
+import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 
 import searchStyle from './search.scss';
 import {searchDocument} from './search-api';
@@ -20,6 +21,7 @@ type PropsType = {|
     +onActiveChange: (isActive: boolean) => mixed,
     +screenContextData: ScreenContextType,
     +initialContextData: InitialDataType,
+    +location: LocationType,
 |};
 
 type StateType = {|
@@ -41,6 +43,14 @@ export class Search extends Component<PropsType, StateType> {
             resultList: [],
             inputRef: React.createRef<HTMLInputElement>(),
         };
+    }
+
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
+        const {props} = this;
+
+        if (props.location.pathname !== prevProps.location.pathname) {
+            this.handleBlur();
+        }
     }
 
     makeHandleListItemClick(text: string): () => mixed {
