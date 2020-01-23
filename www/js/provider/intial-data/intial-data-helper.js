@@ -109,7 +109,6 @@ export function getOpenGraphData(mongoDocument: MongoDocumentType): OpenGraphDat
 
 export function getOpenGraphMetaString(openGraphData: OpenGraphDataType): string {
     const template = '<meta property="og:{{key}}" content="{{value}}"/>';
-
     const metaList: Array<string> = [];
 
     Object.keys(openGraphData).forEach((key: string) => {
@@ -120,12 +119,13 @@ export function getOpenGraphMetaString(openGraphData: OpenGraphDataType): string
         }
 
         if (key === 'image') {
-            metaList.push(
-                template.replace('{{key}}', key).replace('{{value}}', getResizedInsideImageSrc(value, 512, 512, 1))
-            );
-        } else {
-            metaList.push(template.replace('{{key}}', key).replace('{{value}}', String(value)));
+            const imageSrc = getResizedInsideImageSrc(value, 512, 512, 1);
+
+            metaList.push(template.replace('{{key}}', key).replace('{{value}}', imageSrc));
+            return;
         }
+
+        metaList.push(template.replace('{{key}}', key).replace('{{value}}', String(value)));
     });
 
     return metaList.join('\n');
