@@ -46,10 +46,11 @@ export class Search extends Component<PropsType, StateType> {
     }
 
     componentDidUpdate(prevProps: PropsType, prevState: StateType) {
-        const {props} = this;
+        const {props, state} = this;
+        const input = state.inputRef.current;
 
-        if (props.location.pathname !== prevProps.location.pathname) {
-            this.handleBlur();
+        if (props.location.pathname !== prevProps.location.pathname && input) {
+            input.blur();
         }
     }
 
@@ -145,7 +146,10 @@ export class Search extends Component<PropsType, StateType> {
     handleInput = async () => {
         const searchText = cleanText(this.getInputValue());
 
+        this.setState({searchText});
+
         if (searchText.length < minSearchSymbolCount) {
+            this.setState({resultList: []});
             return;
         }
 
@@ -156,11 +160,11 @@ export class Search extends Component<PropsType, StateType> {
         });
 
         if (isError(resultList)) {
-            this.setState({searchText, resultList: []});
+            this.setState({resultList: []});
             return;
         }
 
-        this.setState({searchText, resultList});
+        this.setState({resultList});
     };
 
     renderSearchInput(): Node {
