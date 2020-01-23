@@ -9,24 +9,21 @@ import type {LocationType} from '../../type/react-router-dom-v5-type-extract';
 
 import pageWrapperStyle from './page-wrapper.scss';
 
-type PropsType = {
+type PropsType = {|
     +children: Node,
-    +additionalClassName?: string,
     +location: LocationType,
-};
+|};
 
-export function PageWrapper(props: PropsType): Node {
-    const {children, location, additionalClassName} = props;
+export type PageWrapperPropsType = PropsType;
 
-    const className = classNames(pageWrapperStyle.page_wrapper, {
-        [String(additionalClassName)]: Boolean(additionalClassName),
-    });
+export function PageWrapper(props: PropsType): Array<Node> {
+    const {children, location} = props;
 
-    return (
-        <div className={className}>
-            <CMSHeaderWrapper location={location}/>
-            <main className={pageWrapperStyle.main_content}>{children}</main>
-            <Footer location={location}/>
-        </div>
-    );
+    return [
+        <CMSHeaderWrapper key="cms-header-wrapper" location={location}/>,
+        <main className={pageWrapperStyle.main_content} key="main">
+            {children}
+        </main>,
+        <Footer key="footer" location={location}/>,
+    ];
 }

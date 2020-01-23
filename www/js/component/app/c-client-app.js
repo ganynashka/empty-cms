@@ -1,7 +1,7 @@
 // @flow
 
 import React, {type Node} from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 
 import {ThemeProvider} from '../../provider/theme/c-theme-context';
 import {LocaleProvider} from '../../provider/locale/c-locale-context';
@@ -39,46 +39,33 @@ type PropsType = {|
 export function ClientApp(props: PropsType): Node {
     const {initialData} = props;
 
-    if (initialData.is404) {
-        return (
-            <InitialDataProvider defaultValue={initialData}>
-                {renderWrapperList(wrapperList, [redderRoute(routeItemPage404)])}
-            </InitialDataProvider>
-        );
-    }
+    const routeList = initialData.is404
+        ? null
+        : routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key]));
 
-    // <InitialDataProvider defaultValue={initialData}>
-    //     {renderWrapperList(wrapperList, [
-    //         // redderRoute(routeItemClientHeader),
-    //         // redderRoute(routeItemCmsHeader),
-    //         routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key])),
-    //         <Switch key="switch">
-    //             {routeItemKeyList.map((key: string): Node => redderEmptyRoute(routeItemMap[key]))}
-    //             {redderRoute(routeItemPage404)}
-    //         </Switch>,
-    //         // redderRoute(routeItemFooter),
-    //     ])}
-    // </InitialDataProvider>
+    const staticList = [
+        redderRoute({
+            path: starPath,
+            component: ScrollRestoration,
+            type: 'route',
+            id: 'scroll-restoration',
+            pageWrapper: null,
+        }),
+        redderRoute({
+            path: starPath,
+            component: Header,
+            type: 'route',
+            id: 'client-header',
+            pageWrapper: null,
+        }),
+    ];
 
     return (
         <InitialDataProvider defaultValue={initialData}>
             {renderWrapperList(wrapperList, [
-                redderRoute({
-                    path: starPath,
-                    component: ScrollRestoration,
-                    type: 'route',
-                    id: 'scroll-restoration',
-                    pageWrapper: null,
-                }),
-                redderRoute({
-                    path: starPath,
-                    component: Header,
-                    type: 'route',
-                    id: 'client-header',
-                    pageWrapper: null,
-                }),
+                ...staticList,
                 <Switch key="switch">
-                    {routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key]))}
+                    {routeList}
                     {redderRoute(routeItemPage404)}
                 </Switch>,
             ])}

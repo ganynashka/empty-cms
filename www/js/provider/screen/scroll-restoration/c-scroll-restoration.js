@@ -24,6 +24,8 @@ export class ScrollRestoration extends Component<PropsType, StateType> {
         const {pathname} = location;
 
         this.restoreScrollTopPosition(pathname);
+
+        console.log('---> ScrollRestoration did MOUNT');
     }
 
     shouldComponentUpdate(nextProps: PropsType): true {

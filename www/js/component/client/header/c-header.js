@@ -49,16 +49,13 @@ export class Header extends Component<PropsType, StateType> {
     componentDidMount() {
         this.fetchInitialContextData();
 
-        console.log('---> Header Home did MOUNT');
+        console.log('---> Header did MOUNT');
     }
 
     componentDidUpdate(prevProps: PropsType, prevState: StateType) {
         const {props} = this;
 
         if (props.location.pathname !== prevProps.location.pathname) {
-            // console.log('---> Header Home did UPDATE');
-            // console.log(window.document.documentElement.scrollTop)
-            // console.log('--->', prevProps.location.pathname, '->', props.location.pathname);
             this.fetchInitialContextData();
             this.handleCloseNavigationMenuOpenState();
         }

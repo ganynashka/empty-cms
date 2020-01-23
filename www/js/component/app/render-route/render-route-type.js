@@ -12,6 +12,7 @@ import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-cont
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 import type {PopupContextType} from '../../../provider/popup/popup-context-type';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
+import type {PageWrapperPropsType} from '../../page-wrapper/c-page-wrapper';
 
 export type RouteItemType = {|
     +path: string,
@@ -23,7 +24,7 @@ export type RouteItemType = {|
     +type: 'route',
     +id?: string,
     // eslint-disable-next-line id-match
-    +pageWrapper: React$ComponentType<*> | null,
+    +pageWrapper: React$ComponentType<PageWrapperPropsType> | null,
 |};
 
 export type RedirectItemType = {|
@@ -33,7 +34,7 @@ export type RedirectItemType = {|
     +type: 'redirect',
     +id?: string,
     // eslint-disable-next-line id-match
-    +pageWrapper: React$ComponentType<*> | null,
+    +pageWrapper: React$ComponentType<PageWrapperPropsType> | null,
 |};
 
 export type RenderPageInputDataType = {|
