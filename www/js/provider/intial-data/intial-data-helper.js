@@ -91,7 +91,13 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
 
 export async function getInitialData(request: $Request, response: $Response): Promise<InitialDataType> {
     if (String(response.statusCode) === '404') {
-        return {...page404InitialData};
+        const mayBeDocumentNodeTree = await getDocumentTreeMemoized(rootDocumentSlug, rootDocumentTreeDefaultDeep);
+        const defaultRequestInitialData = {
+            documentNodeTree: isError(mayBeDocumentNodeTree) ? null : mayBeDocumentNodeTree,
+            device: getDeviceData(request),
+        };
+
+        return {...page404InitialData, ...defaultRequestInitialData};
     }
 
     return getInitialDataByRequest(request);
