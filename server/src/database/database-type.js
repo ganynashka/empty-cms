@@ -95,6 +95,7 @@ export type OpenGraphDataType = {|
     +type: string, // "article"
     +image: string,
     +description: string,
+    +locale: string,
 |};
 
 /*

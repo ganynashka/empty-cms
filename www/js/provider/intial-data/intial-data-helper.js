@@ -104,7 +104,7 @@ export function getOpenGraphData(mongoDocument: MongoDocumentType): OpenGraphDat
     const image = titleImage || imageList[0] || defaultOpenGraphData.image;
     const description = shortDescription || defaultOpenGraphData.description;
 
-    return {title, type, image, description};
+    return {title, type, image, description, locale: defaultOpenGraphData.locale};
 }
 
 export function getOpenGraphMetaString(openGraphData: OpenGraphDataType): string {

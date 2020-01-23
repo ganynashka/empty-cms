@@ -17,6 +17,7 @@ export const defaultOpenGraphData: OpenGraphDataType = {
     type: 'article', // "article"
     image: '',
     description: '',
+    locale: 'ru_RU',
 };
 
 export const defaultInitialData: InitialDataType = {
