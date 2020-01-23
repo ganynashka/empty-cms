@@ -1,8 +1,8 @@
 User-agent: *
 Disallow: /cms
-Disallow: /static-page-holders
-Disallow: /static-page-contacts
-Disallow: /static-page-policy
+Disallow: /article/holders
+Disallow: /article/policy
+Disallow: /article/contacts
 Disallow: /404
 
 Host: https://skazki.land
