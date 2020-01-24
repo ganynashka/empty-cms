@@ -155,6 +155,35 @@ export class Header extends Component<PropsType, StateType> {
         });
     }
 
+    getIsActiveLink(linkData: MongoDocumentTreeNodeType): boolean {
+        const {props} = this;
+        const {initialContextData} = props;
+        const {parentNodeList} = initialContextData;
+        const parentNodeListLength = parentNodeList.length;
+
+        if (parentNodeListLength <= 1) {
+            return false;
+        }
+
+        const mainCategoryNode = parentNodeList[parentNodeListLength - 2];
+
+        if (!mainCategoryNode) {
+            return false;
+        }
+
+        return linkData.slug === mainCategoryNode.slug;
+    }
+
+    // ---- mobile
+
+    renderMobile(): Node {
+        return (
+            <div className={headerStyle.header__desktop__menu_line__wrapper}>
+                <div className={headerStyle.header__mobile__top_line}>{this.getMobileHeaderContent()}</div>
+            </div>
+        );
+    }
+
     getMobileHeaderContent(): Array<Node> {
         const {state, props} = this;
         const {isNavigationMenuOpen, isSearchActive} = state;
@@ -183,14 +212,14 @@ export class Header extends Component<PropsType, StateType> {
                 type="button"
             />,
             <Link
-                className={headerStyle.header__mobile__menu_line__link}
+                className={headerStyle.header__mobile__logo__link}
                 key="header-mobile-home-link"
                 title={rootPathMetaData.header}
                 to={routePathMap.siteEnter.path}
             >
                 <img
                     alt={rootPathMetaData.header}
-                    className={headerStyle.header__mobile__menu_line__link__image}
+                    className={headerStyle.header__mobile__logo__link__image}
                     src={faviconImage}
                 />
             </Link>,
@@ -204,36 +233,26 @@ export class Header extends Component<PropsType, StateType> {
         ];
     }
 
-    renderMobile(): Node {
-        return (
-            <div className={headerStyle.header__desktop__menu_line__wrapper}>
-                <div className={headerStyle.header__mobile__top_line}>{this.getMobileHeaderContent()}</div>
-            </div>
-        );
-    }
-
     renderMobileMenu(): Node {
+        const {props} = this;
+        const {location} = props;
+        const rootPath = routePathMap.siteEnter.path;
+
+        const rootClassName = classNames(headerStyle.header__mobile__menu_line__link, {
+            [headerStyle.header__mobile__menu_line__link__active]: location.pathname === rootPath,
+        });
+
         return (
             <nav className={headerStyle.header__mobile__navigation_wrapper}>
-                <Link className={headerStyle.header__desktop__menu_line__link} key="/" to="/">
+                <Link className={rootClassName} key="root" to={rootPath}>
                     Главная
                 </Link>
-                {this.renderDesktopLinkList()}
+                {this.renderMobileLinkList()}
             </nav>
         );
     }
 
-    renderDesktopLink(linkData: MongoDocumentTreeNodeType): Node {
-        const {slug, header} = linkData;
-
-        return (
-            <Link className={headerStyle.header__desktop__menu_line__link} key={slug} to={getLinkToReadArticle(slug)}>
-                {header}
-            </Link>
-        );
-    }
-
-    renderDesktopLinkList(): Array<Node> | null {
+    renderMobileLinkList(): Array<Node> | null {
         const {props} = this;
         const {initialContextData} = props;
         const {documentNodeTree} = initialContextData;
@@ -242,8 +261,24 @@ export class Header extends Component<PropsType, StateType> {
             return null;
         }
 
-        return documentNodeTree.subNodeList.map(this.renderDesktopLink);
+        return documentNodeTree.subNodeList.map(this.renderMobileLink);
     }
+
+    renderMobileLink = (linkData: MongoDocumentTreeNodeType): Node => {
+        const {slug, header} = linkData;
+
+        const className = classNames(headerStyle.header__mobile__menu_line__link, {
+            [headerStyle.header__mobile__menu_line__link__active]: this.getIsActiveLink(linkData),
+        });
+
+        return (
+            <Link className={className} key={slug} to={getLinkToReadArticle(slug)}>
+                {header}
+            </Link>
+        );
+    };
+
+    // ---- desktop
 
     renderDesktop(): Node {
         const {props} = this;
@@ -278,6 +313,34 @@ export class Header extends Component<PropsType, StateType> {
             </>
         );
     }
+
+    renderDesktopLinkList(): Array<Node> | null {
+        const {props} = this;
+        const {initialContextData} = props;
+        const {documentNodeTree} = initialContextData;
+
+        if (!documentNodeTree) {
+            return null;
+        }
+
+        return documentNodeTree.subNodeList.map(this.renderDesktopLink);
+    }
+
+    renderDesktopLink = (linkData: MongoDocumentTreeNodeType): Node => {
+        const {slug, header} = linkData;
+
+        const className = classNames(headerStyle.header__desktop__menu_line__link, {
+            [headerStyle.header__desktop__menu_line__link__active]: this.getIsActiveLink(linkData),
+        });
+
+        return (
+            <Link className={className} key={slug} to={getLinkToReadArticle(slug)}>
+                {header}
+            </Link>
+        );
+    };
+
+    // ---- main render
 
     renderServerSide(): Node {
         const {props} = this;
