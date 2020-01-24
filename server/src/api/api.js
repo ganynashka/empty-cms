@@ -26,8 +26,8 @@ const MongoStore = connectMongo(session);
 export function addApiIntoApplication(app: $Application) {
     app.use(cors());
     app.use(compression());
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({extended: false}));
+    app.use(bodyParser.json({limit: '10mb', extended: true}));
+    app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
     app.use(fileUpload({createParentPath: true}));
     app.use(expressDevice.capture());
     app.disable('x-powered-by');
