@@ -34,9 +34,9 @@
     "mdlint:fix": "eslint --ext md . --fix",
     "flow-coverage": "flow-coverage-report --config ./flow-coverage-config.json",
     "remove-extra-files": "find . -name __delete_and_no_commit__ -prune -exec rm -rf {} \\;",
-    "zip": "zip -9 --exclude=*node_modules* --exclude=*.git*  -r my-project_`git symbolic-ref --short HEAD`-`date +%Y-%m-%d-%H-%M-%S` ./",
+    "zip": "zip -9 --exclude=*node_modules* --exclude=*.git*  -r my-project_`git symbolic-ref --short HEAD`-`date +%Y-%m-%d--%H-%M-%S` ./",
     "pre-commit-hook": "npm run eslint && npm run stylelint && npm run flow",
-    "db-dump": "mongodump --port=27001 --db=main-db --archive=db-dump/db-dump-`date +%Y-%m-%d-%H-%M-%S`.zip",
+    "db-dump": "mongodump --port=27001 --db=main-db --archive=db-dump/db-dump-`date +%Y-%m-%d--%H-%M-%S`.zip",
     "artillery": "artillery run ./dev/artillery-io/artillery-config.yml",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
