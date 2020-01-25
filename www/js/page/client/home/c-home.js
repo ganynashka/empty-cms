@@ -37,7 +37,7 @@ export class Home extends Component<PropsType, StateType> {
 
         return (
             <Link className={homeStyle.home__category_link__wrapper} key={slug} to={getLinkToReadArticle(slug)}>
-                <img alt={header} className={homeStyle.home__category_link__icon} src={titleImageSrc}/>
+                <img alt={header} className={homeStyle.home__category_link__icon} loading="lazy" src={titleImageSrc}/>
                 <div className={homeStyle.home__category_link__text_content}>
                     <h2 className={homeStyle.home__category_link__title}>{header}</h2>
                     <Markdown

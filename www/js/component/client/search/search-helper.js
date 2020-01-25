@@ -19,6 +19,7 @@ export function sortSearchResultList(
     documentList: Array<MongoDocumentType>,
     searchText: string
 ): Array<MongoDocumentType> {
+    // eslint-disable-next-line complexity
     return documentList.sort((documentA: MongoDocumentType, documentB: MongoDocumentType): number => {
         const headerA = documentA.header.toLocaleLowerCase();
         const headerB = documentB.header.toLocaleLowerCase();
