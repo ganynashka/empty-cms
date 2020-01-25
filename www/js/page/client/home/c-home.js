@@ -9,7 +9,7 @@ import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
 import serviceStyle from '../../../../css/service.scss';
 import {Markdown} from '../../../component/layout/markdown/c-markdown';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
-import {getResizedInsideImageSrc} from '../../../lib/url';
+import {getResizedImageSrc} from '../../../lib/url';
 import {getLinkToReadArticle} from '../../../lib/string';
 import {PageLoading} from '../../../component/client/page-loading/c-page-loading';
 
@@ -33,7 +33,12 @@ export class Home extends Component<PropsType, StateType> {
         const {screenContextData} = props;
         const {devicePixelRatio} = screenContextData;
         const {slug, titleImage, header, shortDescription} = documentData;
-        const titleImageSrc = getResizedInsideImageSrc(titleImage, 120, 120, devicePixelRatio); // `${fileApiRouteMap.getResizedImage}/${titleImage}?width=${maxImageSize}&height=${maxImageSize}&fit=inside`;
+        const titleImageSrc = getResizedImageSrc({
+            src: titleImage,
+            width: 120,
+            height: 120,
+            aspectRatio: devicePixelRatio,
+        });
 
         return (
             <Link className={homeStyle.home__category_link__wrapper} key={slug} to={getLinkToReadArticle(slug)}>

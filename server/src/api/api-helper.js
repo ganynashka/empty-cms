@@ -68,7 +68,7 @@ export function getImageResizeParameters(request: $Request): SharpResizeConfigTy
     const fit = hasProperty(sharpFit, requestFitType) ? sharpFit[requestFitType] : sharpFit.inside;
     const requestKernelType = String(request.query.kernel);
     const kernel = hasProperty(sharpKernel, requestKernelType) ? sharpKernel[requestKernelType] : sharpKernel.cubic;
-    const withoutEnlargement = String(request.query['without-enlargement']) !== '0';
+    const withoutEnlargement = String(request.query['has-enlargement']) !== '1';
 
     return {width, height, fit, kernel, withoutEnlargement};
 }

@@ -8,7 +8,7 @@ import type {InitialDataType} from '../../../../provider/intial-data/intial-data
 import type {MongoDocumentTreeNodeType} from '../../../../../../server/src/database/database-type';
 import {getLinkToReadArticle, sortDocumentByAlphabet} from '../../../../lib/string';
 import articleStyle from '../article.scss';
-import {getResizedInsideImageSrc} from '../../../../lib/url';
+import {getResizedImageSrc} from '../../../../lib/url';
 import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
 import {ImagePreview} from '../../../../component/layout/image-preview/c-image-preview';
 import {mongoSubDocumentsViewTypeMap} from '../../../../../../server/src/database/database-type';
@@ -54,7 +54,14 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         const {devicePixelRatio} = screenContextData;
         const {slug, header} = subNode;
         const pathToImage = this.getSubNodeImage(subNode);
-        const src = pathToImage ? getResizedInsideImageSrc(pathToImage, 269, 170, devicePixelRatio / 1.5) : '';
+        const src = pathToImage
+            ? getResizedImageSrc({
+                src: pathToImage,
+                width: 269,
+                height: 170,
+                aspectRatio: devicePixelRatio / 1.5,
+            })
+            : '';
         const imageData = {src, title: header};
 
         return (

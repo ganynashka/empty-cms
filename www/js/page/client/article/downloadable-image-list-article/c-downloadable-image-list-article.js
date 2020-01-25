@@ -7,7 +7,7 @@ import type {InitialDataType} from '../../../../provider/intial-data/intial-data
 import articleStyle from '../article.scss';
 import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
 import singleArticleStyle from '../single-article/single-article.scss';
-import {getResizedInsideImageSrc} from '../../../../lib/url';
+import {getResizedImageSrc} from '../../../../lib/url';
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
 import serviceStyle from '../../../../../css/service.scss';
 import {imageSrcToHtml} from '../../../../../../server/src/api/part/pdf-api-helper';
@@ -57,7 +57,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
         const iFrameBody = iFrameNode.contentWindow.document.querySelector('body');
 
         iFrameBody.innerHTML = imageSrcToHtml(
-            getResizedInsideImageSrc(imageSrc, maxImageSideSize, maxImageSideSize, 1)
+            getResizedImageSrc({src: imageSrc, width: maxImageSideSize, height: maxImageSideSize})
         );
     };
 
@@ -78,7 +78,12 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
                     alt=""
                     className={imageListArticleStyle.image_list_article__list_item_image}
                     loading="lazy"
-                    src={getResizedInsideImageSrc(imageSrc, 267, 208, devicePixelRatio / 1.5)}
+                    src={getResizedImageSrc({
+                        src: imageSrc,
+                        width: 267,
+                        height: 208,
+                        aspectRatio: devicePixelRatio / 1.5,
+                    })}
                 />
                 <div className={imageListArticleStyle.image_list_article__list_item_button_list_wrapper}>
                     <button
@@ -91,7 +96,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
                     <a
                         className={imageListArticleStyle.image_list_article__list_item_button}
                         download
-                        href={getResizedInsideImageSrc(imageSrc, maxImageSideSize, maxImageSideSize, 1)}
+                        href={getResizedImageSrc({src: imageSrc, width: maxImageSideSize, height: maxImageSideSize})}
                     >
                         Скачать
                     </a>

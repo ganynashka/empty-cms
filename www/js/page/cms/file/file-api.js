@@ -18,6 +18,16 @@ export const sharpFitResizeNameMap = {
     outside: 'outside',
 };
 
+export type SharpKernelResizeNameType = 'nearest' | 'cubic' | 'mitchell' | 'lanczos2' | 'lanczos3';
+
+export const sharpKernelResizeNameMap = {
+    nearest: 'nearest',
+    cubic: 'cubic',
+    mitchell: 'mitchell',
+    lanczos2: 'lanczos2',
+    lanczos3: 'lanczos3',
+};
+
 export function uploadFileList(fileList: Array<File>): Promise<Error | Array<string>> {
     const formData = new FormData();
 

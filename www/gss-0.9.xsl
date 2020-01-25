@@ -9,56 +9,69 @@
         <html xmlns="http://www.w3.org/1999/xhtml">
             <head>
                 <title>XML Sitemap</title>
-                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
                 <style type="text/css">
                     body {
                         font-family: Helvetica, Arial, sans-serif;
                         font-size: 13px;
                         color: #545353;
                     }
+
                     table {
                         border: none;
                         border-collapse: collapse;
                     }
+
                     #sitemap tr.odd {
                         background-color: #eee;
                     }
+
                     #sitemap tbody tr:hover {
                         background-color: #ccc;
                     }
+
                     #sitemap tbody tr:hover td, #sitemap tbody tr:hover td a {
                         color: #000;
                     }
+
                     #content {
                         margin: 0 auto;
                         width: 1200px;
                     }
+
                     .expl {
                         margin: 10px 3px;
                         line-height: 1.3em;
                     }
+
                     .expl a {
                         color: #da3114;
                         font-weight: bold;
                     }
+
                     a {
                         color: #000;
                         text-decoration: none;
                     }
+
                     a:visited {
                         color: #777;
                     }
+
                     a:hover {
                         text-decoration: underline;
                     }
+
                     td {
-                        font-size:11px;
+                        font-size: 11px;
                     }
+
                     th {
-                        text-align:left;
-                        padding-right:30px;
-                        font-size:11px;
+                        text-align: left;
+                        padding-right: 30px;
+                        font-size: 11px;
                     }
+
                     thead th {
                         border-bottom: 1px solid #000;
                         cursor: pointer;
@@ -69,7 +82,8 @@
                 <div id="content">
                     <h1>XML Sitemap</h1>
                     <p class="expl">
-                        This sitemap contains <xsl:value-of select="count(sitemap:urlset/sitemap:url)"/> URLs.
+                        This sitemap contains
+                        <xsl:value-of select="count(sitemap:urlset/sitemap:url)"/> URLs.
                     </p>
                     <table id="sitemap" cellpadding="3">
                         <thead>
@@ -101,10 +115,12 @@
                                         <xsl:value-of select="count(image:image)"/>
                                     </td>
                                     <td>
-                                        <xsl:value-of select="concat(translate(substring(sitemap:changefreq, 1, 1),concat($lower, $upper),concat($upper, $lower)),substring(sitemap:changefreq, 2))"/>
+                                        <xsl:value-of
+                                            select="concat(translate(substring(sitemap:changefreq, 1, 1),concat($lower, $upper),concat($upper, $lower)),substring(sitemap:changefreq, 2))"/>
                                     </td>
                                     <td>
-                                        <xsl:value-of select="concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)),concat(' ', substring(sitemap:lastmod,20,3)))"/>
+                                        <xsl:value-of
+                                            select="concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)),concat(' ', substring(sitemap:lastmod,20,3)))"/>
                                     </td>
                                 </tr>
                             </xsl:for-each>

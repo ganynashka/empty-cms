@@ -6,9 +6,11 @@ import type {SortDirectionType} from '../component/layout/table/enhanced-table/e
 import {enhancedTableDirection} from '../component/layout/table/enhanced-table/enhanced-table-const';
 import type {LocationType} from '../type/react-router-dom-v5-type-extract';
 import {routePathMap} from '../component/app/routes-path-map';
-import type {SharpFitResizeNameType} from '../page/cms/file/file-api';
+import type {SharpFitResizeNameType, SharpKernelResizeNameType} from '../page/cms/file/file-api';
 import {fileApiRouteMap, pdfApiRouteMap} from '../../../server/src/api/api-route-map';
-import {sharpFitResizeNameMap} from '../page/cms/file/file-api';
+import {sharpFitResizeNameMap, sharpKernelResizeNameMap} from '../page/cms/file/file-api';
+
+import {isNumber} from './is';
 
 export function getLisParametersToUrl(
     url: string,
@@ -39,34 +41,29 @@ export function isCMS(location: LocationType): boolean {
     return pathname.startsWith(routePathMap.cmsEnter.path);
 }
 
-export function getResizedImageSrc(
+type GetResizedImageSrcConfigType = {|
     src: string,
     width: number,
     height: number,
-    fit: SharpFitResizeNameType,
-    aspectRatio: number
-): string {
-    const endWidth = Math.floor(width * aspectRatio);
-    const endHeight = Math.floor(height * aspectRatio);
-    const {getResizedImage} = fileApiRouteMap;
+    aspectRatio?: number,
+    fit?: SharpFitResizeNameType,
+    kernel?: SharpKernelResizeNameType,
+    hasEnlargement?: boolean,
+|};
 
-    return `${getResizedImage}/${src}?width=${endWidth}&height=${endHeight}&fit=${fit}`;
+export function getResizedImageSrc(config: GetResizedImageSrcConfigType): string {
+    const {src, width, height, fit, kernel, aspectRatio, hasEnlargement} = config;
+    const endAspectRatio = isNumber(aspectRatio) ? aspectRatio : 1;
+    const endWidth = Math.floor(width * endAspectRatio);
+    const endHeight = Math.floor(height * endAspectRatio);
+
+    const parameterList = [
+        `width=${endWidth}`,
+        `height=${endHeight}`,
+        `fit=${fit || sharpFitResizeNameMap.inside}`,
+        `has-enlargement=${hasEnlargement ? '1' : '0'}`,
+        `kernel=${kernel || sharpKernelResizeNameMap.cubic}`,
+    ];
+
+    return `${fileApiRouteMap.getResizedImage}/${src}?${parameterList.join('&')}`;
 }
-
-export function getResizedInsideImageSrc(src: string, width: number, height: number, aspectRatio: number): string {
-    return getResizedImageSrc(src, width, height, sharpFitResizeNameMap.inside, aspectRatio);
-}
-
-/*
-export function getPdfUrlFromImage(imageSrc: string): string {
-    if (typeof window === 'undefined') {
-        return '';
-    }
-
-    const {location} = window;
-    const {origin} = location;
-    const src = encodeURIComponent(origin + getResizedImageSrc(imageSrc, 3e3, 3e3, sharpFitResizeNameMap.outside, 1));
-
-    return origin + pdfApiRouteMap.getImageAsPdf + '?src=' + src;
-}
-*/

@@ -12,7 +12,9 @@ import {getDocumentParentListMemoized} from '../../../../server/src/api/part/doc
 import {getSiblingLinkDataListMemoized} from '../../../../server/src/api/part/document-api-helper-get-child-list';
 import {getDocumentBySlugMemoized} from '../../../../server/src/api/part/document-api-helper';
 import type {MongoDocumentType, OpenGraphDataType} from '../../../../server/src/database/database-type';
-import {getResizedInsideImageSrc} from '../../lib/url';
+import {getResizedImageSrc} from '../../lib/url';
+
+import {sharpKernelResizeNameMap} from '../../page/cms/file/file-api';
 
 import {defaultInitialData, defaultOpenGraphData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';
@@ -103,14 +105,29 @@ export async function getInitialData(request: $Request, response: $Response): Pr
     return getInitialDataByRequest(request);
 }
 
+function getOpenGraphImagPathData(mongoDocument: MongoDocumentType): string {
+    const {titleImage, imageList} = mongoDocument;
+    const image = titleImage || imageList[0];
+    const size = 512;
+    const kernel = image ? sharpKernelResizeNameMap.cubic : sharpKernelResizeNameMap.nearest;
+    const src = image || defaultOpenGraphData.image;
+
+    return getResizedImageSrc({src, width: size, height: size, hasEnlargement: true, kernel});
+}
+
 export function getOpenGraphData(mongoDocument: MongoDocumentType): OpenGraphDataType {
-    const {header, titleImage, imageList, shortDescription} = mongoDocument;
+    const {header, shortDescription} = mongoDocument;
     const title = header || defaultOpenGraphData.title;
     const type = defaultOpenGraphData.type;
-    const image = titleImage || imageList[0] || defaultOpenGraphData.image;
     const description = shortDescription || defaultOpenGraphData.description;
 
-    return {title, type, image, description, locale: defaultOpenGraphData.locale};
+    return {
+        title,
+        type,
+        image: getOpenGraphImagPathData(mongoDocument),
+        description,
+        locale: defaultOpenGraphData.locale,
+    };
 }
 
 export function getOpenGraphMetaString(openGraphData: OpenGraphDataType): string {
@@ -121,13 +138,6 @@ export function getOpenGraphMetaString(openGraphData: OpenGraphDataType): string
         const value = openGraphData[key];
 
         if (!value) {
-            return;
-        }
-
-        if (key === 'image') {
-            const imageSrc = getResizedInsideImageSrc(value, 512, 512, 1);
-
-            metaList.push(template.replace('{{key}}', key).replace('{{value}}', imageSrc));
             return;
         }
 

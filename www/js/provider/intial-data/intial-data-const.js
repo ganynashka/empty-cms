@@ -14,7 +14,7 @@ export const rootPathMetaData = {
 export const defaultOpenGraphData: OpenGraphDataType = {
     title: rootPathMetaData.header,
     type: 'article', // "article"
-    image: 'favicon-512.png',
+    image: 'favicon.png',
     description: '',
     locale: 'ru_RU',
 };
