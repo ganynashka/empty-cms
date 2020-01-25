@@ -22,7 +22,7 @@ export function addDefendApi(app: $Application) {
         userApiRouteMap.getCurrentUser,
         initialDataApiRouteMap.getInitialData,
         documentApiRouteMap.documentSearch,
-        pdfApiRouteMap.getImageAsPdf,
+        // pdfApiRouteMap.getImageAsPdf,
     ];
 
     app.use((request: $Request, response: $Response, next: () => mixed) => {

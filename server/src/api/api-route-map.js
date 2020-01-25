@@ -16,7 +16,7 @@ export const documentApiRouteMap = {
 };
 
 export const pdfApiRouteMap = {
-    getImageAsPdf: '/api/get-image-as-pdf',
+    // getImageAsPdf: '/api/get-image-as-pdf',
 };
 
 export const userApiRouteMap = {

@@ -7,9 +7,10 @@ import type {InitialDataType} from '../../../../provider/intial-data/intial-data
 import articleStyle from '../article.scss';
 import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
 import singleArticleStyle from '../single-article/single-article.scss';
-import {getPdfUrlFromImage, getResizedInsideImageSrc} from '../../../../lib/url';
+import {getResizedInsideImageSrc} from '../../../../lib/url';
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
 import serviceStyle from '../../../../../css/service.scss';
+import {imageSrcToHtml} from '../../../../../../server/src/api/part/pdf-api-helper';
 
 import imageListArticleStyle from './downloadable-image-list-article.scss';
 
@@ -20,7 +21,6 @@ type PropsType = {|
 
 type StateType = {|
     +imageForPrint: {|
-        +src: string,
         +iframe: {current: HTMLIFrameElement | null},
     |},
 |};
@@ -31,7 +31,6 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
 
         this.state = {
             imageForPrint: {
-                src: '',
                 iframe: React.createRef<HTMLIFrameElement>(),
             },
         };
@@ -45,23 +44,21 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
         return iframe.current;
     }
 
-    printIFrameNode = () => {
+    printIFrameNode = (imageSrc: string) => {
         const iFrameNode = this.getIFrameNode();
 
         if (!iFrameNode) {
             return;
         }
 
-        iFrameNode.contentWindow.print();
+        const iFrameBody = iFrameNode.contentWindow.document.querySelector('body');
+
+        iFrameBody.innerHTML = imageSrcToHtml(getResizedInsideImageSrc(imageSrc, 2e3, 2e3, 1));
     };
 
     makeHandlePrintImage = (imageSrc: string): (() => mixed) => {
         return () => {
-            const {state} = this;
-            const {imageForPrint} = state;
-            const newImageForPrint = {...imageForPrint, src: imageSrc};
-
-            this.setState({imageForPrint: newImageForPrint}, this.printIFrameNode);
+            this.printIFrameNode(imageSrc);
         };
     };
 
@@ -101,15 +98,9 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
     renderPrintableIFrame(): Node {
         const {state} = this;
         const {imageForPrint} = state;
-        const {src, iframe} = imageForPrint;
+        const {iframe} = imageForPrint;
 
-        if (!src.trim()) {
-            return null;
-        }
-
-        return (
-            <iframe className={serviceStyle.hidden} key={src} ref={iframe} src={getPdfUrlFromImage(src)} title={src}/>
-        );
+        return <iframe className={serviceStyle.hidden} key="print-iframe" ref={iframe} title="print document"/>;
     }
 
     render(): Node {

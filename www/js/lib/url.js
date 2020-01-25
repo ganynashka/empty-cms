@@ -57,6 +57,7 @@ export function getResizedInsideImageSrc(src: string, width: number, height: num
     return getResizedImageSrc(src, width, height, sharpFitResizeNameMap.inside, aspectRatio);
 }
 
+/*
 export function getPdfUrlFromImage(imageSrc: string): string {
     if (typeof window === 'undefined') {
         return '';
@@ -68,3 +69,4 @@ export function getPdfUrlFromImage(imageSrc: string): string {
 
     return origin + pdfApiRouteMap.getImageAsPdf + '?src=' + src;
 }
+*/

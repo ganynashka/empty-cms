@@ -10,6 +10,8 @@ import {hostingDomainName} from '../../config';
 import {imageSrcToHtml} from './pdf-api-helper';
 
 export function addPdfApi(app: $Application) {
+
+    /*
     app.get(pdfApiRouteMap.getImageAsPdf, async (request: $Request, response: $Response) => {
         const {query} = request;
 
@@ -41,4 +43,5 @@ export function addPdfApi(app: $Application) {
                 stream.pipe(response);
             });
     });
+*/
 }
