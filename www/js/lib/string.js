@@ -159,5 +159,5 @@ export function getLinkToEditArticle(slug: string): string {
 }
 
 export function sortDocumentByAlphabet(subNodeA: {+header: string}, subNodeB: {+header: string}): number {
-    return subNodeA.header > subNodeB.header ? 1 : -1;
+    return subNodeA.header.localeCompare(subNodeB.header);
 }

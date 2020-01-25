@@ -13,9 +13,11 @@ import {isError} from '../../../lib/is';
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 import {isMobileDevice} from '../../../../../server/src/util/device/device-helper';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
+import serviceStyle from '../../../../css/service.scss';
 
 import searchStyle from './search.scss';
 import {searchDocument} from './search-api';
+import {filterResultCallBack, sortSearchResultList} from './search-helper';
 
 type PropsType = {|
     +onActiveChange: (isActive: boolean) => mixed,
@@ -88,10 +90,34 @@ export class Search extends Component<PropsType, StateType> {
         });
     }
 
+    getStyledHeader(header: string): Node {
+        const {state} = this;
+        const {searchText} = state;
+        const cleanSearchText = cleanText(searchText).toLocaleLowerCase();
+        const beginIndex = header.toLowerCase().indexOf(cleanSearchText);
+        const endIndex = beginIndex + cleanSearchText.length;
+
+        if (beginIndex < 0) {
+            return header;
+        }
+
+        const startPart = header.slice(0, beginIndex);
+        const middlePart = header.slice(beginIndex, endIndex);
+        const endPart = header.slice(endIndex);
+
+        return (
+            <>
+                {startPart}
+                <span className={serviceStyle.bold}>{middlePart}</span>
+                {endPart}
+            </>
+        );
+    }
+
     renderSearchResultItem = (mongoDocument: MongoDocumentType): Node => {
         const {slug, header} = mongoDocument;
-
         const handleListItemClick = this.makeHandleListItemClick(header);
+        const styledHeader = this.getStyledHeader(header);
 
         return (
             <li key={slug}>
@@ -100,15 +126,24 @@ export class Search extends Component<PropsType, StateType> {
                     onClick={handleListItemClick}
                     to={getLinkToReadArticle(slug)}
                 >
-                    {header}
+                    {styledHeader}
                 </Link>
             </li>
         );
     };
 
+    getResultList(): Array<MongoDocumentType> {
+        const {state} = this;
+        const {resultList, searchText} = state;
+        const cleanSearchText = cleanText(searchText).toLocaleLowerCase();
+        const filteredResult = resultList.filter(filterResultCallBack);
+
+        return sortSearchResultList(filteredResult, cleanSearchText);
+    }
+
     renderSearchResult(): Node {
         const {state} = this;
-        const {searchText, isActive, resultList} = state;
+        const {searchText, isActive} = state;
 
         if (!isActive) {
             return null;
@@ -117,6 +152,8 @@ export class Search extends Component<PropsType, StateType> {
         if (searchText.length < minSearchSymbolCount) {
             return null;
         }
+
+        const resultList = this.getResultList();
 
         if (resultList.length === 0) {
             return (
