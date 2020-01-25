@@ -1,12 +1,19 @@
 // @flow
 
 const mainDataBaseName = 'main-db';
+const databaseDumpFolderName = 'db-dump';
 
 export const dataBaseConst = {
     url: 'mongodb://localhost:27001,localhost:27002,localhost:27003,localhost:27004?replicaSet=MyBestReplica',
     shallCommand: {
         backup:
-            'mongodump --port=27001 --archive=db-dump/db-dump-`date +%Y-%m-%d-%H-%M-%S`.zip --db=' + mainDataBaseName,
+            `mkdir ${databaseDumpFolderName}; `
+            + [
+                'mongodump',
+                '--port=27001',
+                `--archive=${databaseDumpFolderName}/db-dump-\`date +%Y-%m-%d-%H-%M-%S\`.zip`,
+                `--db=${mainDataBaseName}`,
+            ].join(' '),
     },
     name: mainDataBaseName,
     collection: {
