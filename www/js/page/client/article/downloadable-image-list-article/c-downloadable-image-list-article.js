@@ -14,6 +14,8 @@ import {imageSrcToHtml} from '../../../../../../server/src/api/part/pdf-api-help
 
 import imageListArticleStyle from './downloadable-image-list-article.scss';
 
+const maxImageSideSize = 5e3;
+
 type PropsType = {|
     +initialContextData: InitialDataType,
     +screenContextData: ScreenContextType,
@@ -53,7 +55,9 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
 
         const iFrameBody = iFrameNode.contentWindow.document.querySelector('body');
 
-        iFrameBody.innerHTML = imageSrcToHtml(getResizedInsideImageSrc(imageSrc, 2e3, 2e3, 1));
+        iFrameBody.innerHTML = imageSrcToHtml(
+            getResizedInsideImageSrc(imageSrc, maxImageSideSize, maxImageSideSize, 1)
+        );
     };
 
     makeHandlePrintImage = (imageSrc: string): (() => mixed) => {
@@ -86,7 +90,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
                     <a
                         className={imageListArticleStyle.image_list_article__list_item_button}
                         download
-                        href={getResizedInsideImageSrc(imageSrc, 10e3, 10e3, 1)}
+                        href={getResizedInsideImageSrc(imageSrc, maxImageSideSize, maxImageSideSize, 1)}
                     >
                         Скачать
                     </a>
