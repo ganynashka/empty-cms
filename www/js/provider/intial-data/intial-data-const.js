@@ -1,7 +1,6 @@
 // @flow
 
 import {deviceTypeNameMap} from '../../../../server/src/util/device/device-const';
-
 import type {OpenGraphDataType} from '../../../../server/src/database/database-type';
 
 import {type InitialDataType} from './intial-data-type';
@@ -15,7 +14,7 @@ export const rootPathMetaData = {
 export const defaultOpenGraphData: OpenGraphDataType = {
     title: rootPathMetaData.header,
     type: 'article', // "article"
-    image: '',
+    image: 'favicon-512.png',
     description: '',
     locale: 'ru_RU',
 };
