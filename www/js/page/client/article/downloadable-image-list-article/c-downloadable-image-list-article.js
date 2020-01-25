@@ -11,6 +11,7 @@ import {getResizedInsideImageSrc} from '../../../../lib/url';
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
 import serviceStyle from '../../../../../css/service.scss';
 import {imageSrcToHtml} from '../../../../../../server/src/api/part/pdf-api-helper';
+import {SiblingList} from '../../../../component/layout/sibling-list/sibling-list';
 
 import imageListArticleStyle from './downloadable-image-list-article.scss';
 
@@ -125,8 +126,8 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
                 <ul className={imageListArticleStyle.image_list_article__list}>
                     {imageList.map(this.renderDownloadableImage)}
                 </ul>
-
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={content}/>
+                <SiblingList header="Смотрите также:" initialContextData={initialContextData}/>
                 {this.renderPrintableIFrame()}
             </>
         );

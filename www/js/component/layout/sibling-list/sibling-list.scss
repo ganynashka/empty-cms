@@ -1,0 +1,32 @@
+@import './../../../../css/var';
+
+.single_article__sibling__wrapper {
+    display: block;
+    padding-top: $ui-unit * 2;
+}
+
+.single_article__sibling__header {
+    display: block;
+    font-size: 22px;
+}
+
+.single_article__sibling__list {
+    display: block;
+}
+
+.single_article__sibling__item {
+    display: block;
+
+    &:before {
+        content: '\2022';
+        font-size: 16px;
+    }
+}
+
+.single_article__sibling__item__link {
+    display: inline-block;
+    font-size: 16px;
+    padding-bottom: $ui-unit / 2;
+    padding-top: $ui-unit / 2;
+    text-indent: $ui-unit;
+}
