@@ -84,7 +84,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
                     to={getLinkToReadArticle(slug)}
                 >
                     {header}
-                    {childListLength === 0 ? null : ` [${childListLength}]`}
+                    {childListLength === 0 ? null : `\u00A0[${childListLength}]`}
                 </Link>
             </li>
         );
