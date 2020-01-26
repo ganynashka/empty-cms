@@ -16,11 +16,6 @@
 
 .single_article__sibling__item {
     display: block;
-
-    &:before {
-        content: '\2022';
-        font-size: 16px;
-    }
 }
 
 .single_article__sibling__item__link {
@@ -28,5 +23,4 @@
     font-size: 16px;
     padding-bottom: $ui-unit / 2;
     padding-top: $ui-unit / 2;
-    text-indent: $ui-unit;
 }
