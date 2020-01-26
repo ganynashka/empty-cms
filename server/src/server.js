@@ -27,10 +27,12 @@ import {
     stringForReplaceContent,
     stringForReplaceMeta,
     stringForReplaceOpenGraphMeta,
+    stringForReplaceSeoMeta,
     stringForReplaceTitle,
 } from './config';
 import {addApiIntoApplication} from './api/api';
 import {handleDataBaseChange} from './util/data-base';
+import {getSeoMetaString} from './util/seo';
 
 const app: $Application = express();
 
@@ -83,9 +85,11 @@ app.get('*', async (request: $Request, response: $Response) => {
     const staticContext: RouterStaticContextType = {is404: false};
     const {openGraphData} = initialData;
     const openGraphMetaString = openGraphData ? getOpenGraphMetaString(openGraphData) : '';
+    const {url} = request;
+    const seoMetaString = getSeoMetaString(url);
 
     const reactResult = ReactDOMServer.renderToString(
-        <StaticRouter context={staticContext} location={request.url}>
+        <StaticRouter context={staticContext} location={url}>
             <ClientApp initialData={initialData}/>
             <script
                 className={initialScriptClassName}
@@ -98,7 +102,7 @@ app.get('*', async (request: $Request, response: $Response) => {
         response.status(404);
         const initialData404 = {...initialData, is404: true};
         const reactResult404 = ReactDOMServer.renderToString(
-            <StaticRouter context={staticContext} location={request.url}>
+            <StaticRouter context={staticContext} location={url}>
                 <ClientApp initialData={initialData404}/>
                 <script
                     className={initialScriptClassName}
@@ -108,6 +112,7 @@ app.get('*', async (request: $Request, response: $Response) => {
         );
 
         const htmlResult404 = htmlTemplate
+            .replace(stringForReplaceSeoMeta, seoMetaString)
             .replace(stringForReplaceTitle, initialData.title)
             .replace(stringForReplaceMeta, initialData.meta)
             .replace(stringForReplaceOpenGraphMeta, openGraphMetaString)
@@ -122,6 +127,7 @@ app.get('*', async (request: $Request, response: $Response) => {
     }
 
     const htmlResult = htmlTemplate
+        .replace(stringForReplaceSeoMeta, seoMetaString)
         .replace(stringForReplaceTitle, initialData.title)
         .replace(stringForReplaceMeta, initialData.meta)
         .replace(stringForReplaceOpenGraphMeta, openGraphMetaString)
