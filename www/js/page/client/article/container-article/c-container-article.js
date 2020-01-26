@@ -71,12 +71,9 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         );
     }
 
-    renderHeaderSubNode(
-        subNode: MongoDocumentTreeNodeType
-        // index: number,
-        // array: Array<MongoDocumentTreeNodeType>
-    ): Node {
-        const {slug, header} = subNode;
+    renderHeaderSubNode(subNode: MongoDocumentTreeNodeType): Node {
+        const {slug, header, subDocumentSlugList} = subNode;
+        const childListLength = subDocumentSlugList.length;
 
         return (
             <li className={articleStyle.article__list_header_item} key={slug}>
@@ -87,6 +84,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
                     to={getLinkToReadArticle(slug)}
                 >
                     {header}
+                    {childListLength === 0 ? null : ` [${childListLength}]`}
                 </Link>
             </li>
         );
