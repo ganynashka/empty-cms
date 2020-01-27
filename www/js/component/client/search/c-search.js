@@ -193,7 +193,6 @@ export class Search extends Component<PropsType, StateType> {
         const resultList = await searchDocument({
             header: searchText,
             tagList: searchText,
-            content: searchText,
         });
 
         if (isError(resultList)) {
