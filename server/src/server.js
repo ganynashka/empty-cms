@@ -58,12 +58,8 @@ if (process.env.NODE_ENV === 'production') {
         });
 
     http.createServer((request: IncomingMessage, response: ServerResponse) => {
-        response.writeHead(301, {
-            Location:
-                'https://'
-                + request.headers.host.replace(ssrHttpServerPortProduction, ssrHttpsServerPortProduction)
-                + request.url,
-        });
+        response.writeHead(301, {Location: 'https://' + hostingDomainName + request.url});
+
         response.end();
     }).listen(ssrHttpServerPortProduction, () => {
         console.info(`Server (redirect) listening on port ${ssrHttpServerPortProduction} - production`);

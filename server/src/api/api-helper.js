@@ -70,7 +70,13 @@ export function getImageResizeParameters(request: $Request): SharpResizeConfigTy
     const kernel = hasProperty(sharpKernel, requestKernelType) ? sharpKernel[requestKernelType] : sharpKernel.cubic;
     const withoutEnlargement = String(request.query['has-enlargement']) !== '1';
 
-    return {width, height, fit, kernel, withoutEnlargement};
+    return {
+        width: Math.max(width, 1),
+        height: Math.max(height, 1),
+        fit,
+        kernel,
+        withoutEnlargement,
+    };
 }
 
 export function getDocumentTreeParameters(request: $Request): GetDocumentTreeParameterType {
