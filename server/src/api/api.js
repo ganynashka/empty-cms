@@ -1,6 +1,6 @@
 // @flow
 
-import {type $Application} from 'express';
+import {type $Application, type $Request, type $Response} from 'express';
 import cors from 'cors';
 import compression from 'compression';
 import bodyParser from 'body-parser';
@@ -11,6 +11,7 @@ import connectMongo from 'connect-mongo';
 
 import {dataBaseConst} from '../database/database-const';
 import {passwordKey, sessionKey} from '../../key/key';
+import {hostingDomainName} from '../config';
 
 import {addUserApi} from './part/user-api';
 import {addDocumentApi} from './part/document-api';
@@ -47,6 +48,17 @@ export function addApiIntoApplication(app: $Application) {
             }),
         })
     );
+
+    // stop forwarding
+    app.use((request: $Request, response: $Response, next: () => mixed) => {
+        const {hostname} = request;
+
+        if (hostname !== hostingDomainName) {
+            response.writeHead(301, {Location: 'https://' + hostingDomainName + request.url});
+        }
+
+        next();
+    });
 
     addLoggingApi(app);
     addStaticApi(app);
