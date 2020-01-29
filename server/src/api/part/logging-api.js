@@ -11,12 +11,9 @@ import morgan from 'morgan';
 const CWD = process.cwd();
 
 export function addLoggingApi(app: $Application) {
-
-    /*
     app.use(
         morgan('combined', {
             stream: fileSystem.createWriteStream(path.join(CWD, 'access.log'), {flags: 'a'}),
         })
     );
-*/
 }

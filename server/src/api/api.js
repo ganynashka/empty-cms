@@ -55,6 +55,7 @@ export function addApiIntoApplication(app: $Application) {
 
         if (hostname !== hostingDomainName) {
             response.redirect(301, 'https://' + hostingDomainName + request.url);
+            return;
         }
 
         next();
