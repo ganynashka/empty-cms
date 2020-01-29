@@ -30,10 +30,12 @@ export function addDefendApi(app: $Application) {
 
         const requestInfoList = [
             '====> Request:',
-            `> request.url: ${request.url}`,
-            `> request.path: ${request.path}`,
-            `> session.login: ${String(userSession.login)}`,
-            `> session.role: ${String(userSession.role)}`,
+            `> request.host: ${request.host}`,
+            `> request.hostname: ${request.hostname}`,
+            // `> request.url: ${request.url}`,
+            // `> request.path: ${request.path}`,
+            // `> session.login: ${String(userSession.login)}`,
+            // `> session.role: ${String(userSession.role)}`,
         ];
 
         console.log(requestInfoList.join('\n'));
