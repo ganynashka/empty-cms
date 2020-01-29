@@ -54,7 +54,7 @@ export function addApiIntoApplication(app: $Application) {
         const {hostname} = request;
 
         if (hostname !== hostingDomainName) {
-            response.writeHead(301, {Location: 'https://' + hostingDomainName + request.url});
+            response.redirect(301, {Location: 'https://' + hostingDomainName + request.url});
         }
 
         next();
