@@ -14,11 +14,11 @@ import {getDocumentBySlugMemoized} from '../../../../server/src/api/part/documen
 import type {
     MongoDocumentShortDataType,
     MongoDocumentType,
-    MongoDocumentTypeType,
     OpenGraphDataType,
 } from '../../../../server/src/database/database-type';
 import {getResizedImageSrc} from '../../lib/url';
 import {sharpKernelResizeNameMap} from '../../page/cms/file/file-api';
+import {getArticlePathDataMemoized} from '../../../../server/src/api/part/document-api-helper-get-article-path-data';
 
 import {defaultInitialData, defaultOpenGraphData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';
@@ -61,11 +61,11 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
     if (path.startsWith(routePathMap.article.staticPartPath)) {
         const slug = path.replace(getLinkToReadArticle(''), '');
         const parentNodeList = await getDocumentParentListMemoized(slug, 5);
-        const articlePathData = await getDocumentTreeMemoized(slug, 1);
+        const articlePathData = await getArticlePathDataMemoized(slug);
         const siblingDataList = await getSiblingLinkDataListMemoized(slug);
 
-        if (isError(articlePathData)) {
-            console.error(articlePathData.message);
+        if (!articlePathData) {
+            console.error('getInitialDataByRequest: can not get article by slug:', slug);
 
             return {...page404InitialData, ...defaultRequestInitialData};
         }
@@ -75,9 +75,9 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
         return {
             ...defaultInitialData,
             parentNodeList: isError(parentNodeList) ? [] : parentNodeList.map(documentToShortData),
-            title: articlePathData.title,
-            header: articlePathData.header,
-            meta: articlePathData.meta,
+            title: articlePathData.mongoDocument.title,
+            header: articlePathData.mongoDocument.header,
+            meta: articlePathData.mongoDocument.meta,
             openGraphData:
                 !mongoDocument || isError(mongoDocument) ? defaultOpenGraphData : getOpenGraphData(mongoDocument),
             articlePathData,
@@ -150,7 +150,7 @@ export function getOpenGraphMetaString(openGraphData: OpenGraphDataType): string
     return metaList.join('\n');
 }
 
-function documentToShortData(mongoDocument: MongoDocumentType): MongoDocumentShortDataType {
+export function documentToShortData(mongoDocument: MongoDocumentType): MongoDocumentShortDataType {
     const {slug, type, header, titleImage, subDocumentSlugList, imageList, isActive} = mongoDocument;
 
     return {

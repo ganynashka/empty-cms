@@ -26,7 +26,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
             return null;
         }
 
-        const {artist, author, illustrator} = articlePathData;
+        const {artist, author, illustrator} = articlePathData.mongoDocument;
 
         const creatorList = [artist, author, illustrator].filter((creator: string): boolean => Boolean(creator.trim()));
 
@@ -46,7 +46,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
             return <h1 className={articleStyle.article__header}>Here is not list of link</h1>;
         }
 
-        const {header, content} = articlePathData;
+        const {header, content} = articlePathData.mongoDocument;
 
         return (
             <>

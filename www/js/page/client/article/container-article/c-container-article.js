@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 
 import {Markdown} from '../../../../component/layout/markdown/c-markdown';
 import type {InitialDataType} from '../../../../provider/intial-data/intial-data-type';
-import type {MongoDocumentTreeNodeType} from '../../../../../../server/src/database/database-type';
+import type {MongoDocumentShortDataType} from '../../../../../../server/src/database/database-type';
 import {getLinkToReadArticle, sortDocumentByAlphabet} from '../../../../lib/string';
 import articleStyle from '../article.scss';
 import {getResizedImageSrc} from '../../../../lib/url';
@@ -34,7 +34,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         this.state = {};
     }
 
-    getSubNodeImage(subNode: MongoDocumentTreeNodeType): string | null {
+    getSubNodeImage(subNode: MongoDocumentShortDataType): string | null {
         const {titleImage, imageList} = subNode;
 
         if (titleImage.length > 0) {
@@ -48,7 +48,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         return null;
     }
 
-    renderImageHeaderSubNode(subNode: MongoDocumentTreeNodeType): Node {
+    renderImageHeaderSubNode(subNode: MongoDocumentShortDataType): Node {
         const {props} = this;
         const {screenContextData} = props;
         const {devicePixelRatio} = screenContextData;
@@ -71,7 +71,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         );
     }
 
-    renderHeaderSubNode(subNode: MongoDocumentTreeNodeType): Node {
+    renderHeaderSubNode(subNode: MongoDocumentShortDataType): Node {
         const {slug, header, subDocumentSlugList} = subNode;
         const childListLength = subDocumentSlugList.length;
 
@@ -91,7 +91,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
     }
 
     renderSubNode = (
-        subNode: MongoDocumentTreeNodeType
+        subNode: MongoDocumentShortDataType
         // index: number,
         // array: Array<MongoDocumentTreeNodeType>
     ): Node => {
@@ -103,7 +103,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
             return null;
         }
 
-        const {subDocumentListViewType} = articlePathData;
+        const {subDocumentListViewType} = articlePathData.mongoDocument;
 
         if (mongoSubDocumentsViewTypeMap.imageHeader === subDocumentListViewType) {
             return this.renderImageHeaderSubNode(subNode);
@@ -125,7 +125,8 @@ export class ContainerArticle extends Component<PropsType, StateType> {
             return <h1 className={articleStyle.article__header}>Here is not list of link</h1>;
         }
 
-        const {header, subNodeList, content, subDocumentListViewType} = articlePathData;
+        const {header, content, subDocumentListViewType} = articlePathData.mongoDocument;
+        const subNodeList = articlePathData.sudNodeShortDataList;
         const listClassName = listClassNameMap[subDocumentListViewType];
 
         return (

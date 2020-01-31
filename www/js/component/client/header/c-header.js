@@ -92,26 +92,34 @@ export class Header extends Component<PropsType, StateType> {
             meta: '',
             is404: false,
             articlePathData: {
-                slug:
-                    location.pathname
-                        .split('/')
-                        .filter(Boolean)
-                        .pop() || '',
-                titleImage: '',
-                type: mongoDocumentTypeMap.article,
-                subDocumentListViewType: mongoSubDocumentsViewTypeMap.header,
-                header: '',
-                author: '',
-                illustrator: '',
-                artist: '',
-                title: 'Ошибка соединения',
-                meta: '',
-                shortDescription: '',
-                content: 'Ошибка соединения. Проверьте наличие интернета и обновите страницу.',
-                subNodeList: [],
-                subDocumentSlugList: [],
-                isActive: true,
-                imageList: [],
+                mongoDocument: {
+                    slug:
+                        location.pathname
+                            .split('/')
+                            .filter(Boolean)
+                            .pop() || '',
+                    titleImage: '',
+                    type: mongoDocumentTypeMap.article,
+                    subDocumentListViewType: mongoSubDocumentsViewTypeMap.header,
+                    title: 'Ошибка соединения',
+                    header: '',
+                    author: '',
+                    illustrator: '',
+                    artist: '',
+                    publicationDate: 0,
+                    meta: '',
+                    shortDescription: '',
+                    content: 'Ошибка соединения. Проверьте наличие интернета и обновите страницу.',
+                    createdDate: 0,
+                    updatedDate: 0,
+                    subDocumentSlugList: [],
+                    tagList: [],
+                    rating: 0,
+                    isActive: true,
+                    isInSiteMap: false,
+                    imageList: [],
+                },
+                sudNodeShortDataList: [],
             },
             documentNodeTree: props.initialContextData.documentNodeTree,
             setInitialData: null,

@@ -45,7 +45,7 @@ export class SiblingList extends Component<PropsType, StateType> {
         let currentArticleIndex = -1;
 
         sortedSiblingDataList.forEach((siblingData: MongoDocumentShortDataType, index: number) => {
-            if (siblingData.slug === articlePathData.slug) {
+            if (siblingData.slug === articlePathData.mongoDocument.slug) {
                 currentArticleIndex = index;
             }
         });

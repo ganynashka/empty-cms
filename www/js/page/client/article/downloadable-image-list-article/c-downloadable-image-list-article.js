@@ -122,7 +122,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
             return <h1 className={articleStyle.article__header}>Here is not list of link</h1>;
         }
 
-        const {header, content, imageList} = articlePathData;
+        const {header, content, imageList} = articlePathData.mongoDocument;
 
         return (
             <>

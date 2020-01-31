@@ -9,6 +9,7 @@ import {clearGetDocumentTreeCache} from '../api/part/document-api-helper-get-doc
 import {clearGetDocumentParentListCache} from '../api/part/document-api-helper-get-parent-list';
 import {clearGetSiblingLinkDataListCache} from '../api/part/document-api-helper-get-child-list';
 import {clearGetDocumentBySlugCache} from '../api/part/document-api-helper';
+import {clearGetArticlePathDataCache} from '../api/part/document-api-helper-get-article-path-data';
 
 import {updateSiteMapXml} from './site-map-xml-helper';
 
@@ -21,6 +22,7 @@ export function handleDataBaseChange(): Promise<mixed> {
             clearGetDocumentBySlugCache();
             clearGetDocumentParentListCache();
             clearGetSiblingLinkDataListCache();
+            clearGetArticlePathDataCache();
 
             return true;
         })

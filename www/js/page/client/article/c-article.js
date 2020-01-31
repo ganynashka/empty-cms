@@ -53,11 +53,11 @@ export class Article extends Component<PropsType, StateType> {
 
         const slug = match.params.slug || '';
 
-        if (!articlePathData || articlePathData.slug !== slug) {
+        if (!articlePathData || articlePathData.mongoDocument.slug !== slug) {
             return <PageLoading/>;
         }
 
-        const {type} = articlePathData;
+        const {type} = articlePathData.mongoDocument;
         const {article, container, downloadableImageList} = mongoDocumentTypeMap;
 
         if (article === type) {

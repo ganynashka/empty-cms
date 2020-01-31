@@ -13,13 +13,18 @@ type SetInitialDataType = (initialData: SetInitialDataArgumentType) => mixed;
 
 type NullableType<Type> = Type | null;
 
+export type ArticlePathDataType = {|
+    +mongoDocument: MongoDocumentType,
+    +sudNodeShortDataList: Array<MongoDocumentShortDataType>,
+|};
+
 export type SetInitialDataArgumentType = {|
     +header: string,
     +title: string,
     +meta: string,
     +openGraphData?: NullableType<OpenGraphDataType>,
     +is404: boolean,
-    +articlePathData?: NullableType<MongoDocumentTreeNodeType>,
+    +articlePathData?: NullableType<ArticlePathDataType>,
     +documentNodeTree?: NullableType<MongoDocumentTreeNodeType>,
     +parentNodeList?: Array<MongoDocumentShortDataType>,
     +setInitialData?: NullableType<SetInitialDataType>,
@@ -33,7 +38,8 @@ export type InitialDataType = {|
     +meta: string,
     +openGraphData: NullableType<OpenGraphDataType>,
     +is404: boolean,
-    +articlePathData: NullableType<MongoDocumentTreeNodeType>,
+    +articlePathData: NullableType<ArticlePathDataType>,
+    // +articlePathData: NullableType<MongoDocumentTreeNodeType>,
     +documentNodeTree: NullableType<MongoDocumentTreeNodeType>,
     +parentNodeList: Array<MongoDocumentShortDataType>,
     +setInitialData: NullableType<SetInitialDataType>,
