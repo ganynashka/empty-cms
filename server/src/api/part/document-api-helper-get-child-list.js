@@ -1,6 +1,6 @@
 // @flow
 
-import type {MongoDocumentLinkType, MongoDocumentType} from '../../database/database-type';
+import type {MongoDocumentShortDataType, MongoDocumentType} from '../../database/database-type';
 import {hasProperty, isError} from '../../../../www/js/lib/is';
 import {promiseCatch} from '../../../../www/js/lib/promise';
 
@@ -8,7 +8,7 @@ import type {MayBeDocumentType} from './document-api-helper';
 import {getDocumentBySlugMemoized} from './document-api-helper';
 import {getDocumentParentListBySlug} from './document-api-helper-get-parent-list';
 
-export async function getSiblingLinkDataList(slug: string): Promise<Array<MongoDocumentLinkType> | Error> {
+export async function getSiblingLinkDataList(slug: string): Promise<Array<MongoDocumentShortDataType> | Error> {
     const parentList = await getDocumentParentListBySlug(slug);
 
     if (isError(parentList)) {
@@ -22,8 +22,8 @@ export async function getSiblingLinkDataList(slug: string): Promise<Array<MongoD
     });
 
     return Promise.all(slugList.map(getDocumentBySlugMemoized))
-        .then((documentList: Array<MayBeDocumentType>): Array<MongoDocumentLinkType> => {
-            const filteredDocumentList: Array<MongoDocumentLinkType> = [];
+        .then((documentList: Array<MayBeDocumentType>): Array<MongoDocumentShortDataType> => {
+            const filteredDocumentList: Array<MongoDocumentShortDataType> = [];
 
             documentList.forEach((documentInList: MayBeDocumentType) => {
                 if (isError(documentInList) || !documentInList) {
@@ -31,9 +31,13 @@ export async function getSiblingLinkDataList(slug: string): Promise<Array<MongoD
                 }
 
                 filteredDocumentList.push({
-                    type: documentInList.type,
                     slug: documentInList.slug,
+                    type: documentInList.type,
                     header: documentInList.header,
+                    titleImage: documentInList.titleImage,
+                    subDocumentSlugList: documentInList.subDocumentSlugList,
+                    imageList: documentInList.imageList,
+                    isActive: documentInList.isActive,
                 });
             });
 
@@ -50,7 +54,7 @@ export function clearGetSiblingLinkDataListCache() {
     });
 }
 
-export function getSiblingLinkDataListMemoized(slug: string): Promise<Array<MongoDocumentLinkType> | Error> {
+export function getSiblingLinkDataListMemoized(slug: string): Promise<Array<MongoDocumentShortDataType> | Error> {
     const cacheKey = `key-slug:${slug}`;
 
     if (hasProperty(siblingLinkDataListCache, cacheKey) && siblingLinkDataListCache[cacheKey]) {
@@ -58,7 +62,7 @@ export function getSiblingLinkDataListMemoized(slug: string): Promise<Array<Mong
     }
 
     siblingLinkDataListCache[cacheKey] = getSiblingLinkDataList(slug)
-        .then((result: Array<MongoDocumentLinkType> | Error): Array<MongoDocumentLinkType> | Error => {
+        .then((result: Array<MongoDocumentShortDataType> | Error): Array<MongoDocumentShortDataType> | Error => {
             if (isError(result)) {
                 siblingLinkDataListCache[cacheKey] = null;
             }

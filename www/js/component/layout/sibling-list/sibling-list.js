@@ -4,7 +4,7 @@ import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
-import type {MongoDocumentLinkType} from '../../../../../server/src/database/database-type';
+import type {MongoDocumentShortDataType} from '../../../../../server/src/database/database-type';
 import {getLinkToReadArticle, sortDocumentByAlphabet} from '../../../lib/string';
 
 import siblingListStyle from './sibling-list.scss';
@@ -17,7 +17,7 @@ type PropsType = {|
 |};
 
 export class SiblingList extends Component<PropsType, StateType> {
-    renderSiblingListItem(siblingData: MongoDocumentLinkType): Node {
+    renderSiblingListItem(siblingData: MongoDocumentShortDataType): Node {
         const {slug, header} = siblingData;
 
         return (
@@ -29,7 +29,7 @@ export class SiblingList extends Component<PropsType, StateType> {
         );
     }
 
-    getSiblingList(): Array<MongoDocumentLinkType> {
+    getSiblingList(): Array<MongoDocumentShortDataType> {
         const {props} = this;
         const {initialContextData} = props;
         const {articlePathData} = initialContextData;
@@ -44,7 +44,7 @@ export class SiblingList extends Component<PropsType, StateType> {
 
         let currentArticleIndex = -1;
 
-        sortedSiblingDataList.forEach((siblingData: MongoDocumentLinkType, index: number) => {
+        sortedSiblingDataList.forEach((siblingData: MongoDocumentShortDataType, index: number) => {
             if (siblingData.slug === articlePathData.slug) {
                 currentArticleIndex = index;
             }

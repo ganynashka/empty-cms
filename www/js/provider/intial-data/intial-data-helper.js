@@ -11,9 +11,13 @@ import {getDeviceData} from '../../../../server/src/util/device/device';
 import {getDocumentParentListMemoized} from '../../../../server/src/api/part/document-api-helper-get-parent-list';
 import {getSiblingLinkDataListMemoized} from '../../../../server/src/api/part/document-api-helper-get-child-list';
 import {getDocumentBySlugMemoized} from '../../../../server/src/api/part/document-api-helper';
-import type {MongoDocumentType, OpenGraphDataType} from '../../../../server/src/database/database-type';
+import type {
+    MongoDocumentShortDataType,
+    MongoDocumentType,
+    MongoDocumentTypeType,
+    OpenGraphDataType,
+} from '../../../../server/src/database/database-type';
 import {getResizedImageSrc} from '../../lib/url';
-
 import {sharpKernelResizeNameMap} from '../../page/cms/file/file-api';
 
 import {defaultInitialData, defaultOpenGraphData, page404InitialData, rootPathMetaData} from './intial-data-const';
@@ -30,7 +34,6 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
 
     // root
     if (path === routePathMap.siteEnter.path) {
-        const parentNodeList = await getDocumentParentListMemoized(rootDocumentSlug, 5);
         const rootDocument = await getDocumentBySlugMemoized(rootDocumentSlug);
 
         if (!rootDocument || isError(rootDocument)) {
@@ -45,7 +48,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
 
         return {
             ...defaultInitialData,
-            parentNodeList: isError(parentNodeList) ? [] : parentNodeList,
+            parentNodeList: [],
             title: rootDocument.title,
             header: rootDocument.header,
             meta: rootDocument.meta,
@@ -71,7 +74,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
 
         return {
             ...defaultInitialData,
-            parentNodeList: isError(parentNodeList) ? [] : parentNodeList,
+            parentNodeList: isError(parentNodeList) ? [] : parentNodeList.map(documentToShortData),
             title: articlePathData.title,
             header: articlePathData.header,
             meta: articlePathData.meta,
@@ -145,4 +148,18 @@ export function getOpenGraphMetaString(openGraphData: OpenGraphDataType): string
     });
 
     return metaList.join('\n');
+}
+
+function documentToShortData(mongoDocument: MongoDocumentType): MongoDocumentShortDataType {
+    const {slug, type, header, titleImage, subDocumentSlugList, imageList, isActive} = mongoDocument;
+
+    return {
+        slug,
+        type,
+        header,
+        titleImage,
+        subDocumentSlugList,
+        imageList,
+        isActive,
+    };
 }

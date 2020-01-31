@@ -79,16 +79,23 @@ export type MongoDocumentTreeNodeType = {|
     +imageList: Array<string>,
 |};
 
-export type MongoDocumentSlugHeaderType = {|
+export type MongoDocumentShortDataType = {|
     +slug: string,
+    +type: MongoDocumentTypeType,
     +header: string,
+    +titleImage: string,
+    +subDocumentSlugList: Array<string>,
+    +imageList: Array<string>,
+    +isActive: boolean,
 |};
 
-export type MongoDocumentLinkType = {|
+/*
+export type MongoDocumentShortDataType = {|
     +type: MongoDocumentTypeType,
     +slug: string,
     +header: string,
 |};
+*/
 
 export type OpenGraphDataType = {|
     +title: string,

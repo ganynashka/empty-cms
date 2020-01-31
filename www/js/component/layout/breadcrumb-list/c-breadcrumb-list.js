@@ -3,7 +3,7 @@
 import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
-import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
+import type {MongoDocumentShortDataType, MongoDocumentType} from '../../../../../server/src/database/database-type';
 import {rootDocumentSlug} from '../../../../../server/src/api/part/document-api-const';
 import {getLinkToReadArticle} from '../../../lib/string';
 
@@ -11,7 +11,7 @@ import breadcrumbsStyle from './breadcrumb-list.scss';
 
 type StateType = null;
 type PropsType = {|
-    +parentNodeList: Array<MongoDocumentType>,
+    +parentNodeList: Array<MongoDocumentShortDataType>,
 |};
 
 export class BreadcrumbList extends Component<PropsType, StateType> {
@@ -19,7 +19,11 @@ export class BreadcrumbList extends Component<PropsType, StateType> {
         return <span className={breadcrumbsStyle.breadcrumbs_separator}>&#47;</span>;
     }
 
-    renderParentListItem = (mongoDocument: MongoDocumentType, index: number, list: Array<MongoDocumentType>): Node => {
+    renderParentListItem = (
+        mongoDocument: MongoDocumentShortDataType,
+        index: number,
+        list: Array<MongoDocumentShortDataType>
+    ): Node => {
         if (index === 0) {
             return (
                 <li className={breadcrumbsStyle.breadcrumbs_list_item} key={rootDocumentSlug}>

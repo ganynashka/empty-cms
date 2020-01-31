@@ -1,7 +1,7 @@
 // @flow
 
 import type {
-    MongoDocumentLinkType,
+    MongoDocumentShortDataType,
     MongoDocumentTreeNodeType,
     MongoDocumentType,
     OpenGraphDataType,
@@ -21,10 +21,10 @@ export type SetInitialDataArgumentType = {|
     +is404: boolean,
     +articlePathData?: NullableType<MongoDocumentTreeNodeType>,
     +documentNodeTree?: NullableType<MongoDocumentTreeNodeType>,
-    +parentNodeList?: Array<MongoDocumentType>,
+    +parentNodeList?: Array<MongoDocumentShortDataType>,
     +setInitialData?: NullableType<SetInitialDataType>,
     +device?: NullableType<DeviceDataType>,
-    +siblingDataList?: Array<MongoDocumentLinkType>,
+    +siblingDataList?: Array<MongoDocumentShortDataType>,
 |};
 
 export type InitialDataType = {|
@@ -35,10 +35,10 @@ export type InitialDataType = {|
     +is404: boolean,
     +articlePathData: NullableType<MongoDocumentTreeNodeType>,
     +documentNodeTree: NullableType<MongoDocumentTreeNodeType>,
-    +parentNodeList: Array<MongoDocumentType>,
+    +parentNodeList: Array<MongoDocumentShortDataType>,
     +setInitialData: NullableType<SetInitialDataType>,
     +device: NullableType<DeviceDataType>,
-    +siblingDataList: Array<MongoDocumentLinkType>,
+    +siblingDataList: Array<MongoDocumentShortDataType>,
 |};
 
 export type RouterStaticContextType = {

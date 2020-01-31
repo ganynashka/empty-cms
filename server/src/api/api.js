@@ -1,7 +1,7 @@
 // @flow
 
+// import cors from 'cors';
 import {type $Application, type $Request, type $Response} from 'express';
-import cors from 'cors';
 import compression from 'compression';
 import bodyParser from 'body-parser';
 import fileUpload from 'express-fileupload';
@@ -22,10 +22,12 @@ import {initialDataApi} from './part/initial-data-api';
 import {addLoggingApi} from './part/logging-api';
 import {addPdfApi} from './part/pdf-api';
 
+const {isProduction} = require('./../../../webpack/config');
+
 const MongoStore = connectMongo(session);
 
 export function addApiIntoApplication(app: $Application) {
-    app.use(cors());
+    // app.use(cors());
     app.use(compression());
     app.use(bodyParser.json({limit: '10mb', extended: true}));
     app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
@@ -49,17 +51,19 @@ export function addApiIntoApplication(app: $Application) {
         })
     );
 
-    // stop forwarding
-    app.use((request: $Request, response: $Response, next: () => mixed) => {
-        const {hostname} = request;
+    if (isProduction) {
+        // stop forwarding
+        app.use((request: $Request, response: $Response, next: () => mixed) => {
+            const {hostname} = request;
 
-        if (hostname !== hostingDomainName) {
-            response.redirect(301, 'https://' + hostingDomainName + request.url);
-            return;
-        }
+            if (hostname !== hostingDomainName) {
+                response.redirect(301, 'https://' + hostingDomainName + request.url);
+                return;
+            }
 
-        next();
-    });
+            next();
+        });
+    }
 
     addLoggingApi(app);
     addStaticApi(app);

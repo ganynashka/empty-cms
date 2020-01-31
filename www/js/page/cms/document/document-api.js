@@ -2,7 +2,7 @@
 
 /* global fetch */
 
-import type {MongoDocumentSlugHeaderType, MongoDocumentType} from '../../../../../server/src/database/database-type';
+import type {MongoDocumentShortDataType, MongoDocumentType} from '../../../../../server/src/database/database-type';
 import {documentApiRouteMap} from '../../../../../server/src/api/api-route-map';
 import type {SortDirectionType} from '../../../component/layout/table/enhanced-table/enhanced-table-type';
 import {getLisParametersToUrl, getSearchExactParametersToUrl} from '../../../lib/url';
@@ -97,22 +97,22 @@ export function removeDocument(slug: string): Promise<MainServerApiResponseType 
         .catch(promiseCatch);
 }
 
-export function getDocumentSlugTitleList(): Promise<Array<MongoDocumentSlugHeaderType> | Error> {
+export function getDocumentSlugTitleList(): Promise<Array<MongoDocumentShortDataType> | Error> {
     return fetch(documentApiRouteMap.getDocumentSlugHeaderList)
-        .then((response: Response): Promise<Array<MongoDocumentSlugHeaderType> | Error> => response.json())
+        .then((response: Response): Promise<Array<MongoDocumentShortDataType> | Error> => response.json())
         .catch(promiseCatch);
 }
 
 export function getDocumentAutocompleteDataList(): Promise<Array<FieldAutocompleteDataType> | Error> {
     return getDocumentSlugTitleList()
-        .then((documentSlugTitleList: Array<MongoDocumentSlugHeaderType> | Error): | Array<FieldAutocompleteDataType>
+        .then((documentSlugTitleList: Array<MongoDocumentShortDataType> | Error): | Array<FieldAutocompleteDataType>
             | Error => {
             if (!Array.isArray(documentSlugTitleList)) {
                 return new Error('can not get autocomplete list data');
             }
 
             return documentSlugTitleList.map(
-                (documentSlugTitleInList: MongoDocumentSlugHeaderType): FieldAutocompleteDataType => {
+                (documentSlugTitleInList: MongoDocumentShortDataType): FieldAutocompleteDataType => {
                     return {
                         header: documentSlugTitleInList.header,
                         value: documentSlugTitleInList.slug,
