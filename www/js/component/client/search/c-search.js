@@ -150,11 +150,23 @@ export class Search extends Component<PropsType, StateType> {
 
     renderSearchResult(): Node {
         const {state} = this;
-        const {searchText, isActive} = state;
+        const {searchText, isActive, isSearchInProgress} = state;
 
         const resultList = this.getResultList();
 
-        if (!isActive || !resultList) {
+        if (!isActive) {
+            return null;
+        }
+
+        if (isSearchInProgress) {
+            return (
+                <div className={searchStyle.search_result_list__no_result}>
+                    Поиск по запросу &quot;{searchText}&quot;...
+                </div>
+            );
+        }
+
+        if (!resultList) {
             return null;
         }
 

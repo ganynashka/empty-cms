@@ -40,10 +40,6 @@
 
     &.search_wrapper__active {
         width: 50%;
-
-        .desktop__search_input {
-            background-image: url('./image/stop-searh-icon.svg');
-        }
     }
 }
 
@@ -54,7 +50,12 @@
 
     &.search_wrapper__active {
         width: 100%;
+    }
+}
 
+.desktop__search_wrapper,
+.mobile__search_wrapper {
+    &.search_wrapper__active {
         .desktop__search_input {
             background-image: url('./image/stop-searh-icon.svg');
         }
