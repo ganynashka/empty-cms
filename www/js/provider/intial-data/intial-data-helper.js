@@ -20,6 +20,7 @@ import {getResizedImageSrc} from '../../lib/url';
 import {sharpKernelResizeNameMap} from '../../page/cms/file/file-api';
 import {getArticlePathDataMemoized} from '../../../../server/src/api/part/document-api-helper-get-article-path-data';
 import {getRootPathDataMemoized} from '../../../../server/src/api/part/document-api-helper-get-root-path-data';
+import {getHeaderDataMemoized} from '../../../../server/src/api/part/document-api-helper-get-header-data';
 
 import {defaultInitialData, defaultOpenGraphData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';
@@ -27,9 +28,10 @@ import type {InitialDataType} from './intial-data-type';
 // eslint-disable-next-line complexity, max-statements, sonarjs/cognitive-complexity
 export async function getInitialDataByRequest(request: $Request): Promise<InitialDataType> {
     const path = String(request.query.url || request.path || routePathMap.siteEnter.path);
-    const mayBeDocumentNodeTree = await getDocumentTreeMemoized(rootDocumentSlug, rootDocumentTreeDefaultDeep);
+    // const mayBeDocumentNodeTree = await getDocumentTreeMemoized(rootDocumentSlug, rootDocumentTreeDefaultDeep);
     const defaultRequestInitialData = {
-        documentNodeTree: isError(mayBeDocumentNodeTree) ? null : mayBeDocumentNodeTree,
+        headerData: await getHeaderDataMemoized(),
+        // documentNodeTree: isError(mayBeDocumentNodeTree) ? null : mayBeDocumentNodeTree,
         device: getDeviceData(request),
     };
 
@@ -98,9 +100,10 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
 
 export async function getInitialData(request: $Request, response: $Response): Promise<InitialDataType> {
     if (String(response.statusCode) === '404') {
-        const mayBeDocumentNodeTree = await getDocumentTreeMemoized(rootDocumentSlug, rootDocumentTreeDefaultDeep);
+        // const mayBeDocumentNodeTree = await getDocumentTreeMemoized(rootDocumentSlug, rootDocumentTreeDefaultDeep);
         const defaultRequestInitialData = {
-            documentNodeTree: isError(mayBeDocumentNodeTree) ? null : mayBeDocumentNodeTree,
+            headerData: await getHeaderDataMemoized(),
+            // documentNodeTree: isError(mayBeDocumentNodeTree) ? null : mayBeDocumentNodeTree,
             device: getDeviceData(request),
         };
 

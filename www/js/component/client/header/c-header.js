@@ -13,7 +13,10 @@ import type {InitialDataType, SetInitialDataArgumentType} from '../../../provide
 import {setMeta} from '../../../lib/meta';
 import {getInitialClientData} from '../../app/client-app-helper';
 import {isError, isFunction} from '../../../lib/is';
-import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database/database-type';
+import type {
+    MongoDocumentShortDataType,
+    MongoDocumentTreeNodeType,
+} from '../../../../../server/src/database/database-type';
 import {Search} from '../search/c-search';
 import {getLinkToReadArticle} from '../../../lib/string';
 import {isMobileDevice} from '../../../../../server/src/util/device/device-helper';
@@ -121,7 +124,7 @@ export class Header extends Component<PropsType, StateType> {
                 },
                 sudNodeShortDataList: [],
             },
-            documentNodeTree: props.initialContextData.documentNodeTree,
+            // documentNodeTree: props.initialContextData.documentNodeTree,
             setInitialData: null,
             device: props.initialContextData.device,
         };
@@ -163,7 +166,7 @@ export class Header extends Component<PropsType, StateType> {
         });
     }
 
-    getIsActiveLink(linkData: MongoDocumentTreeNodeType): boolean {
+    getIsActiveLink(linkData: MongoDocumentShortDataType): boolean {
         const {props} = this;
         const {initialContextData} = props;
         const {parentNodeList} = initialContextData;
@@ -263,16 +266,16 @@ export class Header extends Component<PropsType, StateType> {
     renderMobileLinkList(): Array<Node> | null {
         const {props} = this;
         const {initialContextData} = props;
-        const {documentNodeTree} = initialContextData;
+        const {headerData} = initialContextData;
 
-        if (!documentNodeTree) {
+        if (!headerData) {
             return null;
         }
 
-        return documentNodeTree.subNodeList.map(this.renderMobileLink);
+        return headerData.documentShortDataList.map(this.renderMobileLink);
     }
 
-    renderMobileLink = (linkData: MongoDocumentTreeNodeType): Node => {
+    renderMobileLink = (linkData: MongoDocumentShortDataType): Node => {
         const {slug, header} = linkData;
 
         const className = classNames(headerStyle.header__mobile__menu_line__link, {
@@ -325,16 +328,16 @@ export class Header extends Component<PropsType, StateType> {
     renderDesktopLinkList(): Array<Node> | null {
         const {props} = this;
         const {initialContextData} = props;
-        const {documentNodeTree} = initialContextData;
+        const {headerData} = initialContextData;
 
-        if (!documentNodeTree) {
+        if (!headerData) {
             return null;
         }
 
-        return documentNodeTree.subNodeList.map(this.renderDesktopLink);
+        return headerData.documentShortDataList.map(this.renderDesktopLink);
     }
 
-    renderDesktopLink = (linkData: MongoDocumentTreeNodeType): Node => {
+    renderDesktopLink = (linkData: MongoDocumentShortDataType): Node => {
         const {slug, header} = linkData;
 
         const className = classNames(headerStyle.header__desktop__menu_line__link, {

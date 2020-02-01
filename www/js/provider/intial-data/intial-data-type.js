@@ -2,7 +2,6 @@
 
 import type {
     MongoDocumentShortDataType,
-    MongoDocumentTreeNodeType,
     MongoDocumentType,
     OpenGraphDataType,
 } from '../../../../server/src/database/database-type';
@@ -23,6 +22,10 @@ export type RootPathDataType = {|
     +subDocumentList: Array<MongoDocumentType>,
 |};
 
+export type HeaderDataType = {|
+    +documentShortDataList: Array<MongoDocumentShortDataType>,
+|};
+
 export type SetInitialDataArgumentType = {|
     +header: string,
     +title: string,
@@ -31,8 +34,7 @@ export type SetInitialDataArgumentType = {|
     +is404: boolean,
     +articlePathData?: NullableType<ArticlePathDataType>,
     +rootPathData?: NullableType<RootPathDataType>,
-    // +headerData?: NullableType<HeaderDataType>,
-    +documentNodeTree?: NullableType<MongoDocumentTreeNodeType>,
+    +headerData?: NullableType<HeaderDataType>,
     +parentNodeList?: Array<MongoDocumentShortDataType>,
     +setInitialData?: NullableType<SetInitialDataType>,
     +device?: NullableType<DeviceDataType>,
@@ -47,8 +49,7 @@ export type InitialDataType = {|
     +is404: boolean,
     +articlePathData: NullableType<ArticlePathDataType>,
     +rootPathData: NullableType<RootPathDataType>,
-    // +headerData: NullableType<HeaderDataType>,
-    +documentNodeTree: NullableType<MongoDocumentTreeNodeType>,
+    +headerData: NullableType<HeaderDataType>,
     +parentNodeList: Array<MongoDocumentShortDataType>,
     +setInitialData: NullableType<SetInitialDataType>,
     +device: NullableType<DeviceDataType>,

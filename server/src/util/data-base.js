@@ -12,6 +12,8 @@ import {clearGetDocumentBySlugCache} from '../api/part/document-api-helper';
 import {clearGetArticlePathDataCache} from '../api/part/document-api-helper-get-article-path-data';
 import {clearGetRootPathDataCache} from '../api/part/document-api-helper-get-root-path-data';
 
+import {clearGetHeaderDataCache} from '../api/part/document-api-helper-get-header-data';
+
 import {updateSiteMapXml} from './site-map-xml-helper';
 
 export function handleDataBaseChange(): Promise<mixed> {
@@ -25,6 +27,7 @@ export function handleDataBaseChange(): Promise<mixed> {
             clearGetSiblingLinkDataListCache();
             clearGetArticlePathDataCache();
             clearGetRootPathDataCache();
+            clearGetHeaderDataCache();
 
             return true;
         })
