@@ -30,6 +30,10 @@ export async function getSiblingLinkDataList(slug: string): Promise<Array<MongoD
                     return;
                 }
 
+                if (documentInList.isActive === false) {
+                    return;
+                }
+
                 filteredDocumentList.push({
                     slug: documentInList.slug,
                     type: documentInList.type,

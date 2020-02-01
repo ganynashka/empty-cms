@@ -26,6 +26,10 @@ export async function getArticlePathData(slug: string): Promise<ArticlePathDataT
             return;
         }
 
+        if (mongoDocumentInList.isActive === false) {
+            return;
+        }
+
         sudNodeShortDataList.push(documentToShortData(mongoDocumentInList));
     });
 

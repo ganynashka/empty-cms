@@ -1,3 +1,4 @@
+/*
 // @flow
 
 import type {MongoDocumentTreeNodeType as MongoDTNType} from '../../database/database-type';
@@ -138,3 +139,4 @@ function getDocumentTreeRecursively(
             return currentRoot;
         });
 }
+*/

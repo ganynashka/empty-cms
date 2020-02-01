@@ -11,7 +11,7 @@ import {dataBaseConst} from '../../database/database-const';
 import {getTime} from '../../util/time';
 import {isError} from '../../../../www/js/lib/is';
 import {
-    getDocumentTreeParameters,
+    // getDocumentTreeParameters,
     getListParameters,
     getSearchExactParameters,
     getSearchParameters,
@@ -23,7 +23,7 @@ import {handleDataBaseChange} from '../../util/data-base';
 
 import {rootDocumentSlug} from './document-api-const';
 import {getDocumentParentListBySlug} from './document-api-helper-get-parent-list';
-import {getDocumentTreeMemoized} from './document-api-helper-get-document-tree';
+// import {getDocumentTreeMemoized} from './document-api-helper-get-document-tree';
 import {getDocumentBySlug, getOrphanList} from './document-api-helper';
 
 // import {getDocumentTreeMemoized} from './document-api-helper-get-document-tree';
@@ -65,6 +65,7 @@ export function addDocumentApi(app: $Application) {
             });
     });
 
+    /*
     app.get(documentApiRouteMap.getDocumentTree, async (request: $Request, response: $Response) => {
         const {slug, deep} = getDocumentTreeParameters(request);
         const tree = await getDocumentTreeMemoized(slug, deep);
@@ -77,6 +78,7 @@ export function addDocumentApi(app: $Application) {
 
         response.json(tree);
     });
+*/
 
     app.get(documentApiRouteMap.getDocumentListSize, async (request: $Request, response: $Response) => {
         const collection = await getCollection<MongoDocumentType>(

@@ -5,7 +5,7 @@ import {type $Request, type $Response} from 'express';
 import {isError} from '../../lib/is';
 import {routePathMap} from '../../component/app/routes-path-map';
 import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from '../../../../server/src/api/part/document-api-const';
-import {getDocumentTreeMemoized} from '../../../../server/src/api/part/document-api-helper-get-document-tree';
+// import {getDocumentTreeMemoized} from '../../../../server/src/api/part/document-api-helper-get-document-tree';
 import {getLinkToReadArticle} from '../../lib/string';
 import {getDeviceData} from '../../../../server/src/util/device/device';
 import {getDocumentParentListMemoized} from '../../../../server/src/api/part/document-api-helper-get-parent-list';

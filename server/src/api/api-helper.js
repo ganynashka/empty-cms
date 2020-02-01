@@ -79,9 +79,12 @@ export function getImageResizeParameters(request: $Request): SharpResizeConfigTy
     };
 }
 
+/*
 export function getDocumentTreeParameters(request: $Request): GetDocumentTreeParameterType {
     const slug = String(request.query.slug || rootDocumentSlug);
     const deep = parseInt(request.query.deep, 10) || rootDocumentTreeDefaultDeep;
 
+
     return {slug, deep};
 }
+*/

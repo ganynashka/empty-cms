@@ -2,7 +2,7 @@
 
 export const documentApiRouteMap = {
     getDocumentList: '/api/get-document-list',
-    getDocumentTree: '/api/get-document-tree',
+    // getDocumentTree: '/api/get-document-tree',
     getDocumentListSize: '/api/get-document-list-size',
     createDocument: '/api/create-document',
     updateDocument: '/api/update-document',

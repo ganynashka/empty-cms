@@ -27,6 +27,10 @@ export async function getHeaderData(): Promise<HeaderDataType> {
             return;
         }
 
+        if (mongoDocumentInList.isActive === false) {
+            return;
+        }
+
         documentShortDataList.push(documentToShortData(mongoDocumentInList));
     });
 

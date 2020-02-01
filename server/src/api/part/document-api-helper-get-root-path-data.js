@@ -26,6 +26,10 @@ export async function getRootPathData(): Promise<RootPathDataType | null> {
             return;
         }
 
+        if (mongoDocumentInList.isActive === false) {
+            return;
+        }
+
         subDocumentList.push(mongoDocumentInList);
     });
 

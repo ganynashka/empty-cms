@@ -62,7 +62,7 @@ export class BreadcrumbList extends Component<PropsType, StateType> {
         const newParentNodeList = [...parentNodeList].reverse();
 
         if (parentNodeList.length === 0) {
-            return 'no Breadcrumbs';
+            return null;
         }
 
         if (newParentNodeList[0].slug !== rootDocumentSlug) {
