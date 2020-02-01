@@ -10,16 +10,12 @@ import type {MongoDocumentShortDataType, MongoDocumentType} from '../../database
 import {dataBaseConst} from '../../database/database-const';
 import {getTime} from '../../util/time';
 import {isError} from '../../../../www/js/lib/is';
-import {
-    // getDocumentTreeParameters,
-    getListParameters,
-    getSearchExactParameters,
-    getSearchParameters,
-} from '../api-helper';
+import {getListParameters, getSearchExactParameters, getSearchParameters} from '../api-helper';
 import {documentApiRouteMap} from '../api-route-map';
 import {getSlug} from '../../../../www/js/lib/string';
 import {convertJsonToDocument} from '../../util/json-to-document';
 import {handleDataBaseChange} from '../../util/data-base';
+import {documentToShortData} from '../../../../www/js/provider/intial-data/intial-data-helper';
 
 import {rootDocumentSlug} from './document-api-const';
 import {getDocumentParentListBySlug} from './document-api-helper-get-parent-list';
@@ -255,6 +251,32 @@ export function addDocumentApi(app: $Application) {
                 }
 
                 response.json(documentList);
+            });
+    });
+
+    app.get(documentApiRouteMap.documentShortDataSearch, async (request: $Request, response: $Response) => {
+        const collection = await getCollection<MongoDocumentType>(
+            dataBaseConst.name,
+            dataBaseConst.collection.document
+        );
+
+        if (isError(collection)) {
+            response.status(400);
+            response.json([]);
+            return;
+        }
+
+        collection
+            // $FlowFixMe
+            .find({$or: [...getSearchParameters(request)], isActive: true})
+            .toArray((error: Error | null, documentList: Array<MongoDocumentType> | null) => {
+                if (error || !Array.isArray(documentList)) {
+                    response.status(400);
+                    response.json([]);
+                    return;
+                }
+
+                response.json(documentList.map(documentToShortData));
             });
     });
 

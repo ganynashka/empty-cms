@@ -1,6 +1,6 @@
 // @flow
 
-import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
+import type {MongoDocumentShortDataType} from '../../../../../server/src/database/database-type';
 import {rootDocumentSlug} from '../../../../../server/src/api/part/document-api-const';
 import {footerLinkMap} from '../footer/footer-const';
 
@@ -11,16 +11,16 @@ const excludeSLugList = [
     footerLinkMap.policy.slug,
 ];
 
-export function filterResultCallBack(mongoDocument: MongoDocumentType): boolean {
+export function filterResultCallBack(mongoDocument: MongoDocumentShortDataType): boolean {
     return !excludeSLugList.includes(mongoDocument.slug);
 }
 
 export function sortSearchResultList(
-    documentList: Array<MongoDocumentType>,
+    documentList: Array<MongoDocumentShortDataType>,
     searchText: string
-): Array<MongoDocumentType> {
+): Array<MongoDocumentShortDataType> {
     // eslint-disable-next-line complexity
-    return documentList.sort((documentA: MongoDocumentType, documentB: MongoDocumentType): number => {
+    return documentList.sort((documentA: MongoDocumentShortDataType, documentB: MongoDocumentShortDataType): number => {
         const headerA = documentA.header.toLocaleLowerCase();
         const headerB = documentB.header.toLocaleLowerCase();
         const indexOfA = headerA.indexOf(searchText);

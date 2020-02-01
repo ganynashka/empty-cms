@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 import classNames from 'classnames';
 
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
-import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
+import type {MongoDocumentShortDataType} from '../../../../../server/src/database/database-type';
 import {cleanText, getLinkToReadArticle} from '../../../lib/string';
 import {isError} from '../../../lib/is';
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
@@ -16,7 +16,7 @@ import type {LocationType} from '../../../type/react-router-dom-v5-type-extract'
 import serviceStyle from '../../../../css/service.scss';
 
 import searchStyle from './search.scss';
-import {searchDocument} from './search-api';
+import {searchDocumentShortData} from './search-api';
 import {filterResultCallBack, sortSearchResultList} from './search-helper';
 
 type PropsType = {|
@@ -29,7 +29,7 @@ type PropsType = {|
 type StateType = {|
     +isActive: boolean,
     +searchText: string,
-    +resultList: Array<MongoDocumentType>,
+    +resultList: Array<MongoDocumentShortDataType>,
     +inputRef: {current: null | HTMLInputElement},
 |};
 
@@ -114,7 +114,7 @@ export class Search extends Component<PropsType, StateType> {
         );
     }
 
-    renderSearchResultItem = (mongoDocument: MongoDocumentType): Node => {
+    renderSearchResultItem = (mongoDocument: MongoDocumentShortDataType): Node => {
         const {slug, header} = mongoDocument;
         const handleListItemClick = this.makeHandleListItemClick(header);
         const styledHeader = this.getStyledHeader(header);
@@ -132,7 +132,7 @@ export class Search extends Component<PropsType, StateType> {
         );
     };
 
-    getResultList(): Array<MongoDocumentType> {
+    getResultList(): Array<MongoDocumentShortDataType> {
         const {state} = this;
         const {resultList, searchText} = state;
         const cleanSearchText = cleanText(searchText).toLocaleLowerCase();
@@ -190,7 +190,7 @@ export class Search extends Component<PropsType, StateType> {
             return;
         }
 
-        const resultList = await searchDocument({
+        const resultList = await searchDocumentShortData({
             header: searchText,
             tagList: searchText,
         });

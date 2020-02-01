@@ -9,6 +9,7 @@ export const documentApiRouteMap = {
     uploadDocumentAsJson: '/api/upload-document-as-json',
     documentSearchExact: '/api/document-search-exact',
     documentSearch: '/api/document-search',
+    documentShortDataSearch: '/api/document-short-data-search',
     getParentList: '/api/get-parent-list',
     getOrphanList: '/api/get-orphan-list',
     removeDocument: '/api/remove-document',

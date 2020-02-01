@@ -1,6 +1,6 @@
 // @flow
 
-import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
+import type {MongoDocumentShortDataType, MongoDocumentType} from '../../../../../server/src/database/database-type';
 import {fetchX} from '../../../lib/fetch-x';
 import {documentApiRouteMap} from '../../../../../server/src/api/api-route-map';
 import {isString} from '../../../lib/is';
@@ -8,7 +8,7 @@ import {isString} from '../../../lib/is';
 import type {SearchParametersType} from './search-type';
 
 // eslint-disable-next-line complexity
-export function searchDocument(searchParameters: SearchParametersType): Promise<Array<MongoDocumentType> | Error> {
+function getUrlSearchParameters(searchParameters: SearchParametersType): string {
     const parametersList: Array<string> = [];
     const {header, content, tagList} = searchParameters;
 
@@ -24,7 +24,19 @@ export function searchDocument(searchParameters: SearchParametersType): Promise<
         parametersList.push('tag-list=' + encodeURIComponent(tagList.trim()));
     }
 
-    const url = documentApiRouteMap.documentSearch + '?' + parametersList.join('&');
+    return parametersList.join('&');
+}
+
+export function searchDocument(searchParameters: SearchParametersType): Promise<Array<MongoDocumentType> | Error> {
+    const url = documentApiRouteMap.documentSearch + '?' + getUrlSearchParameters(searchParameters); // parametersList.join('&');
 
     return fetchX<Array<MongoDocumentType> | Error>(url);
+}
+
+export function searchDocumentShortData(
+    searchParameters: SearchParametersType
+): Promise<Array<MongoDocumentShortDataType> | Error> {
+    const url = documentApiRouteMap.documentShortDataSearch + '?' + getUrlSearchParameters(searchParameters);
+
+    return fetchX<Array<MongoDocumentShortDataType> | Error>(url);
 }
