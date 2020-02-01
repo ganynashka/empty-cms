@@ -29,8 +29,9 @@ type PropsType = {|
 type StateType = {|
     +isActive: boolean,
     +searchText: string,
-    +resultList: Array<MongoDocumentShortDataType>,
+    +resultList: Array<MongoDocumentShortDataType> | null,
     +inputRef: {current: null | HTMLInputElement},
+    +isSearchInProgress: boolean,
 |};
 
 const minSearchSymbolCount = 3;
@@ -42,8 +43,9 @@ export class Search extends Component<PropsType, StateType> {
         this.state = {
             isActive: false,
             searchText: '',
-            resultList: [],
+            resultList: null,
             inputRef: React.createRef<HTMLInputElement>(),
+            isSearchInProgress: false,
         };
     }
 
@@ -132,9 +134,14 @@ export class Search extends Component<PropsType, StateType> {
         );
     };
 
-    getResultList(): Array<MongoDocumentShortDataType> {
+    getResultList(): Array<MongoDocumentShortDataType> | null {
         const {state} = this;
         const {resultList, searchText} = state;
+
+        if (!resultList) {
+            return null;
+        }
+
         const cleanSearchText = cleanText(searchText).toLocaleLowerCase();
         const filteredResult = resultList.filter(filterResultCallBack);
 
@@ -145,15 +152,11 @@ export class Search extends Component<PropsType, StateType> {
         const {state} = this;
         const {searchText, isActive} = state;
 
-        if (!isActive) {
-            return null;
-        }
-
-        if (searchText.length < minSearchSymbolCount) {
-            return null;
-        }
-
         const resultList = this.getResultList();
+
+        if (!isActive || !resultList) {
+            return null;
+        }
 
         if (resultList.length === 0) {
             return (
@@ -186,14 +189,28 @@ export class Search extends Component<PropsType, StateType> {
         this.setState({searchText});
 
         if (searchText.length < minSearchSymbolCount) {
-            this.setState({resultList: []});
+            this.setState({
+                isSearchInProgress: false,
+                resultList: null,
+            });
             return;
         }
+
+        this.setState({isSearchInProgress: true});
 
         const resultList = await searchDocumentShortData({
             header: searchText,
             tagList: searchText,
         });
+
+        const {state} = this;
+
+        if (searchText !== state.searchText) {
+            console.log(searchText, state.searchText);
+            return;
+        }
+
+        this.setState({isSearchInProgress: false});
 
         if (isError(resultList)) {
             this.setState({resultList: []});

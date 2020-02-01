@@ -1,5 +1,7 @@
 // @flow
 
+/* global setTimeout */
+
 function getTimezoneOffsetMS(): number {
     const date = new Date();
 
@@ -17,4 +19,10 @@ export function timeToHumanString(time: number): string {
         .toISOString()
         .replace(/\.\d{3}Z$/, '')
         .replace('T', ' ');
+}
+
+export function waitForTime(timeInMs: number): Promise<void> {
+    return new Promise<void>((resolve: () => void) => {
+        setTimeout(resolve, timeInMs);
+    });
 }

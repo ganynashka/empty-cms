@@ -5,6 +5,8 @@ import {fetchX} from '../../../lib/fetch-x';
 import {documentApiRouteMap} from '../../../../../server/src/api/api-route-map';
 import {isString} from '../../../lib/is';
 
+import {waitForTime} from '../../../../../server/src/util/time';
+
 import type {SearchParametersType} from './search-type';
 
 // eslint-disable-next-line complexity
@@ -33,9 +35,11 @@ export function searchDocument(searchParameters: SearchParametersType): Promise<
     return fetchX<Array<MongoDocumentType> | Error>(url);
 }
 
-export function searchDocumentShortData(
+export async function searchDocumentShortData(
     searchParameters: SearchParametersType
 ): Promise<Array<MongoDocumentShortDataType> | Error> {
+    // await waitForTime(3e3);
+
     const url = documentApiRouteMap.documentShortDataSearch + '?' + getUrlSearchParameters(searchParameters);
 
     return fetchX<Array<MongoDocumentShortDataType> | Error>(url);
