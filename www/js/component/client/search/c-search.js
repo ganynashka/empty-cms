@@ -50,11 +50,11 @@ export class Search extends Component<PropsType, StateType> {
     }
 
     componentDidUpdate(prevProps: PropsType, prevState: StateType) {
-        const {props, state} = this;
-        const input = state.inputRef.current;
+        const {props} = this;
+        const inputNode = this.getInputNode();
 
-        if (props.location.pathname !== prevProps.location.pathname && input) {
-            input.blur();
+        if (props.location.pathname !== prevProps.location.pathname && inputNode) {
+            inputNode.blur();
         }
     }
 
@@ -65,9 +65,7 @@ export class Search extends Component<PropsType, StateType> {
     }
 
     getInputValue(): string {
-        const {state} = this;
-        const {inputRef} = state;
-        const inputNode = inputRef.current;
+        const inputNode = this.getInputNode();
 
         if (!inputNode) {
             return '';
@@ -77,12 +75,11 @@ export class Search extends Component<PropsType, StateType> {
     }
 
     setSearchInputValue(text: string) {
-        const {state} = this;
-        const {inputRef} = state;
-        const inputNode = inputRef.current;
         const searchText = cleanText(text);
 
         this.setState({searchText}, () => {
+            const inputNode = this.getInputNode();
+
             if (!inputNode) {
                 return;
             }
@@ -184,8 +181,32 @@ export class Search extends Component<PropsType, StateType> {
     handleFocus = () => {
         const {props} = this;
 
-        this.setState({isActive: true}, (): mixed => props.onActiveChange(true));
+        this.setState({isActive: true}, (): mixed => {
+            props.onActiveChange(true);
+
+            this.moveInputCursorToEnd();
+
+            setTimeout(() => {
+                this.moveInputCursorToEnd();
+            }, 200);
+            setTimeout(() => {
+                this.moveInputCursorToEnd();
+            }, 300);
+        });
     };
+
+    moveInputCursorToEnd() {
+        const inputNode = this.getInputNode();
+
+        if (!inputNode) {
+            return;
+        }
+
+        const {length} = inputNode.value;
+
+        inputNode.selectionStart = length;
+        inputNode.selectionEnd = length;
+    }
 
     handleBlur = () => {
         const {props} = this;
@@ -250,10 +271,16 @@ export class Search extends Component<PropsType, StateType> {
         );
     }
 
-    handleStopSearch = () => {
-        const {state, props} = this;
+    getInputNode(): HTMLInputElement | null {
+        const {state} = this;
         const {inputRef} = state;
-        const inputNode = inputRef.current;
+
+        return inputRef.current;
+    }
+
+    handleStopSearch = () => {
+        const {props} = this;
+        const inputNode = this.getInputNode();
 
         if (!inputNode) {
             return;
