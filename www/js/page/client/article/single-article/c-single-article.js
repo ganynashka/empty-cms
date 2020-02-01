@@ -7,6 +7,7 @@ import type {InitialDataType} from '../../../../provider/intial-data/intial-data
 import articleStyle from '../article.scss';
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
 import {SiblingList} from '../../../../component/layout/sibling-list/sibling-list';
+import {beautifyMarkDawn} from '../../../../lib/string';
 
 import singleArticleStyle from './single-article.scss';
 
@@ -52,7 +53,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
             <>
                 <BreadcrumbList parentNodeList={parentNodeList}/>
                 <h1 className={articleStyle.article__header}>{header}</h1>
-                <Markdown additionalClassName={singleArticleStyle.markdown} text={content}/>
+                <Markdown additionalClassName={singleArticleStyle.markdown} text={beautifyMarkDawn(content)}/>
                 {this.renderAuthor()}
                 <SiblingList header="Читайте также:" initialContextData={initialContextData}/>
             </>

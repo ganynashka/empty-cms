@@ -161,3 +161,15 @@ export function getLinkToEditArticle(slug: string): string {
 export function sortDocumentByAlphabet(subNodeA: {+header: string}, subNodeB: {+header: string}): number {
     return subNodeA.header.localeCompare(subNodeB.header);
 }
+
+const findAndRememberMarkdownImageRegExp = /(!\[[\S\s]*?]\([\S\s]+?\))/gi;
+
+export function beautifyMarkDawn(markdown: string): string {
+    return (
+        markdown
+            // add beak line before and after images
+            .replace(findAndRememberMarkdownImageRegExp, '\n\n$1\n\n')
+            // remove extra break lines
+            .replace(/\n{2,}/gi, '\n\n')
+    );
+}
