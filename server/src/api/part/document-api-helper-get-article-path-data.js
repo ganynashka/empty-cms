@@ -15,6 +15,10 @@ export async function getArticlePathData(slug: string): Promise<ArticlePathDataT
         return null;
     }
 
+    if (mongoDocument.isActive === false) {
+        return null;
+    }
+
     const subDocumentList: Array<MayBeDocumentType> = await Promise.all(
         mongoDocument.subDocumentSlugList.map(getDocumentBySlugMemoized)
     );
