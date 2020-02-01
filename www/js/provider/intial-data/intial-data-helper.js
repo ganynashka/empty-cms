@@ -19,6 +19,7 @@ import type {
 import {getResizedImageSrc} from '../../lib/url';
 import {sharpKernelResizeNameMap} from '../../page/cms/file/file-api';
 import {getArticlePathDataMemoized} from '../../../../server/src/api/part/document-api-helper-get-article-path-data';
+import {getRootPathDataMemoized} from '../../../../server/src/api/part/document-api-helper-get-root-path-data';
 
 import {defaultInitialData, defaultOpenGraphData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';
@@ -34,9 +35,9 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
 
     // root
     if (path === routePathMap.siteEnter.path) {
-        const rootDocument = await getDocumentBySlugMemoized(rootDocumentSlug);
+        const rootPathData = await getRootPathDataMemoized();
 
-        if (!rootDocument || isError(rootDocument)) {
+        if (!rootPathData) {
             console.error('Can not get root document');
 
             return {
@@ -48,11 +49,12 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
 
         return {
             ...defaultInitialData,
+            rootPathData,
             parentNodeList: [],
-            title: rootDocument.title,
-            header: rootDocument.header,
-            meta: rootDocument.meta,
-            openGraphData: getOpenGraphData(rootDocument),
+            title: rootPathData.mongoDocument.title,
+            header: rootPathData.mongoDocument.header,
+            meta: rootPathData.mongoDocument.meta,
+            openGraphData: getOpenGraphData(rootPathData.mongoDocument),
             ...defaultRequestInitialData,
         };
     }

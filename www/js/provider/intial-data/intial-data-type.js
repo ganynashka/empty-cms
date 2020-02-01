@@ -18,6 +18,11 @@ export type ArticlePathDataType = {|
     +sudNodeShortDataList: Array<MongoDocumentShortDataType>,
 |};
 
+export type RootPathDataType = {|
+    +mongoDocument: MongoDocumentType,
+    +subDocumentList: Array<MongoDocumentType>,
+|};
+
 export type SetInitialDataArgumentType = {|
     +header: string,
     +title: string,
@@ -25,6 +30,8 @@ export type SetInitialDataArgumentType = {|
     +openGraphData?: NullableType<OpenGraphDataType>,
     +is404: boolean,
     +articlePathData?: NullableType<ArticlePathDataType>,
+    +rootPathData?: NullableType<RootPathDataType>,
+    // +headerData?: NullableType<HeaderDataType>,
     +documentNodeTree?: NullableType<MongoDocumentTreeNodeType>,
     +parentNodeList?: Array<MongoDocumentShortDataType>,
     +setInitialData?: NullableType<SetInitialDataType>,
@@ -39,7 +46,8 @@ export type InitialDataType = {|
     +openGraphData: NullableType<OpenGraphDataType>,
     +is404: boolean,
     +articlePathData: NullableType<ArticlePathDataType>,
-    // +articlePathData: NullableType<MongoDocumentTreeNodeType>,
+    +rootPathData: NullableType<RootPathDataType>,
+    // +headerData: NullableType<HeaderDataType>,
     +documentNodeTree: NullableType<MongoDocumentTreeNodeType>,
     +parentNodeList: Array<MongoDocumentShortDataType>,
     +setInitialData: NullableType<SetInitialDataType>,

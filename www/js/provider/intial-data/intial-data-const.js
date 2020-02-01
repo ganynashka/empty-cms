@@ -26,6 +26,7 @@ export const defaultInitialData: InitialDataType = {
     openGraphData: defaultOpenGraphData,
     // description: '',
     is404: false,
+    rootPathData: null,
     articlePathData: null,
     documentNodeTree: null,
     setInitialData: null,

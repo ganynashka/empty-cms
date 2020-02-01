@@ -4,7 +4,7 @@ import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
-import type {MongoDocumentTreeNodeType} from '../../../../../server/src/database/database-type';
+import type {MongoDocumentTreeNodeType, MongoDocumentType} from '../../../../../server/src/database/database-type';
 import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
 import serviceStyle from '../../../../css/service.scss';
 import {Markdown} from '../../../component/layout/markdown/c-markdown';
@@ -28,7 +28,7 @@ export class Home extends Component<PropsType, StateType> {
         console.log('---> Component Home did mount');
     }
 
-    renderCategoryLink = (documentData: MongoDocumentTreeNodeType): Node => {
+    renderCategoryLink = (documentData: MongoDocumentType): Node => {
         const {props} = this;
         const {screenContextData} = props;
         const {devicePixelRatio} = screenContextData;
@@ -57,15 +57,15 @@ export class Home extends Component<PropsType, StateType> {
     renderCategoryLinkList(): Node {
         const {props} = this;
         const {initialContextData} = props;
-        const {documentNodeTree} = initialContextData;
+        const {rootPathData} = initialContextData;
 
-        if (!documentNodeTree) {
+        if (!rootPathData) {
             return null;
         }
 
         return (
             <div className={homeStyle.home__category_list}>
-                {documentNodeTree.subNodeList.map(this.renderCategoryLink)}
+                {rootPathData.subDocumentList.map(this.renderCategoryLink)}
             </div>
         );
     }
@@ -73,21 +73,21 @@ export class Home extends Component<PropsType, StateType> {
     renderRootDocument(): Node {
         const {props} = this;
         const {initialContextData} = props;
-        const {documentNodeTree} = initialContextData;
+        const {rootPathData} = initialContextData;
 
-        if (!documentNodeTree) {
+        if (!rootPathData) {
             return null;
         }
 
-        return <Markdown text={documentNodeTree.content}/>;
+        return <Markdown text={rootPathData.mongoDocument.content}/>;
     }
 
     render(): Node {
         const {props} = this;
         const {initialContextData} = props;
-        const {documentNodeTree} = initialContextData;
+        const {rootPathData} = initialContextData;
 
-        if (!documentNodeTree) {
+        if (!rootPathData) {
             return (
                 <div className={serviceStyle.width_limit} key="loading">
                     <PageLoading/>
