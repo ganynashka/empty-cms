@@ -60,7 +60,7 @@ export class SiblingList extends Component<PropsType, StateType> {
             return sortedSiblingDataList;
         }
 
-        const lastPart = sortedSiblingDataList.slice(currentArticleIndex, siblingListCount);
+        const lastPart = sortedSiblingDataList.slice(currentArticleIndex, currentArticleIndex + siblingListCount);
         const firstPart = sortedSiblingDataList.slice(0, siblingListCount - lastPart.length);
 
         return [...lastPart, ...firstPart];
