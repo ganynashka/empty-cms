@@ -4,8 +4,6 @@ import {type $Request, type $Response} from 'express';
 
 import {isError} from '../../lib/is';
 import {routePathMap} from '../../component/app/routes-path-map';
-import {rootDocumentSlug, rootDocumentTreeDefaultDeep} from '../../../../server/src/api/part/document-api-const';
-// import {getDocumentTreeMemoized} from '../../../../server/src/api/part/document-api-helper-get-document-tree';
 import {getLinkToReadArticle} from '../../lib/string';
 import {getDeviceData} from '../../../../server/src/util/device/device';
 import {getDocumentParentListMemoized} from '../../../../server/src/api/part/document-api-helper-get-parent-list';
@@ -21,6 +19,7 @@ import {sharpKernelResizeNameMap} from '../../page/cms/file/file-api';
 import {getArticlePathDataMemoized} from '../../../../server/src/api/part/document-api-helper-get-article-path-data';
 import {getRootPathDataMemoized} from '../../../../server/src/api/part/document-api-helper-get-root-path-data';
 import {getHeaderDataMemoized} from '../../../../server/src/api/part/document-api-helper-get-header-data';
+import {hostingDomainName} from '../../../../server/src/config';
 
 import {defaultInitialData, defaultOpenGraphData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';
@@ -120,20 +119,41 @@ function getOpenGraphImagPathData(mongoDocument: MongoDocumentType): string {
     const kernel = image ? sharpKernelResizeNameMap.cubic : sharpKernelResizeNameMap.nearest;
     const src = image || defaultOpenGraphData.image;
 
-    return getResizedImageSrc({src, width: size, height: size, hasEnlargement: true, kernel});
+    return (
+        'https://'
+        + hostingDomainName
+        + getResizedImageSrc({
+            src,
+            width: size,
+            height: size,
+            hasEnlargement: true,
+            kernel,
+        })
+    );
+}
+
+function getOpenGraphDescriptionData(mongoDocument: MongoDocumentType): string {
+    const {shortDescription} = mongoDocument;
+    const description = shortDescription || defaultOpenGraphData.description;
+
+    return description
+        .split('\n')
+        .map((markdown: string): string => {
+            return markdown.replace(/^#+/g, '').trim();
+        })
+        .join(' ');
 }
 
 export function getOpenGraphData(mongoDocument: MongoDocumentType): OpenGraphDataType {
-    const {header, shortDescription} = mongoDocument;
+    const {header} = mongoDocument;
     const title = header || defaultOpenGraphData.title;
     const type = defaultOpenGraphData.type;
-    const description = shortDescription || defaultOpenGraphData.description;
 
     return {
         title,
         type,
         image: getOpenGraphImagPathData(mongoDocument),
-        description,
+        description: getOpenGraphDescriptionData(mongoDocument),
         locale: defaultOpenGraphData.locale,
     };
 }
