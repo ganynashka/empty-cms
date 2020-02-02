@@ -291,7 +291,7 @@ export class Search extends Component<PropsType, StateType> {
         this.setState({
             isActive: false,
             searchText: '',
-            resultList: [],
+            resultList: null,
         });
 
         props.onActiveChange(false);
