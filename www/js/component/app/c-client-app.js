@@ -14,6 +14,7 @@ import {type InitialDataType} from '../../provider/intial-data/intial-data-type'
 import {InitialDataProvider} from '../../provider/intial-data/c-initial-data-context';
 import {Header} from '../client/header/c-header';
 import {ScrollRestoration} from '../../provider/screen/scroll-restoration/c-scroll-restoration.js';
+import {GoogleAnalytics} from '../analytics/google-analytics/c-google-analytics';
 
 import {routeItemMap, routeItemPage404} from './routes';
 import {redderRoute} from './render-route/render-route';
@@ -44,6 +45,13 @@ export function ClientApp(props: PropsType): Node {
         : routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key]));
 
     const staticList = [
+        redderRoute({
+            path: starPath,
+            component: GoogleAnalytics,
+            type: 'route',
+            id: 'google-analytics',
+            pageWrapper: null,
+        }),
         redderRoute({
             path: starPath,
             component: ScrollRestoration,

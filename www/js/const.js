@@ -27,3 +27,5 @@ window.appData = {
 export const selector = {
     appWrapper: '.js-app-wrapper',
 };
+
+export const googleAnalyticsId = 'UA-156987706-1';
