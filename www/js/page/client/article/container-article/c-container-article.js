@@ -2,6 +2,8 @@
 
 /* eslint-disable jsx-a11y/media-has-caption */
 
+/* global window, document, HTMLAudioElement */
+
 import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
@@ -16,6 +18,7 @@ import {ImagePreview} from '../../../../component/layout/image-preview/c-image-p
 import {mongoSubDocumentsViewTypeMap} from '../../../../../../server/src/database/database-type';
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
 import {fileApiConst} from '../../../../../../server/src/api/part/file-api-const';
+import {promiseCatch} from '../../../../lib/promise';
 
 type PropsType = {|
     +initialContextData: InitialDataType,
@@ -75,11 +78,49 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         );
     }
 
-    renderAudioHeaderSubNode(subNode: MongoDocumentShortDataType): Node {
+    playNextAudioTrack(slug: string) {
         const {props} = this;
-        const {slug, header, imageList, type} = subNode;
-        const src = imageList[0] || '';
+        const {initialContextData} = props;
+        const {articlePathData} = initialContextData;
 
+        if (!articlePathData) {
+            return;
+        }
+
+        const subNodeList = articlePathData.sudNodeShortDataList;
+
+        const activeSubNode = subNodeList.find((subNode: MongoDocumentShortDataType): boolean => subNode.slug === slug);
+
+        if (!activeSubNode) {
+            return;
+        }
+
+        const activeSubNodeIndex = subNodeList.indexOf(activeSubNode);
+        const nextActiveSubNode = subNodeList[activeSubNodeIndex + 1];
+
+        if (!nextActiveSubNode) {
+            return;
+        }
+
+        const nextActiveHtmlNode = document.querySelector(
+            `.${articleStyle.article__list_audio_item__audio}[data-slug="${nextActiveSubNode.slug}"]`
+        );
+
+        if (nextActiveHtmlNode instanceof HTMLAudioElement) {
+            nextActiveHtmlNode.play().catch(promiseCatch);
+        }
+    }
+
+    makeHandleAudioEnded(slug: string): () => void {
+        return () => {
+            this.playNextAudioTrack(slug);
+        };
+    }
+
+    renderAudioHeaderSubNode(subNode: MongoDocumentShortDataType): Node {
+        const {slug, header, imageList, subDocumentSlugList} = subNode;
+        const src = imageList[0] || '';
+        const childListLength = subDocumentSlugList.length;
         const audioSrc = fileApiConst.pathToUploadFiles + '/' + src;
 
         return (
@@ -89,14 +130,19 @@ export class ContainerArticle extends Component<PropsType, StateType> {
                     key={slug}
                     to={getLinkToReadArticle(slug)}
                 >
-                    {header} - {type}
+                    {header}
+                    {childListLength === 0 ? null : `\u00A0[${childListLength}]`}
                 </Link>
-                <audio
-                    className={articleStyle.article__list_audio_item__audio}
-                    controls
-                    preload="metadata"
-                    src={audioSrc}
-                />
+                {src
+                    ? <audio
+                        className={articleStyle.article__list_audio_item__audio}
+                        controls
+                        data-slug={slug}
+                        onEnded={this.makeHandleAudioEnded(slug)}
+                        preload="metadata"
+                        src={audioSrc}
+                    />
+                    : null}
             </li>
         );
     }
@@ -107,7 +153,6 @@ export class ContainerArticle extends Component<PropsType, StateType> {
 
         return (
             <li className={articleStyle.article__list_header_item} key={slug}>
-                {/* {String(index + 1).padStart(String(array.length + 1).length, '0')}.&nbsp;*/}
                 <Link
                     className={articleStyle.article__list_header_item__link}
                     key={slug}
@@ -120,11 +165,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         );
     }
 
-    renderSubNode = (
-        subNode: MongoDocumentShortDataType
-        // index: number,
-        // array: Array<MongoDocumentTreeNodeType>
-    ): Node => {
+    renderSubNode = (subNode: MongoDocumentShortDataType): Node => {
         const {props} = this;
         const {initialContextData} = props;
         const {articlePathData} = initialContextData;
