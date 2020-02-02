@@ -24,7 +24,6 @@ type StateType = {};
 const listClassNameMap = {
     [mongoSubDocumentsViewTypeMap.auto]: articleStyle.article__list_image,
     [mongoSubDocumentsViewTypeMap.imageHeader]: articleStyle.article__list_image,
-    [mongoSubDocumentsViewTypeMap.audioHeader]: articleStyle.article__list_audio,
     [mongoSubDocumentsViewTypeMap.header]: articleStyle.article__list_header,
 };
 
@@ -108,10 +107,6 @@ export class ContainerArticle extends Component<PropsType, StateType> {
 
         if (mongoSubDocumentsViewTypeMap.imageHeader === subDocumentListViewType) {
             return this.renderImageHeaderSubNode(subNode);
-        }
-
-        if (mongoSubDocumentsViewTypeMap.audioHeader === subDocumentListViewType) {
-            return mongoSubDocumentsViewTypeMap.audioHeader;
         }
 
         if (mongoSubDocumentsViewTypeMap.header === subDocumentListViewType) {

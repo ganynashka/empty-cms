@@ -28,14 +28,6 @@ $space-between-blocks: 20px;
     list-style: none;
 }
 
-.article__list_audio {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    list-style: none;
-}
-
 .article__list_header {
     column-count: 3;
     column-gap: $ui-unit * 4;

@@ -27,11 +27,10 @@ export const mongoDocumentTypeMap = {
     downloadableImageList: 'downloadable-image-list',
 };
 
-export type MongoSubDocumentsViewType = 'image-header' | 'audio-header' | 'header' | 'auto';
+export type MongoSubDocumentsViewType = 'image-header' | 'header' | 'auto';
 
 export const mongoSubDocumentsViewTypeMap = {
     imageHeader: 'image-header',
-    audioHeader: 'audio-header',
     header: 'header',
     auto: 'auto',
 };
