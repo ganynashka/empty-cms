@@ -1,6 +1,8 @@
+// make page 700px width, desktop
+
 /* global window, document, setTimeout, fetch */
 
-// make page 700px width, desktop
+/* eslint-disable react/jsx-indent */
 
 function extractFromSite(node) {
     console.clear();

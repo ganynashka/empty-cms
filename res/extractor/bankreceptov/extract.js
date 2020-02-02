@@ -1,5 +1,7 @@
 /* global location, document, fetch, URL */
 
+/* eslint-disable react/jsx-indent */
+
 function extractFromSite(node) {
     console.clear();
 

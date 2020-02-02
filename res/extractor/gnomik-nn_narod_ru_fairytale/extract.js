@@ -1,5 +1,7 @@
 /* global window, document, setTimeout, fetch */
 
+/* eslint-disable react/jsx-indent */
+
 function extractFromTable(table) {
     console.clear();
 

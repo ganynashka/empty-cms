@@ -168,6 +168,7 @@ export function beautifyMarkDawn(markdown: string): string {
     return (
         markdown
             // add beak line before and after images
+            // eslint-disable-next-line react/jsx-indent
             .replace(findAndRememberMarkdownImageRegExp, '\n\n$1\n\n')
             // remove extra break lines
             .replace(/\n{2,}/gi, '\n\n')
