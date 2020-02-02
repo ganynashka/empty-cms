@@ -83,9 +83,9 @@ $space-between-blocks: 20px;
     @extend %ellipsis;
 
     font-size: $main-font-size;
+    max-width: calc(50% - 20px);
     padding-bottom: $ui-unit;
     padding-top: $ui-unit;
-    width: calc(50% - 20px);
 }
 
 .article__list_audio_item__audio {
@@ -143,8 +143,8 @@ $space-between-blocks: 20px;
             }
 
             .article__list_audio_item__link {
-                display: block;
-                width: 100%;
+                display: inline-block;
+                max-width: 100%;
             }
         }
     }
