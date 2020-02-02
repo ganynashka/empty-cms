@@ -172,6 +172,12 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                                 {mongoSubDocumentsViewTypeMap.imageHeader}
                             </option>,
                             <option
+                                key={mongoSubDocumentsViewTypeMap.audioHeader}
+                                value={mongoSubDocumentsViewTypeMap.audioHeader}
+                            >
+                                {mongoSubDocumentsViewTypeMap.audioHeader}
+                            </option>,
+                            <option
                                 key={mongoSubDocumentsViewTypeMap.header}
                                 value={mongoSubDocumentsViewTypeMap.header}
                             >

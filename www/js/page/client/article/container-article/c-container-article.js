@@ -1,5 +1,7 @@
 // @flow
 
+/* eslint-disable jsx-a11y/media-has-caption */
+
 import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
@@ -13,6 +15,7 @@ import type {ScreenContextType} from '../../../../provider/screen/screen-context
 import {ImagePreview} from '../../../../component/layout/image-preview/c-image-preview';
 import {mongoSubDocumentsViewTypeMap} from '../../../../../../server/src/database/database-type';
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
+import {fileApiConst} from '../../../../../../server/src/api/part/file-api-const';
 
 type PropsType = {|
     +initialContextData: InitialDataType,
@@ -24,6 +27,7 @@ type StateType = {};
 const listClassNameMap = {
     [mongoSubDocumentsViewTypeMap.auto]: articleStyle.article__list_image,
     [mongoSubDocumentsViewTypeMap.imageHeader]: articleStyle.article__list_image,
+    [mongoSubDocumentsViewTypeMap.audioHeader]: articleStyle.article__list_audio,
     [mongoSubDocumentsViewTypeMap.header]: articleStyle.article__list_header,
 };
 
@@ -71,6 +75,32 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         );
     }
 
+    renderAudioHeaderSubNode(subNode: MongoDocumentShortDataType): Node {
+        const {props} = this;
+        const {slug, header, imageList, type} = subNode;
+        const src = imageList[0] || '';
+
+        const audioSrc = fileApiConst.pathToUploadFiles + '/' + src;
+
+        return (
+            <li className={articleStyle.article__list_audio_item} key={slug}>
+                <Link
+                    className={articleStyle.article__list_audio_item__link}
+                    key={slug}
+                    to={getLinkToReadArticle(slug)}
+                >
+                    {header} - {type}
+                </Link>
+                <audio
+                    className={articleStyle.article__list_audio_item__audio}
+                    controls
+                    preload="metadata"
+                    src={audioSrc}
+                />
+            </li>
+        );
+    }
+
     renderHeaderSubNode(subNode: MongoDocumentShortDataType): Node {
         const {slug, header, subDocumentSlugList} = subNode;
         const childListLength = subDocumentSlugList.length;
@@ -107,6 +137,10 @@ export class ContainerArticle extends Component<PropsType, StateType> {
 
         if (mongoSubDocumentsViewTypeMap.imageHeader === subDocumentListViewType) {
             return this.renderImageHeaderSubNode(subNode);
+        }
+
+        if (mongoSubDocumentsViewTypeMap.audioHeader === subDocumentListViewType) {
+            return this.renderAudioHeaderSubNode(subNode);
         }
 
         if (mongoSubDocumentsViewTypeMap.header === subDocumentListViewType) {
