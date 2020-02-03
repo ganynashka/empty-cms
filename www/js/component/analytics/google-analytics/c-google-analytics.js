@@ -8,6 +8,7 @@
 import type {Node} from 'react';
 import React, {Component} from 'react';
 
+import {isDevelopment} from '../../../../../webpack/config';
 import {googleAnalyticsId} from '../../../const';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 import {isCMS} from '../../../lib/url';
@@ -23,7 +24,7 @@ export class GoogleAnalytics extends Component<PropsType, StateType> {
         const {props} = this;
         const {location} = props;
 
-        if (isCMS(location)) {
+        if (isCMS(location) || isDevelopment) {
             return;
         }
 
@@ -35,7 +36,7 @@ export class GoogleAnalytics extends Component<PropsType, StateType> {
         const {location} = props;
         const currentPathName = location.pathname;
 
-        if (isCMS(location)) {
+        if (isCMS(location) || isDevelopment) {
             return;
         }
 
