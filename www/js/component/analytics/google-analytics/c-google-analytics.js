@@ -10,6 +10,7 @@ import React, {Component} from 'react';
 
 import {googleAnalyticsId} from '../../../const';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
+import {isCMS} from '../../../lib/url';
 
 type PropsType = {
     +location: LocationType,
@@ -19,12 +20,24 @@ type StateType = null;
 
 export class GoogleAnalytics extends Component<PropsType, StateType> {
     componentDidMount() {
+        const {props} = this;
+        const {location} = props;
+
+        if (isCMS(location)) {
+            return;
+        }
+
         this.loadScript();
     }
 
     componentDidUpdate(prevProps: PropsType, prevState: StateType) {
         const {props} = this;
-        const currentPathName = props.location.pathname;
+        const {location} = props;
+        const currentPathName = location.pathname;
+
+        if (isCMS(location)) {
+            return;
+        }
 
         if (currentPathName !== prevProps.location.pathname) {
             window.ga('set', 'page', currentPathName);
