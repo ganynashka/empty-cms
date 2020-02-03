@@ -121,9 +121,34 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         }
     }
 
+    // eslint-disable-next-line complexity
+    pauseAllExcept(slug: string) {
+        const {state} = this;
+        const {listRef} = state;
+        const listNode = listRef.current;
+
+        if (!listNode) {
+            return;
+        }
+
+        const audioNodeList = listNode.querySelectorAll(`.${articleStyle.article__list_audio_item__audio}`);
+
+        audioNodeList.forEach((audioNode: HTMLElement) => {
+            if (audioNode instanceof HTMLAudioElement && audioNode.dataset.slug !== slug) {
+                audioNode.pause();
+            }
+        });
+    }
+
     makeHandleAudioEnded(slug: string): () => void {
         return () => {
             this.playNextAudioTrack(slug);
+        };
+    }
+
+    makeHandlePauseAllExcept(slug: string): () => void {
+        return () => {
+            this.pauseAllExcept(slug);
         };
     }
 
@@ -146,6 +171,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
                     controls
                     data-slug={slug}
                     onEnded={this.makeHandleAudioEnded(slug)}
+                    onPlay={this.makeHandlePauseAllExcept(slug)}
                     preload="metadata"
                     src={audioSrc}
                 />
