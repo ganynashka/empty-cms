@@ -78,7 +78,7 @@ export function getMarkdownResizedImage(src: string): string {
 export function getMarkdownAudio(src: string): string {
     const audioSrc = fileApiConst.pathToUploadFiles + '/' + src;
 
-    return `<audio controls src="${audioSrc}"/>`;
+    return `\n\n<audio controls src="${audioSrc}"/> \\\\\n`;
 }
 
 export function getFileList(): Promise<Array<string> | Error | MainServerApiResponseType> {
