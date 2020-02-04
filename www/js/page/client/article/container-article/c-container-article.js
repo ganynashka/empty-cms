@@ -121,7 +121,6 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         }
     }
 
-    // eslint-disable-next-line complexity
     pauseAllExcept(slug: string) {
         const {state} = this;
         const {listRef} = state;
