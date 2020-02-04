@@ -51,13 +51,12 @@ export function addApiIntoApplication(app: $Application) {
         })
     );
 
-/*
     if (isProduction) {
         // stop forwarding
         app.use((request: $Request, response: $Response, next: () => mixed) => {
             const {hostname} = request;
 
-            if (hostname !== hostingDomainName || hostname !== hostingIpAddress) {
+            if (hostname !== hostingDomainName && hostname !== hostingIpAddress) {
                 response.redirect(301, 'https://' + hostingDomainName + request.url);
                 return;
             }
@@ -65,7 +64,6 @@ export function addApiIntoApplication(app: $Application) {
             next();
         });
     }
-*/
 
     addLoggingApi(app);
     addStaticApi(app);
