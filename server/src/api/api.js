@@ -11,7 +11,7 @@ import connectMongo from 'connect-mongo';
 
 import {dataBaseConst} from '../database/database-const';
 import {passwordKey, sessionKey} from '../../key/key';
-import {hostingDomainName} from '../config';
+import {hostingDomainName, hostingIpAddress} from '../config';
 
 import {addUserApi} from './part/user-api';
 import {addDocumentApi} from './part/document-api';
@@ -56,7 +56,7 @@ export function addApiIntoApplication(app: $Application) {
         app.use((request: $Request, response: $Response, next: () => mixed) => {
             const {hostname} = request;
 
-            if (hostname !== hostingDomainName) {
+            if (hostname !== hostingDomainName || hostname !== hostingIpAddress) {
                 response.redirect(301, 'https://' + hostingDomainName + request.url);
                 return;
             }
