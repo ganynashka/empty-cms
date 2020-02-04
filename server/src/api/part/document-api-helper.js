@@ -61,7 +61,7 @@ export async function getOrphanList(): Promise<Array<MongoDocumentType> | Error>
     }
 
     return new Promise((resolve: (documentList: Array<MongoDocumentType> | Error) => mixed) => {
-        collection.find({}).toArray((error: Error | null, documentList: Array<MongoDocumentType> | null) => {
+        collection.find({}).toArray((error: Error | null, documentList: Array<MongoDocumentType> | null | void) => {
             if (error || !Array.isArray(documentList)) {
                 resolve(new Error('Can not read document list'));
                 return;
