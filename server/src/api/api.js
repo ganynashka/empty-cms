@@ -51,7 +51,7 @@ export function addApiIntoApplication(app: $Application) {
         })
     );
 
-    if (isProduction) {
+    // if (isProduction) {
         // stop forwarding
         app.use((request: $Request, response: $Response, next: () => mixed) => {
             const {hostname} = request;
@@ -63,7 +63,7 @@ export function addApiIntoApplication(app: $Application) {
 
             next();
         });
-    }
+    // }
 
     addLoggingApi(app);
     addStaticApi(app);
