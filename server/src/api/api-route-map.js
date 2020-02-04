@@ -32,6 +32,7 @@ export const userApiRouteMap = {
 export const fileApiRouteMap = {
     uploadFileList: '/api/upload-file-list',
     getFileList: '/api/get-file-list',
+    getFileListWithoutParent: '/api/get-file-list-without-parent',
     getResizedImage: '/api/get-resized-image',
 };
 

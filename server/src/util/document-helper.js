@@ -29,3 +29,32 @@ export async function getAllDocumentList(): Promise<Array<MongoDocumentType> | E
         });
     });
 }
+
+export async function findDocumentListByOrList(
+    search: Array<{[property: string]: string | RegExp}>
+): Promise<Array<MongoDocumentType> | Error> {
+    const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
+
+    if (isError(collection)) {
+        return collection;
+    }
+
+    return new Promise((resolve: PromiseResolveType<Array<MongoDocumentType> | Error>) => {
+        collection
+            // $FlowFixMe
+            .find({$or: search})
+            .toArray((error: Error | null, documentList: Array<MongoDocumentType> | null) => {
+                if (error) {
+                    resolve(error);
+                    return;
+                }
+
+                if (!documentList) {
+                    resolve([]);
+                    return;
+                }
+
+                resolve(documentList);
+            });
+    });
+}

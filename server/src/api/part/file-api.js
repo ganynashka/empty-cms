@@ -10,10 +10,11 @@ import {type ExpressFormDataFileType} from 'express-fileupload';
 import {compressImage, getFormDataFileList, getIsFileExists, saveFile} from '../../util/file';
 import {cwd} from '../../../../webpack/config';
 import {promiseCatch} from '../../../../www/js/lib/promise';
-import {isError, isString} from '../../../../www/js/lib/is';
+import {isError, isNotError, isString} from '../../../../www/js/lib/is';
 import {getSlug} from '../../../../www/js/lib/string';
 import {fileApiRouteMap} from '../api-route-map';
 import {getImageResizeParameters} from '../api-helper';
+import {findDocumentListByOrList} from '../../util/document-helper';
 
 import {fileApiConst} from './file-api-const';
 
@@ -46,6 +47,38 @@ export function addFileApi(app: $Application) {
 
             response.status(400);
             response.json({isSuccessful: false, errorList: [String(error)]});
+        });
+    });
+
+    app.get(fileApiRouteMap.getFileListWithoutParent, async (request: $Request, response: $Response) => {
+        fileSystem.readdir(cwd + fileApiConst.pathToUploadFiles, (error: Error | mixed, fileList: Array<string>) => {
+            if (isError(error) || !Array.isArray(fileList)) {
+                response.status(400);
+                response.json({isSuccessful: false, errorList: [String(error)]});
+                return;
+            }
+
+            (async () => {
+                const fileListWithoutParent: Array<string> = [];
+
+                // eslint-disable-next-line no-loops/no-loops
+                for (const fileName of fileList) {
+                    const documentList = await findDocumentListByOrList([
+                        {imageList: fileName},
+                        {titleImage: fileName},
+                    ]);
+
+                    if (isError(documentList)) {
+                        console.error('Error: can not get document for:', fileName);
+                    }
+
+                    if (isNotError(documentList) && documentList.length === 0) {
+                        fileListWithoutParent.push(fileName);
+                    }
+                }
+
+                response.json({fileList: fileListWithoutParent, length: fileListWithoutParent.length});
+            })();
         });
     });
 
