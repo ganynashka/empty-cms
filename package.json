@@ -17,8 +17,8 @@
     "start": "webpack-dev-server --progress --no-inline",
     "start:hot": "webpack-dev-server --progress --hot",
     "start-dev-server:build": "cross-env NODE_ENV=production IS_BUILD_SERVER=YES webpack-dev-server --mode=production --progress",
-    "start-ssr-server:dev": "babel-node server/src/server.js  --config-file ./server/.babelrc",
-    "start-ssr-server:prod": "cross-env NODE_ENV=production babel-node server/src/server.js  --config-file ./server/.babelrc",
+    "start-ssr-server:dev": "babel-node server/src/server.js --config-file ./server/.babelrc",
+    "start-ssr-server:prod": "cross-env NODE_ENV=production babel-node server/src/server.js --config-file ./server/.babelrc",
     "build": "cross-env NODE_ENV=production webpack --mode=production --progress",
     "webpack": "webpack --mode=development --progress",
     "check": "npm run remove-extra-files; npm run eslint; npm run stylelint; npm run flow;",
@@ -38,6 +38,8 @@
     "pre-commit-hook": "npm run eslint && npm run stylelint && npm run flow",
     "db-dump": "mongodump --port=27001 --db=main-db --archive=db-dump/db-dump-`date +%Y-%m-%d--%H-%M-%S`.zip",
     "artillery": "artillery run ./dev/artillery-io/artillery-config.yml",
+    "backstop:test": "babel-node ./dev/backstop-js/src/backstop-run-test.js --config-file ./dev/backstop-js/.babelrc",
+    "backstop:approve": "babel-node ./dev/backstop-js/src/backstop-run-approve.js --config-file ./dev/backstop-js/.babelrc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -89,6 +91,7 @@
     "babel-plugin-file-loader": "^2.0.0",
     "babel-plugin-flow-runtime": "^0.19.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "backstopjs": "^4.4.2",
     "base64-inline-loader": "^1.1.1",
     "circular-dependency-plugin": "^5.2.0",
     "clean-webpack-plugin": "^3.0.0",

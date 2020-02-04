@@ -12,7 +12,7 @@ import {getTime} from '../../util/time';
 import {isError} from '../../../../www/js/lib/is';
 import {getListParameters, getSearchExactParameters, getSearchParameters} from '../api-helper';
 import {documentApiRouteMap} from '../api-route-map';
-import {getSlug} from '../../../../www/js/lib/string';
+import {getLinkToReadArticle, getSlug} from '../../../../www/js/lib/string';
 import {convertJsonToDocument} from '../../util/json-to-document';
 import {handleDataBaseChange} from '../../util/data-base';
 import {documentToShortData} from '../../../../www/js/provider/intial-data/intial-data-helper';
@@ -59,6 +59,33 @@ export function addDocumentApi(app: $Application) {
 
                 response.json(documentList);
             });
+    });
+
+    app.get(documentApiRouteMap.getDocumentSlugList, async (request: $Request, response: $Response) => {
+        const collection = await getCollection<MongoDocumentType>(
+            dataBaseConst.name,
+            dataBaseConst.collection.document
+        );
+
+        if (isError(collection)) {
+            response.status(400);
+            response.json([]);
+            return;
+        }
+
+        collection.find({}).toArray((error: Error | null, documentList: Array<MongoDocumentType> | null | void) => {
+            if (!Array.isArray(documentList)) {
+                response.status(400);
+                response.json([]);
+                return;
+            }
+
+            response.json(
+                documentList.map((documentListInList: MongoDocumentType): string =>
+                    getLinkToReadArticle(documentListInList.slug)
+                )
+            );
+        });
     });
 
     /*

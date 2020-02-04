@@ -23,6 +23,7 @@ export function addDefendApi(app: $Application) {
         initialDataApiRouteMap.getInitialData,
         documentApiRouteMap.documentSearch,
         documentApiRouteMap.documentShortDataSearch,
+        documentApiRouteMap.getDocumentSlugList,
         // pdfApiRouteMap.getImageAsPdf,
     ];
 

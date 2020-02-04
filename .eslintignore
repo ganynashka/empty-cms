@@ -9,7 +9,7 @@ node_modules
 
 # flow
 flow-typed/npm
-
+dev/backstop-js/data/
 
 
 # example
