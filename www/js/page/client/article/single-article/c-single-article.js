@@ -18,7 +18,7 @@ type PropsType = {|
 type StateType = null;
 
 export class SingleArticle extends Component<PropsType, StateType> {
-    renderAuthor(): Node {
+    renderAuthorList(): Node {
         const {props} = this;
         const {initialContextData} = props;
         const {articlePathData} = initialContextData;
@@ -38,6 +38,26 @@ export class SingleArticle extends Component<PropsType, StateType> {
         return <p className={singleArticleStyle.single_article__author}>{creatorList.join(' / ')}</p>;
     }
 
+    getSiblingListHeader(): string {
+        const {props} = this;
+        const {initialContextData} = props;
+        const {articlePathData} = initialContextData;
+
+        if (!articlePathData) {
+            return '';
+        }
+
+        const {mongoDocument} = articlePathData;
+        const {imageList} = mongoDocument;
+        const firstFile = imageList[0];
+
+        if (firstFile && firstFile.endsWith('.mp3')) {
+            return 'Слушайте также:';
+        }
+
+        return 'Читайте также:';
+    }
+
     render(): Node {
         const {props} = this;
         const {initialContextData} = props;
@@ -54,8 +74,8 @@ export class SingleArticle extends Component<PropsType, StateType> {
                 <BreadcrumbList parentNodeList={parentNodeList}/>
                 <h1 className={articleStyle.article__header}>{header}</h1>
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={beautifyMarkDawn(content)}/>
-                {this.renderAuthor()}
-                <SiblingList header="Читайте также:" initialContextData={initialContextData}/>
+                {this.renderAuthorList()}
+                <SiblingList header={this.getSiblingListHeader()} initialContextData={initialContextData}/>
             </>
         );
     }
