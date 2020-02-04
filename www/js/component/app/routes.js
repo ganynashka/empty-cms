@@ -163,6 +163,8 @@ export const routeItemMap = {
         type: 'route',
         pageWrapper: PageWrapper,
     },
+
+    /*
     fileUpload: {
         path: routePathMap.fileUpload.path,
         component(): null {
@@ -171,7 +173,7 @@ export const routeItemMap = {
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
-                import(/* webpackChunkName: 'async-file-upload' */ '../../page/cms/file/c-file-upload')
+                import(/!* webpackChunkName: 'async-file-upload' *!/ '../../page/cms/file/c-file-upload')
                     // eslint-disable-next-line id-match
                     .then((data: {FileUpload: React$ComponentType<*>}): React$ComponentType<*> => data.FileUpload)
             );
@@ -179,6 +181,9 @@ export const routeItemMap = {
         type: 'route',
         pageWrapper: PageWrapper,
     },
+*/
+
+    /*
     fileList: {
         path: routePathMap.fileList.path,
         component(): null {
@@ -187,7 +192,7 @@ export const routeItemMap = {
         // eslint-disable-next-line id-match
         asyncLoad: (): Promise<React$ComponentType<*>> => {
             return (
-                import(/* webpackChunkName: 'async-file-list' */ '../../page/cms/file/c-file-list')
+                import(/!* webpackChunkName: 'async-file-list' *!/ '../../page/cms/file/c-file-list')
                     // eslint-disable-next-line id-match
                     .then((data: {FileList: React$ComponentType<*>}): React$ComponentType<*> => data.FileList)
             );
@@ -195,4 +200,5 @@ export const routeItemMap = {
         type: 'route',
         pageWrapper: PageWrapper,
     },
+*/
 };

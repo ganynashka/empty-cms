@@ -35,10 +35,13 @@ export const routePathMap = {
     register: {
         path: '/cms/register',
     },
+
+    /*
     fileUpload: {
         path: '/cms/file-upload',
     },
     fileList: {
         path: '/cms/file-list',
     },
+    */
 };

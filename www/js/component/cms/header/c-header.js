@@ -77,6 +77,7 @@ export class Header extends Component<PropsType, StateType> {
                 <Button component={Link} size="large" to={routeItemMap.documentCreate.path} variant="contained">
                     Doc: create
                 </Button>
+                {/*
                 &nbsp;|&nbsp;
                 <Button component={Link} size="large" to={routeItemMap.fileList.path} variant="contained">
                     File: List
@@ -85,6 +86,7 @@ export class Header extends Component<PropsType, StateType> {
                 <Button component={Link} size="large" to={routeItemMap.fileUpload.path} variant="contained">
                     File: Upload
                 </Button>
+                */}
             </>
         );
     }
