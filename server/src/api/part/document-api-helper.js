@@ -8,13 +8,13 @@ import {dataBaseConst} from '../../database/database-const';
 import {promiseCatch} from '../../../../www/js/lib/promise';
 import {hasProperty, isError} from '../../../../www/js/lib/is';
 
-export type MayBeDocumentType = MongoDocumentType | Error | null;
+export type MayBeDocumentType = ?MongoDocumentType | ?Error;
 
 export function getDocumentBySlug(slug: string): Promise<MayBeDocumentType> {
     return getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document)
-        .then((collection: MongoCollection<MongoDocumentType> | Error): Promise<MongoDocumentType | null> => {
+        .then((collection: MongoCollection<MongoDocumentType> | Error): Promise<MayBeDocumentType> | Error => {
             if (isError(collection)) {
-                throw collection;
+                return collection;
             }
 
             return collection.findOne({slug});
