@@ -47,7 +47,7 @@ export function addDocumentApi(app: $Application) {
             .sort({[sortParameter]: sortDirection})
             .skip(pageSize * pageIndex)
             .limit(pageSize)
-            .toArray((error?: Error, documentList?: Array<MongoDocumentType>) => {
+            .toArray((error: ?Error, documentList: ?Array<MongoDocumentType>) => {
                 if (error || !Array.isArray(documentList)) {
                     response.status(400);
                     response.json({
@@ -73,7 +73,7 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        collection.find({}).toArray((error?: Error, documentList?: Array<MongoDocumentType>) => {
+        collection.find({}).toArray((error: ?Error, documentList: ?Array<MongoDocumentType>) => {
             if (!Array.isArray(documentList)) {
                 response.status(400);
                 response.json([]);
@@ -276,7 +276,7 @@ export function addDocumentApi(app: $Application) {
         collection
             // $FlowFixMe
             .find({$or: [...getSearchParameters(request)], isActive: true})
-            .toArray((error?: Error, documentList?: Array<MongoDocumentType>) => {
+            .toArray((error: ?Error, documentList: ?Array<MongoDocumentType>) => {
                 if (error || !Array.isArray(documentList)) {
                     response.status(400);
                     response.json([]);
@@ -302,7 +302,7 @@ export function addDocumentApi(app: $Application) {
         collection
             // $FlowFixMe
             .find({$or: [...getSearchParameters(request)], isActive: true})
-            .toArray((error?: Error, documentList?: Array<MongoDocumentType>) => {
+            .toArray((error: ?Error, documentList: ?Array<MongoDocumentType>) => {
                 if (error || !Array.isArray(documentList)) {
                     response.status(400);
                     response.json([]);
@@ -515,7 +515,7 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        collection.find({}).toArray((error?: Error, documentList?: Array<MongoDocumentType>) => {
+        collection.find({}).toArray((error: ?Error, documentList: ?Array<MongoDocumentType>) => {
             if (error || !Array.isArray(documentList)) {
                 response.status(400);
                 response.json([]);

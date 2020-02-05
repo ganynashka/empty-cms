@@ -26,7 +26,7 @@ export function getDataBase(name: string): Promise<MongoDataBase> {
                     useUnifiedTopology: true,
                     useNewUrlParser: true,
                 },
-                (clientError?: Error, client?: MongoClient) => {
+                (clientError: ?Error, client: ?MongoClient) => {
                     if (clientError) {
                         // console.error('Can not connect to mongo server');
                         reject(new Error('Can not connect to mongo server'));

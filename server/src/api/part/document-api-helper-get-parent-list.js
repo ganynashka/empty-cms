@@ -21,7 +21,7 @@ export async function getDocumentParentListBySlug(slug: string): Promise<Array<M
         collection
             // $FlowFixMe
             .find({subDocumentSlugList: slug})
-            .toArray((error?: Error, rawDocumentList?: Array<MongoDocumentType>) => {
+            .toArray((error: ?Error, rawDocumentList: ?Array<MongoDocumentType>) => {
                 if (error) {
                     resolve(new Error(documentApiRouteMap.getParentList + ': Can not find document!'));
                     return;

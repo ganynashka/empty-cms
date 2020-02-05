@@ -3,7 +3,7 @@
 declare module 'mongodb' {
     declare export type MongoSortDirectionType = 1 | -1;
 
-    declare type MongoClientConnectCallBackType = (connectError?: Error, client?: MongoClient) => mixed;
+    declare type MongoClientConnectCallBackType = (connectError: ?Error, client: ?MongoClient) => mixed;
 
     declare type MongoCollectionActionOperationType = {};
 
@@ -15,7 +15,7 @@ declare module 'mongodb' {
         transform?: (item: ItemType) => mixed,
     };
 
-    declare type MongoCollectionCursorIteratorType<ItemType> = (error?: Error, item?: ItemType) => mixed;
+    declare type MongoCollectionCursorIteratorType<ItemType> = (error: ?Error, item: ?ItemType) => mixed;
 
     declare export class MongoCollectionCursor<ItemType> {
         each: MongoCollectionCursorIteratorType<ItemType>,
@@ -23,7 +23,7 @@ declare module 'mongodb' {
         limit: (size: number) => MongoCollectionCursor<ItemType>,
         skip: (size: number) => MongoCollectionCursor<ItemType>,
         sort: (sort: {[key: string]: MongoSortDirectionType}) => MongoCollectionCursor<ItemType>,
-        toArray: (callBack: (error?: Error, array?: Array<ItemType>) => mixed) => mixed,
+        toArray: (callBack: (error: ?Error, array: ?Array<ItemType>) => mixed) => mixed,
         pipe: (destination: mixed) => mixed,
     }
 
@@ -77,6 +77,6 @@ declare module 'mongodb' {
     declare export class MongoClient {
         static connect: (url: string, option: MongoClientOptionType, callBack: MongoClientConnectCallBackType) => mixed,
         db: (dataBaseName: string) => MongoDataBase,
-        close: (closeCallBack: (error?: Error) => mixed) => mixed,
+        close: (closeCallBack: (error: ?Error) => mixed) => mixed,
     }
 }
