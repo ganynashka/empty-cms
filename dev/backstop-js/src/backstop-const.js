@@ -8,23 +8,25 @@ const CWD = process.cwd();
 
 const pathToData = path.join(CWD, 'dev/backstop-js/data');
 
+export const baseUrl = 'http://localhost:9091';
+
 export const emptyConfig = {
     id: 'me-best-test',
     viewports: [
         {
             name: 'phone',
             width: 320,
-            height: 800,
+            height: 1200,
         },
         {
             name: 'tablet',
             width: 740,
-            height: 800,
+            height: 1200,
         },
         {
             name: 'desktop',
             width: 1250,
-            height: 800,
+            height: 1200,
         },
     ],
     scenarios: [],

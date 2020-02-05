@@ -81,9 +81,15 @@ export function addDocumentApi(app: $Application) {
             }
 
             response.json(
-                documentList.map((documentListInList: MongoDocumentType): string =>
-                    getLinkToReadArticle(documentListInList.slug)
-                )
+                documentList.map((documentListInList: MongoDocumentType): string => {
+                    const {slug} = documentListInList;
+
+                    if (slug === rootDocumentSlug) {
+                        return '/';
+                    }
+
+                    return getLinkToReadArticle(slug);
+                })
             );
         });
     });
