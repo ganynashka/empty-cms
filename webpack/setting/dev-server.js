@@ -2,6 +2,11 @@ const path = require('path');
 
 const {cwd, pathToDist, ssrServerPort, isBuildServer, webpackDevServerPort} = require('./../config');
 
+const mainProxyUrlSetting = {
+    target: 'http://localhost:' + ssrServerPort + '/',
+    changeOrigin: true, // for this option only: see documentations here https://github.com/chimurai/http-proxy-middleware#http-proxy-middleware-options
+};
+
 module.exports.devServer = {
     host: 'localhost',
     port: webpackDevServerPort,
@@ -15,13 +20,8 @@ module.exports.devServer = {
     // hotOnly: false,
     disableHostCheck: true,
     proxy: {
-        '/api/': {
-            target: 'http://localhost:' + ssrServerPort + '/',
-            changeOrigin: true, // for this option only: see documentations here https://github.com/chimurai/http-proxy-middleware#http-proxy-middleware-options
-        },
-        '/upload-file/': {
-            target: 'http://localhost:' + ssrServerPort + '/',
-            changeOrigin: true, // for this option only: see documentations here https://github.com/chimurai/http-proxy-middleware#http-proxy-middleware-options
-        },
+        '/manifest.json': mainProxyUrlSetting,
+        '/api/': mainProxyUrlSetting,
+        '/upload-file/': mainProxyUrlSetting,
     },
 };
