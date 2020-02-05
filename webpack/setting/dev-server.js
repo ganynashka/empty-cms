@@ -2,13 +2,15 @@ const path = require('path');
 
 const {cwd, pathToDist, ssrServerPort, isBuildServer, webpackDevServerPort} = require('./../config');
 
+const host = 'localhost';
+
 const mainProxyUrlSetting = {
-    target: 'http://localhost:' + ssrServerPort + '/',
+    target: `http://${host}:${ssrServerPort}/`,
     changeOrigin: true, // for this option only: see documentations here https://github.com/chimurai/http-proxy-middleware#http-proxy-middleware-options
 };
 
 module.exports.devServer = {
-    host: 'localhost',
+    host,
     port: webpackDevServerPort,
     contentBase: path.join(cwd, pathToDist),
     historyApiFallback: {
