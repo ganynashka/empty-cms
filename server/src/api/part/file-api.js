@@ -79,7 +79,7 @@ export function addFileApi(app: $Application) {
                     }
                 }
 
-                response.json({fileList: fileListWithoutParent, length: fileListWithoutParent.length});
+                response.json(fileListWithoutParent);
             })();
         });
     });

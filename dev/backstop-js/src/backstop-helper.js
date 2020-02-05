@@ -12,7 +12,7 @@ async function getLinkList(host: string): Promise<Array<string>> {
             {
                 uri: host + documentApiRouteMap.getDocumentSlugList,
             },
-            (error?: Error, response: Response, body?: string) => {
+            (error: ?Error, response: Response, body: ?string) => {
                 if (body) {
                     resolve(JSON.parse(body));
                     return;
