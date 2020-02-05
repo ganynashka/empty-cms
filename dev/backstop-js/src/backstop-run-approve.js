@@ -2,6 +2,14 @@
 
 import backstop from 'backstopjs';
 
-import {emptyConfig} from './backstop-const';
+import {baseUrl, emptyConfig} from './backstop-const';
+import {getScenarioList} from './backstop-helper';
 
-backstop('approve', {config: emptyConfig});
+(async () => {
+    backstop('approve', {
+        config: {
+            ...emptyConfig,
+            scenarios: await getScenarioList(baseUrl),
+        },
+    });
+})();
