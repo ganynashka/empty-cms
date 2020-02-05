@@ -35,10 +35,12 @@ $space-between-blocks: 12px;
 .image_list_article__list_item_image {
     box-sizing: border-box;
     display: block;
+    height: auto;
     max-height: 208px;
     max-width: 100%;
     position: relative;
     top: -18px;
+    width: auto;
 }
 
 .image_list_article__list_item_button_list_wrapper {

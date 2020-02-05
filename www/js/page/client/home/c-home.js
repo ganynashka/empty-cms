@@ -33,16 +33,24 @@ export class Home extends Component<PropsType, StateType> {
         const {screenContextData} = props;
         const {devicePixelRatio} = screenContextData;
         const {slug, titleImage, header, shortDescription} = documentData;
+        const imageSize = 120;
         const titleImageSrc = getResizedImageSrc({
             src: titleImage,
-            width: 120,
-            height: 120,
+            width: imageSize,
+            height: imageSize,
             aspectRatio: devicePixelRatio,
         });
 
         return (
             <Link className={homeStyle.home__category_link__wrapper} key={slug} to={getLinkToReadArticle(slug)}>
-                <img alt={header} className={homeStyle.home__category_link__icon} loading="lazy" src={titleImageSrc}/>
+                <img
+                    alt={header}
+                    className={homeStyle.home__category_link__icon}
+                    height={imageSize}
+                    loading="lazy"
+                    src={titleImageSrc}
+                    width={imageSize}
+                />
                 <div className={homeStyle.home__category_link__text_content}>
                     <h2 className={homeStyle.home__category_link__title}>{header}</h2>
                     <Markdown

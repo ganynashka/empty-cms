@@ -55,6 +55,7 @@ export class ImagePreview extends Component<PropsType, StateType> {
         const {props, state} = this;
         const {additionalClassName, image, link} = props;
         const {src, title} = image;
+        const imageSize = 170; // see $file-preview-width
 
         return (
             <Link
@@ -65,9 +66,11 @@ export class ImagePreview extends Component<PropsType, StateType> {
                 <img
                     alt={title}
                     className={imagePreviewStyle.image_preview__image}
+                    height={imageSize}
                     loading="lazy"
                     onLoad={this.handleImageLoad}
                     src={src}
+                    width={imageSize}
                 />
                 <span className={imagePreviewStyle.article__list_image_item__link_text}>{title}</span>
             </Link>

@@ -71,19 +71,23 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
         const {props} = this;
         const {screenContextData} = props;
         const {devicePixelRatio} = screenContextData;
+        const imageWidth = 267;
+        const imageHeight = 208;
 
         return (
             <li className={imageListArticleStyle.image_list_article__list_item} key={imageSrc}>
                 <img
                     alt=""
                     className={imageListArticleStyle.image_list_article__list_item_image}
+                    height={imageHeight}
                     loading="lazy"
                     src={getResizedImageSrc({
                         src: imageSrc,
-                        width: 267,
-                        height: 208,
+                        width: imageWidth,
+                        height: imageHeight,
                         aspectRatio: devicePixelRatio / 1.5,
                     })}
+                    width={imageWidth}
                 />
                 <div className={imageListArticleStyle.image_list_article__list_item_button_list_wrapper}>
                     <button

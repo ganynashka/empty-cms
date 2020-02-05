@@ -51,10 +51,12 @@
 %image-preview-image,
 .image_preview__image {
     display: block;
+    height: auto;
     max-height: 100%;
     max-width: 100%;
     outline: 100px solid rgba(255, 255, 255, 0.66);
     position: relative;
+    width: auto;
     z-index: 2;
 }
 
