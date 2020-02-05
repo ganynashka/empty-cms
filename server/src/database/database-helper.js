@@ -26,14 +26,14 @@ export function getDataBase(name: string): Promise<MongoDataBase> {
                     useUnifiedTopology: true,
                     useNewUrlParser: true,
                 },
-                (clientError: NullableType<Error>, client: NullableType<MongoClient>) => {
-                    if (isError(clientError)) {
+                (clientError?: Error, client?: MongoClient) => {
+                    if (clientError) {
                         // console.error('Can not connect to mongo server');
                         reject(new Error('Can not connect to mongo server'));
                         return;
                     }
 
-                    if (client === null) {
+                    if (!client) {
                         // console.error('Mongo client is not define');
                         reject(new Error('Mongo client is not define'));
                         return;

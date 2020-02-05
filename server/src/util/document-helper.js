@@ -14,7 +14,7 @@ export async function getAllDocumentList(): Promise<Array<MongoDocumentType> | E
     }
 
     return new Promise((resolve: PromiseResolveType<Array<MongoDocumentType> | Error>) => {
-        collection.find({}).toArray((error: Error | null, documentList: Array<MongoDocumentType> | null | void) => {
+        collection.find({}).toArray((error?: Error, documentList?: Array<MongoDocumentType>) => {
             if (isError(error)) {
                 resolve(error);
                 return;
@@ -43,7 +43,7 @@ export async function findDocumentListByOrList(
         collection
             // $FlowFixMe
             .find({$or: search})
-            .toArray((error: Error | null, documentList: Array<MongoDocumentType> | null | void) => {
+            .toArray((error?: Error, documentList?: Array<MongoDocumentType>) => {
                 if (error) {
                     resolve(error);
                     return;

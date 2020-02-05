@@ -50,7 +50,7 @@ export function addUserApi(app: $Application) {
             .sort({[sortParameter]: sortDirection})
             .skip(pageSize * pageIndex)
             .limit(pageSize)
-            .toArray((error: Error | null, userList: Array<MongoUserType> | null | void) => {
+            .toArray((error?: Error, userList?: Array<MongoUserType>) => {
                 if (error || !Array.isArray(userList)) {
                     response.status(400);
                     response.json({

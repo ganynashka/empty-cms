@@ -4,13 +4,15 @@
 
 import path from 'path';
 
+import {type BackstopConfigType} from 'backstopjs';
+
 const CWD = process.cwd();
 
 const pathToData = path.join(CWD, 'dev/backstop-js/data');
 
 export const baseUrl = 'http://localhost:9091';
 
-export const emptyConfig = {
+export const emptyConfig: BackstopConfigType = {
     id: 'me-best-test',
     viewports: [
         {
