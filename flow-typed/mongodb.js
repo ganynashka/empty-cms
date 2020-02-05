@@ -62,7 +62,7 @@ declare module 'mongodb' {
             options: {},
         ) => Promise<Error | MongoCollectionActionResultType>,
         countDocuments: () => Promise<number>,
-        deleteOne: (filter: $Shape<ItemType>, options: {}) => mixed,
+        deleteOne: (filter: $Shape<ItemType>, options: {}) => Promise<mixed>,
     }
 
     declare export class MongoDataBase {
