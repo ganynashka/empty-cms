@@ -15,6 +15,7 @@ import {getSlug} from '../../../../www/js/lib/string';
 import {fileApiRouteMap} from '../api-route-map';
 import {getImageResizeParameters} from '../api-helper';
 import {findDocumentListByOrList} from '../../util/document-helper';
+import {faviconPngFileName} from '../../../../www/js/provider/intial-data/intial-data-const';
 
 import {fileApiConst} from './file-api-const';
 
@@ -58,6 +59,7 @@ export function addFileApi(app: $Application) {
                 return;
             }
 
+            // eslint-disable-next-line complexity
             (async () => {
                 const fileListWithoutParent: Array<string> = [];
 
@@ -72,7 +74,7 @@ export function addFileApi(app: $Application) {
                         console.error('Error: can not get document for:', fileName);
                     }
 
-                    if (isNotError(documentList) && documentList.length === 0) {
+                    if (isNotError(documentList) && documentList.length === 0 && fileName !== faviconPngFileName) {
                         fileListWithoutParent.push(fileName);
                     }
                 }

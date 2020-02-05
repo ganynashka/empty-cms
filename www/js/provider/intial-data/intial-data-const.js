@@ -5,6 +5,8 @@ import type {OpenGraphDataType} from '../../../../server/src/database/database-t
 
 import {type InitialDataType} from './intial-data-type';
 
+export const faviconPngFileName = 'favicon.png';
+
 export const rootPathMetaData = {
     title: 'Сказки детям',
     header: 'Сказки детям',
@@ -14,7 +16,7 @@ export const rootPathMetaData = {
 export const defaultOpenGraphData: OpenGraphDataType = {
     title: rootPathMetaData.header,
     type: 'article', // "article"
-    image: 'favicon.png',
+    image: faviconPngFileName,
     description: '',
     locale: 'ru_RU',
 };
