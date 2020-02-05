@@ -3,7 +3,7 @@
 // REF: https://developers.google.com/analytics/devguides/collection/analyticsjs/#the_google_analytics_tag
 // REF: https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications
 
-/* global window, document */
+/* global window */
 
 import type {Node} from 'react';
 import React, {Component} from 'react';

@@ -15,6 +15,7 @@ import {InitialDataProvider} from '../../provider/intial-data/c-initial-data-con
 import {Header} from '../client/header/c-header';
 import {ScrollRestoration} from '../../provider/screen/scroll-restoration/c-scroll-restoration.js';
 import {GoogleAnalytics} from '../analytics/google-analytics/c-google-analytics';
+import {YandexMetrika} from '../analytics/yandex-metrika/c-yandex-metrika';
 
 import {routeItemMap, routeItemPage404} from './routes';
 import {redderRoute} from './render-route/render-route';
@@ -50,6 +51,13 @@ export function ClientApp(props: PropsType): Node {
             component: GoogleAnalytics,
             type: 'route',
             id: 'google-analytics',
+            pageWrapper: null,
+        }),
+        redderRoute({
+            path: starPath,
+            component: YandexMetrika,
+            type: 'route',
+            id: 'yandex-metrika',
             pageWrapper: null,
         }),
         redderRoute({

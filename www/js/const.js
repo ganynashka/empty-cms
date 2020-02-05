@@ -29,3 +29,4 @@ export const selector = {
 };
 
 export const googleAnalyticsId = 'UA-156987706-1';
+export const yandexMetrikaId = 57374178;
