@@ -21,9 +21,11 @@ async function getLinkList(host: string): Promise<Array<string>> {
 }
 
 function linkToScenario(baseUrl: string, link: string): ScenarioType {
+    const url = baseUrl + link;
+
     return {
-        label: link,
-        url: baseUrl + link,
+        url,
+        label: url,
         hideSelectors: [],
         removeSelectors: [],
         selectors: ['body'],
