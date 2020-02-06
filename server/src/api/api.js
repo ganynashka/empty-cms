@@ -48,7 +48,10 @@ export function addApiIntoApplication(app: $Application) {
                 url: dataBaseConst.url,
                 secret: passwordKey,
             }),
-        })
+            cookie: {
+                secure: isProduction,
+            },
+        }),
     );
 
     if (isProduction) {
