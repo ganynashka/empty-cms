@@ -77,6 +77,11 @@
     z-index: 1;
 }
 
+.search_result_list_item {
+    display: block;
+    list-style: none;
+}
+
 .search_result_item {
     display: block;
     font-size: 16px;

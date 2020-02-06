@@ -51,7 +51,7 @@ export function addApiIntoApplication(app: $Application) {
             cookie: {
                 secure: isProduction,
             },
-        }),
+        })
     );
 
     if (isProduction) {

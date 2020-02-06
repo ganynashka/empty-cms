@@ -119,7 +119,7 @@ export class Search extends Component<PropsType, StateType> {
         const styledHeader = this.getStyledHeader(header);
 
         return (
-            <li key={slug}>
+            <li className={searchStyle.search_result_list_item} key={slug}>
                 <Link
                     className={searchStyle.search_result_item}
                     onClick={handleListItemClick}
