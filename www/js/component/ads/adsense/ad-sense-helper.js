@@ -10,6 +10,7 @@ export function getAdSenseAdsBlockHtml(adSlotId: number): string {
      data-ad-client="${googleAdSenseId}"
      data-ad-slot="${adSlotId}"
      data-ad-format="auto"
+     data-adtest="on"
      data-full-width-responsive="true"></ins>
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
