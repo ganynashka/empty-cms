@@ -14,8 +14,8 @@ import type {InitialDataType} from '../../../provider/intial-data/intial-data-ty
 import {isMobileDevice} from '../../../../../server/src/util/device/device-helper';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 import serviceStyle from '../../../../css/service.scss';
+import {CssSpinner} from '../../layout/css-spinner/c-css-spinner';
 
-import spinnerImageSrc from './image/spinner.gif';
 import searchStyle from './search.scss';
 import {searchDocumentShortData} from './search-api';
 import {filterResultCallBack, sortSearchResultList} from './search-helper';
@@ -59,11 +59,13 @@ export class Search extends Component<PropsType, StateType> {
         }
     }
 
+    /*
     makeHandleListItemClick(text: string): () => mixed {
         return () => {
             this.setSearchInputValue(text);
         };
     }
+*/
 
     getInputValue(): string {
         const inputNode = this.getInputNode();
@@ -75,6 +77,7 @@ export class Search extends Component<PropsType, StateType> {
         return inputNode.value;
     }
 
+    /*
     setSearchInputValue(text: string) {
         const searchText = cleanText(text);
 
@@ -89,6 +92,7 @@ export class Search extends Component<PropsType, StateType> {
             this.handleInput();
         });
     }
+*/
 
     getStyledHeader(header: string): Node {
         const {state} = this;
@@ -116,14 +120,14 @@ export class Search extends Component<PropsType, StateType> {
 
     renderSearchResultItem = (mongoDocument: MongoDocumentShortDataType): Node => {
         const {slug, header} = mongoDocument;
-        const handleListItemClick = this.makeHandleListItemClick(header);
+        // const handleListItemClick = this.makeHandleListItemClick(header);
         const styledHeader = this.getStyledHeader(header);
 
         return (
             <li className={searchStyle.search_result_list_item} key={slug}>
                 <Link
                     className={searchStyle.search_result_item}
-                    onClick={handleListItemClick}
+                    // onClick={handleListItemClick}
                     to={getLinkToReadArticle(slug)}
                 >
                     {styledHeader}
@@ -159,11 +163,7 @@ export class Search extends Component<PropsType, StateType> {
         if (isSearchInProgress) {
             return (
                 <div className={searchStyle.search_result_list__in_progress}>
-                    <img
-                        alt="search in progress..."
-                        className={searchStyle.search_result_list__in_progress__image}
-                        src={spinnerImageSrc}
-                    />
+                    <CssSpinner/>
                 </div>
             );
         }
