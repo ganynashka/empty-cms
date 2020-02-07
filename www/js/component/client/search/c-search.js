@@ -15,6 +15,7 @@ import {isMobileDevice} from '../../../../../server/src/util/device/device-helpe
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 import serviceStyle from '../../../../css/service.scss';
 
+import spinnerImageSrc from './image/spinner.gif';
 import searchStyle from './search.scss';
 import {searchDocumentShortData} from './search-api';
 import {filterResultCallBack, sortSearchResultList} from './search-helper';
@@ -157,8 +158,12 @@ export class Search extends Component<PropsType, StateType> {
 
         if (isSearchInProgress) {
             return (
-                <div className={searchStyle.search_result_list__no_result}>
-                    Поиск по запросу &quot;{searchText}&quot;...
+                <div className={searchStyle.search_result_list__in_progress}>
+                    <img
+                        alt="search in progress..."
+                        className={searchStyle.search_result_list__in_progress__image}
+                        src={spinnerImageSrc}
+                    />
                 </div>
             );
         }
