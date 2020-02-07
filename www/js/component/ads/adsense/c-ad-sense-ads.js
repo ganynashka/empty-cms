@@ -1,6 +1,6 @@
 // @flow
 
-/* global window*/
+/* global window */
 
 import React, {Component, type Node} from 'react';
 
@@ -14,6 +14,10 @@ type StateType = null;
 
 export function AdSenseAds(props: PropsType): Node {
     const {adSlotId} = props;
+
+    if (typeof window === 'undefined') {
+        return null;
+    }
 
     // eslint-disable-next-line react/no-danger, id-match
     return <div dangerouslySetInnerHTML={{__html: getAdSenseAdsBlockHtml(adSlotId)}}/>;
