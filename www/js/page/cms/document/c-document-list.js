@@ -45,6 +45,7 @@ async function enhancedTableGetDocumentList(
         list: list.map((documentData: MongoDocumentType): EnhancedTableBodyCellType => {
             const {
                 slug,
+                titleImage,
                 type,
                 header,
                 isActive,
@@ -59,6 +60,7 @@ async function enhancedTableGetDocumentList(
                 slug: <Link to={getLinkToEditArticle(slug)}>{slug}</Link>,
                 type,
                 header,
+                titleImage: Boolean(titleImage),
                 rating,
                 isActive,
                 isInSiteMap,
@@ -78,6 +80,7 @@ const enhancedTableHeader = {
         {id: 'header', align: 'left', label: 'Header', hasSort: true},
         {id: 'slug', align: 'left', label: 'Slug', hasSort: true},
         {id: 'type', align: 'left', label: 'Type', hasSort: true},
+        {id: 'titleImage', align: 'left', label: 'Has title image', hasSort: true},
         {id: 'subDocumentListViewType', align: 'left', label: 'Sub-documents view type', hasSort: true},
         {id: 'rating', align: 'left', label: 'Rating', hasSort: true},
         {id: 'isActive', align: 'left', label: 'Is active', hasSort: true},
