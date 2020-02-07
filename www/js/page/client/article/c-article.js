@@ -84,11 +84,7 @@ export class Article extends Component<PropsType, StateType> {
 
     render(): Node {
         return (
-            <div className={articleStyle.article__wrapper}>
-                {this.renderContent()}
-                <hr/>
-                <AdsenseAds/>
-            </div>
+            <div className={articleStyle.article__wrapper}>{this.renderContent()}</div>
         );
     }
 }
