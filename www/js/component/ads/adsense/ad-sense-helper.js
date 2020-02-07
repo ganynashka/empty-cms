@@ -3,7 +3,7 @@
 import {googleAdSenseId, isGoogleAdSenseInTestMode} from '../../../const';
 
 export function getAdSenseAdsBlockHtml(adSlotId: number): string {
-    return '';
+    // return '';
 
     return `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- bottom-ads -->
