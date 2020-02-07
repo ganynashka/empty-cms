@@ -8,7 +8,13 @@ export const stringForReplaceIconList: string = '<meta data-type="icon-list">';
 export const stringForReplaceOpenGraphMeta: string = '<meta data-type="open-graph-meta-data">';
 export const stringForReplaceSeoMeta: string = '<meta data-type="meta-seo">';
 
-export const staticFilesList: Array<string> = ['/favicon.ico', '/robots.txt', '/gss-0.9.xsl', '/sitemap.xml', '/ads.txt'];
+export const staticFilesList: Array<string> = [
+    '/favicon.ico',
+    '/robots.txt',
+    '/gss-0.9.xsl',
+    '/sitemap.xml',
+    '/ads.txt',
+];
 
 export const hostingIpAddress = '134.209.235.147';
 export const hostingDomainName = 'skazki.land';

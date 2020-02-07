@@ -16,6 +16,7 @@ import {Header} from '../client/header/c-header';
 import {ScrollRestoration} from '../../provider/screen/scroll-restoration/c-scroll-restoration.js';
 import {GoogleAnalytics} from '../analytics/google-analytics/c-google-analytics';
 import {YandexMetrika} from '../analytics/yandex-metrika/c-yandex-metrika';
+import {Adsense} from '../ads/adsense/c-adsense';
 
 import {routeItemMap, routeItemPage404} from './routes';
 import {redderRoute} from './render-route/render-route';
@@ -46,6 +47,13 @@ export function ClientApp(props: PropsType): Node {
         : routeItemKeyList.map((key: string): Node => redderRoute(routeItemMap[key]));
 
     const staticList = [
+        redderRoute({
+            path: starPath,
+            component: Adsense,
+            type: 'route',
+            id: 'google-adsense',
+            pageWrapper: null,
+        }),
         redderRoute({
             path: starPath,
             component: GoogleAnalytics,
