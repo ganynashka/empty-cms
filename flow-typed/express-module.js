@@ -8,6 +8,10 @@ declare module 'cors' {
     declare export default function cors(): string;
 }
 
+declare module 'helmet' {
+    declare export default function helmet(): string;
+}
+
 declare module 'body-parser' {
     declare type BodyParserSetting = {
         +limit: string,

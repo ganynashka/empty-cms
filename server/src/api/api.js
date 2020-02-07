@@ -8,6 +8,7 @@ import fileUpload from 'express-fileupload';
 import session from 'express-session';
 import expressDevice from 'express-device';
 import connectMongo from 'connect-mongo';
+import helmet from 'helmet';
 
 import {dataBaseConst} from '../database/database-const';
 import {passwordKey, sessionKey} from '../../key/key';
@@ -28,6 +29,7 @@ const MongoStore = connectMongo(session);
 
 export function addApiIntoApplication(app: $Application) {
     // app.use(cors());
+    app.use(helmet());
     app.use(compression());
     app.use(bodyParser.json({limit: '10mb', extended: true}));
     app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
