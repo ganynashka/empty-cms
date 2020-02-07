@@ -77,9 +77,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={beautifyMarkDawn(content)}/>
                 {this.renderAuthorList()}
                 <SiblingList header={this.getSiblingListHeader()} initialContextData={initialContextData}/>
-                <hr/>
                 <AdSenseAds adSlotId={2979854461}/>
-                <hr/>
             </>
         );
     }
