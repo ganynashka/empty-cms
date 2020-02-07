@@ -7,7 +7,7 @@ import {Component, type Node} from 'react';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 import {isCMS} from '../../../lib/url';
 import {isDevelopment} from '../../../../../webpack/config';
-import {googleAdsenseId} from '../../../const';
+import {googleAdSenseId} from '../../../const';
 
 type PropsType = {
     +location: LocationType,
@@ -15,7 +15,7 @@ type PropsType = {
 
 type StateType = null;
 
-export class Adsense extends Component<PropsType, StateType> {
+export class AdSense extends Component<PropsType, StateType> {
     componentDidMount() {
         const {props} = this;
         const {location} = props;
@@ -41,7 +41,7 @@ export class Adsense extends Component<PropsType, StateType> {
         // <script data-ad-client="ca-pub-8997870404482178" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         const script = document.createElement('script');
 
-        script.dataset.adClient = googleAdsenseId;
+        script.dataset.adClient = googleAdSenseId;
         script.setAttribute('async', 'async');
         script.setAttribute('src', 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js');
 

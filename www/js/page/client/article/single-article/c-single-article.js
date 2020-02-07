@@ -8,6 +8,7 @@ import articleStyle from '../article.scss';
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
 import {SiblingList} from '../../../../component/layout/sibling-list/sibling-list';
 import {beautifyMarkDawn} from '../../../../lib/string';
+import {AdSenseAds} from '../../../../component/ads/adsense/c-ad-sense-ads';
 
 import singleArticleStyle from './single-article.scss';
 
@@ -76,6 +77,9 @@ export class SingleArticle extends Component<PropsType, StateType> {
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={beautifyMarkDawn(content)}/>
                 {this.renderAuthorList()}
                 <SiblingList header={this.getSiblingListHeader()} initialContextData={initialContextData}/>
+                <hr/>
+                <AdSenseAds adSlotId={2979854461}/>
+                <hr/>
             </>
         );
     }

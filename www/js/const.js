@@ -29,5 +29,6 @@ export const selector = {
 };
 
 export const googleAnalyticsId = 'UA-156987706-1';
-export const googleAdsenseId = 'ca-pub-8997870404482178';
+export const googleAdSenseId = 'ca-pub-8997870404482178';
+export const isGoogleAdSenseInTestMode = true;
 export const yandexMetrikaId = 57374178;

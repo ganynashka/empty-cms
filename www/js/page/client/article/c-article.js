@@ -8,7 +8,6 @@ import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 import {PageNotFoundContent} from '../page-not-found/page-not-found-content';
 import {PageLoading} from '../../../component/client/page-loading/c-page-loading';
-import {AdsenseAds} from '../../../component/ads/adsense/c-adsense-ads';
 
 import articleStyle from './article.scss';
 import {SingleArticle} from './single-article/c-single-article';
@@ -83,8 +82,6 @@ export class Article extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        return (
-            <div className={articleStyle.article__wrapper}>{this.renderContent()}</div>
-        );
+        return <div className={articleStyle.article__wrapper}>{this.renderContent()}</div>;
     }
 }
