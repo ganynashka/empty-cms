@@ -13,11 +13,5 @@ export function getAdSenseAdsBlockHtml(adSlotId: number): string {
      data-ad-format="fluid"
      data-ad-client="ca-pub-8997870404482178"
      data-ad-slot="6922080855"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({
-     google_ad_client: "ca-pub-8997870404482178",
-    enable_page_level_ads: true
-     });
-</script>
 `;
 }
