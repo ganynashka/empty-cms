@@ -80,7 +80,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={beautifyMarkDawn(content)}/>
                 {this.renderAuthorList()}
                 <SiblingList header={this.getSiblingListHeader()} initialContextData={initialContextData}/>
-                <AdSenseAds adSlotId={2979854461} screenContextData={screenContextData}/>
+                <AdSenseAds adSlotId={2979854461}/>
             </>
         );
     }
