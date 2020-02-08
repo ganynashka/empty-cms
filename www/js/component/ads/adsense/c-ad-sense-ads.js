@@ -21,8 +21,6 @@ export class AdSenseAds extends Component<PropsType, StateType> {
         window.adsbygoogle.push({
             google_ad_client: 'ca-pub-8997870404482178',
             google_ad_slot: '2979854461',
-
-            enable_page_level_ads: true,
         });
 
         log('!!!!!');
