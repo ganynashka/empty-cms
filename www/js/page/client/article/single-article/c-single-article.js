@@ -81,7 +81,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
                 {this.renderAuthorList()}
                 <SiblingList header={this.getSiblingListHeader()} initialContextData={initialContextData}/>
                 <hr/>
-                <AdSenseAds adSlotId={2979854461} key={slug}/>
+                <AdSenseAds adSlotId={2979854461} key={`slug:${slug}-screen-width:${screenContextData.width}`}/>
             </>
         );
     }
