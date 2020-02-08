@@ -25,10 +25,12 @@ export function AdSenseAds(props: PropsType): Node {
         <AdSense.Google
             client={googleAdSenseId}
             slot={adSlotId}
+/*
             style={{display: 'block'}}
             format='auto'
             responsive='true'
             layoutKey='-gw-1+2a-9x+5c'
+*/
         />
     );
 
