@@ -26,7 +26,7 @@ export class AdSenseAds extends Component<PropsType, StateType> {
             // eslint-disable-next-line camelcase, id-match
             google_ad_client: googleAdSenseId,
             // eslint-disable-next-line camelcase, id-match
-            google_ad_slot: String(adSlotId),
+            google_ad_slot: adSlotId,
         });
     }
 
@@ -39,28 +39,14 @@ export class AdSenseAds extends Component<PropsType, StateType> {
         }
 
         return (
-            <>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <ins
-                    className="adsbygoogle"
-                    data-ad-client={googleAdSenseId}
-                    data-ad-format="auto"
-                    data-ad-slot={adSlotId}
-                    data-full-width-responsive="true"
-                    style={{display: 'block'}}
-                />
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-            </>
+            <ins
+                className="adsbygoogle"
+                data-ad-client={googleAdSenseId}
+                data-ad-format="auto"
+                data-ad-slot={adSlotId}
+                data-full-width-responsive="true"
+                style={{display: 'block'}}
+            />
         );
     }
 }

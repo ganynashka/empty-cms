@@ -71,7 +71,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
             return <h1 className={articleStyle.article__header}>Here is not list of link</h1>;
         }
 
-        const {header, content} = articlePathData.mongoDocument;
+        const {header, content, slug} = articlePathData.mongoDocument;
 
         return (
             <>
@@ -80,7 +80,8 @@ export class SingleArticle extends Component<PropsType, StateType> {
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={beautifyMarkDawn(content)}/>
                 {this.renderAuthorList()}
                 <SiblingList header={this.getSiblingListHeader()} initialContextData={initialContextData}/>
-                <AdSenseAds adSlotId={2979854461}/>
+                <hr/>
+                <AdSenseAds adSlotId={2979854461} key={slug}/>
             </>
         );
     }
