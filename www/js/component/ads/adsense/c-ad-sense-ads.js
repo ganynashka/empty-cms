@@ -20,5 +20,5 @@ export function AdSenseAds(props: PropsType): Node {
     }
 
     // eslint-disable-next-line react/no-danger, id-match
-    return <div style={{width: 300}} dangerouslySetInnerHTML={{__html: getAdSenseAdsBlockHtml(adSlotId)}}/>;
+    return <div dangerouslySetInnerHTML={{__html: getAdSenseAdsBlockHtml(adSlotId)}} style={{width: 300}}/>;
 }

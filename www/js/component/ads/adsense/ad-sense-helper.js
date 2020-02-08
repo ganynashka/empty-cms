@@ -8,7 +8,7 @@ export function getAdSenseAdsBlockHtml(adSlotId: number): string {
     return `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- bottom-ads -->
 <ins class="adsbygoogle"
-     style="display:block"
+     style="display:block; height: 500px;"
      data-ad-client="${googleAdSenseId}"
      data-ad-slot="${adSlotId}"
      data-ad-format="auto"
