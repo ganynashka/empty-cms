@@ -82,11 +82,6 @@ export class Article extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        return (
-            <div className={articleStyle.article__wrapper}>
-                <div className={articleStyle.article__wrapper__min_height}/>
-                {this.renderContent()}
-            </div>
-        );
+        return <div className={articleStyle.article__wrapper}>{this.renderContent()}</div>;
     }
 }
