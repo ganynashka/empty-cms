@@ -10,10 +10,13 @@ import {SiblingList} from '../../../../component/layout/sibling-list/sibling-lis
 import {beautifyMarkDawn} from '../../../../lib/string';
 import {AdSenseAds} from '../../../../component/ads/adsense/c-ad-sense-ads';
 
+import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
+
 import singleArticleStyle from './single-article.scss';
 
 type PropsType = {|
     +initialContextData: InitialDataType,
+    +screenContextData: ScreenContextType,
 |};
 
 type StateType = null;
@@ -61,7 +64,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
 
     render(): Node {
         const {props} = this;
-        const {initialContextData} = props;
+        const {initialContextData, screenContextData} = props;
         const {articlePathData, parentNodeList} = initialContextData;
 
         if (!articlePathData) {
@@ -77,7 +80,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={beautifyMarkDawn(content)}/>
                 {this.renderAuthorList()}
                 <SiblingList header={this.getSiblingListHeader()} initialContextData={initialContextData}/>
-                <AdSenseAds adSlotId={2979854461}/>
+                <AdSenseAds adSlotId={2979854461} screenContextData={screenContextData}/>
             </>
         );
     }

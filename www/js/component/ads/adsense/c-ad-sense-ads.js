@@ -4,48 +4,48 @@
 
 import React, {Component, type Node} from 'react';
 
-// import {getAdSenseAdsBlockHtml} from './ad-sense-helper';
+import {googleAdSenseId} from '../../../const';
+import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
+
+import adSenseStyle from './ad-sense.scss';
 
 type PropsType = {|
     +adSlotId: number,
+    +screenContextData: ScreenContextType,
 |};
 
 type StateType = null;
 
 export class AdSenseAds extends Component<PropsType, StateType> {
     componentDidMount() {
+        const {props} = this;
+        const {adSlotId} = props;
+
         window.adsbygoogle = window.adsbygoogle || [];
 
-        const {log} = console;
-
         window.adsbygoogle.push({
-            google_ad_client: 'ca-pub-8997870404482178',
-            google_ad_slot: '2979854461',
+            // eslint-disable-next-line camelcase, id-match
+            google_ad_client: googleAdSenseId,
+            // eslint-disable-next-line camelcase, id-match
+            google_ad_slot: String(adSlotId),
         });
-
-        log('!!!!!');
-        log(window.adsbygoogle);
     }
 
     render(): Node {
         const {props} = this;
-        const {adSlotId} = props;
+        const {adSlotId, screenContextData} = props;
 
         if (typeof window === 'undefined') {
             return null;
         }
 
-        // eslint-disable-next-line react/no-danger, id-match
         return (
-            <div
-                // dangerouslySetInnerHTML={{__html: getAdSenseAdsBlockHtml(adSlotId)}}
-                style={{width: '100%', height: 500}}
-            >
+            <div className={adSenseStyle.ad_sense_block_wrapper} key={screenContextData.width}>
                 <ins
                     className="adsbygoogle"
-                    data-ad-client="ca-pub-8997870404482178"
+                    data-ad-client={googleAdSenseId}
                     data-ad-format="auto"
-                    data-ad-slot="2979854461"
+                    data-ad-slot={adSlotId}
                     data-full-width-responsive="true"
                     style={{display: 'block'}}
                 />
