@@ -39,14 +39,28 @@ export class AdSenseAds extends Component<PropsType, StateType> {
         }
 
         return (
-            <ins
-                className="adsbygoogle"
-                data-ad-client={googleAdSenseId}
-                data-ad-format="auto"
-                data-ad-slot={adSlotId}
-                data-full-width-responsive="true"
-                style={{display: 'block'}}
-            />
+            <>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <ins
+                    className="adsbygoogle"
+                    data-ad-client={googleAdSenseId}
+                    data-ad-format="auto"
+                    data-ad-slot={adSlotId}
+                    data-full-width-responsive="true"
+                    style={{display: 'block'}}
+                />
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+            </>
         );
     }
 }
