@@ -18,18 +18,15 @@ export class AdSenseAds extends Component<PropsType, StateType> {
 
         const {log} = console;
 
-        try {
-            window.adsbygoogle.push({
-                google_ad_client: 'ca-pub-8997870404482178',
-                enable_page_level_ads: true,
-            });
+        window.adsbygoogle.push({
+            google_ad_client: 'ca-pub-8997870404482178',
+            google_ad_slot: '2979854461',
 
-            log('!!!!!');
-            log(adsbygoogle);
+            enable_page_level_ads: true,
+        });
 
-        } catch (e) {
-            log(e);
-        }
+        log('!!!!!');
+        log(window.adsbygoogle);
     }
 
     render(): Node {
@@ -46,15 +43,15 @@ export class AdSenseAds extends Component<PropsType, StateType> {
                 // dangerouslySetInnerHTML={{__html: getAdSenseAdsBlockHtml(adSlotId)}}
                 style={{width: '100%', height: 500}}
             >
-                <ins className="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-8997870404482178"
-                     data-ad-slot="2979854461"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
+                <ins
+                    className="adsbygoogle"
+                    data-ad-client="ca-pub-8997870404482178"
+                    data-ad-format="auto"
+                    data-ad-slot="2979854461"
+                    data-full-width-responsive="true"
+                    style={{display: 'block'}}
+                />
             </div>
         );
-
-
     }
 }
