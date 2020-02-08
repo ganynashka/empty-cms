@@ -3,8 +3,28 @@
 $page-transition-time: 1000ms;
 
 .main_content {
-    min-height: 100vh;
+    height: auto;
+    //min-height: 100vh;
+    //height: 100vh;
+    min-height: auto;
+
+    /*
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+    */
 }
+
+/*
+.main_content__min_height {
+    float: right;
+    width: 0;
+    display: block;
+    min-height: 1000px;
+}
+*/
 
 .transition_enter {
     opacity: 0;

@@ -8,9 +8,25 @@ $space-between-blocks: 20px;
 .article__wrapper {
     @extend %width-limit;
 
-    min-height: 100vh;
+    height: auto;
+
+    //min-height: 100vh;
+    min-height: auto;
     padding-bottom: $ui-unit * 3;
     padding-top: $ui-unit * 2;
+
+    &:after {
+        clear: both;
+        content: '';
+        display: block;
+    }
+}
+
+.article__wrapper__min_height {
+    display: block;
+    float: right;
+    min-height: 100vh;
+    width: 0;
 }
 
 .article__header {

@@ -20,11 +20,11 @@ export class AdSense extends Component<PropsType, StateType> {
         const {props} = this;
         const {location} = props;
 
-        // if (isCMS(location) || isDevelopment) {
-        //     return;
-        // }
+        if (isCMS(location) || isDevelopment) {
+            return;
+        }
 
-        // this.loadScript();
+        this.loadScript();
     }
 
     loadScript() {

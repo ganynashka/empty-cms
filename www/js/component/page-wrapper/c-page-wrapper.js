@@ -22,6 +22,7 @@ export function PageWrapper(props: PropsType): Array<Node> {
     return [
         <CMSHeaderWrapper key="cms-header-wrapper" location={location}/>,
         <main className={pageWrapperStyle.main_content} key="main">
+            {/* <div className={pageWrapperStyle.main_content__min_height}/>*/}
             {children}
         </main>,
         <Footer key="footer" location={location}/>,
