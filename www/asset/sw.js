@@ -13,7 +13,7 @@ type ServiceWorkerEvent = {
 };
 */
 
-const cacheName = 'my-pwa-cache-v.0045';
+const cacheName = 'my-pwa-cache-v.0046';
 
 async function makePreCache() {
     const cache = await caches.open(cacheName);
@@ -65,6 +65,8 @@ async function fetchCallBack(evt /*:: : ServiceWorkerEvent */) {
         || url.includes('/static/')
         || url.includes('/article/')
         || url === '/'
+        || url === 'https://skazki.land'
+        || url === 'https://skazki.land/'
     ) {
         evt.waitUntil(updateCache(evt));
         evt.respondWith(fetchRespondWith(evt));
