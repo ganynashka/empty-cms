@@ -13,12 +13,12 @@ type ServiceWorkerEvent = {
 };
 */
 
-const cacheName = 'my-pwa-cache-v.0044';
+const cacheName = 'my-pwa-cache-v.0045';
 
 async function makePreCache() {
     const cache = await caches.open(cacheName);
 
-    await cache.addAll(['https://skazki.land', 'https://skazki.land/api/get-initial-data?url=/&deep=1']);
+    await cache.addAll(['/', '/api/get-initial-data?url=/&deep=1']);
 }
 
 function installCallBack(evt /*:: : ServiceWorkerEvent */) {
@@ -64,6 +64,7 @@ async function fetchCallBack(evt /*:: : ServiceWorkerEvent */) {
         || url.includes('/api/get-initial-data')
         || url.includes('/static/')
         || url.includes('/article/')
+        || url === '/'
         || url === 'https://localhost/'
         || url === 'https://skazki.land/'
         || url === 'https://skazki.land'
