@@ -62,7 +62,7 @@ async function fetchCallBack(evt /*:: : ServiceWorkerEvent */) {
     const {log} = console;
 
     log('fetchCallBack - url is');
-    log(url);
+    log(url, url.length);
 
     if (
         url.includes('/api/get-resized-image')
