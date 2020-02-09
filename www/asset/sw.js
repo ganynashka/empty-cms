@@ -13,7 +13,7 @@ type ServiceWorkerEvent = {
 };
 */
 
-const cacheName = 'my-pwa-cache-v.0046';
+const cacheName = 'my-pwa-cache-v.0047';
 
 async function makePreCache() {
     const cache = await caches.open(cacheName);
@@ -58,6 +58,11 @@ async function fetchCallBack(evt /*:: : ServiceWorkerEvent */) {
     const {url} = request;
 
     // url.includes('/upload-file/') ||
+
+    const {log} = console;
+
+    log('fetchCallBack - url is');
+    log(url);
 
     if (
         url.includes('/api/get-resized-image')
