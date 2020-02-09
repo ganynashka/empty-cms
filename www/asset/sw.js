@@ -13,7 +13,7 @@ type ServiceWorkerEvent = {
 };
 */
 
-const cacheName = 'my-pwa-cache-v.0033';
+const cacheName = 'my-pwa-cache-v.0040';
 
 async function makePreCache() {
     const cache = await caches.open(cacheName);
@@ -52,11 +52,20 @@ async function fetchRespondWith(evt /*:: : ServiceWorkerEvent */) {
     });
 }
 
+// eslint-disable-next-line complexity
 async function fetchCallBack(evt /*:: : ServiceWorkerEvent */) {
     const {request} = evt;
     const {url} = request;
 
-    if (url.includes('/static/') || url === 'http://localhost:8081/') {
+    // url.includes('/upload-file/') ||
+
+    if (
+        url.includes('/api/')
+        || url.includes('/static/')
+        || url.includes('/article/')
+        || url === 'https://localhost/'
+        || url === 'https://skazki.land/'
+    ) {
         evt.waitUntil(updateCache(evt));
         evt.respondWith(fetchRespondWith(evt));
     }
