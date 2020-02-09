@@ -13,12 +13,12 @@ type ServiceWorkerEvent = {
 };
 */
 
-const cacheName = 'my-pwa-cache-v.0047';
+const cacheName = 'my-pwa-cache-v.0048';
 
 async function makePreCache() {
     const cache = await caches.open(cacheName);
 
-    await cache.addAll(['/', '/api/get-initial-data?url=/&deep=1']);
+    await cache.addAll(['/', '/api/get-initial-data?url=/&deep=1', '/favicon.ico']);
 }
 
 function installCallBack(evt /*:: : ServiceWorkerEvent */) {
@@ -57,18 +57,16 @@ async function fetchCallBack(evt /*:: : ServiceWorkerEvent */) {
     const {request} = evt;
     const {url} = request;
 
+    // example url - https://skazki.land/static/file/main-bg-b9dcc56.webp
+
     // url.includes('/upload-file/') ||
-
-    const {log} = console;
-
-    log('fetchCallBack - url is');
-    log(url, url.length);
 
     if (
         url.includes('/api/get-resized-image')
         || url.includes('/api/get-initial-data')
         || url.includes('/static/')
         || url.includes('/article/')
+        || url.includes('/manifest.json')
         || url === '/'
         || url === 'https://skazki.land'
         || url === 'https://skazki.land/'
