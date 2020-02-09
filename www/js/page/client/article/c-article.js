@@ -61,7 +61,7 @@ export class Article extends Component<PropsType, StateType> {
         const {article, container, downloadableImageList} = mongoDocumentTypeMap;
 
         if (article === type) {
-            return <SingleArticle initialContextData={initialContextData} screenContextData={screenContextData}/>;
+            return <SingleArticle initialContextData={initialContextData}/>;
         }
 
         if (container === type) {

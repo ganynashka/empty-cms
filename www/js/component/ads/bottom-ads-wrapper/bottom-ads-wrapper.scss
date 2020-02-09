@@ -1,0 +1,19 @@
+/* stylelint-disable selector-pseudo-class-no-unknown, selector-max-compound-selectors */
+
+@import './../../../../css/service';
+@import './../../../../css/var';
+
+.bottom_ads_wrapper__wrapper {
+    @extend %width-limit;
+
+    min-height: 100px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+:global .lt-tablet-width {
+    :local .bottom_ads_wrapper__wrapper {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

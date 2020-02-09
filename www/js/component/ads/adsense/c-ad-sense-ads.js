@@ -3,6 +3,7 @@
 /* global window */
 
 import React, {Component, type Node} from 'react';
+import classNames from 'classnames';
 
 import {googleAdSenseId} from '../../../const';
 // import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
@@ -11,6 +12,7 @@ import {googleAdSenseId} from '../../../const';
 
 type PropsType = {|
     +adSlotId: number,
+    +additionalClass?: string,
 |};
 
 type StateType = null;
@@ -32,15 +34,17 @@ export class AdSenseAds extends Component<PropsType, StateType> {
 
     render(): Node {
         const {props} = this;
-        const {adSlotId} = props;
+        const {adSlotId, additionalClass} = props;
 
         if (typeof window === 'undefined') {
             return null;
         }
 
+        const className = classNames('adsbygoogle', {[String(additionalClass)]: Boolean(additionalClass)});
+
         return (
             <ins
-                className="adsbygoogle"
+                className={className}
                 data-ad-client={googleAdSenseId}
                 data-ad-format="auto"
                 data-ad-slot={adSlotId}
