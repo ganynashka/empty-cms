@@ -13,12 +13,12 @@ type ServiceWorkerEvent = {
 };
 */
 
-const cacheName = 'my-pwa-cache-v.0040';
+const cacheName = 'my-pwa-cache-v.0042';
 
 async function makePreCache() {
     const cache = await caches.open(cacheName);
 
-    await cache.addAll(['/']);
+    await cache.addAll(['/', '/api/get-initial-data?url=/&deep=1']);
 }
 
 function installCallBack(evt /*:: : ServiceWorkerEvent */) {
@@ -60,7 +60,8 @@ async function fetchCallBack(evt /*:: : ServiceWorkerEvent */) {
     // url.includes('/upload-file/') ||
 
     if (
-        url.includes('/api/')
+        url.includes('/api/get-resized-image')
+        || url.includes('/api/get-initial-data')
         || url.includes('/static/')
         || url.includes('/article/')
         || url === 'https://localhost/'
