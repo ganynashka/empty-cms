@@ -65,9 +65,6 @@ async function fetchCallBack(evt /*:: : ServiceWorkerEvent */) {
         || url.includes('/static/')
         || url.includes('/article/')
         || url === '/'
-        || url === 'https://localhost/'
-        || url === 'https://skazki.land/'
-        || url === 'https://skazki.land'
     ) {
         evt.waitUntil(updateCache(evt));
         evt.respondWith(fetchRespondWith(evt));
