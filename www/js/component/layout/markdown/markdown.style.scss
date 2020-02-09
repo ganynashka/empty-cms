@@ -1,6 +1,6 @@
 // copy from https://markdown-it.github.io/
 
-/* stylelint-disable no-descending-specificity, selector-no-qualifying-type */
+/* stylelint-disable no-descending-specificity, selector-no-qualifying-type, selector-combinator-blacklist */
 
 .markdown_wrapper {
     display: block;
@@ -77,6 +77,22 @@
     p {
         font-size: 16px;
         margin: 0 0 10px;
+    }
+
+    details {
+        font-size: 16px;
+        margin: 0 0 10px;
+        padding: 8px 0;
+    }
+
+    p + details {
+        margin-top: -12px;
+    }
+
+    summary {
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 4px;
     }
 
     small {
