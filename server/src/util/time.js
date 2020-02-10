@@ -26,3 +26,16 @@ export function waitForTime(timeInMs: number): Promise<void> {
         setTimeout(resolve, timeInMs);
     });
 }
+
+export function waitForCallback(callBack: () => boolean): Promise<void> {
+    return new Promise<void>((resolve: () => void) => {
+        (function waiter() {
+            if (callBack()) {
+                resolve();
+                return;
+            }
+
+            setTimeout(waiter, 100);
+        })();
+    });
+}

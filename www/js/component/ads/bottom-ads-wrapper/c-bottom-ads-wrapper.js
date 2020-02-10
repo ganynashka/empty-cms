@@ -23,8 +23,9 @@ export class BottomAdsWrapper extends Component<PropsType, StateType> {
         const {screenContextData, initialContextData} = props;
 
         const {articlePathData} = initialContextData;
+        const {isWindowLoaded} = screenContextData;
 
-        if (!articlePathData) {
+        if (!articlePathData || !isWindowLoaded) {
             return null;
         }
 

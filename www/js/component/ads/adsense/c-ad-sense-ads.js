@@ -6,6 +6,8 @@ import React, {Component, type Node} from 'react';
 import classNames from 'classnames';
 
 import {googleAdSenseId} from '../../../const';
+import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
+import {waitForCallback} from '../../../../../server/src/util/time';
 // import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 
 // import adSenseStyle from './ad-sense.scss';
@@ -18,11 +20,11 @@ type PropsType = {|
 type StateType = null;
 
 export class AdSenseAds extends Component<PropsType, StateType> {
-    componentDidMount() {
+    async componentDidMount() {
         const {props} = this;
         const {adSlotId} = props;
 
-        window.adsbygoogle = window.adsbygoogle || [];
+        await waitForCallback((): boolean => Boolean(window.adsbygoogle));
 
         window.adsbygoogle.push({
             // eslint-disable-next-line camelcase, id-match
