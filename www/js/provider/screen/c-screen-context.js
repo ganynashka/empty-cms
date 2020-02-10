@@ -33,19 +33,30 @@ export class ScreenProvider extends Component<PropsType, StateType> {
 
     componentDidMount() {
         window.addEventListener('resize', this.handleResize, false);
+        window.addEventListener('load', this.handleWindowLoad, false);
     }
 
     handleResize = () => {
         const {state} = this;
         const {providedData} = state;
-        const {width, height} = providedData;
+        const {width, height, isWindowLoaded} = providedData;
         const screenState = getScreenState();
 
         if (screenState.width !== width || screenState.height !== height) {
             this.setState({
-                providedData: screenState,
+                providedData: {...screenState, isWindowLoaded},
             });
         }
+    };
+
+    handleWindowLoad = () => {
+        const screenState = getScreenState();
+
+        this.setState({
+            providedData: {...screenState, isWindowLoaded: true},
+        });
+
+        window.removeEventListener('load', this.handleWindowLoad, false);
     };
 
     getProviderValue(): ScreenContextType {

@@ -92,6 +92,7 @@ export function getScreenState(): ScreenContextType {
         isLandscape,
         isPortrait: !isLandscape,
         devicePixelRatio: getDevicePixelRatio(),
-        isLoaded: typeof window !== 'undefined',
+        isScriptLoaded: typeof window !== 'undefined',
+        isWindowLoaded: false,
     };
 }

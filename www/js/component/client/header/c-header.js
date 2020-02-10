@@ -388,12 +388,12 @@ export class Header extends Component<PropsType, StateType> {
     render(): Node {
         const {props} = this;
         const {location, screenContextData} = props;
-        const {isLoaded} = screenContextData;
+        const {isScriptLoaded} = screenContextData;
 
         if (isCMS(location)) {
             return null;
         }
 
-        return isLoaded ? this.renderClientSide() : this.renderServerSide();
+        return isScriptLoaded ? this.renderClientSide() : this.renderServerSide();
     }
 }

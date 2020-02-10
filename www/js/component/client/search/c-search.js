@@ -376,8 +376,8 @@ export class Search extends Component<PropsType, StateType> {
     render(): Node {
         const {props} = this;
         const {screenContextData} = props;
-        const {isLoaded} = screenContextData;
+        const {isScriptLoaded} = screenContextData;
 
-        return isLoaded ? this.renderClientSide() : this.renderServerSide();
+        return isScriptLoaded ? this.renderClientSide() : this.renderServerSide();
     }
 }

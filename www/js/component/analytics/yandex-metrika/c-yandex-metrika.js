@@ -2,8 +2,7 @@
 
 /* global window */
 
-import type {Node} from 'react';
-import React, {Component} from 'react';
+import React, {Component, type Node} from 'react';
 
 import {isDevelopment} from '../../../../../webpack/config';
 import {yandexMetrikaId} from '../../../const';

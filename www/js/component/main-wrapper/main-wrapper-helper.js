@@ -23,7 +23,7 @@ export function getMainWrapperClassName(
     screenContextData: ScreenContextType,
     initialContextData: InitialDataType
 ): string {
-    const {isLoaded} = screenContextData;
+    const {isScriptLoaded, isWindowLoaded} = screenContextData;
 
     const mainClassMap = {
         [mainWrapperStyle.main_wrapper]: true,
@@ -31,7 +31,8 @@ export function getMainWrapperClassName(
         [mainWrapperClassName.themeDark]: themeContextData.name === themeNameMap.dark,
         [mainWrapperClassName.landscape]: screenContextData.isLandscape,
         [mainWrapperClassName.portrait]: screenContextData.isPortrait,
-        [mainWrapperClassName.loaded]: isLoaded,
+        [mainWrapperClassName.scriptLoaded]: isScriptLoaded,
+        [mainWrapperClassName.windowLoaded]: isWindowLoaded,
         [mainWrapperClassName.localeEnUs]: localeContextData.name === localeNameReference.enUs,
         [mainWrapperClassName.localeRuRu]: localeContextData.name === localeNameReference.ruRu,
         [mainWrapperClassName.localeZhCh]: localeContextData.name === localeNameReference.zhCn,
@@ -46,7 +47,7 @@ export function getMainWrapperClassName(
         [mainWrapperClassName.ltDesktopWidth]: screenContextData.littleThenList.includes(screenNameReference.desktop),
     };
 
-    if (isLoaded) {
+    if (isScriptLoaded) {
         return classNames({...mainClassMap, ...deviceBrowserClassMap});
     }
 

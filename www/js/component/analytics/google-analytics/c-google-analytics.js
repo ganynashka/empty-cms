@@ -5,39 +5,33 @@
 
 /* global window */
 
-import type {Node} from 'react';
-import React, {Component} from 'react';
+import React, {Component, type Node} from 'react';
 
 import {isDevelopment} from '../../../../../webpack/config';
 import {googleAnalyticsId} from '../../../const';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 import {isCMS} from '../../../lib/url';
+import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 
 type PropsType = {
     +location: LocationType,
+    +screenContextData: ScreenContextType,
 };
 
 type StateType = null;
 
 export class GoogleAnalytics extends Component<PropsType, StateType> {
-    componentDidMount() {
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
         const {props} = this;
-        const {location} = props;
+        const {location, screenContextData} = props;
+        const currentPathName = location.pathname;
 
         if (isCMS(location) || isDevelopment) {
             return;
         }
 
-        this.loadScript();
-    }
-
-    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
-        const {props} = this;
-        const {location} = props;
-        const currentPathName = location.pathname;
-
-        if (isCMS(location) || isDevelopment) {
-            return;
+        if (screenContextData.isWindowLoaded !== prevProps.screenContextData.isWindowLoaded) {
+            this.loadScript();
         }
 
         if (currentPathName !== prevProps.location.pathname) {
