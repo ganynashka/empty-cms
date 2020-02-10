@@ -2,7 +2,13 @@
 
 /* global navigator */
 
+const {isDevelopment} = require('./../../../webpack/config');
+
 export function registerServiceWorker() {
+    if (isDevelopment) {
+        return;
+    }
+
     if (typeof navigator === 'undefined') {
         return;
     }
