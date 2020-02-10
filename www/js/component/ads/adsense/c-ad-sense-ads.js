@@ -6,11 +6,7 @@ import React, {Component, type Node} from 'react';
 import classNames from 'classnames';
 
 import {googleAdSenseId} from '../../../const';
-import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 import {waitForCallback} from '../../../../../server/src/util/time';
-// import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
-
-// import adSenseStyle from './ad-sense.scss';
 
 type PropsType = {|
     +adSlotId: number,

@@ -9,6 +9,8 @@ import {isCMS} from '../../../lib/url';
 import {isDevelopment} from '../../../../../webpack/config';
 import {googleAdSenseId} from '../../../const';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
+import {waitForTime} from '../../../../../server/src/util/time';
+import {promiseCatch} from '../../../lib/promise';
 
 type PropsType = {
     +location: LocationType,
@@ -27,7 +29,9 @@ export class AdSense extends Component<PropsType, StateType> {
         }
 
         if (screenContextData.isWindowLoaded !== prevProps.screenContextData.isWindowLoaded) {
-            this.loadScript();
+            waitForTime(3e3)
+                .then(this.loadScript)
+                .catch(promiseCatch);
         }
     }
 

@@ -35,7 +35,7 @@ export function waitForCallback(callBack: () => boolean): Promise<void> {
                 return;
             }
 
-            setTimeout(waiter, 100);
+            setTimeout(waiter, 1e3);
         })();
     });
 }

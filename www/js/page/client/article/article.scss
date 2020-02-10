@@ -9,7 +9,7 @@ $space-between-blocks: 20px;
     @extend %width-limit;
 
     height: auto;
-    min-height: 75vh;
+    min-height: 100vh;
     //min-height: auto;
     padding-bottom: $ui-unit * 3;
     padding-top: $ui-unit * 2;
