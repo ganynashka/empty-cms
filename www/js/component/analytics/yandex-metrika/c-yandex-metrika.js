@@ -8,23 +8,27 @@ import {isDevelopment} from '../../../../../webpack/config';
 import {yandexMetrikaId} from '../../../const';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 import {isCMS} from '../../../lib/url';
+import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 
 type PropsType = {
     +location: LocationType,
+    +screenContextData: ScreenContextType,
 };
 
 type StateType = null;
 
 export class YandexMetrika extends Component<PropsType, StateType> {
-    componentDidMount() {
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
         const {props} = this;
-        const {location} = props;
+        const {location, screenContextData} = props;
 
         if (isCMS(location) || isDevelopment) {
             return;
         }
 
-        this.loadScript();
+        if (screenContextData.isWindowLoaded !== prevProps.screenContextData.isWindowLoaded) {
+            this.loadScript();
+        }
     }
 
     loadScript() {
