@@ -24,6 +24,7 @@ import {addLoggingApi} from './part/logging-api';
 import {addPdfApi} from './part/pdf-api';
 
 const {isProduction} = require('./../../../webpack/config');
+// const isProduction = false;
 
 const MongoStore = connectMongo(session);
 

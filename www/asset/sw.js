@@ -1,6 +1,6 @@
 // @flow
 
-/* global self, caches, fetch */
+/* global self, caches, fetch, URL */
 
 /* eslint-disable spaced-comment, arrow-parens, flowtype/require-parameter-type, flowtype/require-return-type */
 
@@ -13,7 +13,7 @@ type ServiceWorkerEvent = {
 };
 */
 
-const cacheName = 'my-pwa-cache-v.0048';
+const cacheName = 'my-pwa-cache-v.0050';
 
 async function makePreCache() {
     const cache = await caches.open(cacheName);
@@ -52,25 +52,25 @@ async function fetchRespondWith(evt /*:: : ServiceWorkerEvent */) {
     });
 }
 
+const urlStartWithList = ['/api/get-resized-image', '/api/get-initial-data', '/static/', '/article/', '/manifest.json'];
+
+function isUrlStartWithListContainPathname(pathname /*:: : string */) /*:: : boolean */ {
+    return urlStartWithList.some((url /*:: : string */) /*:: : boolean */ => pathname.startsWith(url));
+}
+
 // eslint-disable-next-line complexity
 async function fetchCallBack(evt /*:: : ServiceWorkerEvent */) {
     const {request} = evt;
-    const {url} = request;
+    const {method, url} = request;
 
-    // example url - https://skazki.land/static/file/main-bg-b9dcc56.webp
+    if (method.toLowerCase() !== 'get') {
+        return;
+    }
 
-    // url.includes('/upload-file/') ||
+    const urlData = new URL(url);
+    const {pathname} = urlData;
 
-    if (
-        url.includes('/api/get-resized-image')
-        || url.includes('/api/get-initial-data')
-        || url.includes('/static/')
-        || url.includes('/article/')
-        || url.includes('/manifest.json')
-        || url === '/'
-        || url === 'https://skazki.land'
-        || url === 'https://skazki.land/'
-    ) {
+    if (isUrlStartWithListContainPathname(pathname) || pathname === '/') {
         evt.waitUntil(updateCache(evt));
         evt.respondWith(fetchRespondWith(evt));
     }
