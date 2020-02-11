@@ -1,7 +1,7 @@
 // @flow
 
 import {type $Application, type $Request, type $Response} from 'express';
-import htmlPdf from 'html-pdf';
+// import htmlPdf from 'html-pdf';
 
 import {pdfApiRouteMap} from '../api-route-map';
 import {isError} from '../../../../www/js/lib/is';
