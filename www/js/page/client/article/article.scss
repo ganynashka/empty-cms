@@ -10,17 +10,9 @@ $space-between-blocks: 20px;
 
     height: auto;
     min-height: 100vh;
-    //min-height: auto;
     padding-bottom: $ui-unit * 3;
     padding-top: $ui-unit * 2;
 }
-
-//.article__wrapper__min_height {
-//display: block;
-//float: right;
-//min-height: 100vh;
-//width: 0;
-//}
 
 .article__header {
     display: block;
