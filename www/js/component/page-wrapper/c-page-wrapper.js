@@ -9,6 +9,8 @@ import {BottomAdsWrapper} from '../ads/bottom-ads-wrapper/c-bottom-ads-wrapper';
 import type {ScreenContextType} from '../../provider/screen/screen-context-type';
 import type {InitialDataType} from '../../provider/intial-data/intial-data-type';
 
+import {FacebookShareButton} from '../share/facebook/c-facebook-share-button';
+
 import pageWrapperStyle from './page-wrapper.scss';
 
 type PropsType = {|
@@ -28,6 +30,7 @@ export function PageWrapper(props: PropsType): Array<Node> {
         <main className={pageWrapperStyle.main_content} key="main">
             {children}
         </main>,
+        // <FacebookShareButton key="facebook-share-button" location={location} screenContextData={screenContextData}/>,
         <BottomAdsWrapper
             initialContextData={initialContextData}
             key="bottom-ad-wrapper"
