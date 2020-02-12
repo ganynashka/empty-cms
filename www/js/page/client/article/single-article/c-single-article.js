@@ -8,10 +8,13 @@ import articleStyle from '../article.scss';
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
 import {SiblingList} from '../../../../component/layout/sibling-list/sibling-list';
 import {beautifyMarkDawn} from '../../../../lib/string';
+import {ShareButtonList} from '../../../../component/share/share-button-list/c-share-button-list';
+import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
 
 import singleArticleStyle from './single-article.scss';
 
 type PropsType = {|
+    +screenContextData: ScreenContextType,
     +initialContextData: InitialDataType,
 |};
 
@@ -60,7 +63,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
 
     render(): Node {
         const {props} = this;
-        const {initialContextData} = props;
+        const {initialContextData, screenContextData} = props;
         const {articlePathData, parentNodeList} = initialContextData;
 
         if (!articlePathData) {
@@ -75,6 +78,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
                 <h1 className={articleStyle.article__header}>{header}</h1>
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={beautifyMarkDawn(content)}/>
                 {this.renderAuthorList()}
+                <ShareButtonList screenContextData={screenContextData}/>
                 <SiblingList header={this.getSiblingListHeader()} initialContextData={initialContextData}/>
             </>
         );

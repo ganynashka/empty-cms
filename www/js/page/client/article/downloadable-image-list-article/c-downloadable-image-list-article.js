@@ -12,6 +12,7 @@ import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-bre
 import serviceStyle from '../../../../../css/service.scss';
 import {imageSrcToHtml} from '../../../../../../server/src/api/part/pdf-api-helper';
 import {SiblingList} from '../../../../component/layout/sibling-list/sibling-list';
+import {ShareButtonList} from '../../../../component/share/share-button-list/c-share-button-list';
 
 import imageListArticleStyle from './downloadable-image-list-article.scss';
 
@@ -119,7 +120,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
 
     render(): Node {
         const {props} = this;
-        const {initialContextData} = props;
+        const {initialContextData, screenContextData} = props;
         const {articlePathData, parentNodeList} = initialContextData;
 
         if (!articlePathData) {
@@ -136,6 +137,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
                     {imageList.map(this.renderDownloadableImage)}
                 </ul>
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={content}/>
+                <ShareButtonList screenContextData={screenContextData}/>
                 <SiblingList header="Смотрите также:" initialContextData={initialContextData}/>
                 {this.renderPrintableIFrame()}
             </>

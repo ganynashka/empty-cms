@@ -19,6 +19,8 @@ import {mongoSubDocumentsViewTypeMap} from '../../../../../../server/src/databas
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
 import {fileApiConst} from '../../../../../../server/src/api/part/file-api-const';
 import {promiseCatch} from '../../../../lib/promise';
+import {ShareButtonList} from '../../../../component/share/share-button-list/c-share-button-list';
+import singleArticleStyle from '../single-article/single-article.scss';
 
 type PropsType = {|
     +initialContextData: InitialDataType,
@@ -224,7 +226,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
 
     render(): Node {
         const {props, state} = this;
-        const {initialContextData} = props;
+        const {initialContextData, screenContextData} = props;
         const {articlePathData, parentNodeList} = initialContextData;
 
         if (!articlePathData) {
@@ -242,7 +244,8 @@ export class ContainerArticle extends Component<PropsType, StateType> {
                 <ul className={listClassName} ref={state.listRef}>
                     {subNodeList.sort(sortDocumentByAlphabet).map(this.renderSubNode)}
                 </ul>
-                <Markdown text={content}/>
+                <Markdown additionalClassName={singleArticleStyle.markdown} text={content}/>
+                <ShareButtonList screenContextData={screenContextData}/>
             </>
         );
     }

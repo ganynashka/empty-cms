@@ -32,6 +32,7 @@ $space-between-blocks: 20px;
 .article__list_audio {
     display: block;
     list-style: none;
+    padding-bottom: $ui-unit * 2;
 }
 
 .article__list_header {
@@ -39,6 +40,7 @@ $space-between-blocks: 20px;
     column-gap: $ui-unit * 4;
     column-rule: 1px solid $color-border;
     display: block;
+    padding-bottom: $ui-unit * 2;
 }
 
 .article__list_image_item {
