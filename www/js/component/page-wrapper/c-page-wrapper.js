@@ -30,7 +30,11 @@ export function PageWrapper(props: PropsType): Array<Node> {
         <main className={pageWrapperStyle.main_content} key="main">
             {children}
         </main>,
-        // <FacebookShareButton key="facebook-share-button" location={location} screenContextData={screenContextData}/>,
+        <FacebookShareButton
+            key={'facebook-share-button-' + location.pathname}
+            location={location}
+            screenContextData={screenContextData}
+        />,
         <BottomAdsWrapper
             initialContextData={initialContextData}
             key="bottom-ad-wrapper"

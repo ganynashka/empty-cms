@@ -23,12 +23,12 @@ export class FacebookShareButton extends Component<PropsType, StateType> {
         const {location, screenContextData} = props;
 
         if (isCMS(location) || isDevelopment) {
-            // return;
+            return;
         }
 
         if (
             screenContextData.isWindowLoaded !== prevProps.screenContextData.isWindowLoaded
-            || prevProps.screenContextData.isWindowLoaded
+            || screenContextData.isWindowLoaded
         ) {
             this.loadScript();
         }
@@ -46,11 +46,11 @@ export class FacebookShareButton extends Component<PropsType, StateType> {
             if (d.getElementById(id)) {
                 return;
             }
+
             const js = d.createElement(s);
 
             js.id = id;
-            js.src
-                = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v6.0&appId=151031658945087&autoLogAppEvents=1';
+            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0';
             // $FlowFixMe
             fjs.parentNode.insertBefore(js, fjs);
         })(document, 'script', 'facebook-jssdk');
@@ -70,35 +70,14 @@ export class FacebookShareButton extends Component<PropsType, StateType> {
         }
 
         return (
-            <div>
+            <>
                 {this.renderRootNode()}
                 <div
-                    // className="fb-share-button" data-href={hostingDomainName + location.pathname}
                     className="fb-share-button"
-                    data-href={'http://localhost' + location.pathname}
-                    data-layout="button"
-                    data-size="small"
-                >
-                    <a
-                        className="fb-xfbml-parse-ignore"
-                        href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                    >
-                        Поделиться
-                    </a>
-                </div>
-            </div>
+                    data-href={'https://' + hostingDomainName + location.pathname}
+                    data-layout="button_count"
+                />
+            </>
         );
-
-        /*
-                return (
-                    <div
-                        className="fb-share-button"
-                        data-href={hostingDomainName + location.pathname}
-                        data-layout="button_count"
-                    />
-                );
-        */
     }
 }
