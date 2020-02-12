@@ -6,17 +6,25 @@ import React, {Component, type Node} from 'react';
 import {InlineShareButtons} from 'sharethis-reactjs';
 
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
+import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 
 import shareButtonListStyle from './share-button-list.scss';
 
 type PropsType = {|
     +screenContextData: ScreenContextType,
+    +initialContextData: InitialDataType,
 |};
 
 export function ShareButtonList(props: PropsType): Node {
-    const {screenContextData} = props;
+    const {screenContextData, initialContextData} = props;
 
     if (!screenContextData.isWindowLoaded) {
+        return null;
+    }
+
+    const {openGraphData} = initialContextData;
+
+    if (!openGraphData) {
         return null;
     }
 
@@ -37,6 +45,11 @@ export function ShareButtonList(props: PropsType): Node {
                     // eslint-disable-next-line id-match, camelcase
                     show_total: false,
                     size: 40,
+
+                    url: openGraphData.url,
+                    image: openGraphData.image,
+                    description: openGraphData.description,
+                    title: openGraphData.title,
                 }}
             />
         </div>

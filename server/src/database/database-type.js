@@ -104,6 +104,7 @@ export type OpenGraphDataType = {|
     +image: string,
     +description: string,
     +locale: string,
+    +url: string,
 |};
 
 /*

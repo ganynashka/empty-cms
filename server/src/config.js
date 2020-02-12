@@ -18,3 +18,4 @@ export const staticFilesList: Array<string> = [
 
 export const hostingIpAddress = '134.209.235.147';
 export const hostingDomainName = 'skazki.land';
+export const protocolHostingDomainName = 'https://' + hostingDomainName;

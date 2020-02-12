@@ -2,6 +2,7 @@
 
 import {deviceTypeNameMap} from '../../../../server/src/util/device/device-const';
 import type {OpenGraphDataType} from '../../../../server/src/database/database-type';
+import {protocolHostingDomainName} from '../../../../server/src/config';
 
 import {type InitialDataType} from './intial-data-type';
 
@@ -19,6 +20,7 @@ export const defaultOpenGraphData: OpenGraphDataType = {
     image: faviconPngFileName,
     description: '',
     locale: 'ru_RU',
+    url: protocolHostingDomainName,
 };
 
 export const defaultInitialData: InitialDataType = {

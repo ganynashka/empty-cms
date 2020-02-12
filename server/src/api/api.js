@@ -12,7 +12,7 @@ import helmet from 'helmet';
 
 import {dataBaseConst} from '../database/database-const';
 import {passwordKey, sessionKey} from '../../key/key';
-import {hostingDomainName, hostingIpAddress} from '../config';
+import {hostingDomainName, hostingIpAddress, protocolHostingDomainName} from '../config';
 
 import {addUserApi} from './part/user-api';
 import {addDocumentApi} from './part/document-api';
@@ -63,7 +63,7 @@ export function addApiIntoApplication(app: $Application) {
             const {hostname} = request;
 
             if (hostname !== hostingDomainName && hostname !== hostingIpAddress) {
-                response.redirect(301, 'https://' + hostingDomainName + request.url);
+                response.redirect(301, protocolHostingDomainName + request.url);
                 return;
             }
 

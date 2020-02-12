@@ -137,7 +137,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
                     {imageList.map(this.renderDownloadableImage)}
                 </ul>
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={content}/>
-                <ShareButtonList screenContextData={screenContextData}/>
+                <ShareButtonList initialContextData={initialContextData} screenContextData={screenContextData}/>
                 <SiblingList header="Смотрите также:" initialContextData={initialContextData}/>
                 {this.renderPrintableIFrame()}
             </>

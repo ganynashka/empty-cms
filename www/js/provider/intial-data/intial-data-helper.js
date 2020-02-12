@@ -19,7 +19,8 @@ import {sharpKernelResizeNameMap} from '../../page/cms/file/file-api';
 import {getArticlePathDataMemoized} from '../../../../server/src/api/part/document-api-helper-get-article-path-data';
 import {getRootPathDataMemoized} from '../../../../server/src/api/part/document-api-helper-get-root-path-data';
 import {getHeaderDataMemoized} from '../../../../server/src/api/part/document-api-helper-get-header-data';
-import {hostingDomainName} from '../../../../server/src/config';
+import {protocolHostingDomainName} from '../../../../server/src/config';
+import {rootDocumentSlug} from '../../../../server/src/api/part/document-api-const';
 
 import {defaultInitialData, defaultOpenGraphData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';
@@ -120,8 +121,7 @@ function getOpenGraphImagPathData(mongoDocument: MongoDocumentType): string {
     const src = image || defaultOpenGraphData.image;
 
     return (
-        'https://'
-        + hostingDomainName
+        protocolHostingDomainName
         + getResizedImageSrc({
             src,
             width: size,
@@ -148,6 +148,8 @@ export function getOpenGraphData(mongoDocument: MongoDocumentType): OpenGraphDat
     const {header} = mongoDocument;
     const title = header || defaultOpenGraphData.title;
     const type = defaultOpenGraphData.type;
+    const {slug} = mongoDocument;
+    const pathname = slug === rootDocumentSlug ? '/' : getLinkToReadArticle(slug);
 
     return {
         title,
@@ -155,6 +157,7 @@ export function getOpenGraphData(mongoDocument: MongoDocumentType): OpenGraphDat
         image: getOpenGraphImagPathData(mongoDocument),
         description: getOpenGraphDescriptionData(mongoDocument),
         locale: defaultOpenGraphData.locale,
+        url: protocolHostingDomainName + pathname,
     };
 }
 

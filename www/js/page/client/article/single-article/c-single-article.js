@@ -78,7 +78,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
                 <h1 className={articleStyle.article__header}>{header}</h1>
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={beautifyMarkDawn(content)}/>
                 {this.renderAuthorList()}
-                <ShareButtonList screenContextData={screenContextData}/>
+                <ShareButtonList initialContextData={initialContextData} screenContextData={screenContextData}/>
                 <SiblingList header={this.getSiblingListHeader()} initialContextData={initialContextData}/>
             </>
         );

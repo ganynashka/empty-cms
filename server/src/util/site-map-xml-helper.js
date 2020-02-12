@@ -7,7 +7,7 @@ import fileSystem from 'fs';
 
 import type {MongoDocumentType} from '../database/database-type';
 import {rootDocumentSlug} from '../api/part/document-api-const';
-import {hostingDomainName} from '../config';
+import {hostingDomainName, protocolHostingDomainName} from '../config';
 import {getLinkToReadArticle} from '../../../www/js/lib/string';
 import {isError} from '../../../www/js/lib/is';
 import {pathToDist} from '../../../webpack/config';
@@ -23,10 +23,10 @@ function getLocTagContent(mongoDocument: MongoDocumentType): string {
     const {slug} = mongoDocument;
 
     if (slug === rootDocumentSlug) {
-        return 'https://' + hostingDomainName + '/';
+        return protocolHostingDomainName + '/';
     }
 
-    return 'https://' + hostingDomainName + getLinkToReadArticle(slug);
+    return protocolHostingDomainName + getLinkToReadArticle(slug);
 }
 
 function getLastmodTagContent(mongoDocument: MongoDocumentType): string {

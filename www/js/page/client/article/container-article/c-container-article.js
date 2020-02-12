@@ -245,7 +245,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
                     {subNodeList.sort(sortDocumentByAlphabet).map(this.renderSubNode)}
                 </ul>
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={content}/>
-                <ShareButtonList screenContextData={screenContextData}/>
+                <ShareButtonList initialContextData={initialContextData} screenContextData={screenContextData}/>
             </>
         );
     }
