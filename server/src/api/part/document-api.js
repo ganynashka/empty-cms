@@ -523,9 +523,27 @@ export function addDocumentApi(app: $Application) {
             }
 
             const slugTitleList = documentList.map((documentInList: MongoDocumentType): MongoDocumentShortDataType => {
-                const {slug, type, header, titleImage, subDocumentSlugList, imageList, isActive} = documentInList;
+                const {
+                    slug,
+                    type,
+                    header,
+                    titleImage,
+                    subDocumentSlugList,
+                    imageList,
+                    isActive,
+                    content,
+                } = documentInList;
 
-                return {slug, type, header, titleImage, subDocumentSlugList, imageList, isActive};
+                return {
+                    slug,
+                    type,
+                    header,
+                    titleImage,
+                    subDocumentSlugList,
+                    imageList,
+                    isActive,
+                    contentLength: content.length,
+                };
             });
 
             response.json(slugTitleList);

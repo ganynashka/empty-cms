@@ -179,7 +179,7 @@ export function getOpenGraphMetaString(openGraphData: OpenGraphDataType): string
 }
 
 export function documentToShortData(mongoDocument: MongoDocumentType): MongoDocumentShortDataType {
-    const {slug, type, header, titleImage, subDocumentSlugList, imageList, isActive} = mongoDocument;
+    const {slug, type, header, titleImage, subDocumentSlugList, imageList, isActive, content} = mongoDocument;
 
     return {
         slug,
@@ -189,5 +189,6 @@ export function documentToShortData(mongoDocument: MongoDocumentType): MongoDocu
         subDocumentSlugList,
         imageList,
         isActive,
+        contentLength: content.length,
     };
 }

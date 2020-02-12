@@ -42,6 +42,7 @@ export async function getSiblingLinkDataList(slug: string): Promise<Array<MongoD
                     subDocumentSlugList: documentInList.subDocumentSlugList,
                     imageList: documentInList.imageList,
                     isActive: documentInList.isActive,
+                    contentLength: documentInList.content.length,
                 });
             });
 

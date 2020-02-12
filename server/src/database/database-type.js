@@ -88,6 +88,7 @@ export type MongoDocumentShortDataType = {|
     +subDocumentSlugList: Array<string>,
     +imageList: Array<string>,
     +isActive: boolean,
+    +contentLength: number,
 |};
 
 /*
