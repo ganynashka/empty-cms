@@ -41,7 +41,7 @@
 
                     .expl {
                         margin: 10px 3px;
-                        line-height: 1.3em;
+                        line-height: 1.4em;
                     }
 
                     .expl a {
