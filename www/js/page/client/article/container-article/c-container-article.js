@@ -100,10 +100,11 @@ export class ContainerArticle extends Component<PropsType, StateType> {
 
         // 16 - reading speed, letters  per seconds
         const lettersPerSecond = 16;
-        const fullTime = Math.round(contentLength / lettersPerSecond);
+        const gapInSeconds = 15;
+        const fullTime = Math.round(contentLength / lettersPerSecond) + gapInSeconds;
 
         const minutes = Math.floor(fullTime / 60);
-        const seconds = Math.floor(fullTime % 60 / 15) * 15;
+        const seconds = Math.floor(fullTime % 60 / gapInSeconds) * gapInSeconds;
 
         return (
             <p className={articleStyle.article__list_label_item}>
