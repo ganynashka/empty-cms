@@ -86,9 +86,15 @@ export class ContainerArticle extends Component<PropsType, StateType> {
     }
 
     renderArticleTimeToRead(subNode: MongoDocumentShortDataType): Node {
-        const {type, contentLength} = subNode;
+        const {type, contentLength, imageList} = subNode;
 
         if (type !== mongoDocumentTypeMap.article) {
+            return null;
+        }
+
+        const firstFileName = imageList[0] || '';
+
+        if (firstFileName.endsWith('.mp3')) {
             return null;
         }
 
