@@ -1,5 +1,7 @@
 // copy from https://markdown-it.github.io/
 
+@import './../../../../css/var';
+
 /* stylelint-disable no-descending-specificity, selector-no-qualifying-type, selector-combinator-blacklist */
 
 .markdown_wrapper {
@@ -182,7 +184,7 @@
     kbd,
     pre,
     samp {
-        font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+        font-family: $main-monospace-font-family;
     }
 
     code {

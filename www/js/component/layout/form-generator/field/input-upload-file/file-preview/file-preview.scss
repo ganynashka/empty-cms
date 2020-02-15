@@ -30,7 +30,7 @@ $file-preview-height: 256px;
 .file__mime_type {
     color: #fff;
     display: block;
-    font-family: monospace;
+    font-family: $main-monospace-font-family;
     font-size: 14px;
     padding: 16px;
 }

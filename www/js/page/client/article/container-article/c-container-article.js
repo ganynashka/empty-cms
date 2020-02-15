@@ -15,7 +15,7 @@ import articleStyle from '../article.scss';
 import {getResizedImageSrc} from '../../../../lib/url';
 import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
 import {ImagePreview} from '../../../../component/layout/image-preview/c-image-preview';
-import {mongoSubDocumentsViewTypeMap} from '../../../../../../server/src/database/database-type';
+import {mongoDocumentTypeMap, mongoSubDocumentsViewTypeMap} from '../../../../../../server/src/database/database-type';
 import {BreadcrumbList} from '../../../../component/layout/breadcrumb-list/c-breadcrumb-list';
 import {fileApiConst} from '../../../../../../server/src/api/part/file-api-const';
 import {promiseCatch} from '../../../../lib/promise';
@@ -80,7 +80,29 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         return (
             <li className={articleStyle.article__list_image_item} key={slug}>
                 <ImagePreview image={imageData} link={{to: getLinkToReadArticle(slug)}}/>
+                {this.renderArticleTimeToRead(subNode)}
             </li>
+        );
+    }
+
+    renderArticleTimeToRead(subNode: MongoDocumentShortDataType): Node {
+        const {type, contentLength} = subNode;
+
+        if (type !== mongoDocumentTypeMap.article) {
+            return null;
+        }
+
+        // 16 - reading speed, letters  per seconds
+        const lettersPerSecond = 16;
+        const fullTime = Math.round(contentLength / lettersPerSecond);
+
+        const minutes = Math.floor(fullTime / 60);
+        const seconds = Math.floor(fullTime % 60 / 15) * 15;
+
+        return (
+            <p className={articleStyle.article__list_label_item}>
+                {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
+            </p>
         );
     }
 

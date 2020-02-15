@@ -57,6 +57,20 @@ $space-between-blocks: 20px;
     }
 }
 
+.article__list_label_item {
+    background-color: rgba(0, 0, 0, 0.55);
+    border-radius: 0 5px;
+    color: #fff;
+    font-family: $main-monospace-font-family;
+    font-size: 14px;
+    line-height: $main-line-height;
+    padding: 4px 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+
 .article__list_audio_item {
     align-items: center;
     display: flex;
