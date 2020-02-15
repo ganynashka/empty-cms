@@ -7,6 +7,7 @@ import React, {Component, type Node} from 'react';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 import type {InitialDataType} from '../../intial-data/intial-data-type';
 import type {PromiseResolveType} from '../../../lib/promise';
+import {debounce} from '../../../lib/decorator';
 
 type PropsType = {
     +location: LocationType,
@@ -25,20 +26,12 @@ export class ScrollRestoration extends Component<PropsType, StateType> {
 
         this.restoreScrollTopPosition(pathname);
 
+        window.addEventListener('scroll', debounce<() => void>(this.saveScrollTopPosition, 150), {
+            capture: false,
+            passive: true,
+        });
+
         console.log('---> ScrollRestoration did MOUNT');
-    }
-
-    shouldComponentUpdate(nextProps: PropsType): true {
-        const {props} = this;
-        const {location} = props;
-        const {pathname} = location;
-        const {scrollTop} = window.document.documentElement;
-
-        if (nextProps.location.pathname !== location.pathname) {
-            this.saveScrollTopPosition(pathname, scrollTop);
-        }
-
-        return true;
     }
 
     componentDidUpdate(prevProps: PropsType) {
@@ -51,9 +44,14 @@ export class ScrollRestoration extends Component<PropsType, StateType> {
         }
     }
 
-    saveScrollTopPosition(pathname: string, scrollTop: number) {
+    saveScrollTopPosition = () => {
+        const {props} = this;
+        const {location} = props;
+        const {pathname} = location;
+        const {scrollTop} = window.document.documentElement;
+
         sessionStorage.setItem(storageKeyPrefix + pathname, String(scrollTop));
-    }
+    };
 
     restoreScrollTopPosition(pathname: string): Promise<void> {
         const scrollTop = parseInt(sessionStorage.getItem(storageKeyPrefix + pathname), 10) || 0;

@@ -34,7 +34,10 @@ export class ScreenProvider extends Component<PropsType, StateType> {
     }
 
     componentDidMount() {
-        window.addEventListener('resize', debounce<() => void>(this.handleResize, 150), false);
+        window.addEventListener('resize', debounce<() => void>(this.handleResize, 150), {
+            capture: false,
+            passive: true,
+        });
         window.addEventListener('load', this.handleWindowLoad, false);
     }
 
