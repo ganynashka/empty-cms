@@ -4,6 +4,8 @@
 
 import React, {Component, type Node} from 'react';
 
+import {debounce} from '../../lib/decorator';
+
 import type {ScreenContextType} from './screen-context-type';
 import {getScreenState} from './screen-context-helper';
 
@@ -32,7 +34,7 @@ export class ScreenProvider extends Component<PropsType, StateType> {
     }
 
     componentDidMount() {
-        window.addEventListener('resize', this.handleResize, false);
+        window.addEventListener('resize', debounce<() => void>(this.handleResize, 150), false);
         window.addEventListener('load', this.handleWindowLoad, false);
     }
 
