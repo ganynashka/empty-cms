@@ -6,72 +6,104 @@ import {hasProperty, isString} from './is';
 
 const cyrillicToLatinMap = {
     /* eslint-disable id-length, id-match */
-    Ё: 'YO',
-    Й: 'I',
-    Ц: 'TS',
-    У: 'U',
-    К: 'K',
-    Е: 'E',
-    Н: 'N',
-    Г: 'G',
-    Ш: 'SH',
-    Щ: 'SCH',
-    З: 'Z',
-    Х: 'H',
-    Ъ: '\'',
-    ё: 'yo',
-    й: 'i',
-    ц: 'ts',
-    у: 'u',
-    к: 'k',
-    е: 'e',
-    н: 'n',
-    г: 'g',
-    ш: 'sh',
-    щ: 'sch',
-    з: 'z',
-    х: 'h',
-    ъ: '\'',
-    Ф: 'F',
-    Ы: 'I',
-    В: 'V',
-    А: 'a',
-    П: 'P',
-    Р: 'R',
-    О: 'O',
-    Л: 'L',
-    Д: 'D',
-    Ж: 'ZH',
-    Э: 'E',
-    ф: 'f',
-    ы: 'i',
-    в: 'v',
     а: 'a',
-    п: 'p',
-    р: 'r',
-    о: 'o',
-    л: 'l',
-    д: 'd',
-    ж: 'zh',
-    э: 'e',
-    Я: 'Ya',
-    Ч: 'CH',
-    С: 'S',
-    М: 'M',
-    И: 'I',
-    Т: 'T',
-    Ь: '\'',
-    Б: 'B',
-    Ю: 'YU',
-    я: 'ya',
-    ч: 'ch',
-    с: 's',
-    м: 'm',
-    и: 'i',
-    т: 't',
-    ь: '\'',
+    А: 'a',
+
     б: 'b',
+    Б: 'B',
+
+    в: 'v',
+    В: 'V',
+
+    г: 'g',
+    Г: 'G',
+
+    д: 'd',
+    Д: 'D',
+
+    е: 'e',
+    Е: 'E',
+
+    ё: 'yo',
+    Ё: 'YO',
+
+    ж: 'zh',
+    Ж: 'ZH',
+
+    з: 'z',
+    З: 'Z',
+
+    и: 'i',
+    И: 'I',
+
+    й: 'i',
+    Й: 'I',
+
+    к: 'k',
+    К: 'K',
+
+    л: 'l',
+    Л: 'L',
+
+    м: 'm',
+    М: 'M',
+
+    н: 'n',
+    Н: 'N',
+
+    о: 'o',
+    О: 'O',
+
+    П: 'P',
+    п: 'p',
+
+    р: 'r',
+    Р: 'R',
+
+    с: 's',
+    С: 'S',
+
+    т: 't',
+    Т: 'T',
+
+    у: 'u',
+    У: 'U',
+
+    ф: 'f',
+    Ф: 'F',
+
+    х: 'h',
+    Х: 'H',
+
+    ц: 'ts',
+    Ц: 'TS',
+
+    ч: 'ch',
+    Ч: 'CH',
+
+    ш: 'sh',
+    Ш: 'SH',
+
+    щ: 'sch',
+    Щ: 'SCH',
+
+    Ъ: '\'',
+    ъ: '\'',
+
+    ы: 'i',
+    Ы: 'I',
+
+    ь: '\'',
+    Ь: '\'',
+
+    э: 'e',
+    Э: 'E',
+
     ю: 'yu',
+    Ю: 'YU',
+
+    я: 'ya',
+    Я: 'Ya',
     /* eslint-enable id-length, id-match */
 };
 
@@ -95,7 +127,17 @@ export function getSlug(text: string): string {
         .trim()
         .toLowerCase()
         .split('')
-        .map<string>((char: string): string => /\d|\w/.test(char) ? char : '-')
+        .map<string>((char: string): string => {
+            if (/\d|\w/.test(char)) {
+                return char;
+            }
+
+            if (char === '\'') {
+                return '';
+            }
+
+            return '-';
+        })
         .join('')
         .replace(/-+/gi, '-')
         .replace(/^-+/gi, '')
