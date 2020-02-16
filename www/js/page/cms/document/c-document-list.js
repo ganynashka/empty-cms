@@ -58,10 +58,9 @@ async function enhancedTableGetDocumentList(
             } = documentData;
 
             return {
-                id: <Link to={getLinkToEditArticle(id)}>{id}</Link>,
-                slug: <Link to={getLinkToReadArticle(slug)}>{slug}</Link>,
+                slug: <Link to={getLinkToEditArticle(id)}>{slug}</Link>,
                 type,
-                header,
+                header: <Link to={getLinkToReadArticle(slug)}>{header}</Link>,
                 titleImage: Boolean(titleImage),
                 rating,
                 isActive,
@@ -80,7 +79,6 @@ const enhancedTableHeader = {
     header: 'Document list',
     rowList: [
         {id: 'header', align: 'left', label: 'Header', hasSort: true},
-        {id: 'id', align: 'left', label: 'Id', hasSort: true},
         {id: 'slug', align: 'left', label: 'Slug', hasSort: true},
         {id: 'type', align: 'left', label: 'Type', hasSort: true},
         {id: 'titleImage', align: 'left', label: 'Has title image', hasSort: true},
