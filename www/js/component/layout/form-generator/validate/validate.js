@@ -4,6 +4,9 @@
 
 import type {FormGeneratorFormDataType, FromGeneratorInputValueType} from '../form-generator-type';
 import {isBoolean, isNull, isNumber, isString} from '../../../../lib/is';
+import {getSlug} from '../../../../lib/string';
+
+const errorMessageFieldRequired = 'Required field!';
 
 export function noValidate(
     name: string,
@@ -19,8 +22,7 @@ export function getIsRequired(
     value: FromGeneratorInputValueType,
     formData: FormGeneratorFormDataType
 ): Array<Error> {
-    const errorMessage = 'Required field!';
-    const requiredErrorList = [new Error(errorMessage)];
+    const requiredErrorList = [new Error(errorMessageFieldRequired)];
 
     if (isString(value)) {
         return value === '' ? requiredErrorList : [];
@@ -68,4 +70,28 @@ export function isValidHTml(
     }
 
     return [new Error('HTML is not valid')];
+}
+
+export function validateSlug(
+    name: string,
+    value: FromGeneratorInputValueType,
+    formData: FormGeneratorFormDataType
+): Array<Error> {
+    if (!value) {
+        return [new Error(errorMessageFieldRequired)];
+    }
+
+    if (!isString(value)) {
+        return [new Error('slug support string only')];
+    }
+
+    if (!value.trim()) {
+        return [new Error(errorMessageFieldRequired)];
+    }
+
+    if (value !== getSlug(value)) {
+        return [new Error('Invalid slug!')];
+    }
+
+    return [];
 }

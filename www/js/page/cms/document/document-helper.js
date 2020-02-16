@@ -12,7 +12,12 @@ import type {
     FromGeneratorInputValueType,
 } from '../../../component/layout/form-generator/form-generator-type';
 import {InputText} from '../../../component/layout/form-generator/field/input-text/c-input-text';
-import {getIsRequired, isValidHTml, noValidate} from '../../../component/layout/form-generator/validate/validate';
+import {
+    getIsRequired,
+    isValidHTml,
+    noValidate,
+    validateSlug,
+} from '../../../component/layout/form-generator/validate/validate';
 import {InputSelect} from '../../../component/layout/form-generator/field/input-select/c-input-select';
 import {InputMarkdown} from '../../../component/layout/form-generator/field/input-markdown/c-input-markdown';
 import {InputIntNumber} from '../../../component/layout/form-generator/field/input-int-number/c-input-int-number';
@@ -123,10 +128,10 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                     {
                         name: 'slug',
                         fieldComponent: InputText,
-                        validate: getIsRequired,
+                        validate: validateSlug,
                         defaultValue: '',
                         placeholder: 'the-uniq-slug-of-document',
-                        labelText: 'Slug (end of url) *',
+                        labelText: 'Slug (end of url), support alphabet, numbers and \'-\'  *',
                     },
                     {
                         name: 'header',
