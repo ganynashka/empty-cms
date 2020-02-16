@@ -524,6 +524,7 @@ export function addDocumentApi(app: $Application) {
 
             const slugTitleList = documentList.map((documentInList: MongoDocumentType): MongoDocumentShortDataType => {
                 const {
+                    id,
                     slug,
                     type,
                     header,
@@ -535,6 +536,7 @@ export function addDocumentApi(app: $Application) {
                 } = documentInList;
 
                 return {
+                    id,
                     slug,
                     type,
                     header,

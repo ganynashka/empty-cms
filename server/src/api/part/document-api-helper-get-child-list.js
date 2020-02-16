@@ -35,6 +35,7 @@ export async function getSiblingLinkDataList(slug: string): Promise<Array<MongoD
                 }
 
                 filteredDocumentList.push({
+                    id: documentInList.id,
                     slug: documentInList.slug,
                     type: documentInList.type,
                     header: documentInList.header,

@@ -38,6 +38,7 @@ export const mongoSubDocumentsViewTypeMap = {
 
 export type MongoDocumentType = {|
     +_id?: mixed,
+    +id: string,
     +slug: string,
     +titleImage: string,
     +type: MongoDocumentTypeType,
@@ -63,6 +64,7 @@ export type MongoDocumentType = {|
 |};
 
 export type MongoDocumentTreeNodeType = {|
+    +id: string,
     +slug: string,
     +titleImage: string,
     +type: MongoDocumentTypeType,
@@ -82,6 +84,7 @@ export type MongoDocumentTreeNodeType = {|
 |};
 
 export type MongoDocumentShortDataType = {|
+    +id: string,
     +slug: string,
     +type: MongoDocumentTypeType,
     +header: string,

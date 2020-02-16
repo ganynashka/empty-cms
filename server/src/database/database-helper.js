@@ -63,7 +63,6 @@ export function getSortDirection(value: mixed): MongoSortDirectionType {
     return sortNumber >= 0 ? 1 : -1;
 }
 
-/*
 async function updateUserType() {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
 
@@ -83,13 +82,18 @@ async function updateUserType() {
 
         itemList.forEach((item: MongoDocumentType) => {
             console.log('---> item');
-            console.log(item);
+            // console.log(item);
+            //
+            const {title, slug, id} = item;
 
-            const {title, slug} = item;
+            console.log(title, slug, id);
 
-            console.log(title, slug);
+            if (id) {
+                // console.log('already has id', title, slug, id);
+                return;
+            }
 
-            // collection.updateOne({slug}, {$unset: {imageList: null}}, {});
+            // collection.updateOne({slug}, {$set: {id: 'id-for-' + slug}}, {});
         });
     });
 
@@ -102,4 +106,3 @@ async function updateUserType() {
 }
 
 updateUserType();
-*/

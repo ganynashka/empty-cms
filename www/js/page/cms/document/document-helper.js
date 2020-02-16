@@ -79,6 +79,7 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
     }
 
     return {
+        id: slug + '-' + Date.now(),
         slug,
         titleImage: String(documentFormData.titleImage || ''),
         type: documentFormData.type,

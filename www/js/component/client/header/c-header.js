@@ -96,6 +96,7 @@ export class Header extends Component<PropsType, StateType> {
             is404: false,
             articlePathData: {
                 mongoDocument: {
+                    id: String(Date.now()),
                     slug:
                         location.pathname
                             .split('/')

@@ -105,6 +105,7 @@ export async function convertJsonToDocument(jsonDocument: JsonToMongoDocumentTyp
     const slug = getSlug(jsonDocument.header);
 
     const newDocument: MongoDocumentType = {
+        id: slug + '-' + Math.random() + '-' + date,
         slug,
         titleImage: '',
         type: mongoDocumentTypeMap.article,
