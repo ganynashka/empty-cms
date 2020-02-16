@@ -161,9 +161,9 @@ export function addDocumentApi(app: $Application) {
 
         const newDocument: MongoDocumentType = {
             ...mongoDocument,
-            id: getPasswordSha256(JSON.stringify(mongoDocument) + date + Math.random()),
-            createdDate: date,
+            id: getPasswordSha256(JSON.stringify(mongoDocument) + '-' + String(date) + '-' + Math.random()),
             updatedDate: date,
+            createdDate: date,
         };
 
         await collection.insertOne(newDocument);
@@ -239,9 +239,9 @@ export function addDocumentApi(app: $Application) {
 
         const {id} = mongoDocument;
 
-        const existedDocumentById = await collection.findOne({id});
+        const existedDocument = await collection.findOne({id});
 
-        if (!existedDocumentById) {
+        if (!existedDocument) {
             response.status(400);
             response.json({isSuccessful: false, errorList: [`Document with id: '${id}' is NOT exists.`]});
             return;
@@ -251,6 +251,8 @@ export function addDocumentApi(app: $Application) {
 
         const newDocument: MongoDocumentType = {
             ...mongoDocument,
+            id: existedDocument.id,
+            createdDate: existedDocument.createdDate,
             updatedDate: date,
         };
 
