@@ -69,7 +69,7 @@ export async function getOrphanList(): Promise<Array<MongoDocumentType> | Error>
 
             const orphanList = documentList.filter((orphanDocument: MongoDocumentType): boolean => {
                 return documentList.every((mongoDocument: MongoDocumentType): boolean => {
-                    return !mongoDocument.subDocumentSlugList.includes(orphanDocument.slug);
+                    return !mongoDocument.subDocumentIdList.includes(orphanDocument.id);
                 });
             });
 
