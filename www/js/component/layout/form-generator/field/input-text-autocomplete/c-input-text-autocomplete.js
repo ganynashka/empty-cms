@@ -7,6 +7,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 import type {FieldAutocompleteDataType, InputComponentPropsType} from '../../form-generator-type';
 import {isError, isFunction, isString} from '../../../../../lib/is';
+import fieldStyle from '../field.scss';
 
 type PropsType = InputComponentPropsType;
 type StateType = {|
@@ -112,18 +113,22 @@ export class InputTextAutocomplete extends Component<PropsType, StateType> {
     render(): Node {
         const {props, state} = this;
         const {dataList} = state;
+        const {labelText} = props;
 
         return (
-            <Autocomplete
-                defaultValue={this.getDefaultValue()}
-                getOptionLabel={this.getOptionLabel}
-                key={dataList ? 'ready' : 'pending'}
-                multiple
-                onChange={this.handleChange}
-                options={dataList}
-                renderInput={this.renderInput}
-                renderTags={this.renderTagList}
-            />
+            <div className={fieldStyle.form__label_wrapper}>
+                <span className={fieldStyle.form__label_description}>{labelText}</span>
+                <Autocomplete
+                    defaultValue={this.getDefaultValue()}
+                    getOptionLabel={this.getOptionLabel}
+                    key={dataList ? 'ready' : 'pending'}
+                    multiple
+                    onChange={this.handleChange}
+                    options={dataList}
+                    renderInput={this.renderInput}
+                    renderTags={this.renderTagList}
+                />
+            </div>
         );
     }
 }

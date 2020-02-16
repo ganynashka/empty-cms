@@ -13,7 +13,7 @@ import type {
 } from '../../../component/layout/table/enhanced-table/enhanced-table-type';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 import {isError} from '../../../lib/is';
-import {getLinkToEditArticle} from '../../../lib/string';
+import {getLinkToEditArticle, getLinkToReadArticle} from '../../../lib/string';
 
 import {getDocumentList, getDocumentListSize} from './document-api';
 import {RemoveDocument} from './c-document-remove-button';
@@ -44,6 +44,7 @@ async function enhancedTableGetDocumentList(
     return {
         list: list.map((documentData: MongoDocumentType): EnhancedTableBodyCellType => {
             const {
+                id,
                 slug,
                 titleImage,
                 type,
@@ -57,7 +58,8 @@ async function enhancedTableGetDocumentList(
             } = documentData;
 
             return {
-                slug: <Link to={getLinkToEditArticle(slug)}>{slug}</Link>,
+                id: <Link to={getLinkToEditArticle(id)}>{id}</Link>,
+                slug: <Link to={getLinkToReadArticle(slug)}>{slug}</Link>,
                 type,
                 header,
                 titleImage: Boolean(titleImage),
@@ -78,6 +80,7 @@ const enhancedTableHeader = {
     header: 'Document list',
     rowList: [
         {id: 'header', align: 'left', label: 'Header', hasSort: true},
+        {id: 'id', align: 'left', label: 'Id', hasSort: true},
         {id: 'slug', align: 'left', label: 'Slug', hasSort: true},
         {id: 'type', align: 'left', label: 'Type', hasSort: true},
         {id: 'titleImage', align: 'left', label: 'Has title image', hasSort: true},

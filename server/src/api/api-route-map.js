@@ -13,7 +13,7 @@ export const documentApiRouteMap = {
     documentShortDataSearch: '/api/document-short-data-search',
     getParentList: '/api/get-parent-list',
     getOrphanList: '/api/get-orphan-list',
-    removeDocument: '/api/remove-document',
+    removeDocumentBySlug: '/api/remove-document-by-slug',
     getDocumentSlugHeaderList: '/api/get-document-slug-header-list',
 };
 

@@ -84,8 +84,8 @@ export async function getDocumentOrphanList(): Promise<Array<MongoDocumentType>>
     return rawFetchedData.json();
 }
 
-export function removeDocument(slug: string): Promise<MainServerApiResponseType | Error> {
-    return fetch(documentApiRouteMap.removeDocument, {
+export function removeDocumentBySlug(slug: string): Promise<MainServerApiResponseType | Error> {
+    return fetch(documentApiRouteMap.removeDocumentBySlug, {
         method: 'POST',
         headers: {
             // eslint-disable-next-line sonarjs/no-duplicate-string

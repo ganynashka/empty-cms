@@ -389,7 +389,7 @@ export function addDocumentApi(app: $Application) {
     });
 
     // eslint-disable-next-line complexity, max-statements
-    app.post(documentApiRouteMap.removeDocument, async (request: $Request, response: $Response) => {
+    app.post(documentApiRouteMap.removeDocumentBySlug, async (request: $Request, response: $Response) => {
         const removeData: {slug: string} = typeConverter<{slug: string}>(request.body);
 
         const {slug} = removeData;

@@ -26,7 +26,7 @@ export const routePathMap = {
         path: '/cms/document-create',
     },
     documentEdit: {
-        path: '/cms/document-edit/:slug',
+        path: '/cms/document-edit/:id',
         staticPartPath: '/cms/document-edit',
     },
     login: {

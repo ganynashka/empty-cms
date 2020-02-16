@@ -196,8 +196,8 @@ export function getLinkToReadArticle(slug: string): string {
     return routePathMap.article.staticPartPath + '/' + slug;
 }
 
-export function getLinkToEditArticle(slug: string): string {
-    return String(routePathMap.documentEdit.staticPartPath) + '/' + slug;
+export function getLinkToEditArticle(id: string): string {
+    return String(routePathMap.documentEdit.staticPartPath) + '/' + id;
 }
 
 export function sortDocumentByAlphabet(subNodeA: {+header: string}, subNodeB: {+header: string}): number {
