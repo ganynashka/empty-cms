@@ -12,7 +12,7 @@ import {ButtonListWrapper} from '../../../component/layout/button-list-wrapper/c
 import {FormButton} from '../../../component/layout/form-button/c-form-button';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
 import mainWrapperStyle from '../../../component/main-wrapper/main-wrapper.scss';
-import {isError} from '../../../lib/is';
+import {hasProperty, isError} from '../../../lib/is';
 import type {
     FormGeneratorConfigType,
     FormGeneratorFormDataType,
@@ -21,8 +21,9 @@ import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-cont
 import {routePathMap} from '../../../component/app/routes-path-map';
 import type {RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
 import {getLinkToEditArticle} from '../../../lib/string';
+import {typeConverter} from '../../../lib/type';
 
-import {createDocument} from './document-api';
+import {createDocument, documentSearchExact} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './document-helper';
 
 type PropsType = {
@@ -34,6 +35,7 @@ type StateType = null;
 const formConfig: FormGeneratorConfigType = getDocumentFormConfig();
 
 export class DocumentCreate extends Component<PropsType, StateType> {
+    // eslint-disable-next-line max-statements, complexity
     handleFormSubmit = async (formData: FormGeneratorFormDataType) => {
         const {props} = this;
         const {snackbarContext, history} = props;
@@ -59,9 +61,23 @@ export class DocumentCreate extends Component<PropsType, StateType> {
             return;
         }
 
-        history.push(getLinkToEditArticle('id'));
+        const mayBeCreatedDocument = await documentSearchExact('slug', endDocumentData.slug);
 
-        await showSnackbar({children: 'Document has been created!', variant: 'success'}, snackBarId);
+        if (hasProperty(mayBeCreatedDocument, 'id')) {
+            const createdMongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(mayBeCreatedDocument);
+
+            history.push(getLinkToEditArticle(createdMongoDocument.id));
+            await showSnackbar({children: 'Document has been created!', variant: 'success'}, snackBarId);
+            return;
+        }
+
+        await showSnackbar(
+            {
+                children: 'Can not find document with slug: ' + endDocumentData.slug,
+                variant: 'error',
+            },
+            snackBarId
+        );
     };
 
     renderFormFooter(): Node {
