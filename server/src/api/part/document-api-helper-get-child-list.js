@@ -41,6 +41,7 @@ export async function getSiblingLinkDataList(slug: string): Promise<Array<MongoD
                     header: documentInList.header,
                     titleImage: documentInList.titleImage,
                     subDocumentSlugList: documentInList.subDocumentSlugList,
+                    subDocumentIdList: documentInList.subDocumentIdList,
                     fileList: documentInList.fileList,
                     isActive: documentInList.isActive,
                     contentLength: documentInList.content.length,

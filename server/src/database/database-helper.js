@@ -84,16 +84,15 @@ async function updateUserType() {
             console.log('---> item');
             // console.log(item);
             //
-            const {title, slug, id} = item;
+            const {title, slug, id, subDocumentSlugList, subDocumentIdList} = item;
 
-            console.log(title, slug, id);
+            console.log(title, slug, id, subDocumentSlugList, subDocumentIdList);
 
-            if (id) {
-                // console.log('already has id', title, slug, id);
-                return;
-            }
+            // const subDocumentIdList = subDocumentSlugList.map((slugToId: string): string => 'id-for-' + slugToId);
 
-            // collection.updateOne({slug}, {$set: {id: 'id-for-' + slug}}, {});
+            // console.log(subDocumentIdList);
+
+            // collection.updateOne({slug}, {$set: {subDocumentIdList}}, {});
         });
     });
 

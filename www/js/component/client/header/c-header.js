@@ -117,6 +117,7 @@ export class Header extends Component<PropsType, StateType> {
                     createdDate: 0,
                     updatedDate: 0,
                     subDocumentSlugList: [],
+                    subDocumentIdList: [],
                     tagList: [],
                     rating: 0,
                     isActive: true,

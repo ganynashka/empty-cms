@@ -55,6 +55,7 @@ export type MongoDocumentType = {|
     +createdDate: number,
     +updatedDate: number,
     +subDocumentSlugList: Array<string>,
+    +subDocumentIdList: Array<string>,
     +tagList: Array<string>,
     +rating: number,
     +isActive: boolean,
@@ -79,6 +80,7 @@ export type MongoDocumentTreeNodeType = {|
     +content: string,
     +subNodeList: Array<MongoDocumentTreeNodeType>,
     +subDocumentSlugList: Array<string>,
+    +subDocumentIdList: Array<string>,
     +isActive: boolean,
     +fileList: Array<string>,
 |};
@@ -90,6 +92,7 @@ export type MongoDocumentShortDataType = {|
     +header: string,
     +titleImage: string,
     +subDocumentSlugList: Array<string>,
+    +subDocumentIdList: Array<string>,
     +fileList: Array<string>,
     +isActive: boolean,
     +contentLength: number,

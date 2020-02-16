@@ -72,11 +72,8 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
     }
 
     const subDocumentSlugList = documentFormData.subDocumentSlugList;
+    const subDocumentIdList = documentFormData.subDocumentIdList;
     const slug = getSlug(documentFormData.header);
-
-    if (subDocumentSlugList.includes(slug)) {
-        subDocumentSlugList.splice(subDocumentSlugList.indexOf(slug), 1);
-    }
 
     return {
         id: slug + '-' + Date.now(),
@@ -99,6 +96,7 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         rating: Number(documentFormData.rating),
         tagList: stringToUniqArray(documentFormData.tagList, ','),
         subDocumentSlugList,
+        subDocumentIdList,
         isActive: documentFormData.isActive,
         isInSiteMap: documentFormData.isInSiteMap,
         fileList: extractUniqueArrayString(documentFormData.fileList),

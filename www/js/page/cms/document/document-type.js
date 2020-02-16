@@ -19,6 +19,7 @@ export type FormDataMongoDocumentType = {
     // +createdDate: number,
     // +updatedDate: number,
     +subDocumentSlugList: Array<string>,
+    +subDocumentIdList: Array<string>,
     +tagList: string,
     +rating: number,
     +isActive: boolean,
