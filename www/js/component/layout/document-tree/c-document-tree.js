@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 import {getDocumentOrphanList} from '../../../page/cms/document/document-api';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
-import {rootDocumentId, rootDocumentSlug} from '../../../../../server/src/api/part/document-api-const';
+import {rootDocumentId} from '../../../../../server/src/api/part/document-api-const';
 import {isError} from '../../../lib/is';
 
 import documentTreeStyle from './document-tree.scss';
