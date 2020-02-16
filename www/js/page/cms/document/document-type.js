@@ -4,7 +4,7 @@ import type {MongoDocumentTypeType, MongoSubDocumentsViewType} from '../../../..
 
 export type FormDataMongoDocumentType = {
     +slug: string,
-    +titleImage: string | File | null,
+    +titleImage: string | null,
     +type: MongoDocumentTypeType,
     +subDocumentListViewType: MongoSubDocumentsViewType,
     +title: string,
@@ -16,8 +16,6 @@ export type FormDataMongoDocumentType = {
     +meta: string,
     +shortDescription: string,
     +content: string,
-    // +createdDate: number,
-    // +updatedDate: number,
     +subDocumentSlugList: Array<string>,
     +subDocumentIdList: Array<string>,
     +tagList: string,
@@ -25,4 +23,6 @@ export type FormDataMongoDocumentType = {
     +isActive: boolean,
     +isInSiteMap: boolean,
     +fileList: Array<string>,
+    // +createdDate: number,
+    // +updatedDate: number,
 };

@@ -14,7 +14,7 @@ export const documentApiRouteMap = {
     getParentList: '/api/get-parent-list',
     getOrphanList: '/api/get-orphan-list',
     removeDocumentBySlug: '/api/remove-document-by-slug',
-    getDocumentSlugHeaderList: '/api/get-document-slug-header-list',
+    getDocumentShortDataList: '/api/get-document-short-data-list',
 };
 
 export const pdfApiRouteMap = {

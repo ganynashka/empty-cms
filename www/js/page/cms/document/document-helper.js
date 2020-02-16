@@ -33,15 +33,18 @@ import {InputCode} from '../../../component/layout/form-generator/field/input-co
 import type {FormDataMongoDocumentType} from './document-type';
 import {getDocumentAutocompleteDataList} from './document-api';
 
-function extractImage(inputValue: FromGeneratorInputValueType): Promise<Error | string> {
+function extractImage(inputValue: FromGeneratorInputValueType): string | Error {
     if (isString(inputValue)) {
-        return Promise.resolve(inputValue);
+        return inputValue;
     }
 
     if (isNull(inputValue)) {
-        return Promise.resolve('');
+        return '';
     }
 
+    return new Error('extractImage: Invalid input data, should be: String | Null');
+
+    /*
     if (!isFile(inputValue)) {
         return Promise.resolve(new Error('invalid input data, should be: String | File | Null'));
     }
@@ -59,21 +62,21 @@ function extractImage(inputValue: FromGeneratorInputValueType): Promise<Error | 
             return uploadResult[0];
         })
         .catch(promiseCatch);
+*/
 }
 
 export async function formDataToMongoDocument(formData: FormGeneratorFormDataType): Promise<Error | MongoDocumentType> {
     const documentFormData: FormDataMongoDocumentType = typeConverter<FormDataMongoDocumentType>(formData);
 
-    const titleImage = await extractImage(documentFormData.titleImage);
+    const titleImage = extractImage(documentFormData.titleImage);
 
     if (isError(titleImage)) {
         console.error('can not get title image');
         return titleImage;
     }
 
-    const subDocumentSlugList = documentFormData.subDocumentSlugList;
-    const subDocumentIdList = documentFormData.subDocumentIdList;
-    const slug = getSlug(documentFormData.header);
+    const subDocumentSlugList = [];
+    const {subDocumentIdList, slug} = documentFormData;
 
     return {
         id: slug + '-' + Date.now(),
@@ -117,8 +120,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         validate: getIsRequired,
                         defaultValue: '',
                         placeholder: 'the-uniq-slug-of-document',
-                        labelText: 'Slug (end of url)',
-                        isHidden: false,
+                        labelText: 'Slug (end of url) *',
                     },
                     {
                         name: 'header',
@@ -126,7 +128,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         validate: getIsRequired,
                         defaultValue: '',
                         placeholder: 'Header',
-                        labelText: 'Header',
+                        labelText: 'Header *',
                     },
                     {
                         name: 'titleImage',
@@ -230,7 +232,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         validate: getIsRequired,
                         defaultValue: '',
                         placeholder: 'title',
-                        labelText: 'Title (SEO)',
+                        labelText: 'Title (SEO) *',
                     },
                     {
                         name: 'meta',
@@ -247,24 +249,6 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: '',
                         placeholder: 'Short description...',
                         labelText: 'Short description',
-                    },
-                    {
-                        name: 'createdDate',
-                        fieldComponent: InputIntNumber,
-                        validate: noValidate,
-                        defaultValue: 0,
-                        placeholder: 'Created Date',
-                        labelText: 'Created Date',
-                        isHidden: true,
-                    },
-                    {
-                        name: 'updatedDate',
-                        fieldComponent: InputIntNumber,
-                        validate: noValidate,
-                        defaultValue: 0,
-                        placeholder: 'Updated Date',
-                        labelText: 'Updated Date',
-                        isHidden: true,
                     },
                     {
                         name: 'tagList',
@@ -291,13 +275,23 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         labelText: 'Is in sitemap.xml',
                     },
                     {
+                        name: 'subDocumentIdList',
+                        fieldComponent: InputTextAutocomplete,
+                        validate: noValidate,
+                        defaultValue: emptyStringArray,
+                        placeholder: 'Sub-document id list',
+                        labelText: 'Sub-document id list',
+                        isHidden: false,
+                        getAutocompleteListData: getDocumentAutocompleteDataList,
+                    },
+                    {
                         name: 'subDocumentSlugList',
                         fieldComponent: InputTextAutocomplete,
                         validate: noValidate,
                         defaultValue: emptyStringArray,
-                        placeholder: 'Sub-document list',
-                        labelText: 'Sub-document list',
-                        isHidden: false,
+                        placeholder: 'Sub-document slug list',
+                        labelText: 'Sub-document slug list',
+                        isHidden: true,
                         getAutocompleteListData: getDocumentAutocompleteDataList,
                     },
                     {
@@ -327,6 +321,24 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: '',
                         placeholder: 'Content',
                         labelText: 'Content',
+                    },
+                    {
+                        name: 'createdDate',
+                        fieldComponent: InputIntNumber,
+                        validate: noValidate,
+                        defaultValue: 0,
+                        placeholder: 'Created Date',
+                        labelText: 'Created Date',
+                        isHidden: true,
+                    },
+                    {
+                        name: 'updatedDate',
+                        fieldComponent: InputIntNumber,
+                        validate: noValidate,
+                        defaultValue: 0,
+                        placeholder: 'Updated Date',
+                        labelText: 'Updated Date',
+                        isHidden: true,
                     },
                 ],
                 fieldSetWrapper: {

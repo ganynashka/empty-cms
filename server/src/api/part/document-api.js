@@ -503,7 +503,7 @@ export function addDocumentApi(app: $Application) {
         });
     });
 
-    app.get(documentApiRouteMap.getDocumentSlugHeaderList, async (request: $Request, response: $Response) => {
+    app.get(documentApiRouteMap.getDocumentShortDataList, async (request: $Request, response: $Response) => {
         const collection = await getCollection<MongoDocumentType>(
             dataBaseConst.name,
             dataBaseConst.collection.document

@@ -97,14 +97,14 @@ export function removeDocumentBySlug(slug: string): Promise<MainServerApiRespons
         .catch(promiseCatch);
 }
 
-export function getDocumentSlugTitleList(): Promise<Array<MongoDocumentShortDataType> | Error> {
-    return fetch(documentApiRouteMap.getDocumentSlugHeaderList)
+export function getDocumentShortDataList(): Promise<Array<MongoDocumentShortDataType> | Error> {
+    return fetch(documentApiRouteMap.getDocumentShortDataList)
         .then((response: Response): Promise<Array<MongoDocumentShortDataType> | Error> => response.json())
         .catch(promiseCatch);
 }
 
 export function getDocumentAutocompleteDataList(): Promise<Array<FieldAutocompleteDataType> | Error> {
-    return getDocumentSlugTitleList()
+    return getDocumentShortDataList()
         .then((documentSlugTitleList: Array<MongoDocumentShortDataType> | Error): | Array<FieldAutocompleteDataType>
             | Error => {
             if (!Array.isArray(documentSlugTitleList)) {
@@ -115,7 +115,7 @@ export function getDocumentAutocompleteDataList(): Promise<Array<FieldAutocomple
                 (documentSlugTitleInList: MongoDocumentShortDataType): FieldAutocompleteDataType => {
                     return {
                         header: documentSlugTitleInList.header,
-                        value: documentSlugTitleInList.slug,
+                        value: documentSlugTitleInList.id,
                     };
                 }
             );
