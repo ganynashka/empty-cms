@@ -34,6 +34,7 @@ import {promiseCatch} from '../../../lib/promise';
 import {fileApiConst} from '../../../../../server/src/api/part/file-api-const';
 import {InputDateTime} from '../../../component/layout/form-generator/field/input-date-time/c-input-date-time';
 import {InputCode} from '../../../component/layout/form-generator/field/input-code/c-input-code';
+import {InputSlug} from '../../../component/layout/form-generator/field/input-slug/c-input-text';
 
 import type {FormDataMongoDocumentType} from './document-type';
 import {getDocumentAutocompleteDataList} from './document-api';
@@ -127,7 +128,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                     },
                     {
                         name: 'slug',
-                        fieldComponent: InputText,
+                        fieldComponent: InputSlug,
                         validate: validateSlug,
                         defaultValue: '',
                         placeholder: 'the-uniq-slug-of-document',
