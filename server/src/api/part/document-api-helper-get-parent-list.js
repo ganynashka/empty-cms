@@ -58,6 +58,17 @@ async function getDocumentFirstParentBySlug(slug: string): Promise<MayBeDocument
     return collection.findOne({subDocumentSlugList: slug});
 }
 
+async function getDocumentFirstParentById(id: string): Promise<MayBeDocumentType> {
+    const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
+
+    if (isError(collection)) {
+        return collection;
+    }
+
+    // $FlowFixMe
+    return collection.findOne({subDocumentIdList: id});
+}
+
 function getDocumentParentListRecursively(
     currentRoot: MongoDocumentType,
     deep: number,
@@ -72,7 +83,7 @@ function getDocumentParentListRecursively(
         return Promise.resolve(parentList);
     }
 
-    return getDocumentFirstParentBySlug(currentRoot.slug)
+    return getDocumentFirstParentById(currentRoot.id)
         .then((documentOrError: MayBeDocumentType): Promise<Array<MongoDocumentType> | Error> => {
             if (isError(documentOrError)) {
                 // eslint-disable-next-line promise/no-return-wrap
@@ -91,11 +102,11 @@ function getDocumentParentListRecursively(
         .catch(promiseCatch);
 }
 
-async function getDocumentParentList(slug: string, deep: number): Promise<Array<MongoDocumentType> | Error> {
-    const mongoDocument = await getDocumentBySlugMemoized({slug});
+async function getDocumentParentList(id: string, deep: number): Promise<Array<MongoDocumentType> | Error> {
+    const mongoDocument = await getDocumentBySlugMemoized({id});
 
     if (isError(mongoDocument) || !mongoDocument) {
-        return new Error('Can not get docuemnt by slug');
+        return new Error(`Can not get document by id: ${id}`);
     }
 
     return getDocumentParentListRecursively(mongoDocument, deep, []);
@@ -110,16 +121,16 @@ export function clearGetDocumentParentListCache() {
 }
 
 export async function getDocumentParentListMemoized(
-    slug: string,
+    id: string,
     deep: number
 ): Promise<Array<MongoDocumentType> | Error> {
-    const cacheKey = `key-slug:${slug}-deep:${deep}`;
+    const cacheKey = `key-slug:${id}-deep:${deep}`;
 
     if (hasProperty(documentParentListCache, cacheKey) && documentParentListCache[cacheKey]) {
         return documentParentListCache[cacheKey];
     }
 
-    documentParentListCache[cacheKey] = getDocumentParentList(slug, deep)
+    documentParentListCache[cacheKey] = getDocumentParentList(id, deep)
         .then((result: Array<MongoDocumentType> | Error): Array<MongoDocumentType> | Error => {
             if (isError(result)) {
                 documentParentListCache[cacheKey] = null;

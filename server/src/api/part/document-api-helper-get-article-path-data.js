@@ -8,8 +8,8 @@ import {documentToShortData} from '../../../../www/js/provider/intial-data/intia
 import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
 import type {MayBeDocumentType} from './document-api-helper-get-document';
 
-export async function getArticlePathData(slug: string): Promise<ArticlePathDataType | null> {
-    const mongoDocument = await getDocumentBySlugMemoized({slug});
+export async function getArticlePathData(id: string): Promise<ArticlePathDataType | null> {
+    const mongoDocument = await getDocumentBySlugMemoized({id});
 
     if (!mongoDocument || isError(mongoDocument)) {
         return null;
@@ -20,8 +20,8 @@ export async function getArticlePathData(slug: string): Promise<ArticlePathDataT
     }
 
     const subDocumentList: Array<MayBeDocumentType> = await Promise.all(
-        mongoDocument.subDocumentSlugList.map((slugInList: string): Promise<MayBeDocumentType> =>
-            getDocumentBySlugMemoized({slug: slugInList})
+        mongoDocument.subDocumentIdList.map((idInList: string): Promise<MayBeDocumentType> =>
+            getDocumentBySlugMemoized({id: idInList})
         )
     );
 
@@ -53,14 +53,14 @@ export function clearGetArticlePathDataCache() {
     });
 }
 
-export function getArticlePathDataMemoized(slug: string): Promise<ArticlePathDataType | null> {
-    const cacheKey = `key-slug:${slug}`;
+export function getArticlePathDataMemoized(id: string): Promise<ArticlePathDataType | null> {
+    const cacheKey = `key-id:${id}`;
 
     if (hasProperty(articlePathDataCache, cacheKey) && articlePathDataCache[cacheKey]) {
         return articlePathDataCache[cacheKey];
     }
 
-    articlePathDataCache[cacheKey] = getArticlePathData(slug)
+    articlePathDataCache[cacheKey] = getArticlePathData(id)
         .then((result: ArticlePathDataType | null): ArticlePathDataType | null => {
             if (isError(result)) {
                 articlePathDataCache[cacheKey] = null;

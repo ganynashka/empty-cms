@@ -8,21 +8,21 @@ import type {MayBeDocumentType} from './document-api-helper-get-document';
 import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
 import {getDocumentParentListById} from './document-api-helper-get-parent-list';
 
-export async function getSiblingLinkDataList(slug: string): Promise<Array<MongoDocumentShortDataType> | Error> {
-    const parentList = await getDocumentParentListById(slug);
+export async function getSiblingLinkDataList(id: string): Promise<Array<MongoDocumentShortDataType> | Error> {
+    const parentList = await getDocumentParentListById(id);
 
     if (isError(parentList)) {
         return parentList;
     }
 
-    const slugList: Array<string> = [];
+    const idList: Array<string> = [];
 
     parentList.forEach((parent: MongoDocumentType) => {
-        slugList.push(...parent.subDocumentSlugList);
+        idList.push(...parent.subDocumentIdList);
     });
 
     return Promise.all(
-        slugList.map((slugInList: string): Promise<MayBeDocumentType> => getDocumentBySlugMemoized({slug: slugInList}))
+        idList.map((idInList: string): Promise<MayBeDocumentType> => getDocumentBySlugMemoized({id: idInList}))
     )
         .then((documentList: Array<MayBeDocumentType>): Array<MongoDocumentShortDataType> => {
             const filteredDocumentList: Array<MongoDocumentShortDataType> = [];
@@ -63,14 +63,14 @@ export function clearGetSiblingLinkDataListCache() {
     });
 }
 
-export function getSiblingLinkDataListMemoized(slug: string): Promise<Array<MongoDocumentShortDataType> | Error> {
-    const cacheKey = `key-slug:${slug}`;
+export function getSiblingLinkDataListMemoized(id: string): Promise<Array<MongoDocumentShortDataType> | Error> {
+    const cacheKey = `key-id:${id}`;
 
     if (hasProperty(siblingLinkDataListCache, cacheKey) && siblingLinkDataListCache[cacheKey]) {
         return siblingLinkDataListCache[cacheKey];
     }
 
-    siblingLinkDataListCache[cacheKey] = getSiblingLinkDataList(slug)
+    siblingLinkDataListCache[cacheKey] = getSiblingLinkDataList(id)
         .then((result: Array<MongoDocumentShortDataType> | Error): Array<MongoDocumentShortDataType> | Error => {
             if (isError(result)) {
                 siblingLinkDataListCache[cacheKey] = null;

@@ -65,17 +65,23 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
     // article
     if (path.startsWith(routePathMap.article.staticPartPath)) {
         const slug = path.replace(getLinkToReadArticle(''), '');
-        const parentNodeList = await getDocumentParentListMemoized(slug, 5);
-        const articlePathData = await getArticlePathDataMemoized(slug);
-        const siblingDataList = await getSiblingLinkDataListMemoized(slug);
+        const mongoDocument = await getDocumentBySlugMemoized({slug});
+
+        if (!mongoDocument || isError(mongoDocument)) {
+            console.error('getInitialDataByRequest: can not get document by slug:', slug);
+
+            return {...page404InitialData, ...defaultRequestInitialData};
+        }
+
+        const parentNodeList = await getDocumentParentListMemoized(mongoDocument.id, 5);
+        const articlePathData = await getArticlePathDataMemoized(mongoDocument.id);
+        const siblingDataList = await getSiblingLinkDataListMemoized(mongoDocument.id);
 
         if (!articlePathData) {
             console.error('getInitialDataByRequest: can not get article by slug:', slug);
 
             return {...page404InitialData, ...defaultRequestInitialData};
         }
-
-        const mongoDocument = await getDocumentBySlugMemoized({slug});
 
         return {
             ...defaultInitialData,
