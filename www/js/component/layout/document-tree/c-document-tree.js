@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import {getDocumentOrphanList} from '../../../page/cms/document/document-api';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
 import {rootDocumentSlug} from '../../../../../server/src/api/part/document-api-const';
+import {isError} from '../../../lib/is';
 
 import documentTreeStyle from './document-tree.scss';
 import {DocumentTreeItem} from './c-docuemnt-tree-item';
@@ -33,6 +34,11 @@ export class DocumentTree extends Component<PropsType, StateType> {
 
     async fetchDocumentOrphan() {
         const documentOrphanList = await getDocumentOrphanList();
+
+        if (isError(documentOrphanList)) {
+            console.error(documentOrphanList.message);
+            return;
+        }
 
         this.setState({documentOrphanList});
     }

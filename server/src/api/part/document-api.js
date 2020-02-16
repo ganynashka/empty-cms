@@ -16,6 +16,7 @@ import {getLinkToReadArticle, getSlug} from '../../../../www/js/lib/string';
 import {convertJsonToDocument} from '../../util/json-to-document';
 import {handleDataBaseChange} from '../../util/data-base';
 import {documentToShortData} from '../../../../www/js/provider/intial-data/intial-data-helper';
+import {getPasswordSha256} from '../../util/user';
 
 import {rootDocumentSlug} from './document-api-const';
 import {getDocumentParentListBySlug} from './document-api-helper-get-parent-list';
@@ -160,7 +161,7 @@ export function addDocumentApi(app: $Application) {
 
         const newDocument: MongoDocumentType = {
             ...mongoDocument,
-            slug,
+            id: getPasswordSha256(JSON.stringify(mongoDocument) + date + Math.random()),
             createdDate: date,
             updatedDate: date,
         };

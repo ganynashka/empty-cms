@@ -76,7 +76,7 @@ export function formDataToMongoDocument(formData: FormGeneratorFormDataType): Er
     }
 
     return {
-        id: 'document-id-' + String(Date.now()),
+        id: 'document-id-will-replaced-on-server-' + String(Date.now()),
         slug: documentFormData.slug,
         titleImage: String(documentFormData.titleImage || ''),
         type: documentFormData.type,

@@ -29,34 +29,30 @@ export function getDocumentListSize(): Promise<number | Error> {
     return fetchNumber(documentApiRouteMap.getDocumentListSize);
 }
 
-export async function createDocument(data: MongoDocumentType): Promise<MainServerApiResponseType> {
-    const response = await fetch(documentApiRouteMap.createDocument, {
+export function createDocument(data: MongoDocumentType): Promise<MainServerApiResponseType | Error> {
+    return fetch(documentApiRouteMap.createDocument, {
         method: 'POST',
         headers: {
             // eslint-disable-next-line sonarjs/no-duplicate-string
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-    });
-
-    const responseJson = await response.json();
-
-    return typeConverter<MainServerApiResponseType>(responseJson);
+    })
+        .then((response: Response): Promise<MainServerApiResponseType | Error> => response.json())
+        .catch(promiseCatch);
 }
 
-export async function updateDocument(data: MongoDocumentType): Promise<MainServerApiResponseType> {
-    const response = await fetch(documentApiRouteMap.updateDocument, {
+export function updateDocument(data: MongoDocumentType): Promise<MainServerApiResponseType | Error> {
+    return fetch(documentApiRouteMap.updateDocument, {
         method: 'POST',
         headers: {
             // eslint-disable-next-line sonarjs/no-duplicate-string
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-    });
-
-    const responseJson = await response.json();
-
-    return typeConverter<MainServerApiResponseType>(responseJson);
+    })
+        .then((response: Response): Promise<MainServerApiResponseType | Error> => response.json())
+        .catch(promiseCatch);
 }
 
 type DocumentSearchExactResultType = MainServerApiResponseType | MongoDocumentType | Error;
@@ -77,11 +73,10 @@ export function getDocumentParentList(slug: string): Promise<Array<MongoDocument
         .catch(promiseCatch);
 }
 
-export async function getDocumentOrphanList(): Promise<Array<MongoDocumentType>> {
-    const url = documentApiRouteMap.getOrphanList;
-    const rawFetchedData = await fetch(url);
-
-    return rawFetchedData.json();
+export function getDocumentOrphanList(): Promise<Array<MongoDocumentType> | Error> {
+    return fetch(documentApiRouteMap.getOrphanList)
+        .then((response: Response): Promise<Array<MongoDocumentType> | Error> => response.json())
+        .catch(promiseCatch);
 }
 
 export function removeDocumentBySlug(slug: string): Promise<MainServerApiResponseType | Error> {

@@ -20,6 +20,7 @@ import type {
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import {routePathMap} from '../../../component/app/routes-path-map';
 import type {RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
+import {getLinkToEditArticle} from '../../../lib/string';
 
 import {createDocument} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './document-helper';
@@ -58,7 +59,7 @@ export class DocumentCreate extends Component<PropsType, StateType> {
             return;
         }
 
-        history.push(routePathMap.documentEdit.staticPartPath + '/' + endDocumentData.slug);
+        history.push(getLinkToEditArticle('id'));
 
         await showSnackbar({children: 'Document has been created!', variant: 'success'}, snackBarId);
     };
