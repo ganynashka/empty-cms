@@ -21,9 +21,7 @@ import {typeConverter} from '../../../lib/type';
 import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
 import {Spinner} from '../../../component/layout/spinner/c-spinner';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
-import {routePathMap} from '../../../component/app/routes-path-map';
 import {extractUniqueArrayString, getLinkToEditArticle, getLinkToReadArticle} from '../../../lib/string';
-
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 
 import {documentSearchExact, getDocumentParentList, updateDocument} from './document-api';
@@ -121,6 +119,8 @@ export class DocumentEdit extends Component<PropsType, StateType> {
             await showSnackbar({children: updateDocumentResult.errorList.join(','), variant: 'error'}, snackBarId);
             return;
         }
+
+        await this.fetchDocument();
 
         await showSnackbar({children: 'Document has been updated!', variant: 'success'}, snackBarId);
     };
@@ -242,7 +242,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
             <Paper className={mainWrapperStyle.paper_wrapper}>
                 <Toolbar>
                     <Typography component={Link} target="_blank" to={getLinkToReadArticle(slug)} variant="h5">
-                        Edit a Document: {header} / {slug}
+                        Edit the Document: {header} / {slug}
                     </Typography>
                 </Toolbar>
                 {this.renderParentList()}
