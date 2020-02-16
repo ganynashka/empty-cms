@@ -43,9 +43,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.2",
+    "@material-ui/core": "^4.9.3",
     "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.42",
+    "@material-ui/lab": "^4.0.0-alpha.43",
     "artillery": "^1.6.0-29",
     "body-parser": "^1.19.0",
     "classnames": "^2.2.6",
@@ -69,7 +69,7 @@
     "react-router-dom": "^5.1.2",
     "react-transition-group": "^4.3.0",
     "sharethis-reactjs": "^1.5.0",
-    "sharp": "^0.24.0"
+    "sharp": "^0.24.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
