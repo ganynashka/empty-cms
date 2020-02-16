@@ -8,7 +8,6 @@ import {getLinkToReadArticle} from '../../lib/string';
 import {getDeviceData} from '../../../../server/src/util/device/device';
 import {getDocumentParentListMemoized} from '../../../../server/src/api/part/document-api-helper-get-parent-list';
 import {getSiblingLinkDataListMemoized} from '../../../../server/src/api/part/document-api-helper-get-child-list';
-import {getDocumentBySlugMemoized} from '../../../../server/src/api/part/document-api-helper';
 import type {
     MongoDocumentShortDataType,
     MongoDocumentType,
@@ -21,6 +20,8 @@ import {getRootPathDataMemoized} from '../../../../server/src/api/part/document-
 import {getHeaderDataMemoized} from '../../../../server/src/api/part/document-api-helper-get-header-data';
 import {protocolHostingDomainName} from '../../../../server/src/config';
 import {rootDocumentSlug} from '../../../../server/src/api/part/document-api-const';
+
+import {getDocumentBySlugMemoized} from '../../../../server/src/api/part/document-api-helper-get-document';
 
 import {defaultInitialData, defaultOpenGraphData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';

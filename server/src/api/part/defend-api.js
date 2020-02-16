@@ -40,7 +40,8 @@ export function addDefendApi(app: $Application) {
             `> session.role: ${String(userSession.role)}`,
         ];
 
-        console.log(requestInfoList.join('\n'));
+        // TODO: uncomment this
+        // console.log(requestInfoList.join('\n'));
 
         next();
     });

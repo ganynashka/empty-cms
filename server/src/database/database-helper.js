@@ -64,7 +64,7 @@ export function getSortDirection(value: mixed): MongoSortDirectionType {
 }
 
 /*
-async function updateUserType() {
+async function updateItemType() {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
 
     if (isError(collection)) {
@@ -93,7 +93,7 @@ async function updateUserType() {
 
             // console.log(subDocumentIdList);
 
-            // collection.updateOne({slug}, {$set: {subDocumentIdList}}, {});
+            // collection.updateOne({id}, {$set: {subDocumentSlugList: []}}, {});
         });
     });
 
@@ -105,5 +105,5 @@ async function updateUserType() {
     // });
 }
 
-updateUserType();
+updateItemType();
 */

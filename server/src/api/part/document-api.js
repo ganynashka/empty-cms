@@ -21,7 +21,7 @@ import {getPasswordSha256} from '../../util/user';
 import {rootDocumentId, rootDocumentSlug} from './document-api-const';
 import {getDocumentParentListById} from './document-api-helper-get-parent-list';
 // import {getDocumentTreeMemoized} from './document-api-helper-get-document-tree';
-import {getDocumentBySlug, getOrphanList} from './document-api-helper';
+import {getOrphanList} from './document-api-helper';
 
 // import {getDocumentTreeMemoized} from './document-api-helper-get-document-tree';
 

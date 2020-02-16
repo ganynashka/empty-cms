@@ -4,8 +4,8 @@ import type {MongoDocumentType} from '../../database/database-type';
 import {hasProperty, isError} from '../../../../www/js/lib/is';
 import type {RootPathDataType} from '../../../../www/js/provider/intial-data/intial-data-type';
 
-import type {MayBeDocumentType} from './document-api-helper';
-import {getDocumentBySlugMemoized} from './document-api-helper';
+import type {MayBeDocumentType} from './document-api-helper-get-document';
+import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
 import {rootDocumentSlug} from './document-api-const';
 
 export async function getRootPathData(): Promise<RootPathDataType | null> {
@@ -16,7 +16,7 @@ export async function getRootPathData(): Promise<RootPathDataType | null> {
     }
 
     const mayBeSubDocumentList: Array<MayBeDocumentType> = await Promise.all(
-        mongoDocument.subDocumentSlugList.map(getDocumentBySlugMemoized)
+        mongoDocument.subDocumentIdList.map(getDocumentBySlugMemoized)
     );
 
     const subDocumentList: Array<MongoDocumentType> = [];

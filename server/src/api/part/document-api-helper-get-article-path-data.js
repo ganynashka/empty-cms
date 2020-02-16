@@ -5,8 +5,8 @@ import {hasProperty, isError} from '../../../../www/js/lib/is';
 import type {ArticlePathDataType} from '../../../../www/js/provider/intial-data/intial-data-type';
 import {documentToShortData} from '../../../../www/js/provider/intial-data/intial-data-helper';
 
-import type {MayBeDocumentType} from './document-api-helper';
-import {getDocumentBySlugMemoized} from './document-api-helper';
+import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
+import type {MayBeDocumentType} from './document-api-helper-get-document';
 
 export async function getArticlePathData(slug: string): Promise<ArticlePathDataType | null> {
     const mongoDocument = await getDocumentBySlugMemoized(slug);

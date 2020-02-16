@@ -4,8 +4,8 @@
 import type {MongoDocumentTreeNodeType as MongoDTNType} from '../../database/database-type';
 import {hasProperty, isError, isNull} from '../../../../www/js/lib/is';
 
-import type {MayBeDocumentType} from './document-api-helper';
-import {getDocumentBySlugMemoized} from './document-api-helper';
+import type {MayBeDocumentType} from './document-api-helper-get-document';
+import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
 
 function getDocumentTree(slug: string, deep: number): Promise<MongoDTNType | Error> {
     return getDocumentBySlugMemoized(slug).then((mongoDocument: MayBeDocumentType): Promise<MongoDTNType | Error> => {

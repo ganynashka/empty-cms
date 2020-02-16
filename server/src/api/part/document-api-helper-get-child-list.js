@@ -4,8 +4,8 @@ import type {MongoDocumentShortDataType, MongoDocumentType} from '../../database
 import {hasProperty, isError} from '../../../../www/js/lib/is';
 import {promiseCatch} from '../../../../www/js/lib/promise';
 
-import type {MayBeDocumentType} from './document-api-helper';
-import {getDocumentBySlugMemoized} from './document-api-helper';
+import type {MayBeDocumentType} from './document-api-helper-get-document';
+import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
 import {getDocumentParentListById} from './document-api-helper-get-parent-list';
 
 export async function getSiblingLinkDataList(slug: string): Promise<Array<MongoDocumentShortDataType> | Error> {

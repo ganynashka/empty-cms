@@ -8,11 +8,11 @@ import {dataBaseConst} from '../database/database-const';
 // import {clearGetDocumentTreeCache} from '../api/part/document-api-helper-get-document-tree';
 import {clearGetDocumentParentListCache} from '../api/part/document-api-helper-get-parent-list';
 import {clearGetSiblingLinkDataListCache} from '../api/part/document-api-helper-get-child-list';
-import {clearGetDocumentBySlugCache} from '../api/part/document-api-helper';
 import {clearGetArticlePathDataCache} from '../api/part/document-api-helper-get-article-path-data';
 import {clearGetRootPathDataCache} from '../api/part/document-api-helper-get-root-path-data';
-
 import {clearGetHeaderDataCache} from '../api/part/document-api-helper-get-header-data';
+
+import {clearGetDocumentBySlugCache} from '../api/part/document-api-helper-get-document';
 
 import {updateSiteMapXml} from './site-map-xml-helper';
 

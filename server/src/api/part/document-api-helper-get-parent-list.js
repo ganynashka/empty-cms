@@ -7,8 +7,8 @@ import {hasProperty, isError} from '../../../../www/js/lib/is';
 import {documentApiRouteMap} from '../api-route-map';
 import {promiseCatch} from '../../../../www/js/lib/promise';
 
-import type {MayBeDocumentType} from './document-api-helper';
-import {getDocumentBySlugMemoized} from './document-api-helper';
+import type {MayBeDocumentType} from './document-api-helper-get-document';
+import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
 
 export async function getDocumentParentListById(id: string): Promise<Array<MongoDocumentType> | Error> {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
