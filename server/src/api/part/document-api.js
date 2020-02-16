@@ -220,6 +220,7 @@ export function addDocumentApi(app: $Application) {
         response.json({isSuccessful: true, errorList: []});
     });
 
+    // eslint-disable-next-line max-statements
     app.post(documentApiRouteMap.updateDocument, async (request: $Request, response: $Response) => {
         const mongoDocument: MongoDocumentType = typeConverter<MongoDocumentType>(request.body);
 
@@ -237,13 +238,21 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        const {id} = mongoDocument;
+        const {id, slug} = mongoDocument;
 
-        const existedDocument = await collection.findOne({id});
+        const existedDocumentById = await collection.findOne({id});
 
-        if (!existedDocument) {
+        if (!existedDocumentById) {
             response.status(400);
             response.json({isSuccessful: false, errorList: [`Document with id: '${id}' is NOT exists.`]});
+            return;
+        }
+
+        const existedDocumentBySlug = await collection.findOne({slug});
+
+        if (existedDocumentBySlug && existedDocumentBySlug.id !== id) {
+            response.status(400);
+            response.json({isSuccessful: false, errorList: [`Document with slug: '${slug}' already exists.`]});
             return;
         }
 
@@ -251,8 +260,8 @@ export function addDocumentApi(app: $Application) {
 
         const newDocument: MongoDocumentType = {
             ...mongoDocument,
-            id: existedDocument.id,
-            createdDate: existedDocument.createdDate,
+            id: existedDocumentById.id,
+            createdDate: existedDocumentById.createdDate,
             updatedDate: date,
         };
 

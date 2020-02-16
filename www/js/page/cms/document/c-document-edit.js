@@ -24,6 +24,8 @@ import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-cont
 import {extractUniqueArrayString, getLinkToEditArticle, getLinkToReadArticle} from '../../../lib/string';
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 
+import {rootDocumentSlug} from '../../../../../server/src/api/part/document-api-const';
+
 import {documentSearchExact, getDocumentParentList, updateDocument} from './document-api';
 import {formDataToMongoDocument, getDocumentFormConfig} from './document-helper';
 
@@ -161,7 +163,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                     ...rawFormConfig.fieldSetList[0],
                     fieldList: extendFieldList(rawFormConfig.fieldSetList[0].fieldList, {
                         id: {defaultValue: mongoDocument.id},
-                        slug: {defaultValue: mongoDocument.slug},
+                        slug: {defaultValue: mongoDocument.slug, isHidden: mongoDocument.slug === rootDocumentSlug},
                         titleImage: {defaultValue: mongoDocument.titleImage},
                         type: {defaultValue: mongoDocument.type},
                         subDocumentListViewType: {defaultValue: mongoDocument.subDocumentListViewType},
