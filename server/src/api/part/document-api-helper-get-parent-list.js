@@ -92,7 +92,7 @@ function getDocumentParentListRecursively(
 }
 
 async function getDocumentParentList(slug: string, deep: number): Promise<Array<MongoDocumentType> | Error> {
-    const mongoDocument = await getDocumentBySlugMemoized(slug);
+    const mongoDocument = await getDocumentBySlugMemoized({slug});
 
     if (isError(mongoDocument) || !mongoDocument) {
         return new Error('Can not get docuemnt by slug');

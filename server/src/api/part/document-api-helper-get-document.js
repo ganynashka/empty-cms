@@ -10,10 +10,12 @@ import {hasProperty, isError} from '../../../../www/js/lib/is';
 
 export type MayBeDocumentType = ?MongoDocumentType | ?Error;
 
-export function getDocumentBySlug(slug: string): Promise<MayBeDocumentType> {
+type DocumentSearchParameterDataType = {|+id: string|} | {|+slug: string|};
+
+export function getDocumentBySlug(parameter: DocumentSearchParameterDataType): Promise<MayBeDocumentType> {
     return getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document)
         .then((collection: MongoCollection<MongoDocumentType> | Error): Promise<MayBeDocumentType> | Error => {
-            return isError(collection) ? collection : collection.findOne({slug});
+            return isError(collection) ? collection : collection.findOne(parameter);
         })
         .catch(promiseCatch);
 }
@@ -26,14 +28,14 @@ export function clearGetDocumentBySlugCache() {
     });
 }
 
-export function getDocumentBySlugMemoized(slug: string): Promise<MayBeDocumentType> {
-    const cacheKey = `key-slug:${slug}`;
+export function getDocumentBySlugMemoized(parameter: DocumentSearchParameterDataType): Promise<MayBeDocumentType> {
+    const cacheKey = `key-parameter:${JSON.stringify(parameter)}`;
 
     if (hasProperty(getDocumentBySlugCache, cacheKey) && getDocumentBySlugCache[cacheKey]) {
         return getDocumentBySlugCache[cacheKey];
     }
 
-    getDocumentBySlugCache[cacheKey] = getDocumentBySlug(slug)
+    getDocumentBySlugCache[cacheKey] = getDocumentBySlug(parameter)
         .then((result: MayBeDocumentType): MayBeDocumentType => {
             if (isError(result) || !result) {
                 getDocumentBySlugCache[cacheKey] = null;

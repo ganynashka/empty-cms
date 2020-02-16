@@ -9,14 +9,16 @@ import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
 import {rootDocumentSlug} from './document-api-const';
 
 export async function getRootPathData(): Promise<RootPathDataType | null> {
-    const mongoDocument = await getDocumentBySlugMemoized(rootDocumentSlug);
+    const mongoDocument = await getDocumentBySlugMemoized({slug: rootDocumentSlug});
 
     if (!mongoDocument || isError(mongoDocument)) {
         return null;
     }
 
     const mayBeSubDocumentList: Array<MayBeDocumentType> = await Promise.all(
-        mongoDocument.subDocumentIdList.map(getDocumentBySlugMemoized)
+        mongoDocument.subDocumentIdList.map((idInList: string): Promise<MayBeDocumentType> =>
+            getDocumentBySlugMemoized({id: idInList})
+        )
     );
 
     const subDocumentList: Array<MongoDocumentType> = [];

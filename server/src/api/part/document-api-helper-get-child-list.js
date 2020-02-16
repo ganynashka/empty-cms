@@ -21,7 +21,9 @@ export async function getSiblingLinkDataList(slug: string): Promise<Array<MongoD
         slugList.push(...parent.subDocumentSlugList);
     });
 
-    return Promise.all(slugList.map(getDocumentBySlugMemoized))
+    return Promise.all(
+        slugList.map((slugInList: string): Promise<MayBeDocumentType> => getDocumentBySlugMemoized({slug: slugInList}))
+    )
         .then((documentList: Array<MayBeDocumentType>): Array<MongoDocumentShortDataType> => {
             const filteredDocumentList: Array<MongoDocumentShortDataType> = [];
 

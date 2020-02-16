@@ -10,7 +10,7 @@ import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
 import {rootDocumentSlug} from './document-api-const';
 
 export async function getHeaderData(): Promise<HeaderDataType> {
-    const rootDocument = await getDocumentBySlugMemoized(rootDocumentSlug);
+    const rootDocument = await getDocumentBySlugMemoized({slug: rootDocumentSlug});
 
     if (!rootDocument || isError(rootDocument)) {
         return {documentShortDataList: []};
@@ -19,7 +19,9 @@ export async function getHeaderData(): Promise<HeaderDataType> {
     const documentShortDataList: Array<MongoDocumentShortDataType> = [];
 
     const subDocumentList: Array<MayBeDocumentType> = await Promise.all(
-        rootDocument.subDocumentSlugList.map(getDocumentBySlugMemoized)
+        rootDocument.subDocumentIdList.map((idInList: string): Promise<MayBeDocumentType> =>
+            getDocumentBySlugMemoized({id: idInList})
+        )
     );
 
     subDocumentList.forEach((mongoDocumentInList: MayBeDocumentType) => {

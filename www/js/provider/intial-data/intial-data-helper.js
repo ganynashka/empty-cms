@@ -75,7 +75,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
             return {...page404InitialData, ...defaultRequestInitialData};
         }
 
-        const mongoDocument = await getDocumentBySlugMemoized(slug);
+        const mongoDocument = await getDocumentBySlugMemoized({slug});
 
         return {
             ...defaultInitialData,

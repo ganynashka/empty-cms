@@ -9,7 +9,7 @@ import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
 import type {MayBeDocumentType} from './document-api-helper-get-document';
 
 export async function getArticlePathData(slug: string): Promise<ArticlePathDataType | null> {
-    const mongoDocument = await getDocumentBySlugMemoized(slug);
+    const mongoDocument = await getDocumentBySlugMemoized({slug});
 
     if (!mongoDocument || isError(mongoDocument)) {
         return null;
@@ -20,7 +20,9 @@ export async function getArticlePathData(slug: string): Promise<ArticlePathDataT
     }
 
     const subDocumentList: Array<MayBeDocumentType> = await Promise.all(
-        mongoDocument.subDocumentSlugList.map(getDocumentBySlugMemoized)
+        mongoDocument.subDocumentSlugList.map((slugInList: string): Promise<MayBeDocumentType> =>
+            getDocumentBySlugMemoized({slug: slugInList})
+        )
     );
 
     const sudNodeShortDataList: Array<MongoDocumentShortDataType> = [];
