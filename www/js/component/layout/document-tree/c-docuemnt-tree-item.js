@@ -8,12 +8,12 @@ import {documentSearchExact} from '../../../page/cms/document/document-api';
 import {typeConverter} from '../../../lib/type';
 import {stopPropagation} from '../../../lib/event';
 import {isError} from '../../../lib/is';
-import {getLinkToEditArticle} from '../../../lib/string';
+import {getLinkToEditArticle, getLinkToReadArticle} from '../../../lib/string';
 
 import documentTreeStyle from './document-tree.scss';
 
 type PropsType = {|
-    +slug: string,
+    +id: string,
     +deep: number,
 |};
 
@@ -38,9 +38,9 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
 
     fetchDocument = async () => {
         const {props} = this;
-        const {slug} = props;
+        const {id} = props;
 
-        const mayBeDocumentPromise = await documentSearchExact('slug', String(slug));
+        const mayBeDocumentPromise = await documentSearchExact('id', id);
         const mayBeDocument = await mayBeDocumentPromise;
 
         if (isError(mayBeDocument)) {
@@ -69,29 +69,28 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
             return [];
         }
 
-        return mongoDocument.subDocumentSlugList.map((subDocumentSlug: string): Node => {
-            return <DocumentTreeItem deep={deep - 1} key={subDocumentSlug} slug={subDocumentSlug}/>;
+        return mongoDocument.subDocumentIdList.map((subDocumentId: string): Node => {
+            return <DocumentTreeItem deep={deep - 1} id={subDocumentId} key={subDocumentId}/>;
         });
     }
 
     renderLabel(): Array<Node> {
-        const {props, state} = this;
+        const {state} = this;
         const {mongoDocument} = state;
-        const {slug} = props;
 
         if (mongoDocument === null) {
-            return [<span key="title-text">Loading...</span>, <span key="label-slug">&nbsp;&ndash;&nbsp;{slug}</span>];
+            return [<span key="title-text">Loading...</span>];
         }
 
-        const {header, isActive} = mongoDocument;
-        const href = getLinkToEditArticle(slug);
+        const {header, isActive, slug, id} = mongoDocument;
+        const hrefToEditArticle = getLinkToEditArticle(id);
 
         const className = isActive ? null : documentTreeStyle.not_active_item;
 
         return [
             <a
                 className={className}
-                href={href}
+                href={hrefToEditArticle}
                 key="header-link"
                 onClick={stopPropagation}
                 rel="noopener noreferrer"
@@ -108,26 +107,26 @@ export class DocumentTreeItem extends Component<PropsType, StateType> {
     render(): Node {
         const {props, state} = this;
         const {mongoDocument, hasError} = state;
-        const {slug, deep} = props;
+        const {id, deep} = props;
 
         if (deep === 0) {
-            return <TreeItem key={slug} label="DEEP = 0 !!!" nodeId={slug}/>;
+            return <TreeItem key={id} label="DEEP = 0 !!!" nodeId={id}/>;
         }
 
         if (hasError) {
-            return <TreeItem label={`Can not load!!! Slug: ${slug}`} nodeId={slug}/>;
+            return <TreeItem label={`Can not load!!! Id: ${id}`} nodeId={id}/>;
         }
 
         if (mongoDocument === null) {
-            return <TreeItem label="Loading..." nodeId={slug}/>;
+            return <TreeItem label="Loading..." nodeId={id}/>;
         }
 
-        if (mongoDocument.subDocumentSlugList.length === 0) {
-            return <TreeItem label={this.renderLabel()} nodeId={slug}/>;
+        if (mongoDocument.subDocumentIdList.length === 0) {
+            return <TreeItem label={this.renderLabel()} nodeId={id}/>;
         }
 
         return (
-            <TreeItem label={this.renderLabel()} nodeId={slug}>
+            <TreeItem label={this.renderLabel()} nodeId={id}>
                 {this.renderSubDocumentList()}
             </TreeItem>
         );

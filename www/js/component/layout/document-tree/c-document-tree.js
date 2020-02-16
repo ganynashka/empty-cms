@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 import {getDocumentOrphanList} from '../../../page/cms/document/document-api';
 import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
-import {rootDocumentSlug} from '../../../../../server/src/api/part/document-api-const';
+import {rootDocumentId, rootDocumentSlug} from '../../../../../server/src/api/part/document-api-const';
 import {isError} from '../../../lib/is';
 
 import documentTreeStyle from './document-tree.scss';
@@ -52,16 +52,16 @@ export class DocumentTree extends Component<PropsType, StateType> {
                 <Typography variant="h5">Documents tree:</Typography>
                 <hr/>
                 <TreeView defaultCollapseIcon={<ExpandMoreIcon/>} defaultExpandIcon={<ChevronRightIcon/>}>
-                    <DocumentTreeItem deep={10} slug={rootDocumentSlug}/>
+                    <DocumentTreeItem deep={10} id={rootDocumentId}/>
                 </TreeView>
                 <hr/>
                 <Typography variant="h5">Orphan documents:</Typography>
                 <hr/>
                 <TreeView defaultCollapseIcon={<ExpandMoreIcon/>} defaultExpandIcon={<ChevronRightIcon/>}>
                     {documentOrphanList.map((orphan: MongoDocumentType): Node => {
-                        const {slug} = orphan;
+                        const {id} = orphan;
 
-                        return <DocumentTreeItem deep={10} key={slug} slug={slug}/>;
+                        return <DocumentTreeItem deep={10} id={id} key={id}/>;
                     })}
                 </TreeView>
             </div>

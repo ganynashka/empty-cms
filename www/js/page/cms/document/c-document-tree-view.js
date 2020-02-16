@@ -19,15 +19,6 @@ export class DocumentTreeView extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        const {props} = this;
-        const {userContextData} = props;
-
-        /*
-        if (!getIsAdmin(userContextData)) {
-            return null;
-        }
-*/
-
         return (
             <Paper className={mainWrapperStyle.paper_wrapper}>
                 <DocumentTree/>
