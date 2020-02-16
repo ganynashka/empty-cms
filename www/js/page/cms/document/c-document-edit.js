@@ -104,7 +104,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
 
         const {showSnackbar} = snackbarContext;
         const snackBarId = 'document-saved-snack-bar-id-' + String(Date.now());
-        const endDocumentData: MongoDocumentType | Error = await formDataToMongoDocument(formData);
+        const endDocumentData: MongoDocumentType | Error = formDataToMongoDocument(formData);
 
         if (isError(endDocumentData)) {
             console.error(endDocumentData);

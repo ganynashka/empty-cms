@@ -65,7 +65,7 @@ function extractImage(inputValue: FromGeneratorInputValueType): string | Error {
 */
 }
 
-export async function formDataToMongoDocument(formData: FormGeneratorFormDataType): Promise<Error | MongoDocumentType> {
+export function formDataToMongoDocument(formData: FormGeneratorFormDataType): Error | MongoDocumentType {
     const documentFormData: FormDataMongoDocumentType = typeConverter<FormDataMongoDocumentType>(formData);
 
     const titleImage = extractImage(documentFormData.titleImage);
@@ -75,12 +75,9 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         return titleImage;
     }
 
-    const subDocumentSlugList = [];
-    const {subDocumentIdList, slug} = documentFormData;
-
     return {
-        id: slug + '-' + Date.now(),
-        slug,
+        id: 'document-id-' + String(Date.now()),
+        slug: documentFormData.slug,
         titleImage: String(documentFormData.titleImage || ''),
         type: documentFormData.type,
         subDocumentListViewType: documentFormData.subDocumentListViewType,
@@ -98,8 +95,8 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         updatedDate: 0,
         rating: Number(documentFormData.rating),
         tagList: stringToUniqArray(documentFormData.tagList, ','),
-        subDocumentSlugList,
-        subDocumentIdList,
+        subDocumentSlugList: [],
+        subDocumentIdList: documentFormData.subDocumentIdList,
         isActive: documentFormData.isActive,
         isInSiteMap: documentFormData.isInSiteMap,
         fileList: extractUniqueArrayString(documentFormData.fileList),

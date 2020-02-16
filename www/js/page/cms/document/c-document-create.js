@@ -39,7 +39,7 @@ export class DocumentCreate extends Component<PropsType, StateType> {
         const snackBarId = 'document-create-snack-bar-id-' + String(Date.now());
         const {showSnackbar} = snackbarContext;
 
-        const endDocumentData: MongoDocumentType | Error = await formDataToMongoDocument(formData);
+        const endDocumentData: MongoDocumentType | Error = formDataToMongoDocument(formData);
 
         if (isError(endDocumentData)) {
             console.error(endDocumentData);
