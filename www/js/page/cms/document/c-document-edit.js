@@ -22,7 +22,7 @@ import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
 import {Spinner} from '../../../component/layout/spinner/c-spinner';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import {routePathMap} from '../../../component/app/routes-path-map';
-import {extractUniqueArrayString, getLinkToReadArticle} from '../../../lib/string';
+import {extractUniqueArrayString, getLinkToEditArticle, getLinkToReadArticle} from '../../../lib/string';
 
 import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
 
@@ -65,11 +65,10 @@ export class DocumentEdit extends Component<PropsType, StateType> {
             return;
         }
 
-        const {slug} = match.params;
-
-        const mayBeDocumentPromise = await documentSearchExact('slug', String(slug));
+        const id = String(match.params.id);
+        const mayBeDocumentPromise = await documentSearchExact('id', id);
         const mayBeDocument = await mayBeDocumentPromise;
-        const mayBeParentList = await getDocumentParentList(String(slug));
+        const mayBeParentList = await getDocumentParentList(id);
 
         if (isError(mayBeParentList)) {
             await showSnackbar({children: mayBeParentList.message, variant: 'error'}, mayBeParentList.message);
@@ -111,7 +110,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
             return;
         }
 
-        const updateDocumentResult = await updateDocument({...endDocumentData, slug: String(match.params.slug)});
+        const updateDocumentResult = await updateDocument(endDocumentData);
 
         if (isError(updateDocumentResult)) {
             await showSnackbar({children: updateDocumentResult.message, variant: 'error'}, snackBarId);
@@ -161,7 +160,8 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                 {
                     ...rawFormConfig.fieldSetList[0],
                     fieldList: extendFieldList(rawFormConfig.fieldSetList[0].fieldList, {
-                        slug: {defaultValue: mongoDocument.slug, isHidden: true},
+                        id: {defaultValue: mongoDocument.id},
+                        slug: {defaultValue: mongoDocument.slug},
                         titleImage: {defaultValue: mongoDocument.titleImage},
                         type: {defaultValue: mongoDocument.type},
                         subDocumentListViewType: {defaultValue: mongoDocument.subDocumentListViewType},
@@ -175,11 +175,12 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                         // description: {defaultValue: mongoDocument.description},
                         shortDescription: {defaultValue: mongoDocument.shortDescription},
                         content: {defaultValue: mongoDocument.content},
-                        subDocumentSlugList: {defaultValue: mongoDocument.subDocumentSlugList},
+                        // subDocumentSlugList: {defaultValue: mongoDocument.subDocumentSlugList},
+                        subDocumentIdList: {defaultValue: mongoDocument.subDocumentIdList},
                         tagList: {defaultValue: mongoDocument.tagList.join(', ')},
                         isActive: {defaultValue: mongoDocument.isActive},
                         isInSiteMap: {defaultValue: mongoDocument.isInSiteMap},
-                        rating: {defaultValue: mongoDocument.rating, isHidden: false},
+                        rating: {defaultValue: mongoDocument.rating},
                         fileList: {defaultValue: extractUniqueArrayString(mongoDocument.fileList)},
                     }),
                 },
@@ -203,13 +204,13 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                 <Typography variant="body1">
                     {'Parents: '}
                     {parentList.map((documentData: MongoDocumentType, index: number): Node => {
-                        const {slug, header} = documentData;
-                        const href = routePathMap.documentEdit.staticPartPath + '/' + slug;
+                        const {slug, header, id} = documentData;
+                        const href = getLinkToEditArticle(id); // routePathMap.documentEdit.staticPartPath + '/' + slug;
 
                         return (
                             <Fragment key={slug}>
                                 {index === 0 ? '' : ', '}
-                                <a href={href} key={'a-' + slug} rel="noopener noreferrer" target="_blank">
+                                <a href={href} key={'a-' + id} rel="noopener noreferrer" target="_blank">
                                     {header}
                                 </a>
                             </Fragment>
@@ -221,15 +222,8 @@ export class DocumentEdit extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        const {state, props} = this;
+        const {state} = this;
         const {mongoDocument} = state;
-        const {userContextData} = props;
-
-        /*
-        if (!getIsAdmin(userContextData)) {
-            return null;
-        }
-        */
 
         if (mongoDocument === null) {
             return (

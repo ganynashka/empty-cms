@@ -10,7 +10,7 @@ import {promiseCatch} from '../../../../www/js/lib/promise';
 import type {MayBeDocumentType} from './document-api-helper';
 import {getDocumentBySlugMemoized} from './document-api-helper';
 
-export async function getDocumentParentListBySlug(slug: string): Promise<Array<MongoDocumentType> | Error> {
+export async function getDocumentParentListById(id: string): Promise<Array<MongoDocumentType> | Error> {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
 
     if (isError(collection)) {
@@ -20,7 +20,7 @@ export async function getDocumentParentListBySlug(slug: string): Promise<Array<M
     return new Promise((resolve: (documentListOrError: Array<MongoDocumentType> | Error) => mixed) => {
         collection
             // $FlowFixMe
-            .find({subDocumentSlugList: slug})
+            .find({subDocumentIdList: id})
             .toArray((error: ?Error, rawDocumentList: ?Array<MongoDocumentType>) => {
                 if (error) {
                     resolve(new Error(documentApiRouteMap.getParentList + ': Can not find document!'));

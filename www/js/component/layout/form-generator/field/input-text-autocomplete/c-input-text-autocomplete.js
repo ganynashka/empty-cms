@@ -72,6 +72,7 @@ export class InputTextAutocomplete extends Component<PropsType, StateType> {
                 return data;
             }
 
+            // console.log(dataList);
             console.error(value, 'has no header');
 
             return {

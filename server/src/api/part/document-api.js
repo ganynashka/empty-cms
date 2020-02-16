@@ -19,7 +19,7 @@ import {documentToShortData} from '../../../../www/js/provider/intial-data/intia
 import {getPasswordSha256} from '../../util/user';
 
 import {rootDocumentSlug} from './document-api-const';
-import {getDocumentParentListBySlug} from './document-api-helper-get-parent-list';
+import {getDocumentParentListById} from './document-api-helper-get-parent-list';
 // import {getDocumentTreeMemoized} from './document-api-helper-get-document-tree';
 import {getDocumentBySlug, getOrphanList} from './document-api-helper';
 
@@ -237,13 +237,13 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        const {slug} = mongoDocument;
+        const {id} = mongoDocument;
 
-        const existedDocument = await collection.findOne({slug});
+        const existedDocumentById = await collection.findOne({id});
 
-        if (!existedDocument) {
+        if (!existedDocumentById) {
             response.status(400);
-            response.json({isSuccessful: false, errorList: [`Document with slug: '${slug}' is NOT exists.`]});
+            response.json({isSuccessful: false, errorList: [`Document with id: '${id}' is NOT exists.`]});
             return;
         }
 
@@ -251,11 +251,10 @@ export function addDocumentApi(app: $Application) {
 
         const newDocument: MongoDocumentType = {
             ...mongoDocument,
-            createdDate: existedDocument.createdDate,
             updatedDate: date,
         };
 
-        const result = await collection.updateOne({slug}, {$set: newDocument}, {});
+        const result = await collection.updateOne({id}, {$set: newDocument}, {});
 
         handleDataBaseChange();
 
@@ -360,7 +359,7 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        const documentParentList = await getDocumentParentListBySlug(String(request.query.slug));
+        const documentParentList = await getDocumentParentListById(String(request.query.id));
 
         if (isError(documentParentList)) {
             response.status(400);
@@ -471,7 +470,7 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        const documentParentList = await getDocumentParentListBySlug(slug);
+        const documentParentList = await getDocumentParentListById(slug);
 
         if (isError(documentParentList)) {
             response.status(400);

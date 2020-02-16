@@ -6,10 +6,10 @@ import {promiseCatch} from '../../../../www/js/lib/promise';
 
 import type {MayBeDocumentType} from './document-api-helper';
 import {getDocumentBySlugMemoized} from './document-api-helper';
-import {getDocumentParentListBySlug} from './document-api-helper-get-parent-list';
+import {getDocumentParentListById} from './document-api-helper-get-parent-list';
 
 export async function getSiblingLinkDataList(slug: string): Promise<Array<MongoDocumentShortDataType> | Error> {
-    const parentList = await getDocumentParentListBySlug(slug);
+    const parentList = await getDocumentParentListById(slug);
 
     if (isError(parentList)) {
         return parentList;

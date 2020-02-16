@@ -65,8 +65,8 @@ export function documentSearchExact(key: string, value: string): Promise<Documen
         .catch(promiseCatch);
 }
 
-export function getDocumentParentList(slug: string): Promise<Array<MongoDocumentType> | Error> {
-    const url = `${documentApiRouteMap.getParentList}?slug=${slug}`;
+export function getDocumentParentList(id: string): Promise<Array<MongoDocumentType> | Error> {
+    const url = `${documentApiRouteMap.getParentList}?id=${id}`;
 
     return fetch(url)
         .then((response: Response): Promise<Array<MongoDocumentType> | Error> => response.json())
@@ -100,17 +100,17 @@ export function getDocumentShortDataList(): Promise<Array<MongoDocumentShortData
 
 export function getDocumentAutocompleteDataList(): Promise<Array<FieldAutocompleteDataType> | Error> {
     return getDocumentShortDataList()
-        .then((documentSlugTitleList: Array<MongoDocumentShortDataType> | Error): | Array<FieldAutocompleteDataType>
+        .then((documentShortDataList: Array<MongoDocumentShortDataType> | Error): | Array<FieldAutocompleteDataType>
             | Error => {
-            if (!Array.isArray(documentSlugTitleList)) {
+            if (!Array.isArray(documentShortDataList)) {
                 return new Error('can not get autocomplete list data');
             }
 
-            return documentSlugTitleList.map(
-                (documentSlugTitleInList: MongoDocumentShortDataType): FieldAutocompleteDataType => {
+            return documentShortDataList.map(
+                (documentShortDataInList: MongoDocumentShortDataType): FieldAutocompleteDataType => {
                     return {
-                        header: documentSlugTitleInList.header,
-                        value: documentSlugTitleInList.id,
+                        header: documentShortDataInList.header,
+                        value: documentShortDataInList.id,
                     };
                 }
             );

@@ -76,7 +76,7 @@ export function formDataToMongoDocument(formData: FormGeneratorFormDataType): Er
     }
 
     return {
-        id: 'document-id-will-replaced-on-server-' + String(Date.now()),
+        id: documentFormData.id,
         slug: documentFormData.slug,
         titleImage: String(documentFormData.titleImage || ''),
         type: documentFormData.type,
@@ -111,6 +111,15 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
             {
                 name: 'document create/edit',
                 fieldList: [
+                    {
+                        name: 'id',
+                        fieldComponent: InputText,
+                        validate: getIsRequired,
+                        defaultValue: 'document-id-will-replaced-on-server-' + String(Date.now()),
+                        placeholder: 'the-uniq-id-of-document',
+                        labelText: 'just-id-of-document',
+                        isHidden: true,
+                    },
                     {
                         name: 'slug',
                         fieldComponent: InputText,
@@ -278,19 +287,18 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: emptyStringArray,
                         placeholder: 'Sub-document id list',
                         labelText: 'Sub-document id list',
-                        isHidden: false,
                         getAutocompleteListData: getDocumentAutocompleteDataList,
                     },
-                    {
-                        name: 'subDocumentSlugList',
-                        fieldComponent: InputTextAutocomplete,
-                        validate: noValidate,
-                        defaultValue: emptyStringArray,
-                        placeholder: 'Sub-document slug list',
-                        labelText: 'Sub-document slug list',
-                        isHidden: true,
-                        getAutocompleteListData: getDocumentAutocompleteDataList,
-                    },
+                    // {
+                    //     name: 'subDocumentSlugList',
+                    //     fieldComponent: InputTextAutocomplete,
+                    //     validate: noValidate,
+                    //     defaultValue: [...emptyStringArray],
+                    //     placeholder: 'Sub-document slug list',
+                    //     labelText: 'Sub-document slug list',
+                    //     isHidden: true,
+                    //     getAutocompleteListData: ():Array<> => [],
+                    // },
                     {
                         name: 'rating',
                         fieldComponent: InputIntNumber,
