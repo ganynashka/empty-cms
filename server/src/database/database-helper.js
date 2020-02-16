@@ -63,6 +63,7 @@ export function getSortDirection(value: mixed): MongoSortDirectionType {
     return sortNumber >= 0 ? 1 : -1;
 }
 
+/*
 async function updateUserType() {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
 
@@ -105,3 +106,4 @@ async function updateUserType() {
 }
 
 updateUserType();
+*/
