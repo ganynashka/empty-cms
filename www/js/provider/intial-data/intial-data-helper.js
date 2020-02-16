@@ -114,8 +114,8 @@ export async function getInitialData(request: $Request, response: $Response): Pr
 }
 
 function getOpenGraphImagPathData(mongoDocument: MongoDocumentType): string {
-    const {titleImage, imageList} = mongoDocument;
-    const image = titleImage || imageList[0];
+    const {titleImage, fileList} = mongoDocument;
+    const image = titleImage || fileList[0];
     const size = 512;
     const kernel = image ? sharpKernelResizeNameMap.cubic : sharpKernelResizeNameMap.nearest;
     const src = image || defaultOpenGraphData.image;
@@ -179,7 +179,7 @@ export function getOpenGraphMetaString(openGraphData: OpenGraphDataType): string
 }
 
 export function documentToShortData(mongoDocument: MongoDocumentType): MongoDocumentShortDataType {
-    const {slug, type, header, titleImage, subDocumentSlugList, imageList, isActive, content} = mongoDocument;
+    const {slug, type, header, titleImage, subDocumentSlugList, fileList, isActive, content} = mongoDocument;
 
     return {
         slug,
@@ -187,7 +187,7 @@ export function documentToShortData(mongoDocument: MongoDocumentType): MongoDocu
         header,
         titleImage,
         subDocumentSlugList,
-        imageList,
+        fileList,
         isActive,
         contentLength: content.length,
     };

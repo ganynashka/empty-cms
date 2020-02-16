@@ -125,7 +125,7 @@ export async function convertJsonToDocument(jsonDocument: JsonToMongoDocumentTyp
         rating: 0,
         isActive: true,
         isInSiteMap: true,
-        imageList: [],
+        fileList: [],
     };
 
     const newList = await Promise.all(
@@ -136,7 +136,7 @@ export async function convertJsonToDocument(jsonDocument: JsonToMongoDocumentTyp
         )
     );
 
-    const imageList = newList
+    const fileList = newList
         .map((jsonDocumentItem: JsonToMongoDocumentItemType): string => jsonDocumentItem.src.trim())
         .filter(Boolean)
         .map((src: string): string => src.split('/').pop());
@@ -144,6 +144,6 @@ export async function convertJsonToDocument(jsonDocument: JsonToMongoDocumentTyp
     return Promise.resolve({
         ...newDocument,
         content: newList.map(dataToContent).join('\n'),
-        imageList,
+        fileList,
     });
 }

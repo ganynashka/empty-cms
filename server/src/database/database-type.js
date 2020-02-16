@@ -58,7 +58,8 @@ export type MongoDocumentType = {|
     +rating: number,
     +isActive: boolean,
     +isInSiteMap: boolean,
-    +imageList: Array<string>,
+    imageList?: Array<string>,
+    +fileList: Array<string>,
 |};
 
 export type MongoDocumentTreeNodeType = {|
@@ -77,7 +78,7 @@ export type MongoDocumentTreeNodeType = {|
     +subNodeList: Array<MongoDocumentTreeNodeType>,
     +subDocumentSlugList: Array<string>,
     +isActive: boolean,
-    +imageList: Array<string>,
+    +fileList: Array<string>,
 |};
 
 export type MongoDocumentShortDataType = {|
@@ -86,7 +87,7 @@ export type MongoDocumentShortDataType = {|
     +header: string,
     +titleImage: string,
     +subDocumentSlugList: Array<string>,
-    +imageList: Array<string>,
+    +fileList: Array<string>,
     +isActive: boolean,
     +contentLength: number,
 |};
@@ -123,6 +124,6 @@ export type MongoDocumentTreeType = {|
     +tagList: Array<string>,
     +rating: number,
     +isActive: boolean,
-    +imageList: Array<string>,
+    +fileList: Array<string>,
 |}
 */

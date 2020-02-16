@@ -442,7 +442,7 @@ export function addDocumentApi(app: $Application) {
             content,
             subDocumentSlugList,
             tagList,
-            imageList,
+            fileList,
             shortDescription,
             author,
             illustrator,
@@ -461,7 +461,7 @@ export function addDocumentApi(app: $Application) {
             || content
             || subDocumentSlugList.length > 0
             || tagList.length > 0
-            || imageList.length > 0
+            || fileList.length > 0
         ) {
             response.json({
                 isSuccessful: false,
@@ -529,7 +529,7 @@ export function addDocumentApi(app: $Application) {
                     header,
                     titleImage,
                     subDocumentSlugList,
-                    imageList,
+                    fileList,
                     isActive,
                     content,
                 } = documentInList;
@@ -540,7 +540,7 @@ export function addDocumentApi(app: $Application) {
                     header,
                     titleImage,
                     subDocumentSlugList,
-                    imageList,
+                    fileList,
                     isActive,
                     contentLength: content.length,
                 };

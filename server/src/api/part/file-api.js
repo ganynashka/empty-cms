@@ -65,10 +65,7 @@ export function addFileApi(app: $Application) {
 
                 // eslint-disable-next-line no-loops/no-loops
                 for (const fileName of fileList) {
-                    const documentList = await findDocumentListByOrList([
-                        {imageList: fileName},
-                        {titleImage: fileName},
-                    ]);
+                    const documentList = await findDocumentListByOrList([{fileList: fileName}, {titleImage: fileName}]);
 
                     if (isError(documentList)) {
                         console.error('Error: can not get document for:', fileName);

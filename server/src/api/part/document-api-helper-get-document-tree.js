@@ -33,7 +33,7 @@ function getDocumentTree(slug: string, deep: number): Promise<MongoDTNType | Err
             shortDescription: mongoDocument.shortDescription,
             content: mongoDocument.content,
             isActive: mongoDocument.isActive,
-            imageList: mongoDocument.imageList,
+            fileList: mongoDocument.fileList,
         };
 
         return getDocumentTreeRecursively(rootDocumentTreeNode, deep);
@@ -121,7 +121,7 @@ function getDocumentTreeRecursively(
                     shortDescription: documentOrError.shortDescription,
                     content: documentOrError.content,
                     isActive: documentOrError.isActive,
-                    imageList: documentOrError.imageList,
+                    fileList: documentOrError.fileList,
                 });
             });
 

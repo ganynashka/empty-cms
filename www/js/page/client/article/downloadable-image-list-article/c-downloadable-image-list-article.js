@@ -127,14 +127,14 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
             return <h1 className={articleStyle.article__header}>Here is not list of link</h1>;
         }
 
-        const {header, content, imageList} = articlePathData.mongoDocument;
+        const {header, content, fileList} = articlePathData.mongoDocument;
 
         return (
             <>
                 <BreadcrumbList parentNodeList={parentNodeList}/>
                 <h1 className={articleStyle.article__header}>{header}</h1>
                 <ul className={imageListArticleStyle.image_list_article__list}>
-                    {imageList.map(this.renderDownloadableImage)}
+                    {fileList.map(this.renderDownloadableImage)}
                 </ul>
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={content}/>
                 <ShareButtonList initialContextData={initialContextData} screenContextData={screenContextData}/>

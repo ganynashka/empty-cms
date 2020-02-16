@@ -51,8 +51,8 @@ export class SingleArticle extends Component<PropsType, StateType> {
         }
 
         const {mongoDocument} = articlePathData;
-        const {imageList} = mongoDocument;
-        const firstFile = imageList[0];
+        const {fileList} = mongoDocument;
+        const firstFile = fileList[0];
 
         if (firstFile && firstFile.endsWith('.mp3')) {
             return 'Слушайте также:';

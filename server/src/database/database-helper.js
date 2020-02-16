@@ -64,14 +64,15 @@ export function getSortDirection(value: mixed): MongoSortDirectionType {
 }
 
 /*
-// change user type
 async function updateUserType() {
-    const collection = await await await getCollection<MongoDocumentType>(
-        dataBaseConst.name,
-        dataBaseConst.collection.document
-    );
+    const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
 
-    collection.find({}).toArray((error: Error | null, itemList: Array<MongoDocumentType> | null) => {
+    if (isError(collection)) {
+        console.error(collection.message);
+        throw collection;
+    }
+
+    collection.find({}).toArray((error: ?Error, itemList: ?Array<MongoDocumentType>) => {
         if (error || !itemList) {
             console.error('---> !!! error');
             console.error(error);
@@ -88,7 +89,7 @@ async function updateUserType() {
 
             console.log(title, slug);
 
-            // collection.updateOne({slug}, {$set: {header: title}}, {});
+            // collection.updateOne({slug}, {$unset: {imageList: null}}, {});
         });
     });
 

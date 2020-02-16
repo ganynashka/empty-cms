@@ -23,5 +23,5 @@ export type FormDataMongoDocumentType = {
     +rating: number,
     +isActive: boolean,
     +isInSiteMap: boolean,
-    +imageList: Array<string>,
+    +fileList: Array<string>,
 };

@@ -100,7 +100,7 @@ export async function formDataToMongoDocument(formData: FormGeneratorFormDataTyp
         subDocumentSlugList,
         isActive: documentFormData.isActive,
         isInSiteMap: documentFormData.isInSiteMap,
-        imageList: extractUniqueArrayString(documentFormData.imageList),
+        fileList: extractUniqueArrayString(documentFormData.fileList),
     };
 }
 
@@ -311,7 +311,7 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         isHidden: true,
                     },
                     {
-                        name: 'imageList',
+                        name: 'fileList',
                         fieldComponent: InputUploadFileList,
                         validate: noValidate,
                         defaultValue: new Array<string>(0),

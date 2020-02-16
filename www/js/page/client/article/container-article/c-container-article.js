@@ -48,14 +48,14 @@ export class ContainerArticle extends Component<PropsType, StateType> {
     }
 
     getSubNodeImage(subNode: MongoDocumentShortDataType): string | null {
-        const {titleImage, imageList} = subNode;
+        const {titleImage, fileList} = subNode;
 
         if (titleImage.length > 0) {
             return titleImage;
         }
 
-        if (imageList.length > 0) {
-            return imageList[0];
+        if (fileList.length > 0) {
+            return fileList[0];
         }
 
         return null;
@@ -86,13 +86,13 @@ export class ContainerArticle extends Component<PropsType, StateType> {
     }
 
     renderArticleTimeToRead(subNode: MongoDocumentShortDataType): Node {
-        const {type, contentLength, imageList} = subNode;
+        const {type, contentLength, fileList} = subNode;
 
         if (type !== mongoDocumentTypeMap.article) {
             return null;
         }
 
-        const firstFileName = imageList[0] || '';
+        const firstFileName = fileList[0] || '';
 
         if (firstFileName.endsWith('.mp3')) {
             return null;
@@ -183,8 +183,8 @@ export class ContainerArticle extends Component<PropsType, StateType> {
     }
 
     renderAudioHeaderSubNode(subNode: MongoDocumentShortDataType): Node {
-        const {slug, header, imageList} = subNode;
-        const src = imageList[0] || '';
+        const {slug, header, fileList} = subNode;
+        const src = fileList[0] || '';
         const audioSrc = fileApiConst.pathToUploadFiles + '/' + src;
 
         return (

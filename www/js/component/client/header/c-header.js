@@ -120,7 +120,7 @@ export class Header extends Component<PropsType, StateType> {
                     rating: 0,
                     isActive: true,
                     isInSiteMap: false,
-                    imageList: [],
+                    fileList: [],
                 },
                 sudNodeShortDataList: [],
             },
