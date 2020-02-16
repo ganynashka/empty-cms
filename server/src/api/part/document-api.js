@@ -18,7 +18,7 @@ import {handleDataBaseChange} from '../../util/data-base';
 import {documentToShortData} from '../../../../www/js/provider/intial-data/intial-data-helper';
 import {getPasswordSha256} from '../../util/user';
 
-import {rootDocumentSlug} from './document-api-const';
+import {rootDocumentId, rootDocumentSlug} from './document-api-const';
 import {getDocumentParentListById} from './document-api-helper-get-parent-list';
 // import {getDocumentTreeMemoized} from './document-api-helper-get-document-tree';
 import {getDocumentBySlug, getOrphanList} from './document-api-helper';
@@ -389,12 +389,12 @@ export function addDocumentApi(app: $Application) {
     });
 
     // eslint-disable-next-line complexity, max-statements
-    app.post(documentApiRouteMap.removeDocumentBySlug, async (request: $Request, response: $Response) => {
-        const removeData: {slug: string} = typeConverter<{slug: string}>(request.body);
+    app.delete(documentApiRouteMap.removeDocumentById, async (request: $Request, response: $Response) => {
+        const removeData: {id: string} = typeConverter<{id: string}>(request.body);
 
-        const {slug} = removeData;
+        const {id} = removeData;
 
-        if (slug === rootDocumentSlug) {
+        if (id === rootDocumentId) {
             response.json({
                 isSuccessful: false,
                 errorList: ['Can not delete root document'],
@@ -416,22 +416,13 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        const mongoDocument = await getDocumentBySlug(slug);
+        const mongoDocument = await collection.findOne({id});
 
         if (!mongoDocument) {
             response.status(404);
             response.json({
                 isSuccessful: false,
-                errorList: [`Can not find a document with slug: ${slug}`],
-            });
-            return;
-        }
-
-        if (isError(mongoDocument)) {
-            response.status(404);
-            response.json({
-                isSuccessful: false,
-                errorList: [mongoDocument.message],
+                errorList: [`Can not find a document with id: ${id}`],
             });
             return;
         }
@@ -440,7 +431,7 @@ export function addDocumentApi(app: $Application) {
             titleImage,
             meta,
             content,
-            subDocumentSlugList,
+            subDocumentIdList,
             tagList,
             fileList,
             shortDescription,
@@ -459,7 +450,7 @@ export function addDocumentApi(app: $Application) {
             || meta
             || shortDescription
             || content
-            || subDocumentSlugList.length > 0
+            || subDocumentIdList.length > 0
             || tagList.length > 0
             || fileList.length > 0
         ) {
@@ -470,7 +461,7 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        const documentParentList = await getDocumentParentListById(slug);
+        const documentParentList = await getDocumentParentListById(id);
 
         if (isError(documentParentList)) {
             response.status(400);
@@ -483,7 +474,7 @@ export function addDocumentApi(app: $Application) {
 
         if (documentParentList.length > 0) {
             const parentSlugList = documentParentList.map((parent: MongoDocumentType): string => {
-                return parent.slug;
+                return parent.id;
             });
 
             response.json({
@@ -493,7 +484,7 @@ export function addDocumentApi(app: $Application) {
             return;
         }
 
-        await collection.deleteOne({slug}, {});
+        await collection.deleteOne({id}, {});
 
         handleDataBaseChange();
 

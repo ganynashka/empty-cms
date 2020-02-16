@@ -7,10 +7,10 @@ import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-cont
 import {isError} from '../../../lib/is';
 import {SnackbarContextConsumer} from '../../../provider/snackbar/c-snackbar-context';
 
-import {removeDocumentBySlug} from './document-api';
+import {removeDocumentById} from './document-api';
 
 type PropsType = {|
-    +slug: string,
+    +id: string,
     +onSuccess: () => Promise<mixed>,
 |};
 
@@ -19,8 +19,8 @@ export function RemoveDocument(props: PropsType): Node {
         <SnackbarContextConsumer>
             {(snackbarContext: SnackbarContextType): Node => {
                 async function handleOnClick() {
-                    const {slug, onSuccess} = props;
-                    const removeResult = await removeDocumentBySlug(slug);
+                    const {id, onSuccess} = props;
+                    const removeResult = await removeDocumentById(id);
                     const {showSnackbar} = snackbarContext;
 
                     if (isError(removeResult)) {
@@ -41,7 +41,7 @@ export function RemoveDocument(props: PropsType): Node {
 
                     await onSuccess();
 
-                    await showSnackbar({children: `${slug} has been removed`, variant: 'success'}, 'document-removed');
+                    await showSnackbar({children: `${id} has been removed`, variant: 'success'}, 'document-removed');
                 }
 
                 return (

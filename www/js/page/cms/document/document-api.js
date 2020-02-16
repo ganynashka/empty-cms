@@ -79,14 +79,14 @@ export function getDocumentOrphanList(): Promise<Array<MongoDocumentType> | Erro
         .catch(promiseCatch);
 }
 
-export function removeDocumentBySlug(slug: string): Promise<MainServerApiResponseType | Error> {
-    return fetch(documentApiRouteMap.removeDocumentBySlug, {
-        method: 'POST',
+export function removeDocumentById(id: string): Promise<MainServerApiResponseType | Error> {
+    return fetch(documentApiRouteMap.removeDocumentById, {
+        method: 'DELETE',
         headers: {
             // eslint-disable-next-line sonarjs/no-duplicate-string
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({slug}),
+        body: JSON.stringify({id}),
     })
         .then((response: Response): Promise<MainServerApiResponseType | Error> => response.json())
         .catch(promiseCatch);

@@ -69,7 +69,7 @@ async function enhancedTableGetDocumentList(
                 subDocumentListViewType,
                 createdDate: timeToHumanString(createdDate),
                 updatedDate: timeToHumanString(updatedDate),
-                remove: <RemoveDocument onSuccess={refreshTable} slug={slug}/>,
+                remove: <RemoveDocument id={id} onSuccess={refreshTable}/>,
             };
         }),
         allElementsNumber: fullListSize,
