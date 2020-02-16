@@ -85,15 +85,15 @@ async function updateItemType() {
             console.log('---> item');
             // console.log(item);
             //
-            const {title, slug, id, subDocumentSlugList, subDocumentIdList} = item;
+            const {title, slug, id, subDocumentIdList} = item;
 
-            console.log(title, slug, id, subDocumentSlugList, subDocumentIdList);
+            console.log(title, slug, id, subDocumentIdList);
 
             // const subDocumentIdList = subDocumentSlugList.map((slugToId: string): string => 'id-for-' + slugToId);
 
             // console.log(subDocumentIdList);
 
-            // collection.updateOne({id}, {$set: {subDocumentSlugList: []}}, {});
+            collection.updateOne({id}, {$unset: {subDocumentSlugList: null}}, {});
         });
     });
 

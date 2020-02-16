@@ -121,7 +121,7 @@ export async function convertJsonToDocument(jsonDocument: JsonToMongoDocumentTyp
         content: '',
         createdDate: date,
         updatedDate: date,
-        subDocumentSlugList: [],
+        // subDocumentSlugList: [],
         subDocumentIdList: [],
         tagList: [],
         rating: 0,

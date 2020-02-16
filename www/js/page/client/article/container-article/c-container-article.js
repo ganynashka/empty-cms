@@ -210,8 +210,8 @@ export class ContainerArticle extends Component<PropsType, StateType> {
     }
 
     renderHeaderSubNode(subNode: MongoDocumentShortDataType): Node {
-        const {slug, header, subDocumentSlugList} = subNode;
-        const childListLength = subDocumentSlugList.length;
+        const {slug, header, subDocumentIdList} = subNode;
+        const childListLength = subDocumentIdList.length;
 
         return (
             <li className={articleStyle.article__list_header_item} key={slug}>

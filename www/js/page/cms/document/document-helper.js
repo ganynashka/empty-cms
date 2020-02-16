@@ -100,7 +100,7 @@ export function formDataToMongoDocument(formData: FormGeneratorFormDataType): Er
         updatedDate: 0,
         rating: Number(documentFormData.rating),
         tagList: stringToUniqArray(documentFormData.tagList, ','),
-        subDocumentSlugList: [],
+        // subDocumentSlugList: [],
         subDocumentIdList: documentFormData.subDocumentIdList,
         isActive: documentFormData.isActive,
         isInSiteMap: documentFormData.isInSiteMap,

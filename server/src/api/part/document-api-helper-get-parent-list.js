@@ -47,6 +47,7 @@ export async function getDocumentParentListById(id: string): Promise<Array<Mongo
     });
 }
 
+/*
 async function getDocumentFirstParentBySlug(slug: string): Promise<MayBeDocumentType> {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
 
@@ -57,6 +58,7 @@ async function getDocumentFirstParentBySlug(slug: string): Promise<MayBeDocument
     // $FlowFixMe
     return collection.findOne({subDocumentSlugList: slug});
 }
+*/
 
 async function getDocumentFirstParentById(id: string): Promise<MayBeDocumentType> {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);

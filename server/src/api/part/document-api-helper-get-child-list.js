@@ -42,7 +42,7 @@ export async function getSiblingLinkDataList(id: string): Promise<Array<MongoDoc
                     type: documentInList.type,
                     header: documentInList.header,
                     titleImage: documentInList.titleImage,
-                    subDocumentSlugList: documentInList.subDocumentSlugList,
+                    // subDocumentSlugList: documentInList.subDocumentSlugList,
                     subDocumentIdList: documentInList.subDocumentIdList,
                     fileList: documentInList.fileList,
                     isActive: documentInList.isActive,

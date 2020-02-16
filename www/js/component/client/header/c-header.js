@@ -116,7 +116,7 @@ export class Header extends Component<PropsType, StateType> {
                     content: 'Ошибка соединения. Проверьте наличие интернета и обновите страницу.',
                     createdDate: 0,
                     updatedDate: 0,
-                    subDocumentSlugList: [],
+                    // subDocumentSlugList: [],
                     subDocumentIdList: [],
                     tagList: [],
                     rating: 0,
