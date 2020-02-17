@@ -126,7 +126,7 @@ export async function getDocumentParentListMemoized(
     id: string,
     deep: number
 ): Promise<Array<MongoDocumentType> | Error> {
-    const cacheKey = `key-slug:${id}-deep:${deep}`;
+    const cacheKey = `key-id:${id}-deep:${deep}`;
 
     if (hasProperty(documentParentListCache, cacheKey) && documentParentListCache[cacheKey]) {
         return documentParentListCache[cacheKey];
