@@ -21,8 +21,10 @@ import {fileApiConst} from '../../../../../../server/src/api/part/file-api-const
 import {promiseCatch} from '../../../../lib/promise';
 import {ShareButtonList} from '../../../../component/share/share-button-list/c-share-button-list';
 import singleArticleStyle from '../single-article/single-article.scss';
+import type {LocationType} from '../../../../type/react-router-dom-v5-type-extract';
 
 type PropsType = {|
+    +location: LocationType,
     +initialContextData: InitialDataType,
     +screenContextData: ScreenContextType,
 |};
@@ -255,7 +257,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
 
     render(): Node {
         const {props, state} = this;
-        const {initialContextData, screenContextData} = props;
+        const {initialContextData, screenContextData, location} = props;
         const {articlePathData, parentNodeList} = initialContextData;
 
         if (!articlePathData) {
@@ -274,7 +276,11 @@ export class ContainerArticle extends Component<PropsType, StateType> {
                     {subNodeList.sort(sortDocumentByAlphabet).map(this.renderSubNode)}
                 </ul>
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={content}/>
-                <ShareButtonList initialContextData={initialContextData} screenContextData={screenContextData}/>
+                <ShareButtonList
+                    initialContextData={initialContextData}
+                    location={location}
+                    screenContextData={screenContextData}
+                />
             </>
         );
     }

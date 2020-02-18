@@ -7,16 +7,24 @@ import {InlineShareButtons} from 'sharethis-reactjs';
 
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
+import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
+
+import {footerLinkList} from '../../client/footer/footer-const';
 
 import shareButtonListStyle from './share-button-list.scss';
 
 type PropsType = {|
+    +location: LocationType,
     +screenContextData: ScreenContextType,
     +initialContextData: InitialDataType,
 |};
 
 export function ShareButtonList(props: PropsType): Node {
-    const {screenContextData, initialContextData} = props;
+    const {screenContextData, initialContextData, location} = props;
+
+    if (footerLinkList.includes(location.pathname)) {
+        return null;
+    }
 
     if (!screenContextData.isWindowLoaded) {
         return <div className={shareButtonListStyle.share_button_list__wrapper}/>;

@@ -14,6 +14,8 @@ import {imageSrcToHtml} from '../../../../../../server/src/api/part/pdf-api-help
 import {SiblingList} from '../../../../component/layout/sibling-list/sibling-list';
 import {ShareButtonList} from '../../../../component/share/share-button-list/c-share-button-list';
 
+import type {LocationType} from '../../../../type/react-router-dom-v5-type-extract';
+
 import imageListArticleStyle from './downloadable-image-list-article.scss';
 
 const maxImageSideSize = 5e3;
@@ -21,6 +23,7 @@ const maxImageSideSize = 5e3;
 type PropsType = {|
     +initialContextData: InitialDataType,
     +screenContextData: ScreenContextType,
+    +location: LocationType,
 |};
 
 type StateType = {|
@@ -120,7 +123,7 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
 
     render(): Node {
         const {props} = this;
-        const {initialContextData, screenContextData} = props;
+        const {initialContextData, screenContextData, location} = props;
         const {articlePathData, parentNodeList} = initialContextData;
 
         if (!articlePathData) {
@@ -137,7 +140,11 @@ export class DownloadableImageListArticle extends Component<PropsType, StateType
                     {fileList.map(this.renderDownloadableImage)}
                 </ul>
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={content}/>
-                <ShareButtonList initialContextData={initialContextData} screenContextData={screenContextData}/>
+                <ShareButtonList
+                    initialContextData={initialContextData}
+                    location={location}
+                    screenContextData={screenContextData}
+                />
                 <SiblingList header="Смотрите также:" initialContextData={initialContextData}/>
                 {this.renderPrintableIFrame()}
             </>

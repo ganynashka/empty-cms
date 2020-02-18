@@ -3,7 +3,7 @@
 import React, {Component, type Node} from 'react';
 
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
-import type {MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
+import type {LocationType, MatchType, RouterHistoryType} from '../../../type/react-router-dom-v5-type-extract';
 import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-type';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 import {PageNotFoundContent} from '../page-not-found/page-not-found-content';
@@ -15,6 +15,7 @@ import {ContainerArticle} from './container-article/c-container-article';
 import {DownloadableImageListArticle} from './downloadable-image-list-article/c-downloadable-image-list-article';
 
 type PropsType = {
+    +location: LocationType,
     +initialContextData: InitialDataType,
     +screenContextData: ScreenContextType,
     +match: MatchType | null,
@@ -39,7 +40,7 @@ export class Article extends Component<PropsType, StateType> {
     // eslint-disable-next-line complexity, max-statements
     renderContent(): Node {
         const {props} = this;
-        const {initialContextData, match, screenContextData} = props;
+        const {initialContextData, match, screenContextData, location} = props;
         const {is404, articlePathData} = initialContextData;
 
         if (is404) {
@@ -61,17 +62,30 @@ export class Article extends Component<PropsType, StateType> {
         const {article, container, downloadableImageList} = mongoDocumentTypeMap;
 
         if (article === type) {
-            return <SingleArticle initialContextData={initialContextData} screenContextData={screenContextData}/>;
+            return (
+                <SingleArticle
+                    initialContextData={initialContextData}
+                    location={location}
+                    screenContextData={screenContextData}
+                />
+            );
         }
 
         if (container === type) {
-            return <ContainerArticle initialContextData={initialContextData} screenContextData={screenContextData}/>;
+            return (
+                <ContainerArticle
+                    initialContextData={initialContextData}
+                    location={location}
+                    screenContextData={screenContextData}
+                />
+            );
         }
 
         if (downloadableImageList === type) {
             return (
                 <DownloadableImageListArticle
                     initialContextData={initialContextData}
+                    location={location}
                     screenContextData={screenContextData}
                 />
             );

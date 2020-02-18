@@ -10,10 +10,12 @@ import {SiblingList} from '../../../../component/layout/sibling-list/sibling-lis
 import {beautifyMarkDawn} from '../../../../lib/string';
 import {ShareButtonList} from '../../../../component/share/share-button-list/c-share-button-list';
 import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
+import type {LocationType} from '../../../../type/react-router-dom-v5-type-extract';
 
 import singleArticleStyle from './single-article.scss';
 
 type PropsType = {|
+    +location: LocationType,
     +screenContextData: ScreenContextType,
     +initialContextData: InitialDataType,
 |};
@@ -63,7 +65,7 @@ export class SingleArticle extends Component<PropsType, StateType> {
 
     render(): Node {
         const {props} = this;
-        const {initialContextData, screenContextData} = props;
+        const {initialContextData, screenContextData, location} = props;
         const {articlePathData, parentNodeList} = initialContextData;
 
         if (!articlePathData) {
@@ -78,7 +80,11 @@ export class SingleArticle extends Component<PropsType, StateType> {
                 <h1 className={articleStyle.article__header}>{header}</h1>
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={beautifyMarkDawn(content)}/>
                 {this.renderAuthorList()}
-                <ShareButtonList initialContextData={initialContextData} screenContextData={screenContextData}/>
+                <ShareButtonList
+                    initialContextData={initialContextData}
+                    location={location}
+                    screenContextData={screenContextData}
+                />
                 <SiblingList header={this.getSiblingListHeader()} initialContextData={initialContextData}/>
             </>
         );

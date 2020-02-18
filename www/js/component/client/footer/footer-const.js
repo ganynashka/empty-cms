@@ -1,5 +1,7 @@
 // @flow
 
+import {getLinkToReadArticle} from '../../../lib/string';
+
 export const footerLinkMap = {
     holders: {
         slug: 'holders',
@@ -14,3 +16,7 @@ export const footerLinkMap = {
         title: 'Обратная связь',
     },
 };
+
+export const footerLinkList = Object.keys(footerLinkMap).map<string>((key: string): string => {
+    return getLinkToReadArticle(footerLinkMap[key].slug);
+});
