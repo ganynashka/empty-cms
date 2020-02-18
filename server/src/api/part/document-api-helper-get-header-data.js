@@ -6,11 +6,11 @@ import type {HeaderDataType} from '../../../../www/js/provider/intial-data/intia
 import {documentToShortData} from '../../../../www/js/provider/intial-data/intial-data-helper';
 
 import type {MayBeDocumentType} from './document-api-helper-get-document';
-import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
+import {getDocumentByMemoized} from './document-api-helper-get-document';
 import {rootDocumentSlug} from './document-api-const';
 
 export async function getHeaderData(): Promise<HeaderDataType> {
-    const rootDocument = await getDocumentBySlugMemoized({slug: rootDocumentSlug});
+    const rootDocument = await getDocumentByMemoized({slug: rootDocumentSlug});
 
     if (!rootDocument || isError(rootDocument)) {
         return {documentShortDataList: []};
@@ -20,7 +20,7 @@ export async function getHeaderData(): Promise<HeaderDataType> {
 
     const subDocumentList: Array<MayBeDocumentType> = await Promise.all(
         rootDocument.subDocumentIdList.map((idInList: string): Promise<MayBeDocumentType> =>
-            getDocumentBySlugMemoized({id: idInList})
+            getDocumentByMemoized({id: idInList})
         )
     );
 
@@ -75,14 +75,14 @@ export function getHeaderDataMemoized(): Promise<HeaderDataType> {
 /*
 
 export async function getArticlePathData(slug: string): Promise<ArticlePathDataType | null> {
-    const mongoDocument = await getDocumentBySlugMemoized(slug);
+    const mongoDocument = await getDocumentByMemoized(slug);
 
     if (!mongoDocument || isError(mongoDocument)) {
         return null;
     }
 
     const subDocumentList: Array<MayBeDocumentType> = await Promise.all(
-        mongoDocument.subDocumentSlugList.map(getDocumentBySlugMemoized)
+        mongoDocument.subDocumentSlugList.map(getDocumentByMemoized)
     );
 
     const sudNodeShortDataList: Array<MongoDocumentShortDataType> = [];

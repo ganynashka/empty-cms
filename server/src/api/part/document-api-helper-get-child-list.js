@@ -5,7 +5,7 @@ import {hasProperty, isError} from '../../../../www/js/lib/is';
 import {promiseCatch} from '../../../../www/js/lib/promise';
 
 import type {MayBeDocumentType} from './document-api-helper-get-document';
-import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
+import {getDocumentByMemoized} from './document-api-helper-get-document';
 import {getDocumentParentListById} from './document-api-helper-get-parent-list';
 
 export async function getSiblingLinkDataList(id: string): Promise<Array<MongoDocumentShortDataType> | Error> {
@@ -22,7 +22,7 @@ export async function getSiblingLinkDataList(id: string): Promise<Array<MongoDoc
     });
 
     return Promise.all(
-        idList.map((idInList: string): Promise<MayBeDocumentType> => getDocumentBySlugMemoized({id: idInList}))
+        idList.map((idInList: string): Promise<MayBeDocumentType> => getDocumentByMemoized({id: idInList}))
     )
         .then((documentList: Array<MayBeDocumentType>): Array<MongoDocumentShortDataType> => {
             const filteredDocumentList: Array<MongoDocumentShortDataType> = [];

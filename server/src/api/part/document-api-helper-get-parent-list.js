@@ -8,7 +8,7 @@ import {documentApiRouteMap} from '../api-route-map';
 import {promiseCatch} from '../../../../www/js/lib/promise';
 
 import type {MayBeDocumentType} from './document-api-helper-get-document';
-import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
+import {getDocumentByMemoized} from './document-api-helper-get-document';
 
 export async function getDocumentParentListById(id: string): Promise<Array<MongoDocumentType> | Error> {
     const collection = await getCollection<MongoDocumentType>(dataBaseConst.name, dataBaseConst.collection.document);
@@ -105,7 +105,7 @@ function getDocumentParentListRecursively(
 }
 
 async function getDocumentParentList(id: string, deep: number): Promise<Array<MongoDocumentType> | Error> {
-    const mongoDocument = await getDocumentBySlugMemoized({id});
+    const mongoDocument = await getDocumentByMemoized({id});
 
     if (isError(mongoDocument) || !mongoDocument) {
         return new Error(`Can not get document by id: ${id}`);

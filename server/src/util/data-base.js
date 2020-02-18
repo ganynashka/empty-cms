@@ -12,7 +12,7 @@ import {clearGetArticlePathDataCache} from '../api/part/document-api-helper-get-
 import {clearGetRootPathDataCache} from '../api/part/document-api-helper-get-root-path-data';
 import {clearGetHeaderDataCache} from '../api/part/document-api-helper-get-header-data';
 
-import {clearGetDocumentBySlugCache} from '../api/part/document-api-helper-get-document';
+import {clearGetDocumentByCache} from '../api/part/document-api-helper-get-document';
 
 import {updateSiteMapXml} from './site-map-xml-helper';
 
@@ -22,7 +22,7 @@ export function handleDataBaseChange(): Promise<mixed> {
         .then(makeDataBaseBackUp)
         .then((): true => {
             // clearGetDocumentTreeCache();
-            clearGetDocumentBySlugCache();
+            clearGetDocumentByCache();
             clearGetDocumentParentListCache();
             clearGetSiblingLinkDataListCache();
             clearGetArticlePathDataCache();

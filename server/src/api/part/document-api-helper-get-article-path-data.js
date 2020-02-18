@@ -5,11 +5,11 @@ import {hasProperty, isError} from '../../../../www/js/lib/is';
 import type {ArticlePathDataType} from '../../../../www/js/provider/intial-data/intial-data-type';
 import {documentToShortData} from '../../../../www/js/provider/intial-data/intial-data-helper';
 
-import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
+import {getDocumentByMemoized} from './document-api-helper-get-document';
 import type {MayBeDocumentType} from './document-api-helper-get-document';
 
 export async function getArticlePathData(id: string): Promise<ArticlePathDataType | null> {
-    const mongoDocument = await getDocumentBySlugMemoized({id});
+    const mongoDocument = await getDocumentByMemoized({id});
 
     if (!mongoDocument || isError(mongoDocument)) {
         return null;
@@ -21,7 +21,7 @@ export async function getArticlePathData(id: string): Promise<ArticlePathDataTyp
 
     const subDocumentList: Array<MayBeDocumentType> = await Promise.all(
         mongoDocument.subDocumentIdList.map((idInList: string): Promise<MayBeDocumentType> =>
-            getDocumentBySlugMemoized({id: idInList})
+            getDocumentByMemoized({id: idInList})
         )
     );
 

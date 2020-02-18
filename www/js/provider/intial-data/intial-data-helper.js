@@ -21,7 +21,7 @@ import {getHeaderDataMemoized} from '../../../../server/src/api/part/document-ap
 import {protocolHostingDomainName} from '../../../../server/src/config';
 import {rootDocumentSlug} from '../../../../server/src/api/part/document-api-const';
 
-import {getDocumentBySlugMemoized} from '../../../../server/src/api/part/document-api-helper-get-document';
+import {getDocumentByMemoized} from '../../../../server/src/api/part/document-api-helper-get-document';
 
 import {defaultInitialData, defaultOpenGraphData, page404InitialData, rootPathMetaData} from './intial-data-const';
 import type {InitialDataType} from './intial-data-type';
@@ -65,7 +65,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
     // article
     if (path.startsWith(routePathMap.article.staticPartPath)) {
         const slug = path.replace(getLinkToReadArticle(''), '');
-        const mongoDocument = await getDocumentBySlugMemoized({slug});
+        const mongoDocument = await getDocumentByMemoized({slug});
 
         if (!mongoDocument || isError(mongoDocument)) {
             console.error('getInitialDataByRequest: can not get document by slug:', slug);

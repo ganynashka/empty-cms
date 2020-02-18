@@ -5,11 +5,11 @@ import {hasProperty, isError} from '../../../../www/js/lib/is';
 import type {RootPathDataType} from '../../../../www/js/provider/intial-data/intial-data-type';
 
 import type {MayBeDocumentType} from './document-api-helper-get-document';
-import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
+import {getDocumentByMemoized} from './document-api-helper-get-document';
 import {rootDocumentSlug} from './document-api-const';
 
 export async function getRootPathData(): Promise<RootPathDataType | null> {
-    const mongoDocument = await getDocumentBySlugMemoized({slug: rootDocumentSlug});
+    const mongoDocument = await getDocumentByMemoized({slug: rootDocumentSlug});
 
     if (!mongoDocument || isError(mongoDocument)) {
         return null;
@@ -17,7 +17,7 @@ export async function getRootPathData(): Promise<RootPathDataType | null> {
 
     const mayBeSubDocumentList: Array<MayBeDocumentType> = await Promise.all(
         mongoDocument.subDocumentIdList.map((idInList: string): Promise<MayBeDocumentType> =>
-            getDocumentBySlugMemoized({id: idInList})
+            getDocumentByMemoized({id: idInList})
         )
     );
 

@@ -5,10 +5,10 @@ import type {MongoDocumentTreeNodeType as MongoDTNType} from '../../database/dat
 import {hasProperty, isError, isNull} from '../../../../www/js/lib/is';
 
 import type {MayBeDocumentType} from './document-api-helper-get-document';
-import {getDocumentBySlugMemoized} from './document-api-helper-get-document';
+import {getDocumentByMemoized} from './document-api-helper-get-document';
 
 function getDocumentTree(slug: string, deep: number): Promise<MongoDTNType | Error> {
-    return getDocumentBySlugMemoized(slug).then((mongoDocument: MayBeDocumentType): Promise<MongoDTNType | Error> => {
+    return getDocumentByMemoized(slug).then((mongoDocument: MayBeDocumentType): Promise<MongoDTNType | Error> => {
         if (isError(mongoDocument) || isNull(mongoDocument) || !mongoDocument.isActive) {
             // console.error('Can not get document tree');
             // console.error(mongoDocument);
@@ -87,7 +87,7 @@ function getDocumentTreeRecursively(
         return Promise.resolve(currentRoot);
     }
 
-    return Promise.all(subDocumentSlugList.map(getDocumentBySlugMemoized))
+    return Promise.all(subDocumentSlugList.map(getDocumentByMemoized))
         .then((documentListOrError: Array<MayBeDocumentType>): Promise<MongoDTNType> => {
             documentListOrError.map((documentOrError: MayBeDocumentType) => {
                 if (isError(documentOrError) || isNull(documentOrError)) {
