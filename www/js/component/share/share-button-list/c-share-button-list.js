@@ -19,13 +19,13 @@ export function ShareButtonList(props: PropsType): Node {
     const {screenContextData, initialContextData} = props;
 
     if (!screenContextData.isWindowLoaded) {
-        return null;
+        return <div className={shareButtonListStyle.share_button_list__wrapper}/>;
     }
 
     const {openGraphData} = initialContextData;
 
     if (!openGraphData) {
-        return null;
+        return <div className={shareButtonListStyle.share_button_list__wrapper}/>;
     }
 
     return (
