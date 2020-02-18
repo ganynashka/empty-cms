@@ -1,0 +1,33 @@
+@import './../../../../../css/var';
+
+.connection__header {
+    display: block;
+    font-size: 36px;
+    padding-bottom: 20px;
+    word-break: break-word;
+}
+
+.connection__text {
+    font-size: 18px;
+}
+
+.connection__button__wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    height: 65px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.connection__button {
+    border: 1px solid $main-text-color;
+    border-radius: 5px;
+    display: block;
+    font-size: $main-font-size;
+    padding: 12px 20px;
+
+    &:hover {
+        background-color: $light-gray;
+    }
+}

@@ -44,8 +44,8 @@ export class Article extends Component<PropsType, StateType> {
         const {initialContextData, match, screenContextData, location} = props;
         const {is404, articlePathData, isConnectionError} = initialContextData;
 
-        if (isConnectionError === true || 1) {
-            return <ErrorConnectionContent/>;
+        if (isConnectionError === true) {
+            return <ErrorConnectionContent initialContextData={initialContextData} location={location}/>;
         }
 
         if (is404) {

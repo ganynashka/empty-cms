@@ -4,8 +4,8 @@ import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
-import type {MongoDocumentTreeNodeType, MongoDocumentType} from '../../../../../server/src/database/database-type';
-import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
+import type {MongoDocumentType} from '../../../../../server/src/database/database-type';
+import type {LocationType, MatchType} from '../../../type/react-router-dom-v5-type-extract';
 import serviceStyle from '../../../../css/service.scss';
 import {Markdown} from '../../../component/layout/markdown/c-markdown';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
@@ -18,6 +18,7 @@ import articleStyle from '../article/article.scss';
 import homeStyle from './home.scss';
 
 type PropsType = {
+    +location: LocationType,
     +initialContextData: InitialDataType,
     +screenContextData: ScreenContextType,
     +match: MatchType | null,
@@ -94,13 +95,13 @@ export class Home extends Component<PropsType, StateType> {
 
     render(): Node {
         const {props} = this;
-        const {initialContextData} = props;
+        const {initialContextData, location} = props;
         const {rootPathData, isConnectionError} = initialContextData;
 
-        if (isConnectionError === true || 1) {
+        if (isConnectionError === true) {
             return (
                 <div className={articleStyle.article__wrapper}>
-                    <ErrorConnectionContent/>
+                    <ErrorConnectionContent initialContextData={initialContextData} location={location}/>
                 </div>
             );
         }
