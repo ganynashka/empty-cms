@@ -13,6 +13,7 @@ import articleStyle from './article.scss';
 import {SingleArticle} from './single-article/c-single-article';
 import {ContainerArticle} from './container-article/c-container-article';
 import {DownloadableImageListArticle} from './downloadable-image-list-article/c-downloadable-image-list-article';
+import {ErrorConnectionContent} from './error-connection-content/c-error-connection-content';
 
 type PropsType = {
     +location: LocationType,
@@ -41,7 +42,11 @@ export class Article extends Component<PropsType, StateType> {
     renderContent(): Node {
         const {props} = this;
         const {initialContextData, match, screenContextData, location} = props;
-        const {is404, articlePathData} = initialContextData;
+        const {is404, articlePathData, isConnectionError} = initialContextData;
+
+        if (isConnectionError === true || 1) {
+            return <ErrorConnectionContent/>;
+        }
 
         if (is404) {
             return <PageNotFoundContent/>;

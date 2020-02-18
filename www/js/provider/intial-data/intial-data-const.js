@@ -36,7 +36,8 @@ export const defaultInitialData: InitialDataType = {
     rootPathData: null,
     articlePathData: null,
     // documentNodeTree: null,
-    setInitialData: null,
+    // setInitialData: null,
+    refreshInitialData: null,
     parentNodeList: [],
     device: {type: deviceTypeNameMap.phone},
     siblingDataList: [],
@@ -48,5 +49,5 @@ export const page404InitialData: InitialDataType = {
     header: '404',
     // description: '404',
     is404: true,
-    setInitialData: null,
+    // setInitialData: null,
 };

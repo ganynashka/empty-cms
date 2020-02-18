@@ -12,6 +12,8 @@ import type {ScreenContextType} from '../../../provider/screen/screen-context-ty
 import {getResizedImageSrc} from '../../../lib/url';
 import {getLinkToReadArticle} from '../../../lib/string';
 import {PageLoading} from '../../../component/client/page-loading/c-page-loading';
+import {ErrorConnectionContent} from '../article/error-connection-content/c-error-connection-content';
+import articleStyle from '../article/article.scss';
 
 import homeStyle from './home.scss';
 
@@ -93,7 +95,15 @@ export class Home extends Component<PropsType, StateType> {
     render(): Node {
         const {props} = this;
         const {initialContextData} = props;
-        const {rootPathData} = initialContextData;
+        const {rootPathData, isConnectionError} = initialContextData;
+
+        if (isConnectionError === true || 1) {
+            return (
+                <div className={articleStyle.article__wrapper}>
+                    <ErrorConnectionContent/>
+                </div>
+            );
+        }
 
         if (!rootPathData) {
             return (

@@ -11,6 +11,7 @@ import {beautifyMarkDawn} from '../../../../lib/string';
 import {ShareButtonList} from '../../../../component/share/share-button-list/c-share-button-list';
 import type {ScreenContextType} from '../../../../provider/screen/screen-context-type';
 import type {LocationType} from '../../../../type/react-router-dom-v5-type-extract';
+import {ErrorConnectionContent} from '../error-connection-content/c-error-connection-content';
 
 import singleArticleStyle from './single-article.scss';
 

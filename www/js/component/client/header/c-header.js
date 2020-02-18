@@ -12,7 +12,7 @@ import type {ScreenContextType} from '../../../provider/screen/screen-context-ty
 import type {InitialDataType, SetInitialDataArgumentType} from '../../../provider/intial-data/intial-data-type';
 import {setMeta} from '../../../lib/meta';
 import {getInitialClientData} from '../../app/client-app-helper';
-import {isError, isFunction} from '../../../lib/is';
+import {isError, isFunction, isNotFunction} from '../../../lib/is';
 import type {
     MongoDocumentShortDataType,
     MongoDocumentTreeNodeType,
@@ -79,93 +79,20 @@ export class Header extends Component<PropsType, StateType> {
         this.setState({isSearchActive});
     };
 
-    errorInitialContextData(error: Error) {
-        const {props} = this;
-        const {location} = props;
-        const {setInitialData} = props.initialContextData;
-
-        if (!isFunction(setInitialData)) {
-            console.error('initialContextData.setInitialData should be the function!');
-            return;
-        }
-
-        const data: SetInitialDataArgumentType = {
-            header: '',
-            title: '',
-            meta: '',
-            is404: false,
-            articlePathData: {
-                mongoDocument: {
-                    id: String(Date.now()),
-                    slug:
-                        location.pathname
-                            .split('/')
-                            .filter(Boolean)
-                            .pop() || '',
-                    titleImage: '',
-                    type: mongoDocumentTypeMap.article,
-                    subDocumentListViewType: mongoSubDocumentsViewTypeMap.header,
-                    title: 'Ошибка соединения',
-                    header: '',
-                    author: '',
-                    illustrator: '',
-                    artist: '',
-                    publicationDate: 0,
-                    meta: '',
-                    shortDescription: '',
-                    content: 'Ошибка соединения. Проверьте наличие интернета и обновите страницу.',
-                    createdDate: 0,
-                    updatedDate: 0,
-                    // subDocumentSlugList: [],
-                    subDocumentIdList: [],
-                    tagList: [],
-                    rating: 0,
-                    isActive: true,
-                    isInSiteMap: false,
-                    fileList: [],
-                },
-                sudNodeShortDataList: [],
-            },
-            // documentNodeTree: props.initialContextData.documentNodeTree,
-            setInitialData: null,
-            device: props.initialContextData.device,
-        };
-
-        setInitialData(data);
-
-        setMeta({
-            title: 'Ошибка соединения',
-        });
-
-        scrollToTop();
-    }
-
     async fetchInitialContextData() {
         const {props} = this;
         const {location} = props;
-        const {setInitialData} = props.initialContextData;
+        const {refreshInitialData} = props.initialContextData;
 
         if (isCMS(location)) {
             return;
         }
 
-        const initialContextData = await getInitialClientData(props.location.pathname, 1);
-
-        if (isError(initialContextData)) {
-            this.errorInitialContextData(initialContextData);
+        if (isNotFunction(refreshInitialData)) {
             return;
         }
 
-        if (!isFunction(setInitialData)) {
-            console.error('initialContextData.setInitialData should be the function!');
-            return;
-        }
-
-        setInitialData(initialContextData);
-
-        setMeta({
-            title: initialContextData.title,
-        });
+        refreshInitialData(location.pathname);
     }
 
     getIsActiveLink(linkData: MongoDocumentShortDataType): boolean {
