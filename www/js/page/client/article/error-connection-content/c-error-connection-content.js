@@ -53,6 +53,7 @@ export class ErrorConnectionContent extends Component<PropsType, StateType> {
             return;
         }
 
+        setMeta({title});
         this.setState({isRefreshing: false});
     };
 
