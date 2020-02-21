@@ -28,6 +28,8 @@ const {isProduction} = require('./../../../webpack/config');
 
 const MongoStore = connectMongo(session);
 
+const availableHostnameList = [hostingDomainName, hostingIpAddress, 'localhost'];
+
 export function addApiIntoApplication(app: $Application) {
     // app.use(cors());
     app.use(helmet());
@@ -62,7 +64,7 @@ export function addApiIntoApplication(app: $Application) {
         app.use((request: $Request, response: $Response, next: () => mixed) => {
             const {hostname} = request;
 
-            if (hostname !== hostingDomainName && hostname !== hostingIpAddress) {
+            if (!availableHostnameList.includes(hostname)) {
                 response.redirect(301, protocolHostingDomainName + request.url);
                 return;
             }

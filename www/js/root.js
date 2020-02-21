@@ -17,4 +17,4 @@ if (nodeWrapper !== null) {
     console.error('Can not find nodeWrapper');
 }
 
-// registerServiceWorker();
+registerServiceWorker();

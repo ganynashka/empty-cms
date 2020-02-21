@@ -5,10 +5,10 @@
 import React, {Component, type Node} from 'react';
 import {InlineShareButtons} from 'sharethis-reactjs';
 
+import {isDevelopment} from '../../../../../webpack/config';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 import type {InitialDataType} from '../../../provider/intial-data/intial-data-type';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
-
 import {footerLinkList} from '../../client/footer/footer-const';
 
 import shareButtonListStyle from './share-button-list.scss';
@@ -22,7 +22,7 @@ type PropsType = {|
 export function ShareButtonList(props: PropsType): Node {
     const {screenContextData, initialContextData, location} = props;
 
-    if (footerLinkList.includes(location.pathname)) {
+    if (footerLinkList.includes(location.pathname) || isDevelopment) {
         return null;
     }
 

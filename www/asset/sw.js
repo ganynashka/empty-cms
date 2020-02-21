@@ -13,12 +13,12 @@ type ServiceWorkerEvent = {
 };
 */
 
-const cacheName = 'my-pwa-cache-v.0050';
+const cacheName = 'my-pwa-cache-v.0051';
 
 async function makePreCache() {
     const cache = await caches.open(cacheName);
 
-    await cache.addAll(['/', '/api/get-initial-data?url=/&deep=1', '/favicon.ico']);
+    await cache.addAll(['/', '/api/get-initial-data?url=/', '/favicon.ico']);
 }
 
 function installCallBack(evt /*:: : ServiceWorkerEvent */) {
