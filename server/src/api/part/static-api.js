@@ -13,6 +13,7 @@ import {defaultOpenGraphData} from '../../../../www/js/provider/intial-data/inti
 import {sharpKernelResizeNameMap} from '../../../../www/js/page/cms/file/file-api';
 
 import {fileApiConst} from './file-api-const';
+
 const {pathToUploadFiles} = fileApiConst;
 const CWD = process.cwd();
 const manifestIconSizeList = [36, 48, 72, 96, 144, 192, 512, 1024, 2048];
@@ -51,6 +52,25 @@ export function addStaticApi(app: $Application) {
 
     app.get('/manifest.json', (request: $Request, response: $Response) => {
         response.json(manifest);
+    });
+
+    const assetlinks = [
+        {
+            relation: ['delegate_permission/common.handle_all_urls'],
+            target: {
+                namespace: 'android_app',
+                // eslint-disable-next-line id-match, camelcase
+                package_name: 'com.test_site.twa',
+                // eslint-disable-next-line id-match, camelcase
+                sha256_cert_fingerprints: [
+                    'AB:AA:BA:C8:E8:6F:B3:20:59:C0:01:A2:27:5F:61:B2:C5:A9:8A:65:2C:E9:4C:0F:AA:77:B8:70:5C:80:94:27',
+                ],
+            },
+        },
+    ];
+
+    app.get('/.well-known/assetlinks.json', (request: $Request, response: $Response) => {
+        response.json(assetlinks);
     });
 
     // root's static files
