@@ -9,6 +9,7 @@ import {isCMS} from '../../../lib/url';
 import {isDevelopment} from '../../../../../webpack/config';
 import {googleAdSenseId} from '../../../const';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
+import {waitIdle} from '../../../lib/timer';
 
 type PropsType = {
     +location: LocationType,
@@ -18,7 +19,7 @@ type PropsType = {
 type StateType = null;
 
 export class AdSense extends Component<PropsType, StateType> {
-    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
+    async componentDidUpdate(prevProps: PropsType, prevState: StateType) {
         const {props} = this;
         const {location, screenContextData} = props;
 
@@ -27,6 +28,7 @@ export class AdSense extends Component<PropsType, StateType> {
         }
 
         if (screenContextData.isWindowLoaded !== prevProps.screenContextData.isWindowLoaded) {
+            await waitIdle(2e3);
             this.loadScript();
         }
     }

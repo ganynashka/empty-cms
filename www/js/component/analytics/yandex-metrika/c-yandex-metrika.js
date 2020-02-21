@@ -9,6 +9,7 @@ import {yandexMetrikaId} from '../../../const';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
 import {isCMS} from '../../../lib/url';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
+import {waitIdle} from '../../../lib/timer';
 
 type PropsType = {
     +location: LocationType,
@@ -18,7 +19,7 @@ type PropsType = {
 type StateType = null;
 
 export class YandexMetrika extends Component<PropsType, StateType> {
-    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
+    async componentDidUpdate(prevProps: PropsType, prevState: StateType) {
         const {props} = this;
         const {location, screenContextData} = props;
 
@@ -27,6 +28,7 @@ export class YandexMetrika extends Component<PropsType, StateType> {
         }
 
         if (screenContextData.isWindowLoaded !== prevProps.screenContextData.isWindowLoaded) {
+            await waitIdle(1.5e3);
             this.loadScript();
         }
     }
