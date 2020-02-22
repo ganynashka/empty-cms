@@ -63,7 +63,7 @@ export function addStaticApi(app: $Application) {
                 package_name: 'com.test_site.twa',
                 // eslint-disable-next-line id-match, camelcase
                 sha256_cert_fingerprints: [
-                    'AB:AA:BA:C8:E8:6F:B3:20:59:C0:01:A2:27:5F:61:B2:C5:A9:8A:65:2C:E9:4C:0F:AA:77:B8:70:5C:80:94:27',
+                    'D1:EF:1E:15:27:01:5D:1F:89:81:00:C7:E3:05:A1:22:4F:BB:5D:EB:1D:D7:F4:C1:C9:FE:A9:2E:FB:8D:54:19',
                 ],
             },
         },
