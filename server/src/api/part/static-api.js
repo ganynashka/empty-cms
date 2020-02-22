@@ -60,7 +60,7 @@ export function addStaticApi(app: $Application) {
             target: {
                 namespace: 'android_app',
                 // eslint-disable-next-line id-match, camelcase
-                package_name: 'com.test_site.twa',
+                package_name: 'land.skazki.twa',
                 // eslint-disable-next-line id-match, camelcase
                 sha256_cert_fingerprints: [
                     'D1:EF:1E:15:27:01:5D:1F:89:81:00:C7:E3:05:A1:22:4F:BB:5D:EB:1D:D7:F4:C1:C9:FE:A9:2E:FB:8D:54:19',
