@@ -21,6 +21,9 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     removeItemListFromPlayList(itemIdList: Array<string>): null {
         return null;
     },
+    cleanPlayList(): null {
+        return null;
+    },
     playList: [],
     playingState: playerPlayingStateTypeMap.stopped,
     activeItem: null,
@@ -43,11 +46,15 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
         return null;
     },
     isRepeatOn: false,
-    isShuffleOn: false,
     setRepeatIsEnable(isShuffleEnable: boolean): null {
         return null;
     },
+    isShuffleOn: false,
     setShuffleIsEnable(isShuffleEnable: boolean): null {
+        return null;
+    },
+    isAutoPlayOn: true,
+    setAutoPlayIsEnable(isAutoPlayEnable: boolean): null {
         return null;
     },
 };

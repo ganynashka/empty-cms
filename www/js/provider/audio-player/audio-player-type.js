@@ -1,7 +1,7 @@
 // @flow
 
 export type AudioPlayerListItemType = {|
-    +id?: string,
+    +id: string,
     +src: string,
     +title?: string,
     +artist?: string,
@@ -15,6 +15,7 @@ export type AudioPlayerContextType = {|
     +addItemListToPlayList: (itemList: Array<AudioPlayerListItemType>) => mixed,
     +removeItemFromPlayList: (itemId: string) => mixed,
     +removeItemListFromPlayList: (itemIdList: Array<string>) => mixed,
+    +cleanPlayList: () => mixed,
     +playList: Array<AudioPlayerListItemType>,
     +playingState: PlayerPlayingStateType,
     +activeItem: AudioPlayerListItemType | null,
@@ -25,7 +26,9 @@ export type AudioPlayerContextType = {|
     +next: () => mixed,
     +prev: () => mixed,
     +isRepeatOn: boolean,
-    +isShuffleOn: boolean,
     +setRepeatIsEnable: (isShuffleEnable: boolean) => mixed,
+    +isShuffleOn: boolean,
     +setShuffleIsEnable: (isShuffleEnable: boolean) => mixed,
+    +isAutoPlayOn: boolean,
+    +setAutoPlayIsEnable: (isAutoPlayEnable: boolean) => mixed,
 |};
