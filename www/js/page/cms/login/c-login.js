@@ -13,7 +13,7 @@ import type {FormGeneratorFormDataType} from '../../../component/layout/form-gen
 import {isError} from '../../../lib/is';
 import {ButtonListWrapper} from '../../../component/layout/button-list-wrapper/c-button-list-wrapper';
 import {FormButton} from '../../../component/layout/form-button/c-form-button';
-import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
+import type {UserContextType} from '../../../provider/user/user-context-type';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import {loginPasswordFormConfig} from '../register/c-register';
 import {routePathMap} from '../../../component/app/routes-path-map';
@@ -22,7 +22,7 @@ import {setMeta} from '../../../lib/meta';
 
 type PropsType = {
     +history: RouterHistoryType,
-    +userContextData: UserContextConsumerType,
+    +userContextData: UserContextType,
     +snackbarContext: SnackbarContextType,
 };
 

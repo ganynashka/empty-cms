@@ -12,6 +12,7 @@ import {SnackbarProvider} from '../../provider/snackbar/c-snackbar-context';
 import {MainWrapper} from '../main-wrapper/c-main-wrapper';
 import {type InitialDataType} from '../../provider/intial-data/intial-data-type';
 import {InitialDataProvider} from '../../provider/intial-data/c-initial-data-context';
+import {AudioPlayerProvider} from '../../provider/audio-player/c-audio-player-context';
 import {Header} from '../client/header/c-header';
 import {ScrollRestoration} from '../../provider/screen/scroll-restoration/c-scroll-restoration.js';
 import {GoogleAnalytics} from '../analytics/google-analytics/c-google-analytics';
@@ -25,6 +26,7 @@ import {starPath} from './render-route/render-route-const';
 
 const wrapperList = [
     ThemeProvider,
+    AudioPlayerProvider,
     LocaleProvider,
     ScreenProvider,
     UserProvider,

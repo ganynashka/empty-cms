@@ -9,14 +9,14 @@ import Typography from '@material-ui/core/Typography/Typography';
 import {FilePreview} from '../../../component/layout/form-generator/field/input-upload-file/file-preview/c-file-preview';
 import mainWrapperStyle from '../../../component/main-wrapper/main-wrapper.scss';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
-import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
+import type {UserContextType} from '../../../provider/user/user-context-type';
 
 import {getFileList} from './file-api';
 import fileStyle from './file.scss';
 
 type PropsType = {
     +snackbarContext: SnackbarContextType,
-    +userContextData: UserContextConsumerType,
+    +userContextData: UserContextType,
 };
 
 type StateType = {|

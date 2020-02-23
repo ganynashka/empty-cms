@@ -11,14 +11,13 @@ import type {
     SortDirectionType,
 } from '../../../component/layout/table/enhanced-table/enhanced-table-type';
 import {isError} from '../../../lib/is';
-
-import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
+import type {UserContextType} from '../../../provider/user/user-context-type';
 
 import {getUserList, getUserListSize} from './user-list-api';
 // import {getIsAdmin} from '../../../provider/user/user-context-helper';
 
 type PropsType = {
-    +userContextData: UserContextConsumerType,
+    +userContextData: UserContextType,
 };
 
 type StateType = {};

@@ -1,18 +1,16 @@
 // @flow
 
-/* global window */
-
 import React, {Component, type Node} from 'react';
 
 import {isError} from '../../lib/is';
 import type {MainServerApiResponseType} from '../../type/response';
 import type {MongoUserFrontType} from '../../../../server/src/database/database-type';
 
-import type {UserContextConsumerType} from './user-context-type';
+import type {UserContextType} from './user-context-type';
 import {getCurrentUser, login, register} from './user-context-api';
 import {defaultUserContextData} from './user-context-const';
 
-const userContext = React.createContext<UserContextConsumerType>(defaultUserContextData);
+const userContext = React.createContext<UserContextType>(defaultUserContextData);
 const UserContextProvider = userContext.Provider;
 
 export const UserContextConsumer = userContext.Consumer;
@@ -22,7 +20,7 @@ type PropsType = {|
 |};
 
 type StateType = {|
-    +providedData: UserContextConsumerType,
+    +providedData: UserContextType,
 |};
 
 export class UserProvider extends Component<PropsType, StateType> {
@@ -82,7 +80,7 @@ export class UserProvider extends Component<PropsType, StateType> {
         return result;
     };
 
-    getProviderValue(): UserContextConsumerType {
+    getProviderValue(): UserContextType {
         const {state} = this;
         const {providedData} = state;
         const {user} = providedData;

@@ -5,10 +5,10 @@ import Paper from '@material-ui/core/Paper';
 
 import mainWrapperStyle from '../../../component/main-wrapper/main-wrapper.scss';
 import {DocumentTree} from '../../../component/layout/document-tree/c-document-tree';
-import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
+import type {UserContextType} from '../../../provider/user/user-context-type';
 
 type PropsType = {
-    +userContextData: UserContextConsumerType,
+    +userContextData: UserContextType,
 };
 type StateType = {};
 

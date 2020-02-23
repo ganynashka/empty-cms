@@ -22,13 +22,13 @@ import {ButtonListWrapper} from '../../../component/layout/button-list-wrapper/c
 import {FormButton} from '../../../component/layout/form-button/c-form-button';
 import {isError, isFile} from '../../../lib/is';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
-import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
+import type {UserContextType} from '../../../provider/user/user-context-type';
 
 import {uploadFileList} from './file-api';
 
 type PropsType = {
     +snackbarContext: SnackbarContextType,
-    +userContextData: UserContextConsumerType,
+    +userContextData: UserContextType,
 };
 
 type StateType = {|

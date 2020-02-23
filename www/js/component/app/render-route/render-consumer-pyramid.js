@@ -12,11 +12,13 @@ import type {InitialDataType} from '../../../provider/intial-data/intial-data-ty
 import {SnackbarContextConsumer} from '../../../provider/snackbar/c-snackbar-context';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import {UserContextConsumer} from '../../../provider/user/c-user-context';
-import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
+import type {UserContextType} from '../../../provider/user/user-context-type';
 import {PopupContextConsumer} from '../../../provider/popup/c-popup-context';
 import type {PopupContextType} from '../../../provider/popup/popup-context-type';
 import {ScreenContextConsumer} from '../../../provider/screen/c-screen-context';
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
+import {AudioPlayerContextConsumer} from '../../../provider/audio-player/c-audio-player-context';
+import type {AudioPlayerContextType} from '../../../provider/audio-player/audio-player-type';
 
 import type {RenderPageInputDataType, RouteItemType} from './render-route-type';
 import {renderPage} from './render-route-page';
@@ -25,53 +27,65 @@ export function renderConsumerPyramid(routeItem: RouteItemType, contextRouterDat
     const {match, history, location, staticContext} = contextRouterData;
 
     return (
-        <ScreenContextConsumer>
-            {(screenContextData: ScreenContextType): Node => {
+        <AudioPlayerContextConsumer>
+            {(audioPlayerContextData: AudioPlayerContextType): Node => {
                 return (
-                    <ThemeContextConsumer>
-                        {(themeContextData: ThemeContextType): Node => {
+                    <ScreenContextConsumer>
+                        {(screenContextData: ScreenContextType): Node => {
                             return (
-                                <InitialDataContextConsumer>
-                                    {(initialContextData: InitialDataType): Node => {
+                                <ThemeContextConsumer>
+                                    {(themeContextData: ThemeContextType): Node => {
                                         return (
-                                            <SnackbarContextConsumer>
-                                                {(snackbarContextData: SnackbarContextType): Node => {
+                                            <InitialDataContextConsumer>
+                                                {(initialContextData: InitialDataType): Node => {
                                                     return (
-                                                        <UserContextConsumer>
-                                                            {(userContextData: UserContextConsumerType): Node => {
+                                                        <SnackbarContextConsumer>
+                                                            {(snackbarContextData: SnackbarContextType): Node => {
                                                                 return (
-                                                                    <PopupContextConsumer>
-                                                                        {(popupContextData: PopupContextType): Node => {
-                                                                            const pageInputData: RenderPageInputDataType = {
-                                                                                location,
-                                                                                history,
-                                                                                match,
-                                                                                initialContextData,
-                                                                                popupContextData,
-                                                                                snackbarContextData,
-                                                                                userContextData,
-                                                                                themeContextData,
-                                                                                staticContext,
-                                                                                screenContextData,
-                                                                            };
+                                                                    <UserContextConsumer>
+                                                                        {(userContextData: UserContextType): Node => {
+                                                                            return (
+                                                                                <PopupContextConsumer>
+                                                                                    {(
+                                                                                        popupContextData: PopupContextType
+                                                                                    ): Node => {
+                                                                                        const pageInputData: RenderPageInputDataType = {
+                                                                                            location,
+                                                                                            history,
+                                                                                            match,
+                                                                                            initialContextData,
+                                                                                            popupContextData,
+                                                                                            snackbarContextData,
+                                                                                            userContextData,
+                                                                                            themeContextData,
+                                                                                            staticContext,
+                                                                                            screenContextData,
+                                                                                            audioPlayerContextData,
+                                                                                        };
 
-                                                                            return renderPage(pageInputData, routeItem);
+                                                                                        return renderPage(
+                                                                                            pageInputData,
+                                                                                            routeItem
+                                                                                        );
+                                                                                    }}
+                                                                                </PopupContextConsumer>
+                                                                            );
                                                                         }}
-                                                                    </PopupContextConsumer>
+                                                                    </UserContextConsumer>
                                                                 );
                                                             }}
-                                                        </UserContextConsumer>
+                                                        </SnackbarContextConsumer>
                                                     );
                                                 }}
-                                            </SnackbarContextConsumer>
+                                            </InitialDataContextConsumer>
                                         );
                                     }}
-                                </InitialDataContextConsumer>
+                                </ThemeContextConsumer>
                             );
                         }}
-                    </ThemeContextConsumer>
+                    </ScreenContextConsumer>
                 );
             }}
-        </ScreenContextConsumer>
+        </AudioPlayerContextConsumer>
     );
 }

@@ -11,7 +11,7 @@ import type {
     EnhancedTableGetDataResultType,
     SortDirectionType,
 } from '../../../component/layout/table/enhanced-table/enhanced-table-type';
-import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
+import type {UserContextType} from '../../../provider/user/user-context-type';
 import {isError} from '../../../lib/is';
 import {getLinkToEditArticle, getLinkToReadArticle} from '../../../lib/string';
 
@@ -19,7 +19,7 @@ import {getDocumentList, getDocumentListSize} from './document-api';
 import {RemoveDocument} from './c-document-remove-button';
 
 type PropsType = {
-    +userContextData: UserContextConsumerType,
+    +userContextData: UserContextType,
 };
 type StateType = {};
 

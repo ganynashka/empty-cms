@@ -6,11 +6,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
 
 import {setMeta} from '../../../lib/meta';
-import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
+import type {UserContextType} from '../../../provider/user/user-context-type';
 import mainWrapperStyle from '../../../component/main-wrapper/main-wrapper.scss';
 
 type PropsType = {
-    +userContextData: UserContextConsumerType,
+    +userContextData: UserContextType,
 };
 type StateType = null;
 

@@ -22,8 +22,7 @@ import type {MatchType} from '../../../type/react-router-dom-v5-type-extract';
 import {Spinner} from '../../../component/layout/spinner/c-spinner';
 import type {SnackbarContextType} from '../../../provider/snackbar/snackbar-context-type';
 import {extractUniqueArrayString, getLinkToEditArticle, getLinkToReadArticle} from '../../../lib/string';
-import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
-
+import type {UserContextType} from '../../../provider/user/user-context-type';
 import {rootDocumentSlug} from '../../../../../server/src/api/part/document-api-const';
 
 import {documentSearchExact, getDocumentParentList, updateDocument} from './document-api';
@@ -32,7 +31,7 @@ import {formDataToMongoDocument, getDocumentFormConfig} from './document-helper'
 type PropsType = {
     +match: MatchType | null,
     +snackbarContext: SnackbarContextType,
-    +userContextData: UserContextConsumerType,
+    +userContextData: UserContextType,
 };
 
 type StateType = {|

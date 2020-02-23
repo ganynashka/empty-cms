@@ -3,7 +3,7 @@
 import React, {type Node} from 'react';
 
 import {UserContextConsumer} from '../../../provider/user/c-user-context';
-import type {UserContextConsumerType} from '../../../provider/user/user-context-type';
+import type {UserContextType} from '../../../provider/user/user-context-type';
 import {LoadComponent} from '../../../lib/c-load-component';
 import {canNotLoadComponent} from '../../../lib/can-not-load-component';
 import type {LocationType} from '../../../type/react-router-dom-v5-type-extract';
@@ -29,8 +29,7 @@ export function CMSHeaderWrapper(props: PropsType): Node {
 
                     return (
                         <UserContextConsumer>
-                            {(userContextData: UserContextConsumerType): Node =>
-                                <Header userContextData={userContextData}/>}
+                            {(userContextData: UserContextType): Node => <Header userContextData={userContextData}/>}
                         </UserContextConsumer>
                     );
                 })
