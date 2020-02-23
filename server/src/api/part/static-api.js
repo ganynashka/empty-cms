@@ -30,7 +30,7 @@ export function addStaticApi(app: $Application) {
         lang: 'ru-RU',
         display: 'standalone',
         /* eslint-disable camelcase, id-match */
-        short_name: 'Skazki Land',
+        short_name: 'Skazki Land', // name for icon on home page on phone
         start_url: '/',
         background_color: '#f0ece3',
         theme_color: '#f0ece3',
