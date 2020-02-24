@@ -1,6 +1,6 @@
 // @flow
 
-import type {AudioPlayerContextType, AudioPlayerListItemType} from './audio-player-type';
+import type {AudioPlayerContextType, AudioPlayerItemIdType, AudioPlayerListItemType} from './audio-player-type';
 
 export const playerPlayingStateTypeMap = {
     playing: 'playing',
@@ -15,10 +15,10 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     addItemListToPlayList(itemList: Array<AudioPlayerListItemType>): null {
         return null;
     },
-    removeItemFromPlayList(itemId: string): null {
+    removeItemFromPlayList(itemId: AudioPlayerItemIdType): null {
         return null;
     },
-    removeItemListFromPlayList(itemIdList: Array<string>): null {
+    removeItemListFromPlayList(itemIdList: Array<AudioPlayerItemIdType>): null {
         return null;
     },
     cleanPlayList(): null {
@@ -27,7 +27,7 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     playList: [],
     playingState: playerPlayingStateTypeMap.stopped,
     activeItem: null,
-    setActiveItem(itemId: string): null {
+    setActiveItem(activeItem: AudioPlayerListItemType): null {
         return null;
     },
     play(): null {

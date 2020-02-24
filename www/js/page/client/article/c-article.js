@@ -8,6 +8,8 @@ import {mongoDocumentTypeMap} from '../../../../../server/src/database/database-
 import type {ScreenContextType} from '../../../provider/screen/screen-context-type';
 import {PageNotFoundContent} from '../page-not-found/page-not-found-content';
 import {PageLoading} from '../../../component/client/page-loading/c-page-loading';
+import {AudioPlayerControl} from '../../../provider/audio-player/ui/audio-player-control/c-audio-player-control';
+import type {AudioPlayerContextType} from '../../../provider/audio-player/audio-player-type';
 
 import articleStyle from './article.scss';
 import {SingleArticle} from './single-article/c-single-article';
@@ -19,6 +21,7 @@ type PropsType = {
     +location: LocationType,
     +initialContextData: InitialDataType,
     +screenContextData: ScreenContextType,
+    +audioPlayerContextData: AudioPlayerContextType,
     +match: MatchType | null,
     +history: RouterHistoryType,
 };
@@ -41,7 +44,7 @@ export class Article extends Component<PropsType, StateType> {
     // eslint-disable-next-line complexity, max-statements
     renderContent(): Node {
         const {props} = this;
-        const {initialContextData, match, screenContextData, location} = props;
+        const {initialContextData, match, screenContextData, location, audioPlayerContextData} = props;
         const {is404, articlePathData, isConnectionError} = initialContextData;
 
         if (isConnectionError === true) {
@@ -79,6 +82,7 @@ export class Article extends Component<PropsType, StateType> {
         if (container === type) {
             return (
                 <ContainerArticle
+                    audioPlayerContextData={audioPlayerContextData}
                     initialContextData={initialContextData}
                     location={location}
                     screenContextData={screenContextData}
@@ -101,6 +105,11 @@ export class Article extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        return <div className={articleStyle.article__wrapper}>{this.renderContent()}</div>;
+        return (
+            <div className={articleStyle.article__wrapper}>
+                {this.renderContent()}
+                <AudioPlayerControl/>
+            </div>
+        );
     }
 }

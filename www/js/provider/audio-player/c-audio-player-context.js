@@ -2,15 +2,25 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {AudioPlayerContextType, AudioPlayerListItemType} from './audio-player-type';
-import {defaultAudioPlayerContextData} from './audio-player-const';
+import type {
+    AudioPlayerContextType,
+    AudioPlayerItemIdType,
+    AudioPlayerListItemType,
+    PlayerPlayingStateType,
+} from './audio-player-type';
+import {defaultAudioPlayerContextData, playerPlayingStateTypeMap} from './audio-player-const';
 
 type PropsType = {|
     +children: Node,
 |};
 
 type StateType = {|
-    +providedData: AudioPlayerContextType,
+    +playList: Array<AudioPlayerListItemType>,
+    +playingState: PlayerPlayingStateType,
+    +activeItem: AudioPlayerListItemType | null,
+    +isRepeatOn: boolean,
+    +isShuffleOn: boolean,
+    +isAutoPlayOn: boolean,
 |};
 
 const audioPlayerContext = React.createContext<AudioPlayerContextType>(defaultAudioPlayerContextData);
@@ -23,14 +33,18 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         super(props);
 
         this.state = {
-            providedData: defaultAudioPlayerContextData,
+            playList: defaultAudioPlayerContextData.playList,
+            playingState: defaultAudioPlayerContextData.playingState,
+            activeItem: defaultAudioPlayerContextData.activeItem,
+            isRepeatOn: defaultAudioPlayerContextData.isRepeatOn,
+            isShuffleOn: defaultAudioPlayerContextData.isShuffleOn,
+            isAutoPlayOn: defaultAudioPlayerContextData.isAutoPlayOn,
         };
     }
 
     getPlayListIsEmpty(): boolean {
         const {state} = this;
-        const {providedData} = state;
-        const {playList} = providedData;
+        const {playList} = state;
 
         return playList.length === 0;
     }
@@ -41,26 +55,33 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
 
     addItemListToPlayList = (itemList: Array<AudioPlayerListItemType>): null => {
         const {state} = this;
-        const {providedData} = state;
-        const {playList} = providedData;
+        const {playList, isAutoPlayOn} = state;
         const isPlayListEmpty = this.getPlayListIsEmpty();
 
         const newPlayList = [...playList, ...itemList];
 
-        this.setState({providedData: {...providedData, playList: newPlayList}});
+        this.setState({playList: newPlayList});
 
-        if (isPlayListEmpty && newPlayList.length > 0) {
-            this.setActiveItem(newPlayList[0].id);
+        if (!isPlayListEmpty) {
+            return null;
+        }
+
+        if (newPlayList.length > 0) {
+            this.setActiveItem(newPlayList[0]);
+        }
+
+        if (isAutoPlayOn) {
+            this.play();
         }
 
         return null;
     };
 
-    removeItemFromPlayList = (itemId: string): null => {
+    removeItemFromPlayList = (itemId: AudioPlayerItemIdType): null => {
         return null;
     };
 
-    removeItemListFromPlayList = (itemIdList: Array<string>): null => {
+    removeItemListFromPlayList = (itemIdList: Array<AudioPlayerItemIdType>): null => {
         return null;
     };
 
@@ -68,19 +89,27 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         return null;
     };
 
-    setActiveItem = (itemId: string): null => {
+    setActiveItem = (activeItem: AudioPlayerListItemType): null => {
+        this.setState({activeItem});
+
         return null;
     };
 
     play = (): null => {
+        this.setState({playingState: playerPlayingStateTypeMap.playing});
+
         return null;
     };
 
     pause = (): null => {
+        this.setState({playingState: playerPlayingStateTypeMap.paused});
+
         return null;
     };
 
     stop = (): null => {
+        this.setState({playingState: playerPlayingStateTypeMap.stopped});
+
         return null;
     };
 
@@ -92,20 +121,29 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         return null;
     };
 
-    setRepeatIsEnable = (isShuffleEnable: boolean): null => {
+    setRepeatIsEnable = (isRepeatEnable: boolean): null => {
+        this.setState({isRepeatOn: isRepeatEnable});
+
         return null;
     };
 
     setShuffleIsEnable = (isShuffleEnable: boolean): null => {
+        this.setState({isShuffleOn: isShuffleEnable});
+
+        return null;
+    };
+
+    setAutoPlayIsEnable = (isAutoPlayEnable: boolean): null => {
+        this.setState({isAutoPlayOn: isAutoPlayEnable});
+
         return null;
     };
 
     getProviderValue(): AudioPlayerContextType {
         const {state} = this;
-        const {providedData} = state;
 
         return {
-            ...providedData,
+            ...state,
             addItemToPlayList: this.addItemToPlayList,
             addItemListToPlayList: this.addItemListToPlayList,
             removeItemFromPlayList: this.removeItemFromPlayList,
@@ -119,6 +157,7 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
             prev: this.prev,
             setRepeatIsEnable: this.setRepeatIsEnable,
             setShuffleIsEnable: this.setShuffleIsEnable,
+            setAutoPlayIsEnable: this.setAutoPlayIsEnable,
         };
     }
 

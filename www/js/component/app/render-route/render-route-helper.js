@@ -46,6 +46,7 @@ export function renderPageComponent(pageInputData: RenderPageInputDataType, rout
         userContextData,
         staticContext,
         themeContextData,
+        audioPlayerContextData,
         screenContextData,
     } = pageInputData;
 
@@ -53,6 +54,7 @@ export function renderPageComponent(pageInputData: RenderPageInputDataType, rout
 
     return (
         <PageComponent
+            audioPlayerContextData={audioPlayerContextData}
             history={history}
             initialContextData={initialContextData}
             location={location}

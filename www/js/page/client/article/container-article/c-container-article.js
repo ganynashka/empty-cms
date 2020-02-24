@@ -22,11 +22,16 @@ import {promiseCatch} from '../../../../lib/promise';
 import {ShareButtonList} from '../../../../component/share/share-button-list/c-share-button-list';
 import singleArticleStyle from '../single-article/single-article.scss';
 import type {LocationType} from '../../../../type/react-router-dom-v5-type-extract';
+import type {
+    AudioPlayerContextType,
+    AudioPlayerListItemType,
+} from '../../../../provider/audio-player/audio-player-type';
 
 type PropsType = {|
     +location: LocationType,
     +initialContextData: InitialDataType,
     +screenContextData: ScreenContextType,
+    +audioPlayerContextData: AudioPlayerContextType,
 |};
 
 type StateType = {|
@@ -47,6 +52,49 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         this.state = {
             listRef: React.createRef<HTMLUListElement>(),
         };
+    }
+
+    componentDidMount() {
+        this.initializeAudioPlayer();
+    }
+
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
+        const {props, state} = this;
+
+        if (!prevProps.initialContextData.articlePathData && props.initialContextData.articlePathData) {
+            this.initializeAudioPlayer();
+        }
+    }
+
+    initializeAudioPlayer() {
+        const {props} = this;
+        const {initialContextData, audioPlayerContextData} = props;
+        const {articlePathData} = initialContextData;
+
+        console.log(audioPlayerContextData);
+
+        if (!articlePathData) {
+            return;
+        }
+
+        const {sudNodeShortDataList} = articlePathData;
+
+        const audioItemList: Array<AudioPlayerListItemType> = sudNodeShortDataList.map<AudioPlayerListItemType>(
+            (shortData: MongoDocumentShortDataType): AudioPlayerListItemType => {
+                const {fileList, header} = shortData;
+                const src = fileList[0] || '';
+                const audioSrc = fileApiConst.pathToUploadFiles + '/' + src;
+
+                return {
+                    id: audioSrc,
+                    title: header,
+                    src: audioSrc,
+                };
+            }
+        );
+
+        audioPlayerContextData.addItemListToPlayList(audioItemList);
+        // audioPlayerContextData.play();
     }
 
     getSubNodeImage(subNode: MongoDocumentShortDataType): string | null {
