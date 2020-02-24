@@ -27,11 +27,32 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         };
     }
 
+    getPlayListIsEmpty(): boolean {
+        const {state} = this;
+        const {providedData} = state;
+        const {playList} = providedData;
+
+        return playList.length === 0;
+    }
+
     addItemToPlayList = (item: AudioPlayerListItemType): null => {
-        return null;
+        return this.addItemListToPlayList([item]);
     };
 
     addItemListToPlayList = (itemList: Array<AudioPlayerListItemType>): null => {
+        const {state} = this;
+        const {providedData} = state;
+        const {playList} = providedData;
+        const isPlayListEmpty = this.getPlayListIsEmpty();
+
+        const newPlayList = [...playList, ...itemList];
+
+        this.setState({providedData: {...providedData, playList: newPlayList}});
+
+        if (isPlayListEmpty && newPlayList.length > 0) {
+            this.setActiveItem(newPlayList[0].id);
+        }
+
         return null;
     };
 
