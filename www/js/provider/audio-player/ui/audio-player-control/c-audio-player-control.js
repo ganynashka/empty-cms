@@ -117,6 +117,10 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         this.setState({trackFullTime: evt.currentTarget.duration});
     };
 
+    handleOnEnded = (evt: SyntheticEvent<HTMLAudioElement>) => {
+        console.log('play next/random track here if needed');
+    };
+
     renderAudioTag(): Node {
         const {props, state} = this;
         const {audioPlayerContext} = props;
@@ -133,6 +137,7 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                 controls
                 key={activeItemId}
                 onCanPlay={this.handleOnCanPlay}
+                onEnded={this.handleOnEnded}
                 onLoadedMetadata={this.handleOnLoadedMetadata}
                 onTimeUpdate={this.handleOnTimeUpdate}
                 preload="metadata"
