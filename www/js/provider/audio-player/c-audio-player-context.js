@@ -7,6 +7,7 @@ import type {
     AudioPlayerItemIdType,
     AudioPlayerListItemType,
     PlayerPlayingStateType,
+    PlayerRepeatingStateType,
 } from './audio-player-type';
 import {defaultAudioPlayerContextData, playerPlayingStateTypeMap} from './audio-player-const';
 
@@ -18,7 +19,7 @@ type StateType = {|
     +playList: Array<AudioPlayerListItemType>,
     +playingState: PlayerPlayingStateType,
     +activeItemId: AudioPlayerItemIdType | null,
-    +isRepeatOn: boolean,
+    +repeatingState: PlayerRepeatingStateType,
     +isShuffleOn: boolean,
     +isAutoPlayOn: boolean,
 |};
@@ -36,7 +37,7 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
             playList: defaultAudioPlayerContextData.playList,
             playingState: defaultAudioPlayerContextData.playingState,
             activeItemId: defaultAudioPlayerContextData.activeItemId,
-            isRepeatOn: defaultAudioPlayerContextData.isRepeatOn,
+            repeatingState: defaultAudioPlayerContextData.repeatingState,
             isShuffleOn: defaultAudioPlayerContextData.isShuffleOn,
             isAutoPlayOn: defaultAudioPlayerContextData.isAutoPlayOn,
         };
@@ -121,8 +122,8 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         return null;
     };
 
-    setRepeatIsEnable = (isRepeatEnable: boolean): null => {
-        this.setState({isRepeatOn: isRepeatEnable});
+    setRepeatingState = (playerRepeatingState: PlayerRepeatingStateType): null => {
+        this.setState({repeatingState: playerRepeatingState});
 
         return null;
     };
@@ -155,7 +156,7 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
             stop: this.stop,
             next: this.next,
             prev: this.prev,
-            setRepeatIsEnable: this.setRepeatIsEnable,
+            setRepeatingState: this.setRepeatingState,
             setShuffleIsEnable: this.setShuffleIsEnable,
             setAutoPlayIsEnable: this.setAutoPlayIsEnable,
         };

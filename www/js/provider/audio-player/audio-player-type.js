@@ -11,6 +11,7 @@ export type AudioPlayerListItemType = {|
 |};
 
 export type PlayerPlayingStateType = 'playing' | 'paused' | 'stopped';
+export type PlayerRepeatingStateType = 'none' | 'all' | 'one';
 
 export type AudioPlayerContextType = {|
     +addItemToPlayList: (item: AudioPlayerListItemType) => mixed,
@@ -27,8 +28,8 @@ export type AudioPlayerContextType = {|
     +stop: () => mixed,
     +next: () => mixed,
     +prev: () => mixed,
-    +isRepeatOn: boolean, // repeat from first item if play list is end, default false
-    +setRepeatIsEnable: (isShuffleEnable: boolean) => mixed,
+    +repeatingState: PlayerRepeatingStateType, // repeat from first item if play list is end, default none
+    +setRepeatingState: (playerRepeatingState: PlayerRepeatingStateType) => mixed,
     +isShuffleOn: boolean, // play item from random order, default false
     +setShuffleIsEnable: (isShuffleEnable: boolean) => mixed,
     +isAutoPlayOn: boolean, // auto play item if item (items) has been added into empty playlist, default true

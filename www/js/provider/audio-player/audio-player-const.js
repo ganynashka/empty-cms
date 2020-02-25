@@ -1,11 +1,22 @@
 // @flow
 
-import type {AudioPlayerContextType, AudioPlayerItemIdType, AudioPlayerListItemType} from './audio-player-type';
+import type {
+    AudioPlayerContextType,
+    AudioPlayerItemIdType,
+    AudioPlayerListItemType,
+    PlayerRepeatingStateType,
+} from './audio-player-type';
 
 export const playerPlayingStateTypeMap = {
     playing: 'playing',
     paused: 'paused',
     stopped: 'stopped',
+};
+
+export const playerRepeatingStateTypeMap = {
+    none: 'none',
+    all: 'all',
+    one: 'one',
 };
 
 export const defaultAudioPlayerContextData: AudioPlayerContextType = {
@@ -45,8 +56,8 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     prev(): null {
         return null;
     },
-    isRepeatOn: false,
-    setRepeatIsEnable(isShuffleEnable: boolean): null {
+    repeatingState: playerRepeatingStateTypeMap.none,
+    setRepeatingState(playerRepeatingState: PlayerRepeatingStateType): null {
         return null;
     },
     isShuffleOn: false,
