@@ -32,6 +32,6 @@ export type AudioPlayerContextType = {|
     +setRepeatingState: (playerRepeatingState: PlayerRepeatingStateType) => mixed,
     +isShuffleOn: boolean, // play item from random order, default false
     +setShuffleIsEnable: (isShuffleEnable: boolean) => mixed,
-    +isAutoPlayOn: boolean, // auto play item if item (items) has been added into empty playlist, default true
+    +isAutoPlayOn: boolean, // TODO: remove this setting
     +setAutoPlayIsEnable: (isAutoPlayEnable: boolean) => mixed,
 |};

@@ -10,6 +10,7 @@ import {PageNotFoundContent} from '../page-not-found/page-not-found-content';
 import {PageLoading} from '../../../component/client/page-loading/c-page-loading';
 import {AudioPlayerControl} from '../../../provider/audio-player/ui/audio-player-control/c-audio-player-control';
 import type {AudioPlayerContextType} from '../../../provider/audio-player/audio-player-type';
+import {AudioPlayerContextConsumer} from '../../../provider/audio-player/c-audio-player-context';
 
 import articleStyle from './article.scss';
 import {SingleArticle} from './single-article/c-single-article';
@@ -107,8 +108,11 @@ export class Article extends Component<PropsType, StateType> {
     render(): Node {
         return (
             <div className={articleStyle.article__wrapper}>
+                <AudioPlayerContextConsumer>
+                    {(audioPlayerContext: AudioPlayerContextType): Node =>
+                        <AudioPlayerControl audioPlayerContext={audioPlayerContext}/>}
+                </AudioPlayerContextConsumer>
                 {this.renderContent()}
-                <AudioPlayerControl/>
             </div>
         );
     }

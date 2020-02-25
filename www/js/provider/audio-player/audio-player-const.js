@@ -64,7 +64,7 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     setShuffleIsEnable(isShuffleEnable: boolean): null {
         return null;
     },
-    isAutoPlayOn: true,
+    isAutoPlayOn: false, // TODO: remove this setting
     setAutoPlayIsEnable(isAutoPlayEnable: boolean): null {
         return null;
     },
