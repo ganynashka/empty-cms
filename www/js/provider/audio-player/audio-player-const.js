@@ -26,8 +26,8 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     },
     playList: [],
     playingState: playerPlayingStateTypeMap.stopped,
-    activeItem: null,
-    setActiveItem(activeItem: AudioPlayerListItemType): null {
+    activeItemId: null,
+    setActiveItemId(activeItemId: AudioPlayerItemIdType): null {
         return null;
     },
     play(): null {

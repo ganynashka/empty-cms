@@ -17,7 +17,7 @@ type PropsType = {|
 type StateType = {|
     +playList: Array<AudioPlayerListItemType>,
     +playingState: PlayerPlayingStateType,
-    +activeItem: AudioPlayerListItemType | null,
+    +activeItemId: AudioPlayerItemIdType | null,
     +isRepeatOn: boolean,
     +isShuffleOn: boolean,
     +isAutoPlayOn: boolean,
@@ -35,7 +35,7 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         this.state = {
             playList: defaultAudioPlayerContextData.playList,
             playingState: defaultAudioPlayerContextData.playingState,
-            activeItem: defaultAudioPlayerContextData.activeItem,
+            activeItemId: defaultAudioPlayerContextData.activeItemId,
             isRepeatOn: defaultAudioPlayerContextData.isRepeatOn,
             isShuffleOn: defaultAudioPlayerContextData.isShuffleOn,
             isAutoPlayOn: defaultAudioPlayerContextData.isAutoPlayOn,
@@ -67,7 +67,7 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         }
 
         if (newPlayList.length > 0) {
-            this.setActiveItem(newPlayList[0]);
+            this.setActiveItemId(newPlayList[0].id);
         }
 
         if (isAutoPlayOn) {
@@ -89,8 +89,8 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         return null;
     };
 
-    setActiveItem = (activeItem: AudioPlayerListItemType): null => {
-        this.setState({activeItem});
+    setActiveItemId = (activeItemId: AudioPlayerItemIdType): null => {
+        this.setState({activeItemId});
 
         return null;
     };
@@ -149,7 +149,7 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
             removeItemFromPlayList: this.removeItemFromPlayList,
             removeItemListFromPlayList: this.removeItemListFromPlayList,
             cleanPlayList: this.cleanPlayList,
-            setActiveItem: this.setActiveItem,
+            setActiveItemId: this.setActiveItemId,
             play: this.play,
             pause: this.pause,
             stop: this.stop,
