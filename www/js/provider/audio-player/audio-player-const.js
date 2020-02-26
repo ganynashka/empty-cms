@@ -37,8 +37,8 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     },
     playList: [],
     playingState: playerPlayingStateTypeMap.stopped,
-    activeItemId: null,
-    setActiveItemId(activeItemId: AudioPlayerItemIdType): null {
+    activeIndex: -1,
+    setActiveIndex(activeIndex: number): null {
         return null;
     },
     play(): null {
@@ -66,6 +66,12 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     },
     isAutoPlayOn: false, // TODO: remove this setting
     setAutoPlayIsEnable(isAutoPlayEnable: boolean): null {
+        return null;
+    },
+    handleOnTrackEnded(): null {
+        return null;
+    },
+    handleOnTrackError(): null {
         return null;
     },
 };

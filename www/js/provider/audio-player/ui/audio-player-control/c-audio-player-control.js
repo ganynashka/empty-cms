@@ -4,7 +4,7 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {AudioPlayerContextType, AudioPlayerListItemType} from '../../audio-player-type';
+import type {AudioPlayerContextType} from '../../audio-player-type';
 import {playerPlayingStateTypeMap} from '../../audio-player-const';
 
 type PropsType = {|
@@ -44,6 +44,7 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         const audioNode = refAudio.current;
 
         if (!audioNode) {
+            console.error('audioNode is null');
             return;
         }
 
@@ -97,18 +98,6 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         );
     }
 
-    handleOnCanPlay = (evt: SyntheticEvent<HTMLAudioElement>) => {
-        const {props} = this;
-        const {audioPlayerContext} = props;
-        const {playingState} = audioPlayerContext;
-
-        if (playingState !== playerPlayingStateTypeMap.playing) {
-            return;
-        }
-
-        evt.currentTarget.play();
-    };
-
     handleOnTimeUpdate = (evt: SyntheticEvent<HTMLAudioElement>) => {
         this.setState({trackCurrentTime: evt.currentTarget.currentTime});
     };
@@ -117,32 +106,45 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         this.setState({trackFullTime: evt.currentTarget.duration});
     };
 
-    handleOnEnded = (evt: SyntheticEvent<HTMLAudioElement>) => {
-        console.log('play next/random track here if needed');
+    handleOnCanPlay = (evt: SyntheticEvent<HTMLAudioElement>): null => {
+        const {props} = this;
+        const {audioPlayerContext} = props;
+        const {playingState} = audioPlayerContext;
+
+        if (playingState !== playerPlayingStateTypeMap.playing) {
+            return null;
+        }
+
+        evt.currentTarget.play();
+
+        return null;
     };
 
     renderAudioTag(): Node {
         const {props, state} = this;
         const {audioPlayerContext} = props;
-        const {activeItemId, playList, playingState} = audioPlayerContext;
-        const activeItem = playList.find((item: AudioPlayerListItemType): boolean => item.id === activeItemId);
+        const {activeIndex, playList} = audioPlayerContext;
+        const activeItem = playList[activeIndex];
 
         if (!activeItem) {
             return null;
         }
 
+        const {src} = activeItem;
+
         return (
             // eslint-disable-next-line jsx-a11y/media-has-caption
             <audio
                 controls
-                key={activeItemId}
+                key={activeIndex + '-' + src}
                 onCanPlay={this.handleOnCanPlay}
-                onEnded={this.handleOnEnded}
+                onEnded={audioPlayerContext.handleOnTrackEnded}
+                onError={audioPlayerContext.handleOnTrackError}
                 onLoadedMetadata={this.handleOnLoadedMetadata}
                 onTimeUpdate={this.handleOnTimeUpdate}
                 preload="metadata"
                 ref={state.refAudio}
-                src={activeItem.src}
+                src={src}
             />
         );
     }
@@ -150,7 +152,6 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
     render(): Node {
         const {props, state} = this;
         const {audioPlayerContext} = props;
-        const {activeItemId} = audioPlayerContext;
 
         return (
             <>

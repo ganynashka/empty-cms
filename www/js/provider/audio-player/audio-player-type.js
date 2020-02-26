@@ -3,7 +3,7 @@
 export type AudioPlayerItemIdType = string | number;
 
 export type AudioPlayerListItemType = {|
-    +id: AudioPlayerItemIdType,
+    +id?: AudioPlayerItemIdType,
     +src: string,
     +title?: string,
     +artist?: string,
@@ -21,8 +21,8 @@ export type AudioPlayerContextType = {|
     +cleanPlayList: () => mixed,
     +playList: Array<AudioPlayerListItemType>,
     +playingState: PlayerPlayingStateType,
-    +activeItemId: AudioPlayerItemIdType | null,
-    +setActiveItemId: (activeItemId: AudioPlayerItemIdType) => mixed,
+    +activeIndex: number,
+    +setActiveIndex: (activeIndex: number) => mixed,
     +play: () => mixed,
     +pause: () => mixed,
     +stop: () => mixed,
@@ -34,4 +34,6 @@ export type AudioPlayerContextType = {|
     +setShuffleIsEnable: (isShuffleEnable: boolean) => mixed,
     +isAutoPlayOn: boolean, // TODO: remove this setting
     +setAutoPlayIsEnable: (isAutoPlayEnable: boolean) => mixed,
+    +handleOnTrackEnded: () => mixed,
+    +handleOnTrackError: () => mixed,
 |};
