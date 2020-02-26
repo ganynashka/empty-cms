@@ -5,7 +5,7 @@
 import React, {Component, type Node} from 'react';
 
 import type {AudioPlayerContextType} from '../../audio-player-type';
-import {playerPlayingStateTypeMap} from '../../audio-player-const';
+import {defaultAudioPlayerContextData, playerPlayingStateTypeMap} from '../../audio-player-const';
 
 type PropsType = {|
     +audioPlayerContext: AudioPlayerContextType,
@@ -37,11 +37,17 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         }
     }
 
+    // eslint-disable-next-line complexity, max-statements
     updatePlayingState() {
         const {props, state} = this;
         const {audioPlayerContext} = props;
         const {refAudio} = state;
         const audioNode = refAudio.current;
+
+        if (audioPlayerContext.activeIndex === defaultAudioPlayerContextData.activeIndex) {
+            console.log('player is not play default active index');
+            return;
+        }
 
         if (!audioNode) {
             console.error('audioNode is null');

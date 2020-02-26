@@ -182,7 +182,7 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         const {isShuffleOn, repeatingState, playList} = state;
 
         if (isShuffleOn) {
-            this.tryToPlayIndex(getRandom(0, playList.length));
+            this.playNextShuffleTrack();
             return null;
         }
 
@@ -207,7 +207,7 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         const {repeatingState, activeIndex, isShuffleOn, playList} = state;
 
         if (isShuffleOn) {
-            this.tryToPlayIndex(getRandom(0, playList.length));
+            this.playNextShuffleTrack();
             return null;
         }
 
@@ -232,6 +232,25 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
 
         return null;
     };
+
+    playNextShuffleTrack(): null {
+        const {state} = this;
+        const {playList, activeIndex} = state;
+        const playListLength = playList.length;
+
+        if (playListLength === 0) {
+            return null;
+        }
+
+        if (playListLength === 1) {
+            this.tryToPlayIndex(0);
+            return null;
+        }
+
+        this.tryToPlayIndex(getRandom(0, playListLength, [activeIndex]));
+
+        return null;
+    }
 
     handleOnTrackError = (): null => {
         this.next();
