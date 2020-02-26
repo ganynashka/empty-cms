@@ -223,6 +223,8 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
     };
 
     handleOnTrackError = (): null => {
+        this.next();
+
         console.error('handleOnTrackError!!!');
 
         return null;
