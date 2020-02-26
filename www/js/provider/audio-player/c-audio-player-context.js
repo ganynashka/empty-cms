@@ -107,14 +107,14 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
 
     play = (): null => {
         const {state} = this;
-        const {activeIndex, playList} = state;
+        const {activeIndex, playList, isShuffleOn} = state;
 
         if (playList.length === 0) {
             return null;
         }
 
         if (activeIndex === defaultAudioPlayerContextData.activeIndex) {
-            this.setActiveIndex(0);
+            this.setActiveIndex(isShuffleOn ? getRandom(0, playList.length) : 0);
         }
 
         this.setState({playingState: playerPlayingStateTypeMap.playing});
@@ -136,7 +136,12 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
 
     next = (): null => {
         const {state} = this;
-        const {activeIndex} = state;
+        const {activeIndex, playList} = state;
+
+        if (activeIndex === playList.length - 1) {
+            this.handleChangeIndexButton(0);
+            return null;
+        }
 
         this.handleChangeIndexButton(activeIndex + 1);
 
@@ -145,7 +150,12 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
 
     prev = (): null => {
         const {state} = this;
-        const {activeIndex} = state;
+        const {activeIndex, playList} = state;
+
+        if (activeIndex === 0) {
+            this.handleChangeIndexButton(playList.length - 1);
+            return null;
+        }
 
         this.handleChangeIndexButton(activeIndex - 1);
 
