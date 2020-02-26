@@ -19,6 +19,10 @@ export const playerRepeatingStateTypeMap = {
     one: 'one',
 };
 
+export const playerRepeatingStateTypeList: Array<PlayerRepeatingStateType> = Object.keys(
+    playerRepeatingStateTypeMap
+).map((key: PlayerRepeatingStateType): PlayerRepeatingStateType => playerRepeatingStateTypeMap[key]);
+
 export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     addItemToPlayList(item: AudioPlayerListItemType): null {
         return null;
@@ -60,8 +64,14 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     setRepeatingState(playerRepeatingState: PlayerRepeatingStateType): null {
         return null;
     },
+    toggleRepeatingState(): null {
+        return null;
+    },
     isShuffleOn: false,
     setShuffleIsEnable(isShuffleEnable: boolean): null {
+        return null;
+    },
+    toggleShuffleIsEnable(): null {
         return null;
     },
     isAutoPlayOn: false, // TODO: remove this setting

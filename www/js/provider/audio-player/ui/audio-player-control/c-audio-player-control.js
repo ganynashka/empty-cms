@@ -67,7 +67,7 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         console.error('Can not detect this playingState:', audioPlayerContext.playingState);
     }
 
-    renderButtonList(): Node {
+    renderMainButtonList(): Node {
         const {props} = this;
         const {audioPlayerContext} = props;
 
@@ -95,6 +95,32 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                     next
                 </button>
             </div>
+        );
+    }
+
+    renderRepeatButton(): Node {
+        const {props} = this;
+        const {audioPlayerContext} = props;
+
+        const handleToggleRepeat = audioPlayerContext.toggleRepeatingState;
+
+        return (
+            <button onClick={handleToggleRepeat} type="button">
+                repeat, current is [{audioPlayerContext.repeatingState}]
+            </button>
+        );
+    }
+
+    renderShuffleButton(): Node {
+        const {props} = this;
+        const {audioPlayerContext} = props;
+
+        const handleToggleShuffle = audioPlayerContext.toggleShuffleIsEnable;
+
+        return (
+            <button onClick={handleToggleShuffle} type="button">
+                shuffle, current is [{audioPlayerContext.isShuffleOn ? 'on' : 'off'}]
+            </button>
         );
     }
 
@@ -161,7 +187,14 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                 <code>current time: {state.trackCurrentTime}</code>
                 <br/>
                 <code>full time: {state.trackFullTime}</code>
-                {this.renderButtonList()}
+
+                <div>
+                    {this.renderRepeatButton()}
+                    <hr/>
+                    {this.renderShuffleButton()}
+                </div>
+
+                {this.renderMainButtonList()}
                 {this.renderAudioTag()}
             </>
         );

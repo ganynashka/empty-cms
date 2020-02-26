@@ -30,8 +30,10 @@ export type AudioPlayerContextType = {|
     +prev: () => mixed,
     +repeatingState: PlayerRepeatingStateType, // repeat from first item if play list is end, default none
     +setRepeatingState: (playerRepeatingState: PlayerRepeatingStateType) => mixed,
+    +toggleRepeatingState: () => mixed,
     +isShuffleOn: boolean, // play item from random order, default false
     +setShuffleIsEnable: (isShuffleEnable: boolean) => mixed,
+    +toggleShuffleIsEnable: () => mixed,
     +isAutoPlayOn: boolean, // TODO: remove this setting
     +setAutoPlayIsEnable: (isAutoPlayEnable: boolean) => mixed,
     +handleOnTrackEnded: () => mixed,

@@ -14,6 +14,7 @@ import type {
 import {
     defaultAudioPlayerContextData,
     playerPlayingStateTypeMap,
+    playerRepeatingStateTypeList,
     playerRepeatingStateTypeMap,
 } from './audio-player-const';
 
@@ -227,8 +228,27 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         return null;
     };
 
+    toggleRepeatingState = () => {
+        const {state} = this;
+        const {repeatingState} = state;
+
+        const currentIndex = playerRepeatingStateTypeList.indexOf(repeatingState);
+        const nextIndex = (currentIndex + 1) % playerRepeatingStateTypeList.length;
+
+        this.setRepeatingState(playerRepeatingStateTypeList[nextIndex]);
+    };
+
     setShuffleIsEnable = (isShuffleEnable: boolean): null => {
         this.setState({isShuffleOn: isShuffleEnable});
+
+        return null;
+    };
+
+    toggleShuffleIsEnable = (): null => {
+        const {state} = this;
+        const {isShuffleOn} = state;
+
+        this.setShuffleIsEnable(!isShuffleOn);
 
         return null;
     };
@@ -256,7 +276,9 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
             next: this.next,
             prev: this.prev,
             setRepeatingState: this.setRepeatingState,
+            toggleRepeatingState: this.toggleRepeatingState,
             setShuffleIsEnable: this.setShuffleIsEnable,
+            toggleShuffleIsEnable: this.toggleShuffleIsEnable,
             setAutoPlayIsEnable: this.setAutoPlayIsEnable,
             handleOnTrackEnded: this.handleOnTrackEnded,
             handleOnTrackError: this.handleOnTrackError,
