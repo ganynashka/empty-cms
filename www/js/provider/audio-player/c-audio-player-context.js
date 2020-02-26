@@ -91,7 +91,9 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
     };
 
     setActiveIndex = (activeIndex: number): null => {
-        this.setState({activeIndex});
+        this.setState({activeIndex: defaultAudioPlayerContextData.activeIndex}, () => {
+            this.setState({activeIndex});
+        });
 
         return null;
     };

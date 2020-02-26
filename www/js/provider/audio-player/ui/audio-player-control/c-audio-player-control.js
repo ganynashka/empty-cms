@@ -137,6 +137,8 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         const {audioPlayerContext} = props;
         const {playingState} = audioPlayerContext;
 
+        this.setState({trackCurrentTime: 0});
+
         if (playingState !== playerPlayingStateTypeMap.playing) {
             return null;
         }
