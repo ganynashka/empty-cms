@@ -16,8 +16,8 @@ export type PlayerRepeatingStateType = 'none' | 'all' | 'one';
 export type AudioPlayerContextType = {|
     +addItemToPlayList: (item: AudioPlayerListItemType) => mixed,
     +addItemListToPlayList: (itemList: Array<AudioPlayerListItemType>) => mixed,
-    +removeItemFromPlayList: (itemId: AudioPlayerItemIdType) => mixed,
-    +removeItemListFromPlayList: (itemIdList: Array<AudioPlayerItemIdType>) => mixed,
+    +removeItemFromPlayList: (itemIndex: number) => mixed,
+    +removeItemListFromPlayList: (itemIndexList: Array<number>) => mixed,
     +cleanPlayList: () => mixed,
     +playList: Array<AudioPlayerListItemType>,
     +playingState: PlayerPlayingStateType,

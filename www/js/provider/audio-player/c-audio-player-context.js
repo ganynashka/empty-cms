@@ -49,52 +49,43 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         };
     }
 
-    /*
-    getPlayListIsEmpty(): boolean {
-        const {state} = this;
-        const {playList} = state;
-
-        return playList.length === 0;
-    }
-*/
-
     addItemToPlayList = (item: AudioPlayerListItemType): null => {
         return this.addItemListToPlayList([item]);
     };
 
     addItemListToPlayList = (itemList: Array<AudioPlayerListItemType>): null => {
         const {state} = this;
-        const {playList, isAutoPlayOn} = state;
-        // const isPlayListEmpty = this.getPlayListIsEmpty();
+        const {playList} = state;
 
         const newPlayList = [...playList, ...itemList];
 
         this.setState({playList: newPlayList});
 
-        // if (!isPlayListEmpty) {
-        //     return null;
-        // }
+        return null;
+    };
 
-        // if (newPlayList.length > 0) {
-        //     this.setActiveIndex(0);
-        // }
-
-        // if (isAutoPlayOn) {
-        //     this.play();
-        // }
+    removeItemFromPlayList = (itemIndex: number): null => {
+        this.removeItemListFromPlayList([itemIndex]);
 
         return null;
     };
 
-    removeItemFromPlayList = (itemId: AudioPlayerItemIdType): null => {
-        return null;
-    };
+    removeItemListFromPlayList = (itemIndexList: Array<number>): null => {
+        const {state} = this;
+        const {playList} = state;
 
-    removeItemListFromPlayList = (itemIdList: Array<AudioPlayerItemIdType>): null => {
+        const filteredPlayList = playList.filter(
+            (item: AudioPlayerListItemType, index: number): boolean => !itemIndexList.includes(index)
+        );
+
+        this.setState({playList: filteredPlayList});
+
         return null;
     };
 
     cleanPlayList = (): null => {
+        this.setState({playList: []});
+
         return null;
     };
 

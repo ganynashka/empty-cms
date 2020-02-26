@@ -26,10 +26,10 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     addItemListToPlayList(itemList: Array<AudioPlayerListItemType>): null {
         return null;
     },
-    removeItemFromPlayList(itemId: AudioPlayerItemIdType): null {
+    removeItemFromPlayList(itemIndex: number): null {
         return null;
     },
-    removeItemListFromPlayList(itemIdList: Array<AudioPlayerItemIdType>): null {
+    removeItemListFromPlayList(itemIndexList: Array<number>): null {
         return null;
     },
     cleanPlayList(): null {
