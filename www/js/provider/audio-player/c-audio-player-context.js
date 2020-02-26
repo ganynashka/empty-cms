@@ -50,6 +50,13 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         };
     }
 
+    setPlayList = (itemList: Array<AudioPlayerListItemType>): null => {
+        this.setState({playList: itemList});
+        this.setActiveIndex(defaultAudioPlayerContextData.activeIndex);
+        this.stop();
+        return null;
+    };
+
     addItemToPlayList = (item: AudioPlayerListItemType): null => {
         return this.addItemListToPlayList([item]);
     };
@@ -266,6 +273,7 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
 
         return {
             ...state,
+            setPlayList: this.setPlayList,
             addItemToPlayList: this.addItemToPlayList,
             addItemListToPlayList: this.addItemListToPlayList,
             removeItemFromPlayList: this.removeItemFromPlayList,

@@ -24,6 +24,9 @@ export const playerRepeatingStateTypeList: Array<PlayerRepeatingStateType> = Obj
 ).map((key: PlayerRepeatingStateType): PlayerRepeatingStateType => playerRepeatingStateTypeMap[key]);
 
 export const defaultAudioPlayerContextData: AudioPlayerContextType = {
+    setPlayList(itemList: Array<AudioPlayerListItemType>): null {
+        return null;
+    },
     addItemToPlayList(item: AudioPlayerListItemType): null {
         return null;
     },
