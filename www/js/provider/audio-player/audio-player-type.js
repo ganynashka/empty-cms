@@ -24,6 +24,8 @@ export type AudioPlayerContextType = {|
     +playingState: PlayerPlayingStateType,
     +activeIndex: number,
     +setActiveIndex: (activeIndex: number) => mixed,
+    +volume: number,
+    +setVolume: (value: number) => mixed,
     +play: () => mixed,
     +pause: () => mixed,
     +stop: () => mixed,

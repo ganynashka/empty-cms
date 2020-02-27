@@ -24,6 +24,7 @@ type PropsType = {|
 
 type StateType = {|
     +playList: Array<AudioPlayerListItemType>,
+    +volume: number,
     +playingState: PlayerPlayingStateType,
     +activeIndex: number,
     +repeatingState: PlayerRepeatingStateType,
@@ -42,6 +43,7 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
 
         this.state = {
             playList: [],
+            volume: defaultAudioPlayerContextData.volume,
             playingState: defaultAudioPlayerContextData.playingState,
             activeIndex: defaultAudioPlayerContextData.activeIndex,
             repeatingState: defaultAudioPlayerContextData.repeatingState,
@@ -297,6 +299,12 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         return null;
     };
 
+    setVolume = (volume: number): null => {
+        this.setState({volume});
+
+        return null;
+    };
+
     getProviderValue(): AudioPlayerContextType {
         const {state} = this;
 
@@ -309,6 +317,7 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
             removeItemListFromPlayList: this.removeItemListFromPlayList,
             cleanPlayList: this.cleanPlayList,
             setActiveIndex: this.setActiveIndex,
+            setVolume: this.setVolume,
             play: this.play,
             pause: this.pause,
             stop: this.stop,

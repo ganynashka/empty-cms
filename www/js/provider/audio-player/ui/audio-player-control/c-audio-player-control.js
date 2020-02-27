@@ -156,9 +156,18 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
     };
 
     handleOnCanPlay = (evt: SyntheticEvent<HTMLAudioElement>): null => {
-        const {props} = this;
+        const {props, state} = this;
         const {audioPlayerContext} = props;
         const {playingState} = audioPlayerContext;
+        const {refAudio} = state;
+        const audioNode = refAudio.current;
+
+        if (!audioNode) {
+            console.error('handleOnCanPlay: audioNode is null');
+            return null;
+        }
+
+        audioNode.volume = audioPlayerContext.volume;
 
         if (playingState !== playerPlayingStateTypeMap.playing) {
             return null;
@@ -195,6 +204,24 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
             trackCurrentTime: value,
         });
     };
+
+    renderVolumeBar(): Node {
+        const {props, state} = this;
+        const {audioPlayerContext} = props;
+        const {trackCurrentTime, trackFullTime} = state;
+
+        return (
+            <input
+                defaultValue={audioPlayerContext.volume * 100}
+                key="volume"
+                max="100"
+                // eslint-disable-next-line react/jsx-handler-names
+                min="0"
+                onChange={parseFloat}
+                type="range"
+            />
+        );
+    }
 
     renderProgressBar(): Node {
         const {props, state} = this;
@@ -269,6 +296,9 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
 
                 <hr/>
                 {this.renderProgressBar()}
+                <hr/>
+
+                {this.renderVolumeBar()}
                 <hr/>
 
                 {/* <code>current time: {state.trackCurrentTime}</code>*/}
