@@ -4,8 +4,10 @@
 
 import React, {Component, type Node} from 'react';
 
-import type {AudioPlayerContextType} from '../../audio-player-type';
+import type {AudioPlayerContextType, PlayerPlayingStateType} from '../../audio-player-type';
 import {defaultAudioPlayerContextData, playerPlayingStateTypeMap} from '../../audio-player-const';
+
+import audioPlayerControlStyle from './audio-player-control.scss';
 
 type PropsType = {|
     +audioPlayerContext: AudioPlayerContextType,
@@ -15,6 +17,7 @@ type StateType = {|
     +trackCurrentTime: number,
     +trackFullTime: number,
     +refAudio: {current: HTMLAudioElement | null},
+    +isProgressBarActive: boolean,
 |};
 
 export class AudioPlayerControl extends Component<PropsType, StateType> {
@@ -25,6 +28,7 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
             trackCurrentTime: 0,
             trackFullTime: 0,
             refAudio: React.createRef<HTMLAudioElement>(),
+            isProgressBarActive: false,
         };
     }
 
@@ -135,19 +139,26 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
     }
 
     handleOnTimeUpdate = (evt: SyntheticEvent<HTMLAudioElement>) => {
+        const {state} = this;
+
+        if (state.isProgressBarActive) {
+            return;
+        }
+
         this.setState({trackCurrentTime: evt.currentTarget.currentTime});
     };
 
     handleOnLoadedMetadata = (evt: SyntheticEvent<HTMLAudioElement>) => {
-        this.setState({trackFullTime: evt.currentTarget.duration});
+        this.setState({
+            trackCurrentTime: 0,
+            trackFullTime: evt.currentTarget.duration,
+        });
     };
 
     handleOnCanPlay = (evt: SyntheticEvent<HTMLAudioElement>): null => {
         const {props} = this;
         const {audioPlayerContext} = props;
         const {playingState} = audioPlayerContext;
-
-        this.setState({trackCurrentTime: 0});
 
         if (playingState !== playerPlayingStateTypeMap.playing) {
             return null;
@@ -157,6 +168,65 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
 
         return null;
     };
+
+    handleProgressBarActive = () => {
+        this.setState({isProgressBarActive: true});
+    };
+
+    handleProgressBarInactive = (evt: SyntheticEvent<HTMLInputElement>) => {
+        this.setState({isProgressBarActive: false});
+    };
+
+    handleProgressBarChange = (evt: SyntheticEvent<HTMLInputElement>) => {
+        const {state} = this;
+        const {refAudio} = state;
+        const audioNode = refAudio.current;
+        const {currentTarget} = evt;
+        const value = parseFloat(currentTarget.value) || 0;
+
+        if (!audioNode) {
+            console.error('audioNode is null');
+            return;
+        }
+
+        audioNode.currentTime = value;
+
+        this.setState({
+            trackCurrentTime: value,
+        });
+    };
+
+    renderProgressBar(): Node {
+        const {props, state} = this;
+        const {audioPlayerContext} = props;
+        const {trackCurrentTime, trackFullTime} = state;
+
+        return (
+            <>
+                <input
+                    disabled={trackFullTime === 0}
+                    key={audioPlayerContext.activeIndex + '-display'}
+                    max={trackFullTime}
+                    min="0"
+                    // eslint-disable-next-line react/jsx-handler-names
+                    onChange={parseFloat}
+                    type="range"
+                    value={trackCurrentTime}
+                />
+                <input
+                    defaultValue="0"
+                    disabled={trackFullTime === 0}
+                    key={audioPlayerContext.activeIndex}
+                    max={trackFullTime}
+                    min="0"
+                    onChange={this.handleProgressBarChange}
+                    onMouseDown={this.handleProgressBarActive}
+                    onMouseUp={this.handleProgressBarInactive}
+                    type="range"
+                />
+            </>
+        );
+    }
 
     renderAudioTag(): Node {
         const {props, state} = this;
@@ -196,7 +266,12 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                 <pre>
                     <code>{JSON.stringify(audioPlayerContext, null, 4)}</code>
                 </pre>
-                <code>current time: {state.trackCurrentTime}</code>
+
+                <hr/>
+                {this.renderProgressBar()}
+                <hr/>
+
+                {/* <code>current time: {state.trackCurrentTime}</code>*/}
                 <br/>
                 <code>full time: {state.trackFullTime}</code>
                 <br/>

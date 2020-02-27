@@ -1,0 +1,9 @@
+.input_range {
+    background-color: #fff;
+    padding: 20px;
+    width: 200px;
+
+    &:focus {
+        background-color: #c00;
+    }
+}
