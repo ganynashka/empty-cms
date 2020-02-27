@@ -48,10 +48,6 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     setActiveIndex(activeIndex: number): null {
         return null;
     },
-    volume: 0.5,
-    setVolume(volume: number): null {
-        return null;
-    },
     play(): null {
         return null;
     },
