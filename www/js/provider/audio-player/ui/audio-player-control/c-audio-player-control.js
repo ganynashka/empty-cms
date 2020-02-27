@@ -88,15 +88,19 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                 <button onClick={handlePrev} type="button">
                     prev
                 </button>
+                <span>&nbsp;|&nbsp;</span>
                 <button onClick={handlePlay} type="button">
                     play
                 </button>
+                <span>&nbsp;|&nbsp;</span>
                 <button onClick={handlePause} type="button">
                     pause
                 </button>
+                <span>&nbsp;|&nbsp;</span>
                 <button onClick={handleStop} type="button">
                     stop
                 </button>
+                <span>&nbsp;|&nbsp;</span>
                 <button onClick={handleNext} type="button">
                     next
                 </button>
@@ -195,12 +199,10 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                 <code>current time: {state.trackCurrentTime}</code>
                 <br/>
                 <code>full time: {state.trackFullTime}</code>
-
-                <div>
-                    {this.renderRepeatButton()}
-                    <hr/>
-                    {this.renderShuffleButton()}
-                </div>
+                <br/>
+                {this.renderRepeatButton()}
+                <br/>
+                {this.renderShuffleButton()}
 
                 {this.renderMainButtonList()}
                 {this.renderAudioTag()}
