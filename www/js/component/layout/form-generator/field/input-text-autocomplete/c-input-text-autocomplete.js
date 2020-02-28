@@ -125,7 +125,7 @@ export class InputTextAutocomplete extends Component<PropsType, StateType> {
                     key={dataList ? 'ready' : 'pending'}
                     multiple
                     onChange={this.handleChange}
-                    options={dataList}
+                    options={dataList || []}
                     renderInput={this.renderInput}
                     renderTags={this.renderTagList}
                 />

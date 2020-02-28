@@ -27,6 +27,7 @@ export const defaultInitialData: InitialDataType = {
     title: '',
     header: '',
     meta: '',
+    metaDescription: '',
     openGraphData: defaultOpenGraphData,
     headerData: {
         documentShortDataList: [],

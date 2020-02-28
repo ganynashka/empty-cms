@@ -18,6 +18,7 @@ import {ssrServerPort, ssrHttpServerPortProduction, ssrHttpsServerPortProduction
 import {getInitialData, getOpenGraphMetaString} from '../../www/js/provider/intial-data/intial-data-helper';
 import type {RouterStaticContextType} from '../../www/js/provider/intial-data/intial-data-type';
 import {caChain, sslCert, sslKey} from '../key/key';
+import {replaceByObject} from '../../www/js/lib/string';
 
 import {getIndexHtmlTemplate} from './static-files';
 import {
@@ -27,6 +28,7 @@ import {
     protocolHostingDomainName,
     stringForReplaceContent,
     stringForReplaceMeta,
+    stringForReplaceMetaDescription,
     stringForReplaceOpenGraphMeta,
     stringForReplaceSeoMeta,
     stringForReplaceTitle,
@@ -76,7 +78,7 @@ addApiIntoApplication(app);
 
 // *.html
 app.get('*', async (request: $Request, response: $Response) => {
-    const htmlTemplate = getIndexHtmlTemplate();
+    const htmlTemplateEmpty = getIndexHtmlTemplate();
     const initialData = await getInitialData(request, response);
     // staticContext.is404 will rewrite by page404
     const staticContext: RouterStaticContextType = {is404: false};
@@ -84,6 +86,13 @@ app.get('*', async (request: $Request, response: $Response) => {
     const openGraphMetaString = openGraphData ? getOpenGraphMetaString(openGraphData) : '';
     const {url} = request;
     const seoMetaString = getSeoMetaString(url);
+    const htmlTemplate = replaceByObject(htmlTemplateEmpty, {
+        [stringForReplaceSeoMeta]: seoMetaString,
+        [stringForReplaceTitle]: initialData.title,
+        [stringForReplaceMeta]: initialData.meta,
+        [stringForReplaceMetaDescription]: initialData.metaDescription,
+        [stringForReplaceOpenGraphMeta]: openGraphMetaString,
+    });
 
     const reactResult = ReactDOMServer.renderToString(
         <StaticRouter context={staticContext} location={url}>
@@ -108,12 +117,7 @@ app.get('*', async (request: $Request, response: $Response) => {
             </StaticRouter>
         );
 
-        const htmlResult404 = htmlTemplate
-            .replace(stringForReplaceSeoMeta, seoMetaString)
-            .replace(stringForReplaceTitle, initialData.title)
-            .replace(stringForReplaceMeta, initialData.meta)
-            .replace(stringForReplaceOpenGraphMeta, openGraphMetaString)
-            .replace(stringForReplaceContent, reactResult404);
+        const htmlResult404 = htmlTemplate.replace(stringForReplaceContent, reactResult404);
 
         response.send(htmlResult404);
         return;
@@ -123,12 +127,7 @@ app.get('*', async (request: $Request, response: $Response) => {
         response.status(404);
     }
 
-    const htmlResult = htmlTemplate
-        .replace(stringForReplaceSeoMeta, seoMetaString)
-        .replace(stringForReplaceTitle, initialData.title)
-        .replace(stringForReplaceMeta, initialData.meta)
-        .replace(stringForReplaceOpenGraphMeta, openGraphMetaString)
-        .replace(stringForReplaceContent, reactResult);
+    const htmlResult = htmlTemplate.replace(stringForReplaceContent, reactResult);
 
     response.send(htmlResult);
 });

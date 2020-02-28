@@ -100,6 +100,7 @@ export class InitialDataProvider extends Component<PropsType, StateType> {
                     artist: '',
                     publicationDate: 0,
                     meta: '',
+                    metaDescription: '',
                     shortDescription: '',
                     content: '',
                     createdDate: 0,

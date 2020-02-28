@@ -172,6 +172,7 @@ export class DocumentEdit extends Component<PropsType, StateType> {
                         illustrator: {defaultValue: mongoDocument.illustrator},
                         artist: {defaultValue: mongoDocument.artist},
                         publicationDate: {defaultValue: mongoDocument.publicationDate},
+                        metaDescription: {defaultValue: mongoDocument.metaDescription || ''},
                         meta: {defaultValue: mongoDocument.meta},
                         // description: {defaultValue: mongoDocument.description},
                         shortDescription: {defaultValue: mongoDocument.shortDescription},

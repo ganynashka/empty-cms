@@ -216,3 +216,13 @@ export function beautifyMarkDawn(markdown: string): string {
             .replace(/\n{2,}/gi, '\n\n')
     );
 }
+
+export function replaceByObject(template: string, objectToReplace: {[key: string]: string | number}): string {
+    let result = template;
+
+    Object.keys(objectToReplace).forEach((key: string) => {
+        result = result.replace(key, String(objectToReplace[key]));
+    });
+
+    return result;
+}

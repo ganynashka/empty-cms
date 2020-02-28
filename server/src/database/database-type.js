@@ -50,6 +50,7 @@ export type MongoDocumentType = {|
     +publicationDate: number,
     +title: string,
     +meta: string,
+    +metaDescription: string,
     +shortDescription: string,
     +tagList: Array<string>,
     +isActive: boolean,

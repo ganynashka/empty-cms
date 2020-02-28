@@ -14,6 +14,7 @@ export type FormDataMongoDocumentType = {
     +illustrator: string,
     +artist: string,
     +publicationDate: number,
+    +metaDescription: string,
     +meta: string,
     +shortDescription: string,
     +content: string,

@@ -117,6 +117,7 @@ export async function convertJsonToDocument(jsonDocument: JsonToMongoDocumentTyp
         artist: jsonDocument.artist,
         publicationDate: 0,
         meta: '',
+        metaDescription: '',
         shortDescription: '',
         content: '',
         createdDate: date,

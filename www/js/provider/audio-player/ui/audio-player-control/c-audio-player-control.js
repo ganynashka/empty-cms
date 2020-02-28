@@ -331,9 +331,12 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         const {props, state} = this;
         const {audioPlayerContext} = props;
 
+        return null;
+
+        /*
         return (
             <>
-                <pre>{/* <code>{JSON.stringify(audioPlayerContext, null, 4)}</code>*/}</pre>
+                <pre>{/!* <code>{JSON.stringify(audioPlayerContext, null, 4)}</code>*!/}</pre>
 
                 <hr/>
                 {this.renderProgressBar()}
@@ -342,7 +345,7 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                 {this.renderVolumeBar()}
                 <hr/>
 
-                {/* <code>current time: {state.trackCurrentTime}</code>*/}
+                {/!* <code>current time: {state.trackCurrentTime}</code>*!/}
                 <br/>
                 <code>full time: {state.trackFullTime}</code>
                 <br/>
@@ -354,5 +357,6 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                 {this.renderAudioTag()}
             </>
         );
+*/
     }
 }

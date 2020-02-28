@@ -57,6 +57,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
             title: rootPathData.mongoDocument.title,
             header: rootPathData.mongoDocument.header,
             meta: rootPathData.mongoDocument.meta,
+            metaDescription: rootPathData.mongoDocument.metaDescription,
             openGraphData: getOpenGraphData(rootPathData.mongoDocument),
             ...defaultRequestInitialData,
         };
@@ -89,6 +90,7 @@ export async function getInitialDataByRequest(request: $Request): Promise<Initia
             title: articlePathData.mongoDocument.title,
             header: articlePathData.mongoDocument.header,
             meta: articlePathData.mongoDocument.meta,
+            metaDescription: articlePathData.mongoDocument.metaDescription,
             openGraphData:
                 !mongoDocument || isError(mongoDocument) ? defaultOpenGraphData : getOpenGraphData(mongoDocument),
             articlePathData,

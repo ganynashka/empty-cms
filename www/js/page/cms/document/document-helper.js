@@ -93,6 +93,7 @@ export function formDataToMongoDocument(formData: FormGeneratorFormDataType): Er
         illustrator: documentFormData.illustrator,
         artist: documentFormData.artist,
         publicationDate: documentFormData.publicationDate,
+        metaDescription: documentFormData.metaDescription,
         meta: documentFormData.meta,
         // description: documentFormData.description,
         shortDescription: documentFormData.shortDescription,
@@ -245,6 +246,14 @@ export function getDocumentFormConfig(): FormGeneratorConfigType {
                         defaultValue: '',
                         placeholder: 'title',
                         labelText: 'Title (SEO) *',
+                    },
+                    {
+                        name: 'metaDescription',
+                        fieldComponent: InputText,
+                        validate: noValidate,
+                        defaultValue: '',
+                        placeholder: 'Description...',
+                        labelText: 'Meta description',
                     },
                     {
                         name: 'meta',
