@@ -3,9 +3,24 @@
 /* global document */
 
 import React, {Component, type Node} from 'react';
+import classNames from 'classnames';
 
 import type {AudioPlayerContextType, PlayerPlayingStateType} from '../../audio-player-type';
 import {defaultAudioPlayerContextData, playerPlayingStateTypeMap} from '../../audio-player-const';
+
+import imageButtonNextTrack from './image/button-next-track.png';
+import imageButtonPause from './image/button-pause.png';
+import imageButtonPlay from './image/button-play.png';
+import imageButtonPlayList from './image/button-play-list.png';
+import imageButtonPrevTrack from './image/button-prev-track.png';
+import imageButtonRepeat from './image/button-repeat.png';
+import imageButtonRepeatOne from './image/button-repeat-one.png';
+import imageButtonShuffle from './image/button-shuffle.png';
+import imageButtonSoundOff from './image/button-sound-off.png';
+import imageButtonSoundOn from './image/button-sound-on.png';
+import imageButtonStop from './image/button-stop.png';
+
+import audioPlayerControlStyle from './audio-player-control.scss';
 
 type PropsType = {|
     +audioPlayerContext: AudioPlayerContextType,
@@ -92,7 +107,10 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         const handleNext = audioPlayerContext.next;
 
         return (
-            <div>
+            <ul>
+                {this.renderShuffleButton()}
+                {this.renderRepeatButton()}
+
                 <button onClick={handlePrev} type="button">
                     prev
                 </button>
@@ -112,7 +130,7 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                 <button onClick={handleNext} type="button">
                     next
                 </button>
-            </div>
+            </ul>
         );
     }
 
@@ -132,12 +150,19 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
     renderShuffleButton(): Node {
         const {props} = this;
         const {audioPlayerContext} = props;
-
         const handleToggleShuffle = audioPlayerContext.toggleShuffleIsEnable;
 
+        const className = classNames(audioPlayerControlStyle.audio_player_control__button, {
+            [audioPlayerControlStyle.audio_player_control__button__active]: audioPlayerContext.isShuffleOn,
+        });
+
         return (
-            <button onClick={handleToggleShuffle} type="button">
-                shuffle, current is [{audioPlayerContext.isShuffleOn ? 'on' : 'off'}]
+            <button className={className} onClick={handleToggleShuffle} type="button">
+                <img
+                    alt="shuffle"
+                    className={audioPlayerControlStyle.audio_player_control__button__image}
+                    src={imageButtonShuffle}
+                />
             </button>
         );
     }
@@ -340,12 +365,23 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                 <br/>
                 <code>full time: {state.trackFullTime}</code>
                 <br/>
+                {/*
                 {this.renderRepeatButton()}
                 <br/>
                 {this.renderShuffleButton()}
+*/}
 
-                {this.renderMainButtonList()}
                 {this.renderAudioTag()}
+
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+                <div className={audioPlayerControlStyle.audio_player_control__wrapper}>
+                    {this.renderMainButtonList()}
+                </div>
             </>
         );
     }
