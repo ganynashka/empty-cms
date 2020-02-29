@@ -163,13 +163,8 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         const {props, state} = this;
         const {audioPlayerContext} = props;
         const {playingState} = audioPlayerContext;
-        const {refAudio, trackVolume} = state;
-        const audioNode = refAudio.current;
-
-        if (!audioNode) {
-            console.error('handleOnCanPlay: audioNode is null');
-            return null;
-        }
+        const {trackVolume} = state;
+        const audioNode = evt.currentTarget;
 
         audioNode.volume = trackVolume;
 
@@ -177,7 +172,7 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
             return null;
         }
 
-        evt.currentTarget.play();
+        audioNode.play();
 
         return null;
     };
@@ -217,12 +212,12 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         const {refAudio} = state;
         const audioNode = refAudio.current;
 
+        this.setState({trackVolume: volume});
+
         if (!audioNode) {
             console.error('handleChangeVolumeBar: audioNode is null');
             return;
         }
-
-        this.setState({trackVolume: volume});
 
         audioNode.volume = volume;
     };
@@ -331,21 +326,17 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         const {props, state} = this;
         const {audioPlayerContext} = props;
 
-        return null;
-
-        /*
         return (
             <>
-                <pre>{/!* <code>{JSON.stringify(audioPlayerContext, null, 4)}</code>*!/}</pre>
-
+                <pre>
+                    <code>{JSON.stringify(audioPlayerContext, null, 4)}</code>
+                </pre>
                 <hr/>
                 {this.renderProgressBar()}
                 <hr/>
-
                 {this.renderVolumeBar()}
                 <hr/>
-
-                {/!* <code>current time: {state.trackCurrentTime}</code>*!/}
+                <code>current time: {state.trackCurrentTime}</code>
                 <br/>
                 <code>full time: {state.trackFullTime}</code>
                 <br/>
@@ -357,6 +348,5 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                 {this.renderAudioTag()}
             </>
         );
-*/
     }
 }
