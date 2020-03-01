@@ -110,7 +110,8 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         const handleToggleRepeat = audioPlayerContext.toggleRepeatingState;
         const handleNext = audioPlayerContext.next;
         const handleToggleShuffle = audioPlayerContext.toggleShuffleIsEnable;
-        const {isShuffleOn, playingState, repeatingState} = audioPlayerContext;
+        const handleTogglePlayListIsOpen = audioPlayerContext.togglePlayListIsOpen;
+        const {isShuffleOn, playingState, repeatingState, isPlayListOpen} = audioPlayerContext;
         const {one: repeatOne, all: repeatAll} = playerRepeatingStateTypeMap;
         const {playing: playingStatePlaying} = playerPlayingStateTypeMap;
 
@@ -137,7 +138,12 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                     : <AudioPlayerControlButton alt="pause" imageSrc={imageButtonPause} onClick={handlePause}/>}
 
                 <AudioPlayerControlButton alt="next" imageSrc={imageButtonNextTrack} onClick={handleNext}/>
-                <AudioPlayerControlButton alt="playlist" imageSrc={imageButtonPlayList} onClick={console.warn}/>
+                <AudioPlayerControlButton
+                    alt="playlist"
+                    imageSrc={imageButtonPlayList}
+                    isActive={isPlayListOpen}
+                    onClick={handleTogglePlayListIsOpen}
+                />
             </div>
         );
     }

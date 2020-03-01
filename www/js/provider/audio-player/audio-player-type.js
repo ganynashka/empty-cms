@@ -37,6 +37,9 @@ export type AudioPlayerContextType = {|
     +toggleShuffleIsEnable: () => mixed,
     +isAutoPlayOn: boolean, // TODO: remove this setting
     +setAutoPlayIsEnable: (isAutoPlayEnable: boolean) => mixed,
+    +isPlayListOpen: boolean,
+    +setPlayListIsOpen: (isPlayListOpen: boolean) => mixed,
+    +togglePlayListIsOpen: () => mixed,
     +handleOnTrackEnded: () => mixed,
     +handleOnTrackError: () => mixed,
 |};

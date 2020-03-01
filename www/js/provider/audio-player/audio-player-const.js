@@ -81,6 +81,13 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     setAutoPlayIsEnable(isAutoPlayEnable: boolean): null {
         return null;
     },
+    isPlayListOpen: true,
+    setPlayListIsOpen(isPlayListOpen: boolean): null {
+        return null;
+    },
+    togglePlayListIsOpen(): null {
+        return null;
+    },
     handleOnTrackEnded(): null {
         return null;
     },

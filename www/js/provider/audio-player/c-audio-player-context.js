@@ -24,6 +24,7 @@ type PropsType = {|
 
 type StateType = {|
     +playList: Array<AudioPlayerListItemType>,
+    +isPlayListOpen: boolean,
     +playingState: PlayerPlayingStateType,
     +activeIndex: number,
     +repeatingState: PlayerRepeatingStateType,
@@ -42,6 +43,7 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
 
         this.state = {
             playList: [],
+            isPlayListOpen: true,
             playingState: defaultAudioPlayerContextData.playingState,
             activeIndex: defaultAudioPlayerContextData.activeIndex,
             repeatingState: defaultAudioPlayerContextData.repeatingState,
@@ -101,6 +103,21 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         this.setState({activeIndex: defaultAudioPlayerContextData.activeIndex}, () => {
             this.setState({activeIndex});
         });
+
+        return null;
+    };
+
+    setPlayListIsOpen = (isPlayListOpen: boolean): null => {
+        this.setState({isPlayListOpen});
+
+        return null;
+    };
+
+    togglePlayListIsOpen = (): null => {
+        const {state} = this;
+        const {isPlayListOpen} = state;
+
+        this.setPlayListIsOpen(!isPlayListOpen);
 
         return null;
     };
@@ -319,6 +336,8 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
             setShuffleIsEnable: this.setShuffleIsEnable,
             toggleShuffleIsEnable: this.toggleShuffleIsEnable,
             setAutoPlayIsEnable: this.setAutoPlayIsEnable,
+            setPlayListIsOpen: this.setPlayListIsOpen,
+            togglePlayListIsOpen: this.togglePlayListIsOpen,
             handleOnTrackEnded: this.handleOnTrackEnded,
             handleOnTrackError: this.handleOnTrackError,
         };
