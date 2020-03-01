@@ -15,6 +15,13 @@ $button-image-active-background-color: #e5e5e5;
     min-width: 320px;
 }
 
+.audio_player_control__button__list {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .audio_player_control__button__image {
     border-radius: $border-radius;
     display: block;
@@ -30,6 +37,7 @@ $button-image-active-background-color: #e5e5e5;
     padding: ($button-size - $button-image-size) / 2;
     width: $button-size;
 
+    &:active,
     &.audio_player_control__button__active {
         .audio_player_control__button__image {
             background-color: $button-image-active-background-color;
