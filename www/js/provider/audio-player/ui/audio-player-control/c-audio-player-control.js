@@ -11,17 +11,17 @@ import {
     playerRepeatingStateTypeMap,
 } from '../../audio-player-const';
 
-import imageButtonNextTrack from './image/button-next-track.png';
-import imageButtonPause from './image/button-pause.png';
-import imageButtonPlay from './image/button-play.png';
-import imageButtonPlayList from './image/button-play-list.png';
-import imageButtonPrevTrack from './image/button-prev-track.png';
-import imageButtonRepeat from './image/button-repeat.png';
-import imageButtonRepeatOne from './image/button-repeat-one.png';
-import imageButtonShuffle from './image/button-shuffle.png';
-import imageButtonSoundOff from './image/button-sound-off.png';
-import imageButtonSoundOn from './image/button-sound-on.png';
-import imageButtonStop from './image/button-stop.png';
+import imageButtonNextTrack from './image/button-next-track.svg';
+import imageButtonPause from './image/button-pause.svg';
+import imageButtonPlay from './image/button-play.svg';
+import imageButtonPlayList from './image/button-play-list.svg';
+import imageButtonPrevTrack from './image/button-prev-track.svg';
+import imageButtonRepeat from './image/button-repeat.svg';
+import imageButtonRepeatOne from './image/button-repeat-one.svg';
+import imageButtonShuffle from './image/button-shuffle.svg';
+import imageButtonSoundOff from './image/button-sound-off.svg';
+import imageButtonSoundOn from './image/button-sound-on.svg';
+import imageButtonStop from './image/button-stop.svg';
 
 import audioPlayerControlStyle from './audio-player-control.scss';
 import {AudioPlayerControlButton} from './c-audio-player-control-button';
