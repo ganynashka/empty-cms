@@ -56,3 +56,9 @@ $button-image-active-background-color: #e5e5e5;
         pointer-events: none;
     }
 }
+
+.audio_player_control__bottom_bar_list_wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}

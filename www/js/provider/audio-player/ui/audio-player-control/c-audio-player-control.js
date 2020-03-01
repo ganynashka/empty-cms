@@ -328,6 +328,15 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         );
     }
 
+    renderBottomBarList(): Node {
+        return (
+            <div className={audioPlayerControlStyle.audio_player_control__bottom_bar_list_wrapper}>
+                {this.renderProgressBar()}
+                {this.renderVolumeBar()}
+            </div>
+        );
+    }
+
     render(): Node {
         const {props, state} = this;
         const {audioPlayerContext} = props;
@@ -338,9 +347,7 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                     <code>{JSON.stringify(audioPlayerContext, null, 4)}</code>
                 </pre>
                 <hr/>
-                {this.renderProgressBar()}
                 <hr/>
-                {this.renderVolumeBar()}
                 <hr/>
                 <code>current time: {state.trackCurrentTime}</code>
                 <br/>
@@ -362,6 +369,7 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
 
                 <div className={audioPlayerControlStyle.audio_player_control__wrapper}>
                     {this.renderMainButtonList()}
+                    {this.renderBottomBarList()}
                 </div>
             </>
         );
