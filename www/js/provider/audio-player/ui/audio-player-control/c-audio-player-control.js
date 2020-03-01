@@ -1,7 +1,5 @@
 // @flow
 
-/* global document */
-
 import React, {Component, type Node} from 'react';
 import classNames from 'classnames';
 
@@ -26,6 +24,7 @@ import imageButtonSoundOn from './image/button-sound-on.png';
 import imageButtonStop from './image/button-stop.png';
 
 import audioPlayerControlStyle from './audio-player-control.scss';
+import {AudioPlayerControlButton} from './c-audio-player-control-button';
 
 type PropsType = {|
     +audioPlayerContext: AudioPlayerContextType,
@@ -101,35 +100,6 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         console.error('Can not detect this playingState:', audioPlayerContext.playingState);
     }
 
-    renderRepeatButton(): Node {
-        const {props} = this;
-        const {audioPlayerContext} = props;
-
-        const handleToggleRepeat = audioPlayerContext.toggleRepeatingState;
-
-        const className = classNames(audioPlayerControlStyle.audio_player_control__button, {
-            [audioPlayerControlStyle.audio_player_control__button__active]: [
-                playerRepeatingStateTypeMap.all,
-                playerRepeatingStateTypeMap.one,
-            ].includes(audioPlayerContext.repeatingState),
-        });
-
-        const imageSrc
-            = audioPlayerContext.repeatingState === playerRepeatingStateTypeMap.one
-                ? imageButtonRepeatOne
-                : imageButtonRepeat;
-
-        return (
-            <button className={className} onClick={handleToggleRepeat} type="button">
-                <img
-                    alt="repeat"
-                    className={audioPlayerControlStyle.audio_player_control__button__image}
-                    src={imageSrc}
-                />
-            </button>
-        );
-    }
-
     renderMainButtonList(): Node {
         const {props} = this;
         const {audioPlayerContext} = props;
@@ -137,56 +107,37 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         const handlePlay = audioPlayerContext.play;
         const handlePause = audioPlayerContext.pause;
         const handleStop = audioPlayerContext.stop;
+        const handleToggleRepeat = audioPlayerContext.toggleRepeatingState;
         const handleNext = audioPlayerContext.next;
         const handleToggleShuffle = audioPlayerContext.toggleShuffleIsEnable;
-        const cssButton = audioPlayerControlStyle.audio_player_control__button;
-        const cssActive = audioPlayerControlStyle.audio_player_control__button__active;
-        const cssImage = audioPlayerControlStyle.audio_player_control__button__image;
-        const {isShuffleOn, playingState} = audioPlayerContext;
+        const {isShuffleOn, playingState, repeatingState} = audioPlayerContext;
+        const {one: repeatOne, all: repeatAll} = playerRepeatingStateTypeMap;
+        const {playing: playingStatePlaying} = playerPlayingStateTypeMap;
 
         return (
             <div className={audioPlayerControlStyle.audio_player_control__button__list}>
-                <button
-                    className={classNames(cssButton, {[cssActive]: isShuffleOn})}
+                <AudioPlayerControlButton
+                    alt="shuffle"
+                    imageSrc={imageButtonShuffle}
+                    isActive={isShuffleOn}
                     onClick={handleToggleShuffle}
-                    type="button"
-                >
-                    <img alt="shuffle" className={cssImage} src={imageButtonShuffle}/>
-                </button>
+                />
 
-                {this.renderRepeatButton()}
+                <AudioPlayerControlButton
+                    alt="repeat"
+                    imageSrc={repeatingState === repeatOne ? imageButtonRepeatOne : imageButtonRepeat}
+                    isActive={[repeatOne, repeatAll].includes(repeatingState)}
+                    onClick={handleToggleRepeat}
+                />
 
-                <button className={cssButton} onClick={handlePrev} type="button">
-                    <img alt="prev" className={cssImage} src={imageButtonPrevTrack}/>
-                </button>
+                <AudioPlayerControlButton alt="prev" imageSrc={imageButtonPrevTrack} onClick={handlePrev}/>
 
-                <button
-                    className={classNames(cssButton, {[cssActive]: playingState === playerPlayingStateTypeMap.playing})}
-                    onClick={handlePlay}
-                    type="button"
-                >
-                    <img alt="play" className={cssImage} src={imageButtonPlay}/>
-                </button>
+                {playingState !== playingStatePlaying
+                    ? <AudioPlayerControlButton alt="play" imageSrc={imageButtonPlay} onClick={handlePlay}/>
+                    : <AudioPlayerControlButton alt="pause" imageSrc={imageButtonPause} onClick={handlePause}/>}
 
-                <button
-                    className={classNames(cssButton, {[cssActive]: playingState === playerPlayingStateTypeMap.paused})}
-                    onClick={handlePause}
-                    type="button"
-                >
-                    <img alt="pause" className={cssImage} src={imageButtonPause}/>
-                </button>
-
-                <button
-                    className={classNames(cssButton, {[cssActive]: playingState === playerPlayingStateTypeMap.stopped})}
-                    onClick={handleStop}
-                    type="button"
-                >
-                    <img alt="stop" className={cssImage} src={imageButtonStop}/>
-                </button>
-
-                <button className={cssButton} onClick={handleNext} type="button">
-                    <img alt="stop" className={cssImage} src={imageButtonNextTrack}/>
-                </button>
+                <AudioPlayerControlButton alt="next" imageSrc={imageButtonNextTrack} onClick={handleNext}/>
+                <AudioPlayerControlButton alt="playlist" imageSrc={imageButtonPlayList} onClick={console.warn}/>
             </div>
         );
     }
