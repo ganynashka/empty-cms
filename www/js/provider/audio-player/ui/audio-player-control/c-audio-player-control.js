@@ -266,34 +266,63 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         );
     }
 
+    renderProgressBarLine(progress: number): Node {
+        return (
+            <div className={audioPlayerControlStyle.audio_player_control__input_range__line}>
+                <div
+                    className={audioPlayerControlStyle.audio_player_control__input_range__passed}
+                    style={{width: progress * 100 + '%'}}
+                />
+            </div>
+        );
+    }
+
     renderProgressBar(): Node {
         const {props, state} = this;
         const {audioPlayerContext} = props;
         const {trackCurrentTime, trackFullTime} = state;
 
+        const trackCurrentTimeMinutes = Math.floor(trackCurrentTime / 60);
+        const trackCurrentTimeSeconds = String(Math.round(trackCurrentTime % 60)).padStart(2, '0');
+
+        const trackFullTimeMinutes = Math.floor(trackFullTime / 60);
+        const trackFullTimeSeconds = String(Math.round(trackFullTime % 60)).padStart(2, '0');
+
         return (
             <>
-                <input
-                    disabled={trackFullTime === 0}
-                    key={audioPlayerContext.activeIndex + '-display'}
-                    max={trackFullTime}
-                    min="0"
-                    // eslint-disable-next-line react/jsx-handler-names
-                    onChange={parseFloat}
-                    type="range"
-                    value={trackCurrentTime}
-                />
-                <input
-                    defaultValue="0"
-                    disabled={trackFullTime === 0}
-                    key={audioPlayerContext.activeIndex}
-                    max={trackFullTime}
-                    min="0"
-                    onChange={this.handleProgressBarChange}
-                    onMouseDown={this.handleProgressBarActive}
-                    onMouseUp={this.handleProgressBarInactive}
-                    type="range"
-                />
+                <p className={audioPlayerControlStyle.audio_player_control__progress_bar__time}>
+                    {trackCurrentTimeMinutes}.{trackCurrentTimeSeconds}&nbsp;/&nbsp;{trackFullTimeMinutes}.
+                    {trackFullTimeSeconds}
+                </p>
+                <div className={audioPlayerControlStyle.audio_player_control__progress_bar__wrapper}>
+                    {this.renderProgressBarLine(trackCurrentTime / trackFullTime || 0)}
+                    <input
+                        className={classNames(
+                            audioPlayerControlStyle.audio_player_control__input_range,
+                            audioPlayerControlStyle.audio_player_control__input_range__active_progress_bar
+                        )}
+                        defaultValue="0"
+                        disabled={trackFullTime === 0}
+                        key={audioPlayerContext.activeIndex}
+                        max={trackFullTime}
+                        min="0"
+                        onChange={this.handleProgressBarChange}
+                        onMouseDown={this.handleProgressBarActive}
+                        onMouseUp={this.handleProgressBarInactive}
+                        type="range"
+                    />
+                    <input
+                        className={audioPlayerControlStyle.audio_player_control__input_range}
+                        disabled={trackFullTime === 0}
+                        key={audioPlayerContext.activeIndex + '-display'}
+                        max={trackFullTime}
+                        min="0"
+                        // eslint-disable-next-line react/jsx-handler-names
+                        onChange={parseFloat}
+                        type="range"
+                        value={trackCurrentTime}
+                    />
+                </div>
             </>
         );
     }
@@ -331,8 +360,12 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
     renderBottomBarList(): Node {
         return (
             <div className={audioPlayerControlStyle.audio_player_control__bottom_bar_list_wrapper}>
-                {this.renderProgressBar()}
-                {this.renderVolumeBar()}
+                <div className={audioPlayerControlStyle.audio_player_control__progress_bar_part_wrapper}>
+                    {this.renderProgressBar()}
+                </div>
+                <div className={audioPlayerControlStyle.audio_player_control__volume_bar_part_wrapper}>
+                    {this.renderVolumeBar()}
+                </div>
             </div>
         );
     }
