@@ -47,6 +47,7 @@ $slider-line-color: #dadada;
     box-sizing: border-box;
     display: block;
     height: $button-size;
+    outline: none;
     padding: ($button-size - $button-image-size) / 2;
     width: $button-size;
 
@@ -77,8 +78,12 @@ $slider-line-color: #dadada;
 }
 
 .audio_player_control__volume_bar_part_wrapper {
-    display: none;
-    width: 110px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    padding-left: 6px;
+    width: 114px;
 }
 
 .audio_player_control__progress_bar__time {
@@ -103,6 +108,7 @@ $slider-line-color: #dadada;
     appearance: none;
     display: block;
     height: $slider-size;
+    outline: none;
     position: relative;
     width: 100%;
     z-index: 1;
@@ -110,6 +116,16 @@ $slider-line-color: #dadada;
     &:disabled {
         pointer-events: none;
 
+        &::-webkit-slider-thumb {
+            background-color: $slider-line-color;
+        }
+
+        &::-moz-range-thumb {
+            background-color: $slider-line-color;
+        }
+    }
+
+    &.audio_player_control__input_range__no_matter_value {
         &::-webkit-slider-thumb {
             background-color: $slider-line-color;
         }

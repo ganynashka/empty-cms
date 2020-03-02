@@ -218,7 +218,10 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         const {refAudio} = state;
         const audioNode = refAudio.current;
 
-        this.setState({trackVolume: volume});
+        this.setState({
+            trackVolume: volume,
+            isMuted: false,
+        });
 
         if (!audioNode) {
             console.error('handleChangeVolumeBar: audioNode is null');
@@ -237,7 +240,7 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         this.setState({isMuted: newIsMutedState});
 
         if (!audioNode) {
-            console.error('handleToggleMute: audioNode is null');
+            console.log('handleToggleMute: audioNode is null');
             return;
         }
 
@@ -247,21 +250,32 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
     renderVolumeBar(): Node {
         const {state} = this;
         const {trackVolume, isMuted} = state;
+        const isActualMuted = isMuted || trackVolume === 0;
+        const soundImageSrc = isActualMuted ? imageButtonSoundOff : imageButtonSoundOn;
 
         return (
             <>
-                <button onClick={this.handleToggleMute} type="button">
-                    mute [isMuted: {isMuted ? 'yes' : 'no'}]
-                </button>
-                <input
-                    defaultValue={trackVolume * volumeMultiplier}
-                    key="volume"
-                    max={volumeMultiplier}
-                    // eslint-disable-next-line react/jsx-handler-names
-                    min="0"
-                    onChange={this.handleChangeVolumeBar}
-                    type="range"
+                <AudioPlayerControlButton
+                    alt="mute"
+                    imageSrc={soundImageSrc}
+                    isActive={isActualMuted}
+                    onClick={this.handleToggleMute}
                 />
+                <div className={audioPlayerControlStyle.audio_player_control__progress_bar__wrapper}>
+                    {this.renderProgressBarLine(isMuted ? 0 : trackVolume || 0)}
+                    <input
+                        className={classNames(audioPlayerControlStyle.audio_player_control__input_range, {
+                            [audioPlayerControlStyle.audio_player_control__input_range__no_matter_value]: isActualMuted,
+                        })}
+                        defaultValue={trackVolume * volumeMultiplier}
+                        key="volume"
+                        max={volumeMultiplier}
+                        // eslint-disable-next-line react/jsx-handler-names
+                        min="0"
+                        onChange={this.handleChangeVolumeBar}
+                        type="range"
+                    />
+                </div>
             </>
         );
     }
@@ -386,12 +400,6 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                 <br/>
                 <code>full time: {state.trackFullTime}</code>
                 <br/>
-                {/*
-                {this.renderRepeatButton()}
-                <br/>
-                {this.renderShuffleButton()}
-*/}
-
                 {this.renderAudioTag()}
 
                 <br/>
