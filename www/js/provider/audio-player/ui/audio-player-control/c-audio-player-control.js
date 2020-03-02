@@ -341,6 +341,31 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         );
     }
 
+    renderProgressBarInactive(): Node {
+        const {props} = this;
+        const {audioPlayerContext} = props;
+
+        return (
+            <>
+                <p className={audioPlayerControlStyle.audio_player_control__progress_bar__time}>
+                    0.00&nbsp;/&nbsp;0.00
+                </p>
+                <div className={audioPlayerControlStyle.audio_player_control__progress_bar__wrapper}>
+                    {this.renderProgressBarLine(0)}
+                    <input
+                        className={audioPlayerControlStyle.audio_player_control__input_range}
+                        disabled
+                        key={audioPlayerContext.activeIndex + '-inactive'}
+                        max="0"
+                        min="0"
+                        type="range"
+                        value="0"
+                    />
+                </div>
+            </>
+        );
+    }
+
     renderAudioTag(): Node {
         const {props, state} = this;
         const {refAudio} = state;
@@ -372,10 +397,15 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
     }
 
     renderBottomBarList(): Node {
+        const {props} = this;
+        const {audioPlayerContext} = props;
+        const {activeIndex, playList} = audioPlayerContext;
+        const activeItem = playList[activeIndex];
+
         return (
             <div className={audioPlayerControlStyle.audio_player_control__bottom_bar_list_wrapper}>
                 <div className={audioPlayerControlStyle.audio_player_control__progress_bar_part_wrapper}>
-                    {this.renderProgressBar()}
+                    {activeItem ? this.renderProgressBar() : this.renderProgressBarInactive()}
                 </div>
                 <div className={audioPlayerControlStyle.audio_player_control__volume_bar_part_wrapper}>
                     {this.renderVolumeBar()}
