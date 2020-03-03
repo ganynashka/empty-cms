@@ -113,8 +113,8 @@ export class Article extends Component<PropsType, StateType> {
                     {(audioPlayerContext: AudioPlayerContextType): Node => {
                         return (
                             <>
-                                <AudioPlayerPlayList audioPlayerContext={audioPlayerContext}/>
                                 <AudioPlayerControl audioPlayerContext={audioPlayerContext}/>
+                                <AudioPlayerPlayList audioPlayerContext={audioPlayerContext}/>
                             </>
                         );
                     }}

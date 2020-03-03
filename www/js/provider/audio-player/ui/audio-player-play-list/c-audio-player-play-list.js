@@ -60,8 +60,8 @@ export class AudioPlayerPlayList extends Component<PropsType, StateType> {
         }
 
         return () => {
-            audioPlayerContext.setActiveIndex(index);
             audioPlayerContext.play();
+            audioPlayerContext.setActiveIndex(index);
         };
     }
 
@@ -93,7 +93,9 @@ export class AudioPlayerPlayList extends Component<PropsType, StateType> {
                 key={src}
             >
                 {this.renderMainButton(item, index)}
-                {title}
+                <div className={audioPlayerPlayListStyle.audio_player_play_list__info}>
+                    <h4 className={audioPlayerPlayListStyle.audio_player_play_list__title}>{title}</h4>
+                </div>
             </li>
         );
     };

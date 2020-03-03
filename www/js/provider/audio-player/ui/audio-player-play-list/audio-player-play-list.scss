@@ -1,6 +1,8 @@
+@import './../../../../../css/service';
+
 $main-background-color: #f5f5f5;
 $active-item-background-color: #e8e8e8;
-$list-item-default-height: 48px;
+$list-item-button-size: 48px;
 
 .audio_player_play_list__wrapper {
     display: block;
@@ -15,12 +17,9 @@ $list-item-default-height: 48px;
 }
 
 .audio_player_play_list___list_item {
-    align-items: start;
-    display: flex;
-    flex-direction: row;
+    display: block;
     font-family: Verdana, Geneva, sans-serif;
-    height: $list-item-default-height;
-    justify-content: start;
+    min-height: $list-item-button-size;
 
     &:hover,
     &.audio_player_play_list___list_item__active {
@@ -29,9 +28,10 @@ $list-item-default-height: 48px;
 }
 
 .audio_player_play_list___list_item__play_pause_button {
-    display: block;
-    height: $list-item-default-height;
-    width: $list-item-default-height;
+    float: left;
+    height: $list-item-button-size;
+    outline: none;
+    width: $list-item-button-size;
 }
 
 %audio-player-play-list--list-item--play-pause-button--image {
@@ -52,4 +52,20 @@ $list-item-default-height: 48px;
 
     background-color: #d2dff5;
     border: 3px solid #d2dff5;
+}
+
+.audio_player_play_list__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: $list-item-button-size;
+    min-height: $list-item-button-size;
+    padding-right: 8px;
+}
+
+.audio_player_play_list__title {
+    @extend %ellipsis;
+
+    font-size: 14px;
+    padding-bottom: 2px;
 }
