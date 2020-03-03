@@ -1,9 +1,5 @@
 // @flow
 
-/* eslint-disable jsx-a11y/media-has-caption */
-
-/* global HTMLAudioElement */
-
 import React, {Component, type Node} from 'react';
 import {Link} from 'react-router-dom';
 
@@ -26,6 +22,11 @@ import type {
     AudioPlayerContextType,
     AudioPlayerListItemType,
 } from '../../../../provider/audio-player/audio-player-type';
+import {AudioPlayerContextConsumer} from '../../../../provider/audio-player/c-audio-player-context';
+import {AudioPlayerControl} from '../../../../provider/audio-player/ui/audio-player-control/c-audio-player-control';
+// eslint-disable-next-line max-len
+import {AudioPlayerPlayList} from '../../../../provider/audio-player/ui/audio-player-play-list/c-audio-player-play-list';
+import {defaultAudioPlayerContextData} from '../../../../provider/audio-player/audio-player-const';
 
 type PropsType = {|
     +location: LocationType,
@@ -34,9 +35,7 @@ type PropsType = {|
     +audioPlayerContextData: AudioPlayerContextType,
 |};
 
-type StateType = {|
-    +listRef: {current: HTMLUListElement | null},
-|};
+type StateType = null;
 
 const listClassNameMap = {
     [mongoSubDocumentsViewTypeMap.auto]: articleStyle.article__list_image,
@@ -46,14 +45,6 @@ const listClassNameMap = {
 };
 
 export class ContainerArticle extends Component<PropsType, StateType> {
-    constructor(props: PropsType) {
-        super(props);
-
-        this.state = {
-            listRef: React.createRef<HTMLUListElement>(),
-        };
-    }
-
     componentDidMount() {
         this.initializeAudioPlayer();
     }
@@ -71,8 +62,6 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         const {initialContextData, audioPlayerContextData} = props;
         const {articlePathData} = initialContextData;
 
-        console.log(audioPlayerContextData);
-
         if (!articlePathData) {
             return;
         }
@@ -86,15 +75,15 @@ export class ContainerArticle extends Component<PropsType, StateType> {
                 const audioSrc = fileApiConst.pathToUploadFiles + '/' + src;
 
                 return {
-                    id: audioSrc,
                     title: header,
                     src: audioSrc,
                 };
             }
         );
 
-        audioPlayerContextData.addItemListToPlayList(audioItemList);
-        // audioPlayerContextData.play();
+        audioPlayerContextData.stop();
+        audioPlayerContextData.setActiveIndex(defaultAudioPlayerContextData.activeIndex);
+        audioPlayerContextData.setPlayList(audioItemList);
     }
 
     getSubNodeImage(subNode: MongoDocumentShortDataType): string | null {
@@ -163,7 +152,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         );
     }
 
-    // eslint-disable-next-line complexity
+    /*
     playNextAudioTrack(slug: string) {
         const {props, state} = this;
         const {listRef} = state;
@@ -194,7 +183,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         }
 
         const nextActiveHtmlNode = listNode.querySelector(
-            `.${articleStyle.article__list_audio_item__audio}[data-slug="${nextActiveSubNode.slug}"]`
+            `.${articleStyle.article__list_audio_item__audio}[data-slug="${nextActiveSubNode.slug}"]`,
         );
 
         if (nextActiveHtmlNode instanceof HTMLAudioElement) {
@@ -258,6 +247,7 @@ export class ContainerArticle extends Component<PropsType, StateType> {
             </li>
         );
     }
+*/
 
     renderHeaderSubNode(subNode: MongoDocumentShortDataType): Node {
         const {slug, header, subDocumentIdList} = subNode;
@@ -293,7 +283,9 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         }
 
         if (mongoSubDocumentsViewTypeMap.audioHeader === subDocumentListViewType) {
-            return this.renderAudioHeaderSubNode(subNode);
+            // see ths.renderList();
+            // return this.renderAudioHeaderSubNode(subNode);
+            return null;
         }
 
         if (mongoSubDocumentsViewTypeMap.header === subDocumentListViewType) {
@@ -303,8 +295,39 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         return this.renderImageHeaderSubNode(subNode);
     };
 
-    render(): Node {
+    renderList(): Node {
         const {props, state} = this;
+        const {initialContextData} = props;
+        const {articlePathData} = initialContextData;
+
+        if (!articlePathData) {
+            return null;
+        }
+
+        const {subDocumentListViewType} = articlePathData.mongoDocument;
+        const subNodeList = articlePathData.sudNodeShortDataList;
+        const listClassName = listClassNameMap[subDocumentListViewType];
+
+        if (mongoSubDocumentsViewTypeMap.audioHeader === subDocumentListViewType) {
+            return (
+                <AudioPlayerContextConsumer>
+                    {(audioPlayerContext: AudioPlayerContextType): Node => {
+                        return (
+                            <>
+                                <AudioPlayerControl audioPlayerContext={audioPlayerContext}/>
+                                <AudioPlayerPlayList audioPlayerContext={audioPlayerContext}/>
+                            </>
+                        );
+                    }}
+                </AudioPlayerContextConsumer>
+            );
+        }
+
+        return <ul className={listClassName}>{subNodeList.sort(sortDocumentByAlphabet).map(this.renderSubNode)}</ul>;
+    }
+
+    render(): Node {
+        const {props} = this;
         const {initialContextData, screenContextData, location} = props;
         const {articlePathData, parentNodeList} = initialContextData;
 
@@ -312,17 +335,13 @@ export class ContainerArticle extends Component<PropsType, StateType> {
             return <h1 className={articleStyle.article__header}>Here is not list of link</h1>;
         }
 
-        const {header, content, subDocumentListViewType} = articlePathData.mongoDocument;
-        const subNodeList = articlePathData.sudNodeShortDataList;
-        const listClassName = listClassNameMap[subDocumentListViewType];
+        const {header, content} = articlePathData.mongoDocument;
 
         return (
             <>
                 <BreadcrumbList parentNodeList={parentNodeList}/>
                 <h1 className={articleStyle.article__header}>{header}</h1>
-                <ul className={listClassName} ref={state.listRef}>
-                    {subNodeList.sort(sortDocumentByAlphabet).map(this.renderSubNode)}
-                </ul>
+                {this.renderList()}
                 <Markdown additionalClassName={singleArticleStyle.markdown} text={content}/>
                 <ShareButtonList
                     initialContextData={initialContextData}

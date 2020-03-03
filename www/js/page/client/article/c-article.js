@@ -107,20 +107,6 @@ export class Article extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        return (
-            <div className={articleStyle.article__wrapper}>
-                <AudioPlayerContextConsumer>
-                    {(audioPlayerContext: AudioPlayerContextType): Node => {
-                        return (
-                            <>
-                                <AudioPlayerControl audioPlayerContext={audioPlayerContext}/>
-                                <AudioPlayerPlayList audioPlayerContext={audioPlayerContext}/>
-                            </>
-                        );
-                    }}
-                </AudioPlayerContextConsumer>
-                {this.renderContent()}
-            </div>
-        );
+        return <div className={articleStyle.article__wrapper}>{this.renderContent()}</div>;
     }
 }

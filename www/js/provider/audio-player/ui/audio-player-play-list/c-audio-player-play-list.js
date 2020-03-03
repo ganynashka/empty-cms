@@ -90,7 +90,7 @@ export class AudioPlayerPlayList extends Component<PropsType, StateType> {
                 className={classNames(audioPlayerPlayListStyle.audio_player_play_list___list_item, {
                     [audioPlayerPlayListStyle.audio_player_play_list___list_item__active]: index === activeIndex,
                 })}
-                key={src}
+                key={src + '-' + String(index)}
             >
                 {this.renderMainButton(item, index)}
                 <div className={audioPlayerPlayListStyle.audio_player_play_list__info}>
