@@ -11,6 +11,7 @@ import {PageLoading} from '../../../component/client/page-loading/c-page-loading
 import {AudioPlayerControl} from '../../../provider/audio-player/ui/audio-player-control/c-audio-player-control';
 import type {AudioPlayerContextType} from '../../../provider/audio-player/audio-player-type';
 import {AudioPlayerContextConsumer} from '../../../provider/audio-player/c-audio-player-context';
+import {AudioPlayerPlayList} from '../../../provider/audio-player/ui/audio-player-play-list/c-audio-player-play-list';
 
 import articleStyle from './article.scss';
 import {SingleArticle} from './single-article/c-single-article';
@@ -109,8 +110,14 @@ export class Article extends Component<PropsType, StateType> {
         return (
             <div className={articleStyle.article__wrapper}>
                 <AudioPlayerContextConsumer>
-                    {(audioPlayerContext: AudioPlayerContextType): Node =>
-                        <AudioPlayerControl audioPlayerContext={audioPlayerContext}/>}
+                    {(audioPlayerContext: AudioPlayerContextType): Node => {
+                        return (
+                            <>
+                                <AudioPlayerPlayList audioPlayerContext={audioPlayerContext}/>
+                                <AudioPlayerControl audioPlayerContext={audioPlayerContext}/>
+                            </>
+                        );
+                    }}
                 </AudioPlayerContextConsumer>
                 {this.renderContent()}
             </div>

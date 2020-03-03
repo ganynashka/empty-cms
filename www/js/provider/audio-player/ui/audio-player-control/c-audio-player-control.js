@@ -3,6 +3,7 @@
 import React, {Component, type Node} from 'react';
 import classNames from 'classnames';
 
+import serviceStyle from '../../../../../css/service.scss';
 import type {AudioPlayerContextType, PlayerPlayingStateType} from '../../audio-player-type';
 import {
     defaultAudioPlayerContextData,
@@ -382,6 +383,7 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         return (
             // eslint-disable-next-line jsx-a11y/media-has-caption
             <audio
+                className={serviceStyle.hidden}
                 controls
                 key={activeIndex + '-' + src}
                 onCanPlay={this.handleOnCanPlay}
@@ -415,34 +417,12 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
     }
 
     render(): Node {
-        const {props, state} = this;
-        const {audioPlayerContext} = props;
-
         return (
-            <>
-                <pre>
-                    <code>{JSON.stringify(audioPlayerContext, null, 4)}</code>
-                </pre>
-                <hr/>
-                <hr/>
-                <hr/>
-                <code>current time: {state.trackCurrentTime}</code>
-                <br/>
-                <code>full time: {state.trackFullTime}</code>
-                <br/>
+            <div className={audioPlayerControlStyle.audio_player_control__wrapper}>
                 {this.renderAudioTag()}
-
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-
-                <div className={audioPlayerControlStyle.audio_player_control__wrapper}>
-                    {this.renderMainButtonList()}
-                    {this.renderBottomBarList()}
-                </div>
-            </>
+                {this.renderMainButtonList()}
+                {this.renderBottomBarList()}
+            </div>
         );
     }
 }

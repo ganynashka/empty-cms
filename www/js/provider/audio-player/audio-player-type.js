@@ -5,7 +5,7 @@ export type AudioPlayerItemIdType = string | number;
 export type AudioPlayerListItemType = {|
     +id?: AudioPlayerItemIdType,
     +src: string,
-    +title?: string,
+    +title: string,
     +artist?: string,
     +album?: string,
 |};
