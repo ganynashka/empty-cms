@@ -12,6 +12,7 @@ $slider-thumb-color: #408af0;
 $slider-thumb-color-active-outline: rgba(64, 138, 240, 0.2); // $slider-thumb-color + a = 0.2
 $slider-line-color: #dadada;
 $wrapper-max-width: 860px;
+$wrapper-font-family: verdana, geneva, sans-serif;
 
 .audio_player_control__wrapper {
     background-color: $main-background-color;
@@ -91,10 +92,11 @@ $wrapper-max-width: 860px;
 .audio_player_control__progress_bar__time {
     color: $main-text-color;
     display: block;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: $wrapper-font-family;
     font-size: 12px;
     line-height: 1;
     min-width: 73px;
+    padding-right: 8px;
     pointer-events: none;
 }
 

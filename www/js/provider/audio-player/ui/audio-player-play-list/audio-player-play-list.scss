@@ -20,7 +20,7 @@ $list-item-button-size: 48px;
 
 .audio_player_play_list___list_item {
     display: block;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: $wrapper-font-family;
     min-height: $list-item-button-size;
 
     &:hover,
