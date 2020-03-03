@@ -29,13 +29,6 @@ $list-item-button-size: 48px;
     }
 }
 
-.audio_player_play_list___list_item__play_pause_button {
-    float: left;
-    height: $list-item-button-size;
-    outline: none;
-    width: $list-item-button-size;
-}
-
 %audio-player-play-list--list-item--play-pause-button--image {
     background-color: #cbcbcb;
     border: 3px solid #cbcbcb;
@@ -54,6 +47,19 @@ $list-item-button-size: 48px;
 
     background-color: #d2dff5;
     border: 3px solid #d2dff5;
+}
+
+.audio_player_play_list___list_item__play_pause_button {
+    float: left;
+    height: $list-item-button-size;
+    outline: none;
+    width: $list-item-button-size;
+
+    &:hover {
+        .audio_player_play_list___list_item__play_pause_button__image {
+            box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.5);
+        }
+    }
 }
 
 .audio_player_play_list__info {

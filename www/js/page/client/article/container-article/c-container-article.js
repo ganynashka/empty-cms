@@ -81,7 +81,10 @@ export class ContainerArticle extends Component<PropsType, StateType> {
                 const audioSrc = fileApiConst.pathToUploadFiles + '/' + src;
 
                 return {
-                    title: <Link to={getLinkToReadArticle(slug)}>{header}</Link>,
+                    title:
+    <Link className={articleStyle.article__link_in_play_list} to={getLinkToReadArticle(slug)}>
+        {header}
+    </Link>,
                     src: audioSrc,
                 };
             }
