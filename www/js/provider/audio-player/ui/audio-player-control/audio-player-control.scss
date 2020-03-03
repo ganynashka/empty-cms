@@ -11,6 +11,7 @@ $slider-thumb-size: 12px;
 $slider-thumb-color: #408af0;
 $slider-thumb-color-active-outline: rgba(64, 138, 240, 0.2); // $slider-thumb-color + a = 0.2
 $slider-line-color: #dadada;
+$wrapper-max-width: 860px;
 
 .audio_player_control__wrapper {
     background-color: $main-background-color;
@@ -20,8 +21,7 @@ $slider-line-color: #dadada;
     height: 96px;
     margin: 0 auto;
     //max-width: 980px;
-    max-width: 320px;
-    min-width: 320px;
+    max-width: $wrapper-max-width;
     //padding: 6px 17px 8px;
     padding: 14px 17px 8px;
 }
