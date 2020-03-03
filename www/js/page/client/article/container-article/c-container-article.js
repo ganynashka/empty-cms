@@ -66,16 +66,22 @@ export class ContainerArticle extends Component<PropsType, StateType> {
             return;
         }
 
+        const {subDocumentListViewType} = articlePathData.mongoDocument;
+
+        if (mongoSubDocumentsViewTypeMap.audioHeader !== subDocumentListViewType) {
+            return;
+        }
+
         const {sudNodeShortDataList} = articlePathData;
 
         const audioItemList: Array<AudioPlayerListItemType> = sudNodeShortDataList.map<AudioPlayerListItemType>(
             (shortData: MongoDocumentShortDataType): AudioPlayerListItemType => {
-                const {fileList, header} = shortData;
+                const {fileList, header, slug} = shortData;
                 const src = fileList[0] || '';
                 const audioSrc = fileApiConst.pathToUploadFiles + '/' + src;
 
                 return {
-                    title: header,
+                    title: <Link to={getLinkToReadArticle(slug)}>{header}</Link>,
                     src: audioSrc,
                 };
             }

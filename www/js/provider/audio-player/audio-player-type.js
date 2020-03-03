@@ -1,11 +1,13 @@
 // @flow
 
+import {type Node} from 'react';
+
 export type AudioPlayerItemIdType = string | number;
 
 export type AudioPlayerListItemType = {|
     +id?: AudioPlayerItemIdType,
     +src: string,
-    +title: string,
+    +title: string | Node,
     +artist?: string,
     +album?: string,
 |};
