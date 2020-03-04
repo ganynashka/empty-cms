@@ -189,6 +189,10 @@ $wrapper-font-family: verdana, geneva, sans-serif;
     width: $slider-thumb-size;
 }
 
+.audio_player_control__input_range::-moz-range-track {
+    opacity: 0;
+}
+
 .audio_player_control__input_range::-moz-range-thumb {
     background: $slider-thumb-color;
     border: 0;
