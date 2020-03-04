@@ -125,7 +125,7 @@ export async function getInitialData(request: $Request, response: $Response): Pr
 function getOpenGraphImagPathData(mongoDocument: MongoDocumentType): string {
     const {titleImage, fileList} = mongoDocument;
     const image = titleImage || fileList[0];
-    const size = 512;
+    const size = 1024;
     const kernel = image ? sharpKernelResizeNameMap.cubic : sharpKernelResizeNameMap.nearest;
     const src = image || defaultOpenGraphData.image;
 
