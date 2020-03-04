@@ -13,7 +13,7 @@ type ServiceWorkerEvent = {
 };
 */
 
-const cacheName = 'my-pwa-cache-v.0051';
+const cacheName = 'my-pwa-cache-v.0052';
 
 async function makePreCache() {
     const cache = await caches.open(cacheName);
@@ -52,7 +52,8 @@ async function fetchRespondWith(evt /*:: : ServiceWorkerEvent */) {
     });
 }
 
-const urlStartWithList = ['/api/get-resized-image', '/api/get-initial-data', '/static/', '/article/', '/manifest.json'];
+// const urlStartWithList = ['/api/get-resized-image', '/api/get-initial-data', '/static/', '/article/', '/manifest.json'];
+const urlStartWithList = ['/api/get-initial-data', '/static/', '/article/', '/manifest.json'];
 
 function isUrlStartWithListContainPathname(pathname /*:: : string */) /*:: : boolean */ {
     return urlStartWithList.some((url /*:: : string */) /*:: : boolean */ => pathname.startsWith(url));
