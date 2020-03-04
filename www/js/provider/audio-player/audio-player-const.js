@@ -94,4 +94,10 @@ export const defaultAudioPlayerContextData: AudioPlayerContextType = {
     handleOnTrackError(): null {
         return null;
     },
+    handlePause(): null {
+        return null;
+    },
+    handlePlay(): null {
+        return null;
+    },
 };

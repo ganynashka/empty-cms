@@ -159,19 +159,17 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         this.setState({trackCurrentTime: evt.currentTarget.currentTime});
     };
 
-    handleOnLoadedMetadata = (evt: SyntheticEvent<HTMLAudioElement>) => {
-        this.setState({
-            trackCurrentTime: 0,
-            trackFullTime: evt.currentTarget.duration,
-        });
-    };
-
-    handleOnCanPlay = (evt: SyntheticEvent<HTMLAudioElement>): null => {
+    handleOnLoadedMetadata = (evt: SyntheticEvent<HTMLAudioElement>): null => {
         const {props, state} = this;
         const {audioPlayerContext} = props;
         const {playingState} = audioPlayerContext;
         const {trackVolume} = state;
         const audioNode = evt.currentTarget;
+
+        this.setState({
+            trackCurrentTime: 0,
+            trackFullTime: audioNode.duration,
+        });
 
         audioNode.volume = trackVolume;
 
@@ -183,6 +181,12 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
 
         return null;
     };
+
+    /*
+    handleOnCanPlay = (evt: SyntheticEvent<HTMLAudioElement>): null => {
+        return null;
+    };
+*/
 
     handleProgressBarActive = () => {
         this.setState({isProgressBarActive: true});
@@ -390,10 +394,12 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                 className={serviceStyle.hidden}
                 controls
                 key={activeIndex + '-' + src}
-                onCanPlay={this.handleOnCanPlay}
                 onEnded={audioPlayerContext.handleOnTrackEnded}
                 onError={audioPlayerContext.handleOnTrackError}
+                // onCanPlay={this.handleOnCanPlay}
                 onLoadedMetadata={this.handleOnLoadedMetadata}
+                onPause={audioPlayerContext.handlePause}
+                onPlay={audioPlayerContext.handlePlay}
                 onTimeUpdate={this.handleOnTimeUpdate}
                 preload="metadata"
                 ref={refAudio}
@@ -422,11 +428,13 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
 
     render(): Node {
         return (
-            <div className={audioPlayerControlStyle.audio_player_control__wrapper}>
+            <>
                 {this.renderAudioTag()}
-                {this.renderMainButtonList()}
-                {this.renderBottomBarList()}
-            </div>
+                <div className={audioPlayerControlStyle.audio_player_control__wrapper}>
+                    {this.renderMainButtonList()}
+                    {this.renderBottomBarList()}
+                </div>
+            </>
         );
     }
 }

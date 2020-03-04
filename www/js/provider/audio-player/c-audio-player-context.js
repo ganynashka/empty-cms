@@ -277,6 +277,18 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         return null;
     };
 
+    handlePause = (): null => {
+        this.pause();
+
+        return null;
+    };
+
+    handlePlay = (): null => {
+        this.play();
+
+        return null;
+    };
+
     setRepeatingState = (playerRepeatingState: PlayerRepeatingStateType): null => {
         this.setState({repeatingState: playerRepeatingState});
 
@@ -340,6 +352,8 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
             togglePlayListIsOpen: this.togglePlayListIsOpen,
             handleOnTrackEnded: this.handleOnTrackEnded,
             handleOnTrackError: this.handleOnTrackError,
+            handlePause: this.handlePause,
+            handlePlay: this.handlePlay,
         };
     }
 
