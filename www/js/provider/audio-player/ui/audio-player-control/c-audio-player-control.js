@@ -271,9 +271,10 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                         defaultValue={trackVolume * volumeMultiplier}
                         key="volume"
                         max={volumeMultiplier}
-                        // eslint-disable-next-line react/jsx-handler-names
                         min="0"
+                        // eslint-disable-next-line react/jsx-handler-names
                         onChange={this.handleChangeVolumeBar}
+                        step="0.01"
                         type="range"
                     />
                 </div>
@@ -324,6 +325,7 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                         onChange={this.handleProgressBarChange}
                         onMouseDown={this.handleProgressBarActive}
                         onMouseUp={this.handleProgressBarInactive}
+                        step="0.01"
                         type="range"
                     />
                     <input
@@ -332,8 +334,9 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                         key={audioPlayerContext.activeIndex + '-display'}
                         max={trackFullTime}
                         min="0"
-                        // eslint-disable-next-line react/jsx-handler-names
                         onChange={parseFloat}
+                        // eslint-disable-next-line react/jsx-handler-names
+                        step="0.01"
                         type="range"
                         value={trackCurrentTime}
                     />
@@ -359,6 +362,7 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
                         key={audioPlayerContext.activeIndex + '-inactive'}
                         max="0"
                         min="0"
+                        step="0.01"
                         type="range"
                         value="0"
                     />
