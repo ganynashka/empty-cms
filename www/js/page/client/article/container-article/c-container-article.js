@@ -40,7 +40,7 @@ type StateType = null;
 const listClassNameMap = {
     [mongoSubDocumentsViewTypeMap.auto]: articleStyle.article__list_image,
     [mongoSubDocumentsViewTypeMap.imageHeader]: articleStyle.article__list_image,
-    [mongoSubDocumentsViewTypeMap.audioHeader]: articleStyle.article__list_audio,
+    [mongoSubDocumentsViewTypeMap.audioHeader]: '',
     [mongoSubDocumentsViewTypeMap.header]: articleStyle.article__list_header,
 };
 
@@ -55,6 +55,16 @@ export class ContainerArticle extends Component<PropsType, StateType> {
         if (!prevProps.initialContextData.articlePathData && props.initialContextData.articlePathData) {
             this.initializeAudioPlayer();
         }
+    }
+
+    renderTitleNode(shortData: MongoDocumentShortDataType): Node {
+        const {header, slug} = shortData;
+
+        return (
+            <Link className={articleStyle.article__link_in_play_list} to={getLinkToReadArticle(slug)}>
+                {header}
+            </Link>
+        );
     }
 
     initializeAudioPlayer() {
@@ -76,15 +86,12 @@ export class ContainerArticle extends Component<PropsType, StateType> {
 
         const audioItemList: Array<AudioPlayerListItemType> = sudNodeShortDataList.map<AudioPlayerListItemType>(
             (shortData: MongoDocumentShortDataType): AudioPlayerListItemType => {
-                const {fileList, header, slug} = shortData;
+                const {fileList} = shortData;
                 const src = fileList[0] || '';
                 const audioSrc = fileApiConst.pathToUploadFiles + '/' + src;
 
                 return {
-                    title:
-    <Link className={articleStyle.article__link_in_play_list} to={getLinkToReadArticle(slug)}>
-        {header}
-    </Link>,
+                    title: this.renderTitleNode(shortData),
                     src: audioSrc,
                 };
             }
