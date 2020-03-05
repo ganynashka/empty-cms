@@ -35,7 +35,7 @@
 
 2.2. Stop mongodb
 
-> $ ps -ax | grep -i mongod // 24409 ttys000 0:00.00 grep mongod \
+> $ ps -e | grep -i mongod // 24409 ttys000 0:00.00 grep mongod \
 > $ kill \<PID\>
 
 2.3. Make backup
