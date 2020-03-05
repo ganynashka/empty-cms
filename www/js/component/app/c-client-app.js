@@ -26,12 +26,12 @@ import {starPath} from './render-route/render-route-const';
 
 const wrapperList = [
     ThemeProvider,
-    AudioPlayerProvider,
     LocaleProvider,
     ScreenProvider,
     UserProvider,
     PopupProvider,
     SnackbarProvider,
+    AudioPlayerProvider,
     MainWrapper,
 ];
 

@@ -44,6 +44,6 @@ export type AudioPlayerContextType = {|
     +togglePlayListIsOpen: () => mixed,
     +handleOnTrackEnded: () => mixed,
     +handleOnTrackError: () => mixed,
-    +handlePause: () => mixed,
-    +handlePlay: () => mixed,
+    +handlePause: (evt: SyntheticEvent<HTMLAudioElement>) => mixed,
+    +handlePlay: (evt: SyntheticEvent<HTMLAudioElement>) => mixed,
 |};

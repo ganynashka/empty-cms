@@ -303,10 +303,10 @@ export class AudioPlayerControl extends Component<PropsType, StateType> {
         const {trackCurrentTime, trackFullTime} = state;
 
         const trackCurrentTimeMinutes = Math.floor(trackCurrentTime / 60);
-        const trackCurrentTimeSeconds = String(Math.round(trackCurrentTime % 60)).padStart(2, '0');
+        const trackCurrentTimeSeconds = String(Math.floor(trackCurrentTime % 60)).padStart(2, '0');
 
         const trackFullTimeMinutes = Math.floor(trackFullTime / 60);
-        const trackFullTimeSeconds = String(Math.round(trackFullTime % 60)).padStart(2, '0');
+        const trackFullTimeSeconds = String(Math.floor(trackFullTime % 60)).padStart(2, '0');
 
         return (
             <>

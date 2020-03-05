@@ -277,14 +277,27 @@ export class AudioPlayerProvider extends Component<PropsType, StateType> {
         return null;
     };
 
-    handlePause = (): null => {
+    handlePause = (evt: SyntheticEvent<HTMLAudioElement>): null => {
+        const audioNode = evt.currentTarget;
+        const {duration, currentTime} = audioNode;
+
+        // this is not pause, just track is end
+        if (duration === currentTime) {
+            return null;
+        }
+
         this.pause();
 
         return null;
     };
 
-    handlePlay = (): null => {
+    handlePlay = (evt: SyntheticEvent<HTMLAudioElement>): null => {
         this.play();
+
+        // const audioNode = evt.currentTarget;
+        //
+        // console.log(audioNode.duration);
+        // console.log(audioNode.currentTime);
 
         return null;
     };
